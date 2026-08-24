@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - LubriBaro</title>
+    <style>
+        :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F8F9FA; --gris: #333333; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); line-height: 1.6; }
+        
+        /* HEADER Y MENÚ (Idéntico a Inicio para mantener el estilo) */
+        header { background-color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; }
+        .logo { font-size: 30px; font-weight: 900; color: var(--morado); letter-spacing: -1px; text-decoration: none; }
+        .logo span { color: var(--naranja); }
+        nav.menu { display: flex; gap: 25px; }
+        nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 1rem; transition: color 0.3s; }
+        nav.menu a:hover { color: var(--naranja); }
+
+        /* ESTILOS DEL CATÁLOGO */
+        .catalog-header { background-color: var(--morado); color: white; padding: 40px 5%; text-align: center; }
+        .catalog-header h1 { margin: 0; font-size: 2.2em; }
+        
+        .section-container { padding: 40px 5%; }
+        .table-wrapper { overflow-x: auto; margin-bottom: 40px; max-width: 900px; margin: 0 auto 40px auto; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        th { background-color: var(--morado); color: white; padding: 12px 15px; text-align: left; }
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; color: #444; font-weight: 500; }
+        tr:hover { background-color: #f5f5f5; }
+        .category-title { text-align: left; color: var(--naranja); margin-top: 30px; margin-bottom: 15px; font-size: 1.5em; max-width: 900px; margin-left: auto; margin-right: auto; border-bottom: 2px solid var(--naranja); padding-bottom: 5px; }
+        
+        .btn-small { background-color: #25D366; color: white; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 0.9em; font-weight: bold; }
+        
+        /* Botón Flotante */
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; color: white; border-radius: 50px; padding: 15px 25px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); font-size: 1.1em; z-index: 100; transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.05); }
+        footer { text-align: center; padding: 30px 5%; background: #222; color: white; }
+
+        @media (max-width: 768px) { nav.menu { display: none; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Lubri<span>Baro</span></a>
+        <nav class="menu">
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html" style="color: var(--naranja);">Catálogo de Repuestos</a>
+            <a href="nosotros.html">Sobre Nosotros y FAQ</a>
+        </nav>
+    </header>
+
+    <div class="catalog-header">
+        <h1>Catálogo de Productos Disponibles</h1>
+        <p>Busca tu producto por código original y cotiza directo por WhatsApp</p>
+    </div>
+
+    <section class="section-container">
+        
+        <h3 class="category-title">Fluidos y Lubricantes</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Producto</th><th>Descripción / Uso</th><th>Acción</th></tr>
+                <tr><td>Chevron Supreme ATF</td><td>Aceite para transmisión automática.</td><td><a href="https://wa.me/51999999999?text=Hola,%20deseo%20cotizar%20el%20Chevron%20ATF." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>Refrigerante EFEOS 50/50</td><td>Refrigerante listo para usar.</td><td><a href="https://wa.me/51999999999?text=Hola,%20deseo%20cotizar%20Refrigerante%20EFEOS." class="btn-small">Cotizar</a></td></tr>
+            </table>
+        </div>
+
+        <h3 class="category-title">Filtros de Aceite (Metálico)</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Código Original</th><th>Descripción</th><th>Acción</th></tr>
+                <tr><td>26300-35505</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026300-35505." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>26330-4A001</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026330-4A001." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>26316-41000</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026316-41000." class="btn-small">Cotizar</a></td></tr>
+            </table>
+        </div>
+
+        <h3 class="category-title">Filtros de Aire y Combustible</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr><th>Código Original</th><th>Descripción</th><th>Acción</th></tr>
+                <tr><td>28113-C7000</td><td>Filtro de Aire Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2028113-C7000." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>31922-2E900</td><td>Filtro de Combustible Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2031922-2E900." class="btn-small">Cotizar</a></td></tr>
+            </table>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 LubriBaro. Oficinas en Lima, Perú.</p>
+    </footer>
+
+    <a href="https://wa.me/51999999999?text=Hola%20LubriBaro,%20deseo%20hacer%20un%20pedido." class="whatsapp-float">💬 Cotizar por WhatsApp</a>
+
+</body>
+</html>
