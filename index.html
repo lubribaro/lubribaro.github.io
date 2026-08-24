@@ -12,6 +12,7 @@
             --gris: #333333;
         }
         * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; } /* Efecto de deslizamiento suave al hacer clic en el menú */
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0; 
@@ -20,9 +21,11 @@
             background-color: var(--fondo);
             line-height: 1.6;
         }
+        
+        /* HEADER Y MENÚ DE NAVEGACIÓN */
         header { 
             background-color: white; 
-            padding: 20px 5%; 
+            padding: 15px 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
@@ -30,20 +33,35 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            flex-wrap: wrap;
         }
         .logo { 
-            font-size: 32px; 
+            font-size: 30px; 
             font-weight: 900; 
             color: var(--morado); 
             letter-spacing: -1px;
+            text-decoration: none;
         }
         .logo span { color: var(--naranja); }
         
+        nav.menu {
+            display: flex;
+            gap: 25px;
+        }
+        nav.menu a {
+            text-decoration: none;
+            color: var(--gris);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        nav.menu a:hover { color: var(--naranja); }
+
         /* Hero Section */
         .hero { 
             background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); 
             color: white; 
-            padding: 80px 5%; 
+            padding: 70px 5%; 
             text-align: center; 
         }
         .hero h1 { font-size: 2.5em; margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto;}
@@ -66,119 +84,60 @@
         /* Marcas */
         .brands {
             background-color: white;
-            padding: 30px 5%;
+            padding: 20px 5%;
             text-align: center;
             border-bottom: 1px solid #ddd;
         }
-        .brands h4 { margin: 0 0 15px 0; color: #666; font-weight: normal; }
+        .brands h4 { margin: 0 0 10px 0; color: #666; font-weight: normal; }
         .brand-list {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            font-weight: bold;
-            font-size: 1.2em;
-            color: var(--morado);
-        }
-
-        /* Títulos de Secciones */
-        .section-title {
-            text-align: center;
-            color: var(--morado);
-            font-size: 2em;
-            margin-bottom: 40px;
-        }
-
-        /* Secciones Generales */
-        .section-container { padding: 60px 5%; }
-
-        /* Proceso */
-        .process-grid {
             display: flex;
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--morado);
         }
-        .process-step {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 300px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--naranja);
-        }
+
+        /* Títulos de Secciones */
+        .section-title { text-align: center; color: var(--morado); font-size: 2em; margin-bottom: 40px; }
+        .section-container { padding: 60px 5%; scroll-margin-top: 80px; } /* scroll-margin compensa la altura del menú al bajar */
+
+        /* Proceso */
+        .process-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .process-step { background: white; padding: 30px; border-radius: 10px; width: 300px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--naranja); }
         .process-step h3 { color: var(--naranja); margin-top: 0; }
 
-        /* Catálogo */
+        /* Catálogo (Tablas) */
         .catalog { background-color: white; }
-        .catalog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .catalog-item {
-            background: var(--fondo);
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--morado);
-        }
-        .catalog-item h3 { margin-top: 0; color: var(--morado); }
+        .table-wrapper { overflow-x: auto; margin-bottom: 40px; max-width: 900px; margin-left: auto; margin-right: auto; }
+        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        th { background-color: var(--morado); color: white; padding: 12px 15px; text-align: left; }
+        td { padding: 12px 15px; border-bottom: 1px solid #eee; color: #444; font-weight: 500; }
+        tr:hover { background-color: #f5f5f5; }
+        .category-title { text-align: left; color: var(--naranja); margin-top: 30px; margin-bottom: 15px; font-size: 1.5em; max-width: 900px; margin-left: auto; margin-right: auto; }
+        
+        .btn-small { background-color: #25D366; color: white; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 0.9em; font-weight: bold; }
 
         /* Sobre Nosotros */
-        .about {
-            background-color: var(--morado);
-            color: white;
-            text-align: center;
-        }
+        .about { background-color: var(--morado); color: white; text-align: center; }
         .about .section-title { color: white; }
-        .about p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.1em;
-            line-height: 1.8;
-        }
+        .about p { max-width: 800px; margin: 0 auto; font-size: 1.1em; line-height: 1.8; }
 
         /* FAQ */
         .faq { background-color: white; }
-        .faq-item {
-            max-width: 800px;
-            margin: 0 auto 20px auto;
-            background: var(--fondo);
-            padding: 20px;
-            border-radius: 8px;
-        }
+        .faq-item { max-width: 800px; margin: 0 auto 20px auto; background: var(--fondo); padding: 20px; border-radius: 8px; }
         .faq-item h4 { margin: 0 0 10px 0; color: var(--morado); font-size: 1.1em; }
         .faq-item p { margin: 0; }
 
         /* Botón Flotante */
-        .whatsapp-float { 
-            position: fixed; 
-            bottom: 30px; 
-            right: 30px; 
-            background-color: #25D366; 
-            color: white; 
-            border-radius: 50px; 
-            padding: 15px 25px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); 
-            font-size: 1.1em; 
-            z-index: 100;
-            transition: 0.3s;
-        }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; color: white; border-radius: 50px; padding: 15px 25px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); font-size: 1.1em; z-index: 100; transition: 0.3s; }
         .whatsapp-float:hover { transform: scale(1.05); }
-        
-        footer {
-            text-align: center;
-            padding: 30px 5%;
-            background: #222;
-            color: white;
-        }
+        footer { text-align: center; padding: 30px 5%; background: #222; color: white; }
 
+        /* Adaptación a celulares */
         @media (max-width: 768px) {
+            nav.menu { display: none; } /* Ocultar menú largo en móvil para no saturar */
             .hero h1 { font-size: 2em; }
             .process-step { width: 100%; }
         }
@@ -187,13 +146,20 @@
 <body>
 
     <header>
-        <div class="logo">Lubri<span>Baro</span></div>
+        <a href="#inicio" class="logo">Lubri<span>Baro</span></a>
+        <!-- MENÚ DE NAVEGACIÓN AÑADIDO AQUÍ -->
+        <nav class="menu">
+            <a href="#proceso">Proceso</a>
+            <a href="#catalogo">Catálogo de Repuestos</a>
+            <a href="#nosotros">Sobre Nosotros</a>
+            <a href="#faq">Preguntas</a>
+        </nav>
     </header>
 
-    <section class="hero">
+    <section id="inicio" class="hero">
         <h1>Catálogo Especializado en Filtros Originales y Fluidos Automotrices</h1>
         <p>Atención personalizada por WhatsApp con respuesta en menos de 5 minutos. Realizamos despachos seguros a todo el Perú, respaldados por 5 años de experiencia en el mercado automotriz.</p>
-        <a href="https://wa.me/51999999999?text=Hola%20LubriBaro,%20vengo%20de%20la%20web%20y%20deseo%20cotizar." class="btn">Ver Catálogo y Cotizar por WhatsApp</a>
+        <a href="#catalogo" class="btn">Ver Catálogo de Productos</a>
     </section>
 
     <section class="brands">
@@ -206,12 +172,12 @@
         </div>
     </section>
 
-    <section class="section-container process">
+    <section id="proceso" class="section-container process">
         <h2 class="section-title">Nuestro Proceso de Compra</h2>
         <div class="process-grid">
             <div class="process-step">
                 <h3>Paso 1</h3>
-                <p>Revisa nuestro catálogo en esta página y elige los filtros o fluidos que necesitas para tu negocio o vehículo.</p>
+                <p>Revisa nuestro catálogo en esta página y elige los filtros o fluidos que necesitas con su respectivo código.</p>
             </div>
             <div class="process-step">
                 <h3>Paso 2</h3>
@@ -224,40 +190,83 @@
         </div>
     </section>
 
-    <section class="section-container catalog">
-        <h2 class="section-title">Nuestro Catálogo Destacado</h2>
-        <div class="catalog-grid">
-            <div class="catalog-item">
-                <h3>Fluidos y Lubricantes</h3>
-                <ul>
-                    <li>Aceite de Transmisión Chevron ATF</li>
-                    <li>Refrigerante EFEOS 50/50</li>
-                </ul>
-            </div>
-            <div class="catalog-item">
-                <h3>Filtros de Aceite</h3>
-                <ul>
-                    <li>Filtros Estándar / Metálicos (OEM)</li>
-                    <li>Filtros Tipo Elemento (Cartucho)</li>
-                </ul>
-            </div>
-            <div class="catalog-item">
-                <h3>Filtros de Aire</h3>
-                <p>Filtros de aire originales para garantizar el máximo rendimiento del motor.</p>
-            </div>
-            <div class="catalog-item">
-                <h3>Filtros de Combustible</h3>
-                <p>Protección garantizada para el sistema de inyección de tu vehículo.</p>
-            </div>
+    <section id="catalogo" class="section-container catalog">
+        <h2 class="section-title">Catálogo de Productos Disponibles</h2>
+
+        <!-- TABLA DE FLUIDOS Y ACEITES -->
+        <h3 class="category-title">Fluidos y Lubricantes</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>Producto</th>
+                    <th>Descripción / Uso</th>
+                    <th>Acción</th>
+                </tr>
+                <tr>
+                    <td>Chevron Supreme ATF</td>
+                    <td>Aceite para transmisión automática de alta calidad.</td>
+                    <td><a href="https://wa.me/51999999999?text=Hola,%20deseo%20cotizar%20el%20Chevron%20ATF." class="btn-small">Cotizar</a></td>
+                </tr>
+                <tr>
+                    <td>Refrigerante EFEOS 50/50</td>
+                    <td>Refrigerante/Anticongelante listo para usar.</td>
+                    <td><a href="https://wa.me/51999999999?text=Hola,%20deseo%20cotizar%20Refrigerante%20EFEOS." class="btn-small">Cotizar</a></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- TABLA DE FILTROS DE ACEITE (METÁLICO) -->
+        <h3 class="category-title">Filtros de Aceite (Metálico)</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>Código Original</th>
+                    <th>Descripción</th>
+                    <th>Acción</th>
+                </tr>
+                <tr><td>26300-35505</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026300-35505." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>26330-4A001</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026330-4A001." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>26316-41000</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026316-41000." class="btn-small">Cotizar</a></td></tr>
+            </table>
+        </div>
+
+        <!-- TABLA DE FILTROS DE ACEITE TIPO ELEMENTO -->
+        <h3 class="category-title">Filtros de Aceite (Tipo Elemento)</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>Código Original</th>
+                    <th>Descripción</th>
+                    <th>Acción</th>
+                </tr>
+                <tr><td>26320-2F100</td><td>Filtro de Aceite (Tipo Elemento)</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026320-2F100." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>26320-3N000</td><td>Filtro de Aceite (Tipo Elemento)</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026320-3N000." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>26350-2M000</td><td>Filtro de Aceite (Tipo Elemento)</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2026350-2M000." class="btn-small">Cotizar</a></td></tr>
+            </table>
+        </div>
+
+        <!-- TABLA DE FILTROS DE AIRE Y COMBUSTIBLE -->
+        <h3 class="category-title">Filtros de Aire y Combustible</h3>
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th>Código Original</th>
+                    <th>Descripción</th>
+                    <th>Acción</th>
+                </tr>
+                <tr><td>28113-C7000</td><td>Filtro de Aire Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2028113-C7000." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>31922-2E900</td><td>Filtro de Combustible Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2031922-2E900." class="btn-small">Cotizar</a></td></tr>
+                <tr><td>31922-4H900</td><td>Filtro de Combustible Original</td><td><a href="https://wa.me/51999999999?text=Hola,%20cotizar%20filtro%2031922-4H900." class="btn-small">Cotizar</a></td></tr>
+            </table>
         </div>
     </section>
 
-    <section class="section-container about">
-        <h2 class="section-title">¿Por qué talleres en todo el Perú confían en LubriBaro?</h2>
+    <section id="nosotros" class="section-container about">
+        <h2 class="section-title">¿Por qué los talleres confían en LubriBaro?</h2>
         <p>Somos una empresa con oficinas en Lima y 5 años de experiencia importando filtros originales y comercializando fluidos de alta rotación. Llevamos 5 años cumpliendo de manera exitosa las expectativas de nuestros clientes a nivel nacional. Operamos desde nuestro almacén logístico garantizando que tu pedido sea procesado y empacado de la mejor manera. <strong>No arriesgues el motor de tus clientes, nosotros te respaldamos.</strong></p>
     </section>
 
-    <section class="section-container">
+    <section id="faq" class="section-container faq">
         <h2 class="section-title">Preguntas Frecuentes</h2>
         <div class="faq-item">
             <h4>¿Hacen envíos a provincia?</h4>
@@ -281,7 +290,8 @@
         <p>&copy; 2026 LubriBaro. Oficinas en Lima, Perú.</p>
     </footer>
 
-    <a href="https://wa.me/51999999999?text=Hola%20LubriBaro,%20vengo%20de%20la%20web%20y%20deseo%20cotizar." class="whatsapp-float">💬 Escríbenos al WhatsApp</a>
+    <!-- Botón flotante -->
+    <a href="https://wa.me/51999999999?text=Hola%20LubriBaro,%20deseo%20hacer%20un%20pedido." class="whatsapp-float">💬 Escríbenos al WhatsApp</a>
 
 </body>
 </html>
