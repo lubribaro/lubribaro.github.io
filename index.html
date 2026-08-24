@@ -36,6 +36,10 @@
         .process-step { background: white; padding: 30px; border-radius: 10px; width: 300px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid var(--naranja); }
         .process-step h3 { color: var(--naranja); margin-top: 0; }
 
+        /* BOTÓN FLOTANTE WSP */
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; color: white; border-radius: 50px; padding: 15px 25px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); font-size: 1.1em; z-index: 100; transition: 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.05); }
+
         footer { text-align: center; padding: 30px 5%; background: #222; color: white; }
         @media (max-width: 768px) { nav.menu { display: none; } .hero h1 { font-size: 2em; } .process-step { width: 100%; } }
     </style>
@@ -45,7 +49,7 @@
     <header>
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
         <nav class="menu">
-            <a href="index.html">Inicio</a>
+            <a href="index.html" style="color: var(--naranja);">Inicio</a>
             <a href="catalogo.html">Catálogo de Repuestos</a>
             <a href="nosotros.html">Sobre Nosotros y FAQ</a>
         </nav>
@@ -88,6 +92,9 @@
     <footer>
         <p>&copy; 2026 LubriBaro. Oficinas en Lima, Perú.</p>
     </footer>
+
+    <!-- BOTÓN FLOTANTE CON TU NÚMERO Y MENSAJE PREDETERMINADO -->
+    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto..." class="whatsapp-float" target="_blank">💬 Escríbenos al WhatsApp</a>
 
 </body>
 </html>
