@@ -9,7 +9,6 @@
         * { box-sizing: border-box; }
         body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); line-height: 1.6; }
         
-        /* HEADER Y MENÚ */
         header { background-color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; }
         .logo { font-size: 30px; font-weight: 900; color: var(--morado); letter-spacing: -1px; text-decoration: none; }
         .logo span { color: var(--naranja); }
@@ -17,27 +16,22 @@
         nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 1rem; transition: color 0.3s; }
         nav.menu a:hover { color: var(--naranja); }
 
-        /* CABECERA DE LA PÁGINA */
         .page-header { background: var(--morado); color: white; padding: 40px 5%; text-align: center; }
         .page-header h1 { margin: 0; font-size: 2.2em; }
         .page-header p { font-size: 1.1em; color: #E0E0E0; max-width: 600px; margin: 10px auto 0 auto; }
 
-        /* CONTENEDORES */
         .section-container { padding: 50px 5%; }
         .section-title { text-align: center; color: var(--morado); font-size: 2em; margin-bottom: 40px; }
 
-        /* SOBRE NOSOTROS */
         .about-box { background-color: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto; text-align: center; border-bottom: 4px solid var(--naranja); }
         .about-box p { font-size: 1.1em; line-height: 1.8; color: #555; }
         .about-box strong { color: var(--morado); font-size: 1.2em; display: block; margin-top: 20px; }
 
-        /* PREGUNTAS FRECUENTES (FAQ) */
         .faq-grid { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
         .faq-item { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border-left: 4px solid var(--morado); }
         .faq-item h4 { margin: 0 0 10px 0; color: var(--morado); font-size: 1.2em; }
         .faq-item p { margin: 0; color: #555; }
 
-        /* BOTÓN FLOTANTE Y FOOTER */
         .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; color: white; border-radius: 50px; padding: 15px 25px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); font-size: 1.1em; z-index: 100; transition: 0.3s; }
         .whatsapp-float:hover { transform: scale(1.05); }
         footer { text-align: center; padding: 30px 5%; background: #222; color: white; margin-top: 40px; }
@@ -75,7 +69,7 @@
         <div class="faq-grid">
             <div class="faq-item">
                 <h4>¿Hacen envíos a provincia?</h4>
-                <p>Sí, realizamos envíos a todo el Perú mediante agencias de transporte seguras (Shalom, Marvisur, Olva, etc). Para provincias, trabajamos estrictamente con pago anticipado al 100%.</p>
+                <p>Sí, realizamos envíos a todo el Perú mediante agencias de transporte seguras. Para provincias, trabajamos estrictamente con pago anticipado al 100%.</p>
             </div>
             <div class="faq-item">
                 <h4>¿Cuál es la modalidad de pago para Lima Metropolitana?</h4>
@@ -96,8 +90,8 @@
         <p>&copy; 2026 LubriBaro. Oficinas en Lima, Perú.</p>
     </footer>
 
-    <!-- No olvides cambiar el número 51999999999 por tu WhatsApp real -->
-    <a href="https://wa.me/51999999999?text=Hola%20LubriBaro,%20tengo%20una%20consulta." class="whatsapp-float">💬 Escríbenos al WhatsApp</a>
+    <!-- BOTÓN FLOTANTE WSP QUE ABRE EN NUEVA PESTAÑA -->
+    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto..." class="whatsapp-float" target="_blank">💬 Escríbenos al WhatsApp</a>
 
 </body>
 </html>
