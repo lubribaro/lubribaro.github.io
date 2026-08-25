@@ -36,7 +36,14 @@
         .whatsapp-float:hover { transform: scale(1.05); }
         footer { text-align: center; padding: 30px 5%; background: #222; color: white; margin-top: 40px; }
 
-        @media (max-width: 768px) { nav.menu { display: none; } .about-box { padding: 25px; } }
+        /* FIX CELULAR */
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; }
+            .logo { margin-bottom: 15px; }
+            nav.menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+            nav.menu a { font-size: 0.95rem; }
+            .about-box { padding: 25px; }
+        }
     </style>
 </head>
 <body>
@@ -90,7 +97,6 @@
         <p>&copy; 2026 LubriBaro. Oficinas en Lima, Perú.</p>
     </footer>
 
-    <!-- BOTÓN FLOTANTE WSP QUE ABRE EN NUEVA PESTAÑA -->
     <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto..." class="whatsapp-float" target="_blank">💬 Escríbenos al WhatsApp</a>
 
 </body>
