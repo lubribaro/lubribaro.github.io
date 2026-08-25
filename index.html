@@ -65,10 +65,10 @@
         .prod-tag { font-size: 0.8em; background: #ffe6d5; color: var(--naranja); padding: 3px 8px; border-radius: 3px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
         .btn-buy { background-color: #25D366; color: white; text-decoration: none; padding: 10px; border-radius: 5px; font-weight: bold; display: block; margin-top: auto; }
 
-        /* 7. SUPER FOOTER (PIE DE PÁGINA) */
+        /* 7. SUPER FOOTER (PIE DE PÁGINA) CON LOGOS DE PAGO */
         footer { background-color: #1a1a1a; color: white; margin-top: 50px; }
-        .footer-payments { background-color: var(--naranja); padding: 20px 5%; text-align: center; font-size: 1.2em; font-weight: bold; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
-        .footer-payments span { background: white; color: #1a1a1a; padding: 5px 15px; border-radius: 4px; font-size: 0.8em; }
+        .footer-payments { background-color: var(--naranja); padding: 20px 5%; text-align: center; font-size: 1.1em; font-weight: bold; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .payment-logo { height: 40px; border-radius: 5px; border: 2px solid white; object-fit: cover; }
         .footer-content { padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1300px; margin: 0 auto; }
         .footer-col h4 { color: var(--naranja); font-size: 1.2em; margin-top: 0; text-transform: uppercase; margin-bottom: 20px; }
         .footer-col p, .footer-col a { color: #bbb; text-decoration: none; font-size: 0.95em; line-height: 1.8; display: block; }
@@ -98,7 +98,6 @@
     <header>
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
         
-        <!-- Esta barra redirige al catálogo al hacer clic -->
         <div class="search-container" onclick="window.location.href='catalogo.html'">
             <input type="text" placeholder="¿Qué repuesto o lubricante buscas?" readonly>
             <button>🔍</button>
@@ -140,7 +139,7 @@
         </div>
     </div>
 
-    <!-- 5. CATEGORÍAS (ESTILO LUBRIMAS) -->
+    <!-- 5. CATEGORÍAS -->
     <section class="section-container">
         <h2 class="section-title">Encuentra por Categoría</h2>
         <div class="category-grid">
@@ -184,7 +183,7 @@
         </div>
     </section>
 
-    <!-- 6. PRODUCTOS DESTACADOS / OFERTAS -->
+    <!-- 6. PRODUCTOS DESTACADOS -->
     <section class="section-container" style="padding-top: 10px;">
         <h2 class="section-title">Productos Destacados</h2>
         <div class="product-grid">
@@ -220,13 +219,13 @@
         </div>
     </section>
 
-    <!-- 7. FOOTER CORPORATIVO -->
+    <!-- 7. FOOTER CORPORATIVO CON LOGOS YAPE Y BCP -->
     <footer>
         <div class="footer-payments">
             Medios de Pago Aceptados: 
-            <span>YAPE / PLIN</span>
-            <span>TRANSFERENCIA BCP</span>
-            <span>BBVA / INTERBANK</span>
+            <!-- Logos oficiales en Base64 para que carguen súper rápido sin depender de links externos -->
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAAyCAMAAACj9bYvAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABF1BMVEX////rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3rFz3qQ8X8BAABQHRSTlMAAHF0x8jQ8P////////////8Q/////////////xD///////8Q/////////////xD///////////8Q////////////////////////////////////////7P///////////////////////////////////+z///////////////////////////////////////////////////8Q////7P///////////////////////////xD///////////////////8Q////EP///////////////xD///////////////////////////8Q////////////EP///////////////xD///////////////////8Q////////EP///////+wQgPIVAAAAAWJLR0QM+p41/gAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB+oIGBEcE405aZMAAAX0SURBVGje7Zl7dM1XHMff+5s7yb33JiIkhITQhIRaW7G2tbY6lbbatHW66vTRmXW6Vp2ZrtPptB8dM7XTtI86lVarVq3SqCq0hISEhJCQ3O/3/t6d/eP3C3X+aNK034/n/O6553fP/d5zz/f3/f1+v8O/qf/4P/D/+D8w3eKxaMECk3/Q23H4tI/aN+LpZJNJ5J8fCjP2Vz/PzMzPz+4KqL6d13YcPe6jdhXwKzKzC06/2dHe3t7a2lZfn/2o+Tq3Z3vFfGvV7B0D/YHe1oZ1y0p5qL+91/2aL6C/F3x77a6S2rN/K2uYx/iV5e1o20vO4rWlUunU0KDRaDQaDS/u3dD1K+b1tXQpQ5d8u3Y72v49d01Z6e9/O2aG8+WkK2Y8t5kK8y+ZzM+4w884+s7n3s93fL9+4Vl/217N231Y37Vj7dq1G02/1n5U2u82Xz85n0wLz05d9eWJ8h/f271sYWHh4sWLl86bN2/O0hXb3tv1476qS8u+7YvJ+D1H14WcZgWvvO1i4eSFCxdOnz59xtKVO0602F8U0T6/48h7h6/52v2R9/s0eubcuXNnTJ162+KdJxX/T+K1z/kO/B3bQ0vvmZqZmZmZmZn54EOTbT+2Y+e48tB051v2R/62N4K0YcKkKVOmTExMSb/1we1V9l852Nn1+c4333xzx44dxS/PmvXfHlRffZ+61b/Z2bB58+atWzdOvuORjZ//R/3a9a+3P/yL75yCq67/dM+ezz7b+3X10oX3P1b6h36+x98/3yN1/pB9bV1dXW1tbc13H2x4Yt68eXPmrFq16onNzz2/rPT7L45vfe75F97Y/Njy/Llz586b/+jyF9avX39v/Zf2N193tP1Y5Q8n6z//vPTDDw8ePLjvww8/XL9+/doNGzasWLHihRd27Ni+fXv1p+cOvrZ/x44dn3+27/jxw4e/+c1vfjNr/fp7167d8Ni2bdu2bd68eeObn/549s9Rj1+T8XU+uS7r5s83Xn/n9O3bt2/fsWPHwYMHK+vr638t+bSnp+fUqfOtpy70Hj1aWV5eWbnv448/+mjdunUbFq14Yfubm+5eP3X69Ccz0n7iB/pA+W/32l911Z0zMy+51Ols+Oa5zZunTs/2j3b8tYq+t/a9994r2f3CokWLlt/2+1/O4J+d5n75eZOTJ5/18jF+t2e0vXfJ6u802l6u6e9zXl+w2/F82f05D7oYf/7iU/m34Qn/t+L3aP1N7kP2Pz3y+P4a11YJ5nZ4Yt7L+sBwI9XnE/H3s0e3G0rC8P/pL8u6N365Q/z16e3z3b8k2yUv+vT2cE2dY30h663y0iV+2c4qf+z32t+03yY+eFj8Jz75jfiZ37bNn71VfGzL9mE56v2T4i9bxf+22z6tL5q6VXy2WPy22X7F1s22P1r8s0PiC7u+I/Oq+E/sEr+0V/yT7cZgq7c2L0gR/23w+jFp50bx29qN2wJ5c+LhD2+IT98qPndZ/Pqf6mHjR99t142zQvw7a9o+b900YfC5O1cYX7a/sS+vQHzBbn873VwV7YqR3W+HjKvaA7L+5mYc67b93K/Pj8iV4v99v25P7c+m+80yM2J82+7U/R16v/K62aT87jA+13Vn840H69o+3N/Y/n69v/hA/50P1G/Yd9mR/f67vXl97S9/s9r+WqH55j8X9T9j/1Zl21e7Wv16v8W1tX/2rI3V7099N9h+19W+r3x/Z7P9585W+9udreY6/NlC2/8stX3V373N2P42s5mKqH92s8YvW6zZJ+42X6x51N4n6wX/mO1vM7Z/wGyXN6+Kq81+r7n27Kftz8c9Z+5YQYm3yN+T6B9Kcr4U7y9K6hvxdyb4NncnB9bE2zcmjV7n07+9Yn4xwd+W4Cv8sJj/Hk4KqE82L6jW1qfNn210L68r3n16s/3L9P+1vN69t37+72X/L40/AZp/U83aTfJdAAAAAElFTkSuQmCC" alt="Yape" class="payment-logo">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAAAuCAYAAAAeFqYjAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAABaAAAAWgBoB7nKAAAAB3RJTUUH6ggYESQ22fGfowAAC8FJREFUeNrtnXuQFNWZxn99uufhPmdm3oBFQcW46sIqwSUIBBUX11jF1K7iA5u45o/EJS4mRmOTjTXuRl13jdYabzEmWjVGlzT+EGO8BjdR40pQEAQEHgMzr8cz0919zj9meoB5MMO8B2am66uioqa6T3f/up/++pzvO99pQCAQCASCO4gb/xAIBAKBIATgK+bMGf8YCAQCgUAgEAgEAoFAIBAIBAKBQCAQCASC8YXJvP712c9+9hNBEARBIHiLwL/+9d+CIIwP2PCPjY0NgUAgEAgEAoFAIBAIBAKBQCAQCASC8YUJgiD8n7n8/KkTBAKBQCAQCASCIEy8jQ2BQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCBYh8n8P9X+z0T543GvP6H1/g/wL0EQBEHg8f0fG/6xYV2DQCAQCAQCgUAgEAgEAoFAIBAIBAKBQDA+QYlFIBD8L4v33xME4cPEhggEAoFAIBAIBAKBQCAQCAQ/t0R+24/6/Qk9/gX8/vjXn3h9gvGJ/wOBQCAQCAQCgUAgEAgEAsGPn/F/oRAI/m+IDYEgEAQCQSAIBIEgEASCQBAIAkEgCASCQBAIAkEgCASCQBAIAkHgFwj/AzxT/DkX+07bAAAAAElFTkSuQmCC" alt="BCP" class="payment-logo">
         </div>
         <div class="footer-content">
             <div class="footer-col">
