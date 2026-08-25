@@ -36,11 +36,20 @@
         .whatsapp-float:hover { transform: scale(1.05); }
         footer { text-align: center; padding: 30px 5%; background: #222; color: white; margin-top: 40px; }
 
-        /* FIX CELULAR */
+        /* FIX CELULAR CON FONDO DE MENÚ */
         @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; }
+            header { flex-direction: column; text-align: center; padding: 15px 5% 20px 5%; }
             .logo { margin-bottom: 15px; }
-            nav.menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+            nav.menu { 
+                display: flex; 
+                flex-wrap: nowrap; 
+                justify-content: center; 
+                gap: 20px; 
+                width: 100%; 
+                background-color: #edeaf5; 
+                padding: 12px; 
+                border-radius: 10px;
+            }
             nav.menu a { font-size: 0.95rem; }
             .about-box { padding: 25px; }
         }
@@ -52,8 +61,8 @@
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
         <nav class="menu">
             <a href="index.html">Inicio</a>
-            <a href="catalogo.html">Catálogo de Repuestos</a>
-            <a href="nosotros.html" style="color: var(--naranja);">Sobre Nosotros y FAQ</a>
+            <a href="catalogo.html">Catálogo</a>
+            <a href="nosotros.html" style="color: var(--naranja);">Nosotros</a>
         </nav>
     </header>
 
