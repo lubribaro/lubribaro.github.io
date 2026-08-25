@@ -19,34 +19,38 @@
         .catalog-header { background-color: var(--morado); color: white; padding: 40px 5%; text-align: center; }
         .catalog-header h1 { margin: 0; font-size: 2.2em; }
         
-        .section-container { padding: 40px 5%; }
-        .table-wrapper { overflow-x: auto; margin-bottom: 40px; max-width: 900px; margin: 0 auto 40px auto; }
-        table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        th { background-color: var(--morado); color: white; padding: 12px 15px; text-align: left; }
-        td { padding: 12px 15px; border-bottom: 1px solid #eee; color: #444; font-weight: 500; }
-        tr:hover { background-color: #f5f5f5; }
-        .category-title { text-align: left; color: var(--naranja); margin-top: 30px; margin-bottom: 15px; font-size: 1.5em; max-width: 900px; margin-left: auto; margin-right: auto; border-bottom: 2px solid var(--naranja); padding-bottom: 5px; }
+        .section-container { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
         
-        .btn-small { background-color: #25D366; color: white; text-decoration: none; padding: 6px 12px; border-radius: 4px; font-size: 0.9em; font-weight: bold; }
+        /* TÍTULOS DE CATEGORÍAS */
+        .category-title { color: var(--naranja); margin-top: 50px; margin-bottom: 20px; font-size: 1.8em; border-bottom: 2px solid var(--naranja); padding-bottom: 5px; }
+        .subcategory-title { color: var(--morado); margin-top: 30px; margin-bottom: 20px; font-size: 1.4em; }
+
+        /* DISEÑO DE TARJETAS (GRID) */
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 30px; }
+        .product-card { background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s; border: 1px solid #eaeaea; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        
+        /* FOTO REFERENCIAL */
+        .product-img { background-color: #e9ecef; height: 180px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.9em; font-weight: bold; border-bottom: 1px solid #eaeaea; }
+        /* Si usas una foto real, usa esta clase: .img-real { width: 100%; height: 100%; object-fit: cover; } */
+
+        .product-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .product-info h4 { margin: 0 0 10px 0; color: var(--morado); font-size: 1.2em; }
+        .product-code { background-color: #fce8d8; color: #d65c00; display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.9em; font-weight: bold; margin-bottom: 10px; width: fit-content; }
+        .product-cars { font-size: 0.85em; color: #555; margin-bottom: 15px; flex-grow: 1; }
+        .product-cars strong { color: var(--gris); }
+        
+        .btn-small { background-color: #25D366; color: white; text-align: center; text-decoration: none; padding: 10px; border-radius: 5px; font-size: 1em; font-weight: bold; transition: background-color 0.3s; }
+        .btn-small:hover { background-color: #1ebc59; }
         
         .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25D366; color: white; border-radius: 50px; padding: 15px 25px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); font-size: 1.1em; z-index: 100; transition: 0.3s; }
         .whatsapp-float:hover { transform: scale(1.05); }
         footer { text-align: center; padding: 30px 5%; background: #222; color: white; }
 
-        /* FIX CELULAR CON FONDO DE MENÚ */
         @media (max-width: 768px) {
             header { flex-direction: column; text-align: center; padding: 15px 5% 20px 5%; }
             .logo { margin-bottom: 15px; }
-            nav.menu { 
-                display: flex; 
-                flex-wrap: nowrap; 
-                justify-content: center; 
-                gap: 20px; 
-                width: 100%; 
-                background-color: #edeaf5; 
-                padding: 12px; 
-                border-radius: 10px;
-            }
+            nav.menu { display: flex; flex-wrap: nowrap; justify-content: center; gap: 20px; width: 100%; background-color: #edeaf5; padding: 12px; border-radius: 10px; }
             nav.menu a { font-size: 0.95rem; }
         }
     </style>
@@ -69,32 +73,180 @@
 
     <section class="section-container">
         
-        <h3 class="category-title">Fluidos y Lubricantes</h3>
-        <div class="table-wrapper">
-            <table>
-                <tr><th>Producto</th><th>Descripción / Uso</th><th>Acción</th></tr>
-                <tr><td>Chevron Supreme ATF</td><td>Aceite para transmisión automática.</td><td><a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto:%20Chevron%20ATF" class="btn-small" target="_blank">Cotizar</a></td></tr>
-                <tr><td>Refrigerante EFEOS 50/50</td><td>Refrigerante listo para usar.</td><td><a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto:%20Refrigerante%20EFEOS" class="btn-small" target="_blank">Cotizar</a></td></tr>
-            </table>
+        <!-- SECCIÓN 1: FLUIDOS Y LUBRICANTES -->
+        <h2 class="category-title">Fluidos y Lubricantes</h2>
+        <div class="catalog-grid">
+            
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Aceite Chevron Supreme ATF</h4>
+                    <div class="product-code">Ref: Cajas x 12</div>
+                    <div class="product-cars">
+                        <strong>Aplicación Comercial:</strong><br>
+                        Hyundai Accent, Hyundai Elantra, Kia Rio, Kia Cerato, Kia Sportage.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Chevron%20ATF" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Refrigerante EFEOS 50/50</h4>
+                    <div class="product-code">Ref: Listo para usar</div>
+                    <div class="product-cars">
+                        <strong>Aplicación Comercial:</strong><br>
+                        Hyundai Tucson, Hyundai Santa Fe, Kia Sorento, Kia Picanto, Kia Soluto.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Refrigerante%20EFEOS" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
         </div>
 
-        <h3 class="category-title">Filtros de Aceite (Metálico)</h3>
-        <div class="table-wrapper">
-            <table>
-                <tr><th>Código Original</th><th>Descripción</th><th>Acción</th></tr>
-                <tr><td>26300-35505</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto:%2026300-35505" class="btn-small" target="_blank">Cotizar</a></td></tr>
-                <tr><td>26330-4A001</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto:%2026330-4A001" class="btn-small" target="_blank">Cotizar</a></td></tr>
-                <tr><td>26316-41000</td><td>Filtro de Aceite Original</td><td><a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto:%2026316-41000" class="btn-small" target="_blank">Cotizar</a></td></tr>
-            </table>
+        <!-- SECCIÓN 2: FILTROS DE ACEITE -->
+        <h2 class="category-title">Filtros de Aceite Originales</h2>
+        
+        <!-- Subsección A: Estándar Metálico -->
+        <h3 class="subcategory-title">» Estándar (Metálico)</h3>
+        <div class="catalog-grid">
+            
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro de Aceite OEM</h4>
+                    <div class="product-code">Cód: 26300-35505</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai Elantra, Hyundai Tucson, Kia Cerato, Kia Sportage, Kia Rio.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2026300-35505" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro de Aceite OEM</h4>
+                    <div class="product-code">Cód: 26330-4A001</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai H1, Hyundai Starex, Hyundai Porter, Kia K2500, Kia Sorento.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2026330-4A001" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro de Aceite OEM</h4>
+                    <div class="product-code">Cód: 26316-41000</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai Mighty, Hyundai County, HD65, HD78, HD99 (Vehículos Pesados).
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2026316-41000" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
         </div>
 
-        <h3 class="category-title">Filtros de Aire y Combustible</h3>
-        <div class="table-wrapper">
-            <table>
-                <tr><th>Código Original</th><th>Descripción</th><th>Acción</th></tr>
-                <tr><td>28113-C7000</td><td>Filtro de Aire Original</td><td><a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto:%2028113-C7000" class="btn-small" target="_blank">Cotizar</a></td></tr>
-                <tr><td>31922-2E900</td><td>Filtro de Combustible Original</td><td><a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta%20sobre%20el%20siguiente%20producto:%2031922-2E900" class="btn-small" target="_blank">Cotizar</a></td></tr>
-            </table>
+        <!-- Subsección B: Tipo Elemento -->
+        <h3 class="subcategory-title">» Tipo Elemento (Cartucho)</h3>
+        <div class="catalog-grid">
+            
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Tipo Elemento OEM</h4>
+                    <div class="product-code">Cód: 26320-2F100</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai Santa Fe, Hyundai Tucson, Kia Sorento, Kia Sportage, Kia Carnival.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2026320-2F100" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Tipo Elemento OEM</h4>
+                    <div class="product-code">Cód: 26320-3N000</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai Azera, Hyundai Genesis, Hyundai Santa Fe, Kia Cadenza, Kia Sedona.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2026320-3N000" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Tipo Elemento OEM</h4>
+                    <div class="product-code">Cód: 26350-2M000</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai Creta, Hyundai Elantra, Kia Seltos, Kia Cerato, Kia Soul.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2026350-2M000" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECCIÓN 3: FILTROS DE AIRE -->
+        <h2 class="category-title">Filtros de Aire</h2>
+        <div class="catalog-grid">
+            
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro de Aire OEM</h4>
+                    <div class="product-code">Cód: 28113-C7000</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai i20, Hyundai i30, Kia Rio, Kia Sonet, Kia Seltos.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2028113-C7000" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECCIÓN 4: FILTROS DE COMBUSTIBLE -->
+        <h2 class="category-title">Filtros de Combustible</h2>
+        <div class="catalog-grid">
+            
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31922-2E900</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai Tucson, Hyundai Elantra, Hyundai Santa Fe, Kia Sportage, Kia Cerato.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2031922-2E900" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31922-4H900</div>
+                    <div class="product-cars">
+                        <strong>Compatibilidad:</strong><br>
+                        Hyundai H1, Hyundai Grand Starex, Kia K2500, Kia Bongo, Kia Porter.
+                    </div>
+                    <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar:%20Filtro%2031922-4H900" class="btn-small" target="_blank">Cotizar</a>
+                </div>
+            </div>
+
         </div>
 
     </section>
