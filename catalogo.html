@@ -33,7 +33,7 @@
         footer { text-align: center; padding: 30px 5%; background: #222; color: white; margin-top: 40px; }
         
         /* =========================================
-           NUEVO WIDGET DE WHATSAPP (ESTILO LUBRIMAS)
+           WIDGET DE WHATSAPP (ESTILO LUBRIBARO)
            ========================================= */
         .wa-container {
             position: fixed;
@@ -47,7 +47,7 @@
 
         /* La ventana emergente (Popup) */
         .wa-popup {
-            width: 320px;
+            width: 330px;
             background: white;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -65,27 +65,28 @@
             transform: translateY(0) scale(1);
         }
 
-        /* Cabecera del Popup */
+        /* Cabecera del Popup - Ahora con colores de tu marca */
         .wa-popup-header {
-            background-color: #0bd134;
+            background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%);
             color: white;
             padding: 25px 20px;
             position: relative;
-            text-align: center;
+            text-align: left; /* Alineado a la izquierda para un estilo más limpio */
+            border-bottom: 4px solid var(--naranja);
         }
         .wa-popup-close {
             position: absolute;
             top: 15px;
-            left: 15px;
-            font-size: 20px;
+            right: 15px; /* Botón de cerrar movido a la derecha */
+            font-size: 18px;
             cursor: pointer;
             opacity: 0.8;
             font-family: sans-serif;
-            font-weight: 300;
+            font-weight: bold;
         }
         .wa-popup-close:hover { opacity: 1; }
-        .wa-popup-title { font-size: 1.5em; font-weight: bold; margin-bottom: 5px; }
-        .wa-popup-subtitle { font-size: 0.85em; opacity: 0.9; }
+        .wa-popup-title { font-size: 1.4em; font-weight: bold; margin-bottom: 5px; }
+        .wa-popup-subtitle { font-size: 0.9em; opacity: 0.9; }
 
         /* Cuerpo del Popup */
         .wa-popup-body { padding: 20px; }
@@ -96,28 +97,30 @@
             text-decoration: none;
             color: #333;
             background: white;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
-            transition: background 0.2s;
+            border: 1px solid #eaeaea;
+            transition: background 0.2s, border-color 0.2s;
         }
-        .wa-contact-card:hover { background: #f4f6f9; }
+        .wa-contact-card:hover { background: #fdfdfd; border-color: var(--naranja); }
         
+        /* Ícono del experto en ventas */
         .wa-contact-icon {
             width: 50px;
             height: 50px;
-            background-color: #000;
-            border-radius: 50%;
+            background-color: #fce8d8; /* Naranja muy suave */
+            border-radius: 12px; /* Ligeramente cuadrado */
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 24px;
+            font-size: 26px;
         }
         
         .wa-contact-info { display: flex; flex-direction: column; }
         .wa-greeting { font-size: 0.75em; color: #777; margin-bottom: 2px; }
-        .wa-name { font-weight: bold; font-size: 1em; }
-        .wa-status { font-size: 0.75em; color: #777; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
-        .wa-dot { width: 8px; height: 8px; background-color: #25D366; border-radius: 50%; }
+        .wa-name { font-weight: bold; font-size: 1.05em; color: var(--morado); }
+        .wa-status { font-size: 0.75em; color: #555; display: flex; align-items: center; gap: 5px; margin-top: 4px; font-weight: 600; }
+        .wa-dot { width: 8px; height: 8px; background-color: #25D366; border-radius: 50%; box-shadow: 0 0 5px rgba(37,211,102,0.5); }
 
         /* Botón circular con animación de latido */
         .wa-trigger {
@@ -208,27 +211,27 @@
     </footer>
 
     <!-- =========================================
-         NUEVO WIDGET DE WHATSAPP 
+         WIDGET DE WHATSAPP (ESTILO LUBRIBARO)
          ========================================= -->
     <div class="wa-container">
         
         <!-- Ventana Emergente (Popup) -->
         <div id="wa-popup" class="wa-popup">
             <div class="wa-popup-header">
-                <!-- La 'X' en la esquina superior izquierda -->
+                <!-- La 'X' en la esquina superior derecha -->
                 <div class="wa-popup-close" onclick="toggleWaPopup()">✕</div>
-                <div class="wa-popup-title">LubriBaro.pe</div>
-                <div class="wa-popup-subtitle">Canales oficiales. Estamos para ayudarte!</div>
+                <div class="wa-popup-title">Asesoría en Línea</div>
+                <div class="wa-popup-subtitle">Respondemos en menos de 5 minutos ⚡</div>
             </div>
             
             <div class="wa-popup-body">
                 <!-- Tarjeta clickeable que lleva a tu WhatsApp -->
                 <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20cotizar." target="_blank" class="wa-contact-card">
-                    <div class="wa-contact-icon">🛒</div>
+                    <div class="wa-contact-icon">👨🏽‍🔧</div>
                     <div class="wa-contact-info">
-                        <span class="wa-greeting">Estamos aquí para ayudarte!</span>
-                        <span class="wa-name">LubriBaro - Ventas Online</span>
-                        <span class="wa-status"><span class="wa-dot"></span> online</span>
+                        <span class="wa-greeting">Cotiza directo con un experto</span>
+                        <span class="wa-name">Ventas y Despachos</span>
+                        <span class="wa-status"><span class="wa-dot"></span> Disponible ahora</span>
                     </div>
                 </a>
             </div>
@@ -236,7 +239,6 @@
 
         <!-- Botón Circular Animado -->
         <div class="wa-trigger" onclick="toggleWaPopup()">
-            <!-- Llama a la imagen de tu logo de WhatsApp -->
             <img src="wsp.png" alt="WhatsApp">
         </div>
 
