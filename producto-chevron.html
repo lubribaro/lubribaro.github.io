@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chevron Supreme ATF - LubriBaro</title>
+    <style>
+        :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F4F6F9; --gris: #333333; --blanco: #ffffff; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); }
+        
+        /* HEADER (Con el logo en 32px) */
+        header { background-color: var(--blanco); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 15px; }
+        .logo { font-size: 32px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: var(--naranja); }
+        nav.menu { display: flex; gap: 20px; }
+        nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 0.95rem; }
+        nav.menu a:hover { color: var(--naranja); }
+
+        /* MIGAS DE PAN (Breadcrumbs) */
+        .breadcrumbs { padding: 20px 5%; font-size: 0.9em; color: #666; max-width: 1200px; margin: 0 auto; }
+        .breadcrumbs a { color: var(--morado); text-decoration: none; font-weight: bold; }
+        .breadcrumbs a:hover { text-decoration: underline; }
+
+        /* SECCIÓN DEL PRODUCTO */
+        .product-container { display: flex; flex-wrap: wrap; padding: 0 5% 50px 5%; max-width: 1200px; margin: 0 auto; gap: 40px; }
+        
+        /* Izquierda: Imagen */
+        .product-gallery { flex: 1; min-width: 300px; background: white; border-radius: 10px; border: 1px solid #eaeaea; display: flex; align-items: center; justify-content: center; height: 500px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .product-gallery img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .placeholder-img { color: #aaa; font-weight: bold; font-size: 1.2em; }
+
+        /* Derecha: Detalles */
+        .product-details { flex: 1; min-width: 300px; display: flex; flex-direction: column; }
+        .brand-badge { background: #e0dcf5; color: var(--morado); padding: 5px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; width: fit-content; margin-bottom: 10px; }
+        .product-title { font-size: 2.5em; margin: 0 0 10px 0; color: var(--gris); line-height: 1.2; }
+        .product-code { color: #888; font-size: 1em; margin-bottom: 25px; }
+        
+        .product-desc { font-size: 1.1em; line-height: 1.7; color: #555; margin-bottom: 25px; }
+        
+        .specs-box { background: white; padding: 20px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 30px; }
+        .specs-box h4 { margin: 0 0 15px 0; color: var(--naranja); font-size: 1.2em; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .specs-box ul { margin: 0; padding-left: 20px; color: #444; line-height: 1.8; }
+
+        /* Botón de Compra */
+        .price-section { margin-top: auto; background: white; padding: 25px; border-radius: 10px; border: 2px solid var(--naranja); text-align: center; box-shadow: 0 10px 20px rgba(255, 123, 26, 0.1); }
+        .price-text { font-size: 1.1em; color: #666; margin-bottom: 15px; display: block; }
+        .btn-buy-large { background-color: #25D366; color: white; text-decoration: none; padding: 18px 30px; border-radius: 8px; font-weight: bold; font-size: 1.3em; display: block; transition: 0.3s; }
+        .btn-buy-large:hover { background-color: #1ebc59; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3); }
+
+        /* FOOTER */
+        footer { background-color: #1a1a1a; color: white; margin-top: 50px; }
+        .footer-payments { background-color: var(--naranja); padding: 20px 5%; text-align: center; font-size: 1.1em; font-weight: bold; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .payment-logo { height: 40px; border-radius: 5px; border: 2px solid white; object-fit: cover; background: white; }
+        .footer-bottom { background: #000; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #777; }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; padding: 15px 5%; }
+            nav.menu { background-color: #f1f1f1; width: 100%; justify-content: center; padding: 10px; border-radius: 5px; gap: 15px; }
+            .product-title { font-size: 2em; }
+            .product-gallery { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">Lubri<span>Baro</span></a>
+        <nav class="menu">
+            <a href="index.html">Inicio</a>
+            <a href="catalogo.html" style="color: var(--naranja);">Catálogo</a>
+            <a href="nosotros.html">Nosotros</a>
+        </nav>
+    </header>
+
+    <div class="breadcrumbs">
+        <a href="index.html">Inicio</a> &rsaquo; <a href="catalogo.html">Catálogo</a> &rsaquo; <a href="cat-fluidos.html">Fluidos y Lubricantes</a> &rsaquo; Chevron Supreme ATF
+    </div>
+
+    <section class="product-container">
+        <!-- FOTO DEL PRODUCTO -->
+        <div class="product-gallery">
+            <!-- Cuando tengas la foto real, usa esta línea: <img src="foto-chevron.jpg" alt="Chevron ATF"> -->
+            <div class="placeholder-img">[ Ingrese Foto del Producto Aquí ]</div>
+        </div>
+
+        <!-- DETALLES DEL PRODUCTO -->
+        <div class="product-details">
+            <div class="brand-badge">MARCA: CHEVRON</div>
+            <h1 class="product-title">Aceite Chevron Supreme ATF para Transmisión</h1>
+            <div class="product-code">Código / Presentación: Cajas x 12 (Cuartos)</div>
+            
+            <p class="product-desc">
+                El lubricante Chevron Supreme ATF está diseñado para ofrecer una excelente protección contra el desgaste y prolongar la vida útil de las transmisiones automáticas. Formulado con aceites base de alta calidad para evitar la fricción y el recalentamiento en condiciones severas de tráfico.
+            </p>
+
+            <div class="specs-box">
+                <h4>Vehículos Compatibles (Uso Comercial):</h4>
+                <ul>
+                    <li><strong>Hyundai:</strong> Accent, Elantra, Tucson, Santa Fe.</li>
+                    <li><strong>Kia:</strong> Rio, Cerato, Sportage, Sorento.</li>
+                    <li><strong>Aplicación:</strong> Transmisiones que requieran fluido tipo DEXRON-III o MERCON.</li>
+                </ul>
+            </div>
+
+            <div class="price-section">
+                <span class="price-text">Consulta disponibilidad de stock al instante:</span>
+                <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Deseo%20consultar%20el%20precio%20del%20Chevron%20Supreme%20ATF." class="btn-buy-large" target="_blank">💬 Consultar Precio por WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-payments">
+            Medios de Pago Aceptados: 
+            <img src="yape.png" alt="Yape" class="payment-logo">
+            <img src="bcp.png" alt="BCP" class="payment-logo">
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 LubriBaro. Todos los derechos reservados.
+        </div>
+    </footer>
+
+</body>
+</html>
