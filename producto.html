@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Producto - LubriBaro</title>
+    <title>Detalle de Producto - LubriBaro</title>
     <style>
         :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F4F6F9; --gris: #333333; --blanco: #ffffff; }
-        * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); overflow-x: hidden; }
+        * { box-sizing: border-box; } body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); overflow-x: hidden; }
         
-        header { background-color: var(--blanco); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; }
-        .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: var(--naranja); }
-        nav.menu { display: flex; gap: 20px; } nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; }
-
-        .breadcrumbs { padding: 20px 5%; font-size: 0.9em; color: #666; max-width: 1200px; margin: 0 auto; }
-        .breadcrumbs a { color: var(--morado); text-decoration: none; font-weight: bold; }
-
+        header { background-color: var(--blanco); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 15px; }
+        .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; } .logo span { color: var(--naranja); }
+        nav.menu { display: flex; gap: 20px; } nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 0.95rem; } nav.menu a:hover { color: var(--naranja); }
+        
+        .breadcrumbs { padding: 20px 5%; font-size: 0.9em; color: #666; max-width: 1200px; margin: 0 auto; } .breadcrumbs a { color: var(--morado); text-decoration: none; font-weight: bold; }
+        
         .product-container { display: flex; flex-wrap: wrap; padding: 0 5% 50px 5%; max-width: 1200px; margin: 0 auto; gap: 40px; }
         .product-gallery { flex: 1; min-width: 300px; background: white; border-radius: 10px; border: 1px solid #eaeaea; display: flex; align-items: center; justify-content: center; height: 500px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-        .product-gallery img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        
+        .product-gallery img { max-width: 100%; max-height: 100%; object-fit: contain; display: none; } /* Oculto hasta que cargue la foto */
+        .placeholder-text { color: #aaa; font-weight: bold; font-size: 1.2em; text-align: center; }
+
         .product-details { flex: 1; min-width: 300px; display: flex; flex-direction: column; }
         .brand-badge { background: #e0dcf5; color: var(--morado); padding: 5px 12px; border-radius: 20px; font-size: 0.85em; font-weight: bold; width: fit-content; margin-bottom: 10px; }
         .product-title { font-size: 2.5em; margin: 0 0 10px 0; color: var(--gris); line-height: 1.2; }
@@ -35,13 +33,36 @@
         .btn-buy-large { background-color: #25D366; color: white; text-decoration: none; padding: 18px 30px; border-radius: 8px; font-weight: bold; font-size: 1.3em; display: block; transition: 0.3s; }
         .btn-buy-large:hover { background-color: #1ebc59; transform: translateY(-2px); }
 
-        footer { background-color: #1a1a1a; color: white; margin-top: 50px; padding: 30px 5%; text-align: center;}
+        footer { background-color: #1a1a1a; color: white; margin-top: 50px; }
+        .footer-payments { background-color: var(--naranja); padding: 20px 5%; text-align: center; font-size: 1.1em; font-weight: bold; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .payment-logo { height: 40px; border-radius: 5px; border: 2px solid white; object-fit: cover; background: white; }
+        .footer-bottom { background: #000; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #777; }
         
-        /* Ocultar contenido mientras carga */
-        #contenido-producto { display: none; }
-        #error-producto { display: none; text-align: center; padding: 100px 5%; color: red; font-size: 1.5em; }
+        #contenido-producto, #error-producto { display: none; }
+        #error-producto { text-align: center; padding: 100px 5%; color: red; font-size: 1.5em; }
 
-        @media (max-width: 768px) { header { flex-direction: column; } nav.menu { margin-top: 15px; } .product-title { font-size: 2em; } .product-gallery { height: 300px; } }
+        /* WIDGET WHATSAPP */
+        .wa-container { position: fixed; bottom: 25px; right: 25px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
+        .wa-popup { width: 330px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .wa-popup.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 25px 20px; position: relative; text-align: left; border-bottom: 4px solid var(--naranja); }
+        .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; opacity: 0.8; font-family: sans-serif; font-weight: bold; }
+        .wa-popup-close:hover { opacity: 1; }
+        .wa-popup-title { font-size: 1.4em; font-weight: bold; margin-bottom: 5px; } .wa-popup-subtitle { font-size: 0.9em; opacity: 0.9; }
+        .wa-popup-body { padding: 20px; }
+        .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; color: #333; background: white; padding: 12px; border-radius: 8px; border: 1px solid #eaeaea; transition: 0.2s; }
+        .wa-contact-card:hover { background: #fdfdfd; border-color: var(--naranja); }
+        .wa-contact-icon { width: 50px; height: 50px; background-color: #fce8d8; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 26px; }
+        .wa-contact-info { display: flex; flex-direction: column; }
+        .wa-greeting { font-size: 0.75em; color: #777; margin-bottom: 2px; } .wa-name { font-weight: bold; font-size: 1.05em; color: var(--morado); }
+        .wa-status { font-size: 0.75em; color: #555; display: flex; align-items: center; gap: 5px; margin-top: 4px; font-weight: 600; }
+        .wa-dot { width: 8px; height: 8px; background-color: #25D366; border-radius: 50%; box-shadow: 0 0 5px rgba(37,211,102,0.5); }
+        .wa-trigger { width: 65px; height: 65px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4); position: relative; z-index: 2; }
+        .wa-trigger img { width: 38px; height: 38px; z-index: 3; position: relative; }
+        .wa-trigger::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #25D366; border-radius: 50%; z-index: 1; animation: latido 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+        @keyframes latido { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
+
+        @media (max-width: 768px) { header { flex-direction: column; padding: 15px 5%; } nav.menu { background-color: #f1f1f1; width: 100%; justify-content: center; padding: 10px; border-radius: 5px; gap: 15px; } .product-title { font-size: 2em; } .product-gallery { height: 350px; } .wa-popup { width: 290px; right: 0; bottom: 85px; position: fixed; margin-right: 20px;} }
     </style>
 </head>
 <body>
@@ -51,13 +72,13 @@
         <nav class="menu"><a href="index.html">Inicio</a><a href="catalogo.html" style="color: var(--naranja);">Catálogo</a><a href="nosotros.html">Nosotros</a></nav>
     </header>
 
-    <!-- MENSAJE DE ERROR SI EL PRODUCTO NO EXISTE -->
+    <!-- MENSAJE DE ERROR -->
     <div id="error-producto">
         <h2>Lo sentimos, el producto no fue encontrado.</h2>
         <a href="catalogo.html" style="color: var(--naranja);">Volver al Catálogo</a>
     </div>
 
-    <!-- CONTENEDOR DINÁMICO DEL PRODUCTO -->
+    <!-- CONTENEDOR DEL PRODUCTO -->
     <div id="contenido-producto">
         <div class="breadcrumbs">
             <a href="index.html">Inicio</a> &rsaquo; <a href="catalogo.html">Catálogo</a> &rsaquo; <span id="bread-nombre"></span>
@@ -65,16 +86,15 @@
 
         <section class="product-container">
             <div class="product-gallery">
-                <!-- Por ahora usamos un texto como imagen referencial. Luego lo cambiaremos por una etiqueta <img> -->
-                <div style="color: #aaa; font-weight: bold; font-size: 1.2em;">[ Foto Referencial: <span id="ui-foto"></span> ]</div>
+                <img id="ui-foto" src="" alt="Producto">
+                <div id="ui-placeholder" class="placeholder-text">Sube la foto con el nombre:<br><span id="nombre-foto" style="color:var(--morado);"></span><br>a tu GitHub</div>
             </div>
 
             <div class="product-details">
                 <div class="brand-badge" id="ui-marca">MARCA</div>
-                <h1 class="product-title" id="ui-titulo">Título del Producto</h1>
+                <h1 class="product-title" id="ui-titulo">Título</h1>
                 <div class="product-code" id="ui-codigo">Código</div>
-                
-                <p class="product-desc" id="ui-desc">Descripción del producto.</p>
+                <p class="product-desc" id="ui-desc">Descripción</p>
 
                 <div class="specs-box">
                     <h4>Vehículos Compatibles (Uso Comercial):</h4>
@@ -89,69 +109,74 @@
         </section>
     </div>
 
-    <footer>&copy; 2026 LubriBaro. Todos los derechos reservados.</footer>
+    <footer>
+        <div class="footer-payments">Medios de Pago Aceptados: <img src="yape.png" alt="Yape" class="payment-logo"> <img src="bcp.png" alt="BCP" class="payment-logo"></div>
+        <div class="footer-bottom">&copy; 2026 LubriBaro. Todos los derechos reservados.</div>
+    </footer>
+
+    <!-- WIDGET DE WHATSAPP -->
+    <div class="wa-container">
+        <div id="wa-popup" class="wa-popup">
+            <div class="wa-popup-header">
+                <div class="wa-popup-close" onclick="toggleWaPopup()">✕</div>
+                <div class="wa-popup-title">Asesoría en Línea</div>
+                <div class="wa-popup-subtitle">Respondemos en menos de 5 minutos ⚡</div>
+            </div>
+            <div class="wa-popup-body">
+                <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta." target="_blank" class="wa-contact-card" id="widget-wsp">
+                    <div class="wa-contact-icon">👨🏽‍🔧</div>
+                    <div class="wa-contact-info"><span class="wa-greeting">Cotiza directo con un experto</span><span class="wa-name">Ventas y Despachos</span><span class="wa-status"><span class="wa-dot"></span> Disponible ahora</span></div>
+                </a>
+            </div>
+        </div>
+        <div class="wa-trigger" onclick="toggleWaPopup()"><img src="wsp.png" alt="WhatsApp"></div>
+    </div>
 
     <script>
-        // 1. ESTA ES TU BASE DE DATOS. AQUÍ AGREGARÁS TODOS TUS PRODUCTOS.
+        function toggleWaPopup() { document.getElementById('wa-popup').classList.toggle('active'); }
+
         const baseDeDatos = {
-            "chevron-atf": {
-                marca: "CHEVRON",
-                titulo: "Aceite Chevron Supreme ATF para Transmisión",
-                codigo: "Código / Presentación: Cajas x 12 (Cuartos)",
-                desc: "Diseñado para ofrecer una excelente protección contra el desgaste y prolongar la vida útil de las transmisiones automáticas.",
-                compatibilidad: "<strong>Hyundai:</strong> Accent, Elantra, Tucson.<br><strong>Kia:</strong> Rio, Cerato, Sportage.",
-                foto: "chevron.png",
-                whatsapp: "Buen día Lubribaro! Deseo consultar el precio del Chevron Supreme ATF."
-            },
-            "efeos-5050": {
-                marca: "EFEOS",
-                titulo: "Refrigerante EFEOS 50/50 Listo para usar",
-                codigo: "Código / Presentación: Galonera",
-                desc: "Refrigerante formulado para evitar el sobrecalentamiento del motor, previniendo la corrosión y el óxido.",
-                compatibilidad: "<strong>Hyundai:</strong> Todos los modelos comerciales.<br><strong>Kia:</strong> Todos los modelos comerciales.",
-                foto: "efeos.png",
-                whatsapp: "Buen día Lubribaro! Deseo consultar el precio del Refrigerante EFEOS."
-            },
-            "filtro-26300-35505": {
-                marca: "HYUNDAI / KIA OEM",
-                titulo: "Filtro de Aceite Estándar (Metálico)",
-                codigo: "Código Original: 26300-35505",
-                desc: "Filtro de aceite 100% original para un rendimiento óptimo del motor y protección contra impurezas.",
-                compatibilidad: "<strong>Hyundai:</strong> Elantra, Tucson.<br><strong>Kia:</strong> Cerato, Sportage, Rio.",
-                foto: "filtro1.png",
-                whatsapp: "Buen día Lubribaro! Deseo consultar sobre el Filtro 26300-35505."
-            }
+            "chevron-atf": { marca: "CHEVRON", titulo: "Aceite Chevron Supreme ATF para Transmisión", codigo: "Cajas x 12 (Cuartos)", desc: "Diseñado para ofrecer una excelente protección contra el desgaste y prolongar la vida útil de las transmisiones automáticas.", compatibilidad: "<strong>Hyundai:</strong> Accent, Elantra, Tucson.<br><strong>Kia:</strong> Rio, Cerato, Sportage.", foto: "chevron.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar el precio del Chevron Supreme ATF." },
+            "efeos-5050": { marca: "EFEOS", titulo: "Refrigerante EFEOS 50/50 Listo para usar", codigo: "Galonera", desc: "Refrigerante formulado para evitar el sobrecalentamiento del motor, previniendo la corrosión y el óxido.", compatibilidad: "<strong>Hyundai / Kia:</strong> Todos los modelos comerciales.", foto: "efeos.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar el precio del Refrigerante EFEOS." },
+            "filtro-26300-35505": { marca: "HYUNDAI / KIA OEM", titulo: "Filtro de Aceite Estándar (Metálico)", codigo: "26300-35505", desc: "Filtro de aceite 100% original para un rendimiento óptimo del motor.", compatibilidad: "<strong>Hyundai:</strong> Elantra, Tucson.<br><strong>Kia:</strong> Cerato, Sportage, Rio.", foto: "filtro-26300.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar sobre el Filtro 26300-35505." },
+            "filtro-26330-4A001": { marca: "HYUNDAI / KIA OEM", titulo: "Filtro de Aceite Estándar (Metálico)", codigo: "26330-4A001", desc: "Filtro original para trabajo pesado y vehículos comerciales.", compatibilidad: "<strong>Hyundai:</strong> H1, Starex, Porter.<br><strong>Kia:</strong> K2500, Sorento.", foto: "filtro-26330.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar sobre el Filtro 26330-4A001." },
+            "filtro-26320-2F100": { marca: "HYUNDAI / KIA OEM", titulo: "Filtro Elemento OEM (Cartucho)", codigo: "26320-2F100", desc: "Elemento original para máxima retención de partículas.", compatibilidad: "<strong>Hyundai:</strong> Santa Fe, Tucson.<br><strong>Kia:</strong> Sorento, Sportage.", foto: "filtro-26320.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar sobre el Filtro 26320-2F100." },
+            "filtro-26350-2M000": { marca: "HYUNDAI / KIA OEM", titulo: "Filtro Elemento OEM (Cartucho)", codigo: "26350-2M000", desc: "Elemento de filtro con alta capacidad de flujo.", compatibilidad: "<strong>Hyundai:</strong> Creta, Elantra.<br><strong>Kia:</strong> Seltos, Cerato.", foto: "filtro-26350.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar sobre el Filtro 26350-2M000." },
+            "filtro-28113-C7000": { marca: "HYUNDAI / KIA OEM", titulo: "Filtro de Aire OEM", codigo: "28113-C7000", desc: "Asegura que tu motor respire aire limpio y mantenga su potencia.", compatibilidad: "<strong>Hyundai:</strong> i20, i30.<br><strong>Kia:</strong> Rio, Sonet, Seltos.", foto: "filtro-28113.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar sobre el Filtro de aire 28113-C7000." },
+            "filtro-31922-2E900": { marca: "HYUNDAI / KIA OEM", titulo: "Filtro Combustible OEM", codigo: "31922-2E900", desc: "Protege el sistema de inyección reteniendo impurezas.", compatibilidad: "<strong>Hyundai:</strong> Tucson, Elantra, Santa Fe.<br><strong>Kia:</strong> Sportage, Cerato.", foto: "filtro-31922.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar sobre el Filtro 31922-2E900." },
+            "filtro-31922-4H900": { marca: "HYUNDAI / KIA OEM", titulo: "Filtro Combustible OEM", codigo: "31922-4H900", desc: "Filtro original de alta capacidad para vehículos diésel de trabajo.", compatibilidad: "<strong>Hyundai:</strong> H1, Grand Starex.<br><strong>Kia:</strong> K2500, Bongo, Porter.", foto: "filtro-31922-4h.jpg", whatsapp: "Buen día Lubribaro! Deseo consultar sobre el Filtro 31922-4H900." }
         };
 
-        // 2. CÓDIGO QUE LEE LA URL Y RELLENA LA PÁGINA
         window.onload = function() {
-            // Obtener el ID de la URL (Ejemplo: ?id=chevron-atf)
             const parametros = new URLSearchParams(window.location.search);
-            const productoId = parametros.get('id');
-
-            // Buscar el producto en la base de datos
-            const producto = baseDeDatos[productoId];
-
+            const producto = baseDeDatos[parametros.get('id')];
             if (producto) {
-                // Mostrar el contenedor y rellenar los datos
                 document.getElementById('contenido-producto').style.display = 'block';
-                
                 document.getElementById('bread-nombre').innerHTML = producto.titulo;
                 document.getElementById('ui-marca').innerHTML = "MARCA: " + producto.marca;
                 document.getElementById('ui-titulo').innerHTML = producto.titulo;
-                document.getElementById('ui-codigo').innerHTML = producto.codigo;
+                document.getElementById('ui-codigo').innerHTML = "Código / Ref: " + producto.codigo;
                 document.getElementById('ui-desc').innerHTML = producto.desc;
                 document.getElementById('ui-compatibilidad').innerHTML = producto.compatibilidad;
-                document.getElementById('ui-foto').innerHTML = producto.foto;
                 
-                // Configurar enlace de WhatsApp
-                const numeroWsp = "51937229128";
-                const urlWsp = `https://wa.me/${numeroWsp}?text=${encodeURIComponent(producto.whatsapp)}`;
-                document.getElementById('ui-whatsapp').href = urlWsp;
-            } else {
-                // Si alguien pone un enlace falso, mostrar error
-                document.getElementById('error-producto').style.display = 'block';
-            }
+                // Configurar enlace de WhatsApp en botón y en el widget
+                const enlaceWsp = `https://wa.me/51937229128?text=${encodeURIComponent(producto.whatsapp)}`;
+                document.getElementById('ui-whatsapp').href = enlaceWsp;
+                document.getElementById('widget-wsp').href = enlaceWsp;
+
+                // Lógica de la fotografía
+                const imgElement = document.getElementById('ui-foto');
+                imgElement.src = producto.foto;
+                
+                imgElement.onload = function() {
+                    imgElement.style.display = 'block';
+                    document.getElementById('ui-placeholder').style.display = 'none';
+                };
+                imgElement.onerror = function() {
+                    document.getElementById('nombre-foto').innerHTML = producto.foto;
+                };
+
+            } else { document.getElementById('error-producto').style.display = 'block'; }
         };
     </script>
 </body>
