@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Producto - LubriBaro</title>
+    <title>Detalle de Producto - LubriBaro B2B</title>
     <style>
         :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F4F6F9; --gris: #333333; --blanco: #ffffff; --rojo-oferta: #E63946; --verde-ok: #2A9D8F; }
         * { box-sizing: border-box; } body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); overflow-x: hidden; padding-bottom: 80px; }
         
-        /* HEADER Y NAVEGACIÓN */
+        /* HEADER */
         header { background-color: var(--blanco); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 15px; }
         .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; } .logo span { color: var(--naranja); }
         nav.menu { display: flex; gap: 20px; } nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 0.95rem; } nav.menu a:hover { color: var(--naranja); }
@@ -17,7 +17,7 @@
         /* CONTENEDOR PRINCIPAL */
         .product-container { display: flex; flex-wrap: wrap; padding: 0 5% 30px 5%; max-width: 1200px; margin: 0 auto; gap: 30px; align-items: flex-start; }
         
-        /* GALERÍA DE IMÁGENES */
+        /* GALERÍA */
         .gallery-wrapper { flex: 1; min-width: 320px; display: flex; gap: 15px; }
         .thumbnails { display: flex; flex-direction: column; gap: 10px; width: 80px; }
         .thumb-box { width: 100%; height: 80px; border: 2px solid #eaeaea; border-radius: 8px; cursor: pointer; background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: 0.3s; }
@@ -28,52 +28,48 @@
         .zoom-icon { position: absolute; bottom: 15px; right: 15px; font-size: 1.5em; color: #aaa; cursor: pointer; }
         .placeholder-text { color: #aaa; font-weight: bold; font-size: 1em; text-align: center; }
 
-        /* DETALLES DE COMPRA */
-        .product-details { flex: 1; min-width: 350px; background: white; padding: 30px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.02); }
-        .brand-logo-name { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: var(--morado); font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
+        /* DETALLES */
+        .product-details { flex: 1; min-width: 350px; background: white; padding: 30px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.02); overflow: hidden; }
+        .brand-logo-name { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: var(--morado); font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
         .product-title { font-size: 2em; margin: 0 0 5px 0; color: var(--gris); line-height: 1.2; text-transform: uppercase; }
         .product-sku { color: #888; font-size: 0.85em; margin-bottom: 5px; }
         .product-presentation { color: var(--naranja); font-weight: bold; font-size: 1em; margin-bottom: 20px; background: #fff1e5; padding: 5px 10px; border-radius: 5px; display: inline-block; border: 1px solid #ffd4b3; }
         
-        /* TABLA B2B: PRECIOS POR VOLUMEN */
-        .volume-pricing { display: flex; gap: 10px; margin-bottom: 25px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 0; }
-        .tier { flex: 1; background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px 10px; text-align: center; }
-        .tier.highlight { background: #f4ebff; border-color: var(--morado); transform: scale(1.05); box-shadow: 0 4px 10px rgba(65, 48, 154, 0.15); z-index: 2; position: relative; }
-        .tier-qty { display: block; font-size: 0.8em; color: #666; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
+        /* TABLA DINÁMICA DE PRECIOS POR VOLUMEN */
+        .volume-pricing { display: flex; gap: 10px; margin-bottom: 25px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 0; overflow-x: auto; scroll-snap-type: x mandatory; }
+        .tier { flex: 1; min-width: 105px; background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; padding: 12px 5px; text-align: center; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; }
+        .tier.highlight { background: #f4ebff; border-color: var(--morado); border-width: 2px; transform: scale(1.05); box-shadow: 0 4px 10px rgba(65, 48, 154, 0.15); z-index: 2; position: relative; }
+        .tier-qty { display: block; font-size: 0.75em; color: #666; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; line-height: 1.1; }
         .tier.highlight .tier-qty { color: var(--morado); }
-        .tier-price { display: block; font-size: 1.4em; color: var(--gris); font-weight: 900; }
-        .tier.highlight .tier-price { color: var(--rojo-oferta); font-size: 1.6em; }
-        .tier-unit { display: block; font-size: 0.75em; color: #888; margin-top: 5px; }
+        .tier-price { display: block; font-size: 1.2em; color: var(--gris); font-weight: 900; }
+        .tier-price span { font-size: 0.7em; margin-right: 2px; }
+        .tier.highlight .tier-price { color: var(--rojo-oferta); font-size: 1.4em; }
+        .tier-unit { display: block; font-size: 0.65em; color: #888; margin-top: 5px; }
 
-        /* SELECTOR DE CANTIDAD Y BOTÓN */
+        /* SELECTOR */
         .action-row { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
         .qty-wrapper { display: flex; align-items: center; gap: 10px; }
         .qty-label { font-weight: bold; color: #666; font-size: 0.9em; text-transform: uppercase; }
         .qty-selector { display: flex; align-items: center; border: 2px solid #ddd; border-radius: 50px; overflow: hidden; background: white; height: 50px; }
         .qty-btn { background: none; border: none; font-size: 1.5em; width: 45px; cursor: pointer; color: var(--naranja); font-weight: bold; }
-        .qty-btn:hover { background: #f8f9fa; }
         .qty-input { width: 40px; text-align: center; border: none; font-size: 1.2em; font-weight: bold; color: var(--gris); outline: none; }
         
-        .btn-comprar { flex: 1; background-color: var(--naranja); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; display: flex; justify-content: center; align-items: center; gap: 10px; height: 50px; transition: 0.3s; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 123, 26, 0.3); text-transform: uppercase; }
-        .btn-comprar:hover { background-color: #e66a15; transform: translateY(-2px); }
+        .btn-comprar { flex: 1; background-color: var(--naranja); color: white; border-radius: 50px; font-weight: bold; font-size: 1.1em; display: flex; justify-content: center; align-items: center; gap: 10px; height: 50px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 123, 26, 0.3); text-transform: uppercase; }
         
         .stock-status { color: var(--verde-ok); font-weight: bold; font-size: 0.9em; display: flex; align-items: center; gap: 5px; justify-content: center; background: #eef9f7; padding: 10px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #b5e2da;}
-
-        /* CAJA DE MÉTODOS DE ENTREGA */
         .delivery-box { background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px; }
         .delivery-title { font-weight: bold; font-size: 0.9em; margin-bottom: 12px; color: var(--gris); }
         .delivery-item { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; font-size: 0.85em; color: #555; }
         .delivery-icon { background: #e0f2e9; color: var(--verde-ok); width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; }
 
-        /* PESTAÑAS (TABS) DE DESCRIPCIÓN */
+        /* PESTAÑAS (TABS) */
         .tabs-container { max-width: 1200px; margin: 0 auto 50px auto; padding: 0 5%; }
-        .tabs-header { display: flex; border-bottom: 2px solid #ddd; gap: 10px; }
-        .tab-btn { background: none; border: none; padding: 15px 30px; font-size: 1.1em; font-weight: bold; color: #888; cursor: pointer; border-bottom: 4px solid transparent; margin-bottom: -2px; text-transform: uppercase; }
+        .tabs-header { display: flex; border-bottom: 2px solid #ddd; gap: 10px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 15px 30px; font-size: 1em; font-weight: bold; color: #888; cursor: pointer; border-bottom: 4px solid transparent; margin-bottom: -2px; text-transform: uppercase; }
         .tab-btn.active { color: var(--naranja); border-bottom-color: var(--naranja); }
         .tab-content { background: white; padding: 40px; border: 1px solid #eaeaea; border-top: none; border-radius: 0 0 12px 12px; line-height: 1.8; color: #555; display: none; }
         .tab-content.active { display: block; }
         .tab-content h3 { color: var(--morado); margin-top: 0; font-size: 1.3em; text-transform: uppercase; border-left: 4px solid var(--naranja); padding-left: 10px; }
-        .tab-content ul { padding-left: 20px; }
 
         /* STICKY BOTTOM BAR */
         .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); padding: 10px 5%; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 999; transform: translateY(100%); transition: transform 0.4s ease; border-top: 2px solid var(--naranja); }
@@ -106,8 +102,8 @@
             .gallery-wrapper { flex-direction: column-reverse; } .thumbnails { flex-direction: row; width: 100%; justify-content: center; } .main-image-box { height: 350px; }
             .product-title { font-size: 1.6em; } .sticky-prod-info { display: none; } .sticky-bar { padding: 15px 5%; }
             .wa-container { bottom: 90px; }
-            .volume-pricing { flex-direction: column; }
-            .tier.highlight { transform: scale(1); border-left: 5px solid var(--morado); border-right: 5px solid var(--morado); }
+            .volume-pricing { padding-bottom: 10px; }
+            .tier.highlight { transform: scale(1); }
         }
     </style>
 </head>
@@ -125,7 +121,6 @@
 
         <section class="product-container">
             
-            <!-- GALERÍA -->
             <div class="gallery-wrapper">
                 <div class="thumbnails">
                     <div class="thumb-box active"><img id="ui-thumb1" src="" alt="Thumb"></div>
@@ -133,45 +128,27 @@
                 </div>
                 <div class="main-image-box">
                     <img id="ui-foto" src="" alt="Producto">
-                    <div id="ui-placeholder" class="placeholder-text">Sube la foto: <br><span id="nombre-foto" style="color:var(--morado);"></span></div>
+                    <div id="ui-placeholder" class="placeholder-text">Sube la foto con nombre: <br><span id="nombre-foto" style="color:var(--morado);"></span><br>a tu GitHub</div>
                     <div class="zoom-icon">🔍</div>
                 </div>
             </div>
 
-            <!-- DETALLES Y COMPRA B2B -->
             <div class="product-details">
                 <div class="brand-logo-name" id="ui-marca">MARCA</div>
                 <h1 class="product-title" id="ui-titulo">Título del Producto</h1>
                 <div class="product-sku" id="ui-codigo">SKU: N/A</div>
                 
-                <!-- PRESENTACIÓN (Vital para B2B) -->
-                <div class="product-presentation" id="ui-presentacion">Caja x XX unidades</div>
-                
-                <div class="stock-status">✔️ Producto Disponible para Despacho</div>
+                <div class="product-presentation" id="ui-presentacion">Presentación</div>
+                <div class="stock-status">✔️ Producto Disponible para Despacho Mayorista</div>
 
-                <!-- TABLA DE PRECIOS POR VOLUMEN -->
-                <div class="volume-pricing">
-                    <div class="tier">
-                        <span class="tier-qty">1 Caja</span>
-                        <span class="tier-price" id="ui-precio1">S/ 0.00</span>
-                        <span class="tier-unit">Precio por unidad (Inc. IGV)</span>
-                    </div>
-                    <div class="tier highlight">
-                        <span class="tier-qty">4 a 9 Cajas</span>
-                        <span class="tier-price" id="ui-precio2">S/ 0.00</span>
-                        <span class="tier-unit">Precio por unidad (Inc. IGV)</span>
-                    </div>
-                    <div class="tier">
-                        <span class="tier-qty">10 a más Cajas</span>
-                        <span class="tier-price" id="ui-precio3">S/ 0.00</span>
-                        <span class="tier-unit">Precio por unidad (Inc. IGV)</span>
-                    </div>
+                <!-- TABLA DINÁMICA DE PRECIOS -->
+                <div class="volume-pricing" id="ui-precios-container">
+                    <!-- Se rellena por JavaScript -->
                 </div>
 
-                <!-- SELECTOR DE CANTIDAD Y BOTÓN COTIZAR -->
                 <div class="action-row">
                     <div class="qty-wrapper">
-                        <span class="qty-label">Cajas:</span>
+                        <span class="qty-label">Cantidad:</span>
                         <div class="qty-selector">
                             <button class="qty-btn" onclick="cambiarCant(-1)">-</button>
                             <input type="number" id="input-qty" class="qty-input" value="1" min="1" readonly>
@@ -181,7 +158,6 @@
                     <button class="btn-comprar" onclick="enviarPedido()">Cotizar Stock 📦</button>
                 </div>
 
-                <!-- MÉTODOS DE ENTREGA -->
                 <div class="delivery-box">
                     <div class="delivery-title">Métodos de Entrega Exclusivo Talleres:</div>
                     <div class="delivery-item">
@@ -196,21 +172,20 @@
             </div>
         </section>
 
-        <!-- PESTAÑAS (TABS) -->
         <div class="tabs-container">
             <div class="tabs-header">
-                <button class="tab-btn active" onclick="abrirTab(event, 'tab-desc')">BENEFICIOS DEL PRODUCTO</button>
+                <button class="tab-btn active" onclick="abrirTab(event, 'tab-desc')">BENEFICIOS TÉCNICOS</button>
                 <button class="tab-btn" onclick="abrirTab(event, 'tab-espec')">VEHÍCULOS COMPATIBLES</button>
             </div>
             
             <div id="tab-desc" class="tab-content active">
-                <h3>Detalle Comercial</h3>
-                <p id="ui-desc">Aquí va la descripción del producto.</p>
+                <h3>Información Comercial</h3>
+                <p id="ui-desc">Descripción del producto.</p>
             </div>
             
             <div id="tab-espec" class="tab-content">
                 <h3>Aplicación</h3>
-                <div id="ui-compatibilidad">Aquí va la lista de compatibilidad.</div>
+                <div id="ui-compatibilidad">Lista de compatibilidad.</div>
             </div>
         </div>
     </div>
@@ -231,7 +206,7 @@
 
     <footer>&copy; 2026 LubriBaro. Todos los derechos reservados.</footer>
 
-    <!-- WIDGET DE WHATSAPP -->
+    <!-- WIDGET WSP -->
     <div class="wa-container">
         <div id="wa-popup" class="wa-popup">
             <div class="wa-popup-header">
@@ -261,66 +236,58 @@
 
         window.onscroll = function() {
             let stickyBar = document.getElementById("sticky-bar");
-            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-                stickyBar.classList.add("visible");
-            } else { stickyBar.classList.remove("visible"); }
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) { stickyBar.classList.add("visible"); } 
+            else { stickyBar.classList.remove("visible"); }
         };
 
-        // BASE DE DATOS B2B (Datos extraídos de tu tabla de Einer)
+        // LA BASE DE DATOS MAESTRA CON LA MATRIZ B2B (31 PRODUCTOS)
         const baseDeDatos = {
-            "chevron-atf": { 
-                marca: "CHEVRON", titulo: "Aceite Chevron Supreme ATF MD-3 para Transmisión", codigo: "SKU: ATF-MD3", presentacion: "Caja de 12 x 1/4 GL",
-                precio1: "S/ 25.00", precio2: "S/ 23.00", precio3: "S/ 21.00", 
-                desc: "Máxima protección contra la formación de lacas y lodos. Estabilidad excepcional para un desempeño silencioso en la transmisión.", 
-                compatibilidad: "<strong>Transmisiones Automáticas:</strong> Hyundai, Kia, Nissan, Toyota que soliciten DEXRON-III o MERCON.", foto: "chevron.jpg" 
-            },
-            "efeos-5050": { 
-                marca: "EFEOS", titulo: "Refrigerante Anticongelante EFEOS 50/50 Larga Vida", codigo: "SKU: EF-5050", presentacion: "Caja de 3 Galoneras",
-                precio1: "S/ 40.00", precio2: "S/ 38.00", precio3: "S/ 35.00", 
-                desc: "Fórmula lista para usar de larga vida. Previene el sobrecalentamiento y protege todos los metales del sistema contra la corrosión severa.", 
-                compatibilidad: "<strong>Motores:</strong> Excelente para flotas de Hyundai, Kia y vehículos asiáticos en general.", foto: "efeos.jpg" 
-            },
-            "filtro-26300-35505": { 
-                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original (Metálico)", codigo: "SKU: 26300-35505", presentacion: "Caja x 40 unid.",
-                precio1: "S/ 14.50", precio2: "S/ 13.50", precio3: "S/ 12.50", 
-                desc: "Filtro original que garantiza el flujo exacto de lubricante y máxima retención de impurezas en motores Hyundai/Kia.", 
-                compatibilidad: "<strong>Hyundai:</strong> Accent, Elantra, Tucson, Santa Fe.<br><strong>Kia:</strong> Rio, Cerato, Sportage, Sorento.", foto: "filtro-26300.jpg" 
-            },
-            "filtro-26330-4A001": { 
-                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original para Trabajo Pesado", codigo: "SKU: 26330-4A001", presentacion: "Caja x 20 unid.",
-                precio1: "S/ 29.00", precio2: "S/ 26.50", precio3: "S/ 25.50", 
-                desc: "Diseño blindado y reforzado, ideal para flotas comerciales y vehículos diésel sometidos a rutas exigentes.", 
-                compatibilidad: "<strong>Hyundai:</strong> H1, Grand Starex, Porter.<br><strong>Kia:</strong> K2500, Bongo.", foto: "filtro-26330.jpg" 
-            },
-            "filtro-26320-2F100": { 
-                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original Tipo Elemento", codigo: "SKU: 26320-2F100", presentacion: "Caja x 50 unid.",
-                precio1: "S/ 25.00", precio2: "S/ 23.00", precio3: "S/ 22.00", 
-                desc: "Incluye sellos O-ring originales de fábrica para un ajuste perfecto, evitando fugas y pérdida de presión en motores CRDI.", 
-                compatibilidad: "<strong>Motores Diésel CRDI:</strong> Hyundai Santa Fe, Tucson. Kia Sorento, Sportage.", foto: "filtro-26320.jpg" 
-            },
-            "filtro-26350-2M000": { 
-                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original Tipo Elemento", codigo: "SKU: 26350-2M000", presentacion: "Caja x 40 unid.",
-                precio1: "S/ 33.50", precio2: "S/ 30.50", precio3: "S/ 29.00", 
-                desc: "Diseño plisado de alta densidad, diseñado para soportar intervalos extendidos con aceites 100% sintéticos.", 
-                compatibilidad: "<strong>Hyundai:</strong> Creta, Elantra (Nuevas generaciones).<br><strong>Kia:</strong> Seltos, Cerato.", foto: "filtro-26350.jpg" 
-            },
-            "filtro-28113-C7000": { 
-                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aire de Motor Original", codigo: "SKU: 28113-C7000", presentacion: "Caja x 20 unid.",
-                precio1: "S/ 45.00", precio2: "S/ 42.00", precio3: "S/ 39.00", 
-                desc: "Retención superior de polvo y partículas abrasivas, asegurando una combustión limpia y manteniendo el rendimiento de combustible del vehículo.", 
-                compatibilidad: "<strong>Hyundai:</strong> i20, i30.<br><strong>Kia:</strong> Rio, Sonet, Seltos.", foto: "filtro-28113.jpg" 
-            },
-            "filtro-31922-2E900": { 
-                marca: "HYUNDAI MOBIS", titulo: "Filtro de Combustible Original Diésel", codigo: "SKU: 31922-2E900", presentacion: "Caja x 20 unid.",
-                precio1: "S/ 65.00", precio2: "S/ 62.00", precio3: "S/ 59.00", 
-                desc: "Separación eficiente de agua y micropartículas. Protección crítica para prolongar la vida útil de los inyectores y la bomba.", 
-                compatibilidad: "<strong>Hyundai:</strong> Tucson, Elantra, Santa Fe.<br><strong>Kia:</strong> Sportage, Cerato (Versiones Diésel).", foto: "filtro-31922.jpg" 
-            },
-            "filtro-31922-4H900": { 
-                marca: "HYUNDAI MOBIS", titulo: "Filtro de Combustible Original (Trampa de Agua)", codigo: "SKU: 31922-4H900", presentacion: "Caja x 20 unid.",
-                precio1: "S/ 70.00", precio2: "S/ 67.00", precio3: "S/ 64.00", 
-                desc: "Alta capacidad de filtrado para vehículos comerciales H1 y K2500, vital para evitar reparaciones costosas en el sistema de inyección.", 
-                compatibilidad: "<strong>Hyundai:</strong> H1, Grand Starex.<br><strong>Kia:</strong> K2500, Bongo, Porter.", foto: "filtro-31922-4h.jpg" }
+            // FLUIDOS
+            "chevron-atf": { marca: "CHEVRON", titulo: "Aceite Chevron Supreme ATF MD-3 para Transmisión", codigo: "SKU: ATF-MD3", presentacion: "Caja de 12 x 1/4 GL", desc: "Máxima protección contra la formación de lacas y lodos. Estabilidad excepcional para un desempeño silencioso.", compatibilidad: "Transmisiones Automáticas: Hyundai, Kia, Nissan, Toyota que soliciten DEXRON-III o MERCON.", foto: "chevron.jpg", precios: [ { qty:"1 a 2 Cajas", val:"285,00", desc:"x Caja" }, { qty:"3 a 5 Cajas", val:"270,00", desc:"x Caja" }, { qty:"6 a 10+ Cajas", val:"255,00", desc:"x Caja", highlight:true } ] },
+            "efeos-5050": { marca: "EFEOS", titulo: "Refrigerante Anticongelante EFEOS 50/50 Larga Vida", codigo: "SKU: EF-5050", presentacion: "Caja de 3 Galoneras", desc: "Fórmula lista para usar de larga vida. Previene el sobrecalentamiento.", compatibilidad: "Excelente para flotas de Hyundai, Kia y vehículos asiáticos en general.", foto: "efeos.jpg", precios: [ { qty:"1 a 2 Cajas", val:"115,00", desc:"x Caja" }, { qty:"3 a 5 Cajas", val:"105,00", desc:"x Caja" }, { qty:"6 a 10+ Cajas", val:"95,00", desc:"x Caja", highlight:true } ] },
+            
+            // FILTROS DE COMBUSTIBLE
+            "filtro-31922-2e900": { marca: "OEM / Alternativo", titulo: "Filtro de Combustible", codigo: "SKU: 31922-2E900", presentacion: "Por definir", desc: "Filtro de combustible para sistemas de inyección de alta presión.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-31922.jpg", precios: [ { qty:"1 Decena", val:"72,00", desc:"c/u" }, { qty:"Media Caja", val:"68,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"65,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"61,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"58,00", desc:"c/u", highlight:true } ] },
+            "filtro-31922-4h900": { marca: "OEM / Alternativo", titulo: "Filtro de Combustible", codigo: "SKU: 31922-4H900", presentacion: "Por definir", desc: "Separación eficiente de agua y micropartículas.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-31922-4h.jpg", precios: [ { qty:"1 Decena", val:"77,00", desc:"c/u" }, { qty:"Media Caja", val:"73,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"70,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"65,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"62,00", desc:"c/u", highlight:true } ] },
+            "filtro-31922-4h001": { marca: "OEM / Alternativo", titulo: "Filtro de Combustible", codigo: "SKU: 31922-4H001", presentacion: "Por definir", desc: "Protección crítica para inyectores CRDI.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-31922-4h001.jpg", precios: [ { qty:"1 Decena", val:"72,00", desc:"c/u" }, { qty:"Media Caja", val:"68,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"65,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"61,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"58,00", desc:"c/u", highlight:true } ] },
+            "filtro-31922-26910": { marca: "OEM / Alternativo", titulo: "Filtro de Combustible", codigo: "SKU: 31922-26910", presentacion: "Por definir", desc: "Elemento de reemplazo original garantizado.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-31922-26910.jpg", precios: [ { qty:"1 Decena", val:"110,00", desc:"c/u" }, { qty:"Media Caja", val:"105,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"100,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"95,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"92,00", desc:"c/u", highlight:true } ] },
+            "filtro-31922-cg950": { marca: "OEM / Alternativo", titulo: "Filtro de Combustible", codigo: "SKU: 31922-CG950", presentacion: "Por definir", desc: "Elemento de reemplazo original garantizado.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-31922-cg950.jpg", precios: [ { qty:"1 Decena", val:"150,00", desc:"c/u" }, { qty:"Media Caja", val:"144,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"138,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"132,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"128,00", desc:"c/u", highlight:true } ] },
+            "filtro-31945-41002": { marca: "OEM / Alternativo", titulo: "Filtro de Combustible", codigo: "SKU: 31945-41002", presentacion: "Por definir", desc: "Elemento de reemplazo original garantizado.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-31945-41002.jpg", precios: [ { qty:"1 Decena", val:"26,00", desc:"c/u" }, { qty:"Media Caja", val:"24,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"22,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"21,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"20,00", desc:"c/u", highlight:true } ] },
+            "filtro-31945-52161": { marca: "OEM / Alternativo", titulo: "Filtro de Combustible", codigo: "SKU: 31945-52161", presentacion: "Por definir", desc: "Elemento de reemplazo original garantizado.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-31945-52161.jpg", precios: [ { qty:"1 Decena", val:"265,00", desc:"c/u" }, { qty:"Media Caja", val:"252,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"245,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"235,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"227,00", desc:"c/u", highlight:true } ] },
+            
+            // FILTROS DE ACEITE
+            "filtro-26330-4a001": { marca: "Hyundai", titulo: "Filtro de Aceite (Metálico)", codigo: "SKU: 26330-4A001", presentacion: "Caja 20x1 unid.", desc: "Filtro original.<br><strong>Equivalencia:</strong> LYS LF604A, Hyundai 26300-42040.", compatibilidad: "Filtro de aceite para motor diesel.", foto: "filtro-26330.jpg", precios: [ { qty:"1 Decena", val:"33,00", desc:"c/u" }, { qty:"Media Caja", val:"31,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"29,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"27,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"25,50", desc:"c/u", highlight:true } ] },
+            "filtro-26300-35505": { marca: "HYUNDAI", titulo: "Filtro de Aceite (Metálico)", codigo: "SKU: 26300-35505", presentacion: "Caja 40x1 unid.", desc: "Filtro original.<br><strong>Equivalencia:</strong> LYS 360.", compatibilidad: "Aplicación estándar de mayor rotación.", foto: "filtro-26300.jpg", precios: [ { qty:"1 Decena", val:"16,50", desc:"c/u" }, { qty:"Media Caja", val:"15,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"14,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"13,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"12,50", desc:"c/u", highlight:true } ] },
+            "filtro-0k87a-14317": { marca: "Hyundai", titulo: "Filtro de Aceite (Metálico)", codigo: "SKU: 0K87A-14317", presentacion: "Caja 16x1 unid.", desc: "Filtro original.<br><strong>Equivalencia:</strong> Sakura C1735.", compatibilidad: "Filtro de aceite para motor diesel HD120, motor D6DA.", foto: "filtro-0k87a.jpg", precios: [ { qty:"1 Decena", val:"88,00", desc:"c/u" }, { qty:"Media Caja", val:"83,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"79,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"75,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"71,00", desc:"c/u", highlight:true } ] },
+            "filtro-26316-41000": { marca: "HYUNDAI", titulo: "Filtro de Aceite (Metálico)", codigo: "SKU: 26316-41000", presentacion: "Por definir", desc: "Filtro original.<br><strong>Equivalencia:</strong> LYS LF833N.", compatibilidad: "Hyundai Migthy 1994-2000.", foto: "filtro-26316.jpg", precios: [ { qty:"1 Decena", val:"19,00", desc:"c/u" }, { qty:"Media Caja", val:"17,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"16,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"15,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"14,50", desc:"c/u", highlight:true } ] },
+            "filtro-26311-45010": { marca: "Hyundai", titulo: "Filtro de Aceite (Metálico)", codigo: "SKU: 26311-45010", presentacion: "Caja 20x1 unid.", desc: "Filtro original blindado.", compatibilidad: "HD45, HD65, HD75, HD78 (2010 a+). Motores D4AF, D4AL, D4DB, D4DC, D4DD.", foto: "filtro-26311.jpg", precios: [ { qty:"1 Decena", val:"58,00", desc:"c/u" }, { qty:"Media Caja", val:"54,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"51,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"48,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"46,00", desc:"c/u", highlight:true } ] },
+            "filtro-23304-ev120": { marca: "OEM", titulo: "Filtro de Aceite (Metálico)", codigo: "SKU: 23304-EV120", presentacion: "Por definir", desc: "Filtro de aceite alta calidad.", compatibilidad: "Consulte aplicación.", foto: "filtro-23304.jpg", precios: [ { qty:"1 Decena", val:"20,00", desc:"c/u" }, { qty:"Media Caja", val:"18,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"17,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"16,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"15,50", desc:"c/u", highlight:true } ] },
+            
+            // FILTROS DE ACEITE (ELEMENTO)
+            "filtro-26320-2f100": { marca: "Hyundai", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26320-2F100", presentacion: "Caja 50x1 unid.", desc: "Filtro Elemento para aceite motor original.", compatibilidad: "HYUNDAI, Staria.", foto: "filtro-26320.jpg", precios: [ { qty:"1 Decena", val:"28,50", desc:"c/u" }, { qty:"Media Caja", val:"26,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"25,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"23,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"22,00", desc:"c/u", highlight:true } ] },
+            "filtro-26320-3n000": { marca: "OEM", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26320-3N000", presentacion: "Por definir", desc: "Filtro Elemento de alta eficiencia.", compatibilidad: "Consulte aplicación.", foto: "filtro-26320-3n.jpg", precios: [ { qty:"1 Decena", val:"35,00", desc:"c/u" }, { qty:"Media Caja", val:"33,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"31,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"29,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"27,00", desc:"c/u", highlight:true } ] },
+            "filtro-26320-2r000": { marca: "HYUNDAI/KIA", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26320-2R000", presentacion: "Caja 60x1 unid.", desc: "Kit de servicio de filtro de aceite original OEM.", compatibilidad: "Modelos seleccionados Hyundai y Kia con motor diesel de 2.0 L.", foto: "filtro-26320-2r.jpg", precios: [ { qty:"1 Decena", val:"34,00", desc:"c/u" }, { qty:"Media Caja", val:"32,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"30,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"28,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"26,00", desc:"c/u", highlight:true } ] },
+            "filtro-26350-2m000": { marca: "Hyundai", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26350-2M000", presentacion: "Caja 40x1 unid.", desc: "Filtro de aceite tipo elemento ecológico.", compatibilidad: "KIA, NEW SORENTO 2020-UP. KIA, RIO 2019-UP.", foto: "filtro-26350.jpg", precios: [ { qty:"1 Decena", val:"37,00", desc:"c/u" }, { qty:"Media Caja", val:"35,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"33,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"31,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"29,00", desc:"c/u", highlight:true } ] },
+            "filtro-26350-2j001": { marca: "OEM", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26350-2J001", presentacion: "Por definir", desc: "Filtro Elemento de alta eficiencia.", compatibilidad: "Consulte aplicación.", foto: "filtro-26350-2j.jpg", precios: [ { qty:"1 Decena", val:"37,00", desc:"c/u" }, { qty:"Media Caja", val:"35,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"33,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"31,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"29,00", desc:"c/u", highlight:true } ] },
+            "filtro-26320-3c100": { marca: "OEM", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26320-3C100", presentacion: "Por definir", desc: "Filtro Elemento de alta eficiencia.", compatibilidad: "Consulte aplicación.", foto: "filtro-26320-3c.jpg", precios: [ { qty:"1 Decena", val:"29,50", desc:"c/u" }, { qty:"Media Caja", val:"27,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"26,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"24,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"23,00", desc:"c/u", highlight:true } ] },
+            "filtro-26325-52003": { marca: "Hyundai", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26325-52003", presentacion: "Caja 40x1 unid.", desc: "Filtro Elemento. <br><strong>Equivalencia:</strong> 26311-52001, 26311-52002, 26325-52000, 26325-52002", compatibilidad: "Migthy/HD38/HD78. Filtro de Aceite para motor diesel.", foto: "filtro-26325.jpg", precios: [ { qty:"1 Decena", val:"79,00", desc:"c/u" }, { qty:"Media Caja", val:"75,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"72,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"68,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"64,00", desc:"c/u", highlight:true } ] },
+            "filtro-26350-2s001": { marca: "OEM", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26350-2S001", presentacion: "Por definir", desc: "Filtro Elemento de alta eficiencia.", compatibilidad: "Consulte aplicación.", foto: "filtro-26350-2s.jpg", precios: [ { qty:"1 Decena", val:"37,00", desc:"c/u" }, { qty:"Media Caja", val:"35,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"33,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"31,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"29,00", desc:"c/u", highlight:true } ] },
+            "filtro-26320-30000": { marca: "Hyundai", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26320-30000", presentacion: "Caja 40x1 unid.", desc: "Filtro Elemento original de fábrica.", compatibilidad: "Kia Carnival 2022 3.5L V6, Hyundai Genesis 2021+, G80, 3.5L V6.", foto: "filtro-26320-30.jpg", precios: [ { qty:"1 Decena", val:"36,00", desc:"c/u" }, { qty:"Media Caja", val:"33,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"31,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"28,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"27,00", desc:"c/u", highlight:true } ] },
+            "filtro-26350-25000": { marca: "Hyundai", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26350-25000", presentacion: "Caja 60x1 unid.", desc: "Filtro de aceite tipo elemento.", compatibilidad: "Hyundai, Tucson modernas.", foto: "filtro-26350-25.jpg", precios: [ { qty:"1 Decena", val:"39,00", desc:"c/u" }, { qty:"Media Caja", val:"36,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"33,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"30,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"29,00", desc:"c/u", highlight:true } ] },
+            "filtro-26320-30100": { marca: "HYUNDAI/KIA", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26320-30100", presentacion: "Caja 50x1 unid.", desc: "Filtro Elemento original de fábrica.", compatibilidad: "Hyundai Santa Fe, Sonata, Veracruz. Kia Grand Carnival Sorento.", foto: "filtro-26320-301.jpg", precios: [ { qty:"1 Decena", val:"31,00", desc:"c/u" }, { qty:"Media Caja", val:"28,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"26,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"24,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"23,00", desc:"c/u", highlight:true } ] },
+            "filtro-26350-20001": { marca: "HYUNDAI/KIA", titulo: "Filtro de Aceite (Elemento)", codigo: "SKU: 26350-20001", presentacion: "Caja 60x1 unid.", desc: "Filtro Elemento de reemplazo original.", compatibilidad: "Hyundai 2021, Santa Fe IV 2.0 Tucson NX4 2.0.", foto: "filtro-26350-20.jpg", precios: [ { qty:"1 Decena", val:"39,00", desc:"c/u" }, { qty:"Media Caja", val:"36,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"33,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"30,50", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"29,00", desc:"c/u", highlight:true } ] },
+            "filtro-16510-m68k20": { marca: "Suzuki", titulo: "Filtro de Aceite (Metálico)", codigo: "SKU: 16510-M68K20", presentacion: "Caja 24x1 unid.", desc: "Filtro original.<br><strong>Equivalencia:</strong> LYS 3001, LYS 3010, 15610 M68K00", compatibilidad: "Filtro de Aceite para motor a gasolina. Celerio, Ciaz, Gran Nomade, Gran Vitara, Jimny, SCross, Swift, SX-4.", foto: "filtro-16510.jpg", precios: [ { qty:"1 Decena", val:"110,00", desc:"c/u" }, { qty:"Media Caja", val:"105,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"97,50", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"90,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"86,00", desc:"c/u", highlight:true } ] },
+            "filtro-26300-02752": { marca: "Hyundai", titulo: "Filtro de Aceite (Metálico)", codigo: "SKU: 26300-02752", presentacion: "Caja 20x1 unid.", desc: "Filtro original.<br><strong>Equivalencia:</strong> LYS LF3007, Nissan 15208 31000, Mitsubishi MD 135737", compatibilidad: "Filtro de aceite para motor a gasolina.", foto: "filtro-26300-02.jpg", precios: [ { qty:"1 Decena", val:"13,00", desc:"c/u" }, { qty:"Media Caja", val:"11,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"10,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"9,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"8,50", desc:"c/u", highlight:true } ] },
+
+            // FILTROS DE AIRE
+            "filtro-28130-5m100": { marca: "OEM / Alternativo", titulo: "Filtro de Aire", codigo: "SKU: 28130-5M100", presentacion: "Por definir", desc: "Retención superior de polvo y partículas abrasivas.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-28130.jpg", precios: [ { qty:"1 Decena", val:"135,00", desc:"c/u" }, { qty:"Media Caja", val:"128,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"122,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"116,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"113,00", desc:"c/u", highlight:true } ] },
+            "filtro-28130-5a500": { marca: "OEM / Alternativo", titulo: "Filtro de Aire", codigo: "SKU: 28130-5A500", presentacion: "Por definir", desc: "Asegura una combustión limpia.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-28130-5a.jpg", precios: [ { qty:"1 Decena", val:"152,00", desc:"c/u" }, { qty:"Media Caja", val:"145,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"138,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"132,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"128,00", desc:"c/u", highlight:true } ] },
+            "filtro-28113-c7000": { marca: "OEM / Alternativo", titulo: "Filtro de Aire", codigo: "SKU: 28113-C7000", presentacion: "Por definir", desc: "Asegura una combustión limpia.", compatibilidad: "Hyundai i20, i30. Kia Rio, Sonet, Seltos.", foto: "filtro-28113.jpg", precios: [ { qty:"1 Decena", val:"45,00", desc:"c/u" }, { qty:"Media Caja", val:"42,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"40,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"37,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"35,00", desc:"c/u", highlight:true } ] },
+            "filtro-28113-4e500": { marca: "OEM / Alternativo", titulo: "Filtro de Aire", codigo: "SKU: 28113-4E500", presentacion: "Por definir", desc: "Asegura una combustión limpia.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-28113-4e.jpg", precios: [ { qty:"1 Decena", val:"62,00", desc:"c/u" }, { qty:"Media Caja", val:"58,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"55,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"52,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"49,50", desc:"c/u", highlight:true } ] },
+            "filtro-28113-n9000": { marca: "OEM / Alternativo", titulo: "Filtro de Aire", codigo: "SKU: 28113-N9000", presentacion: "Por definir", desc: "Asegura una combustión limpia.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-28113-n9.jpg", precios: [ { qty:"1 Decena", val:"68,00", desc:"c/u" }, { qty:"Media Caja", val:"64,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"60,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"56,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"54,00", desc:"c/u", highlight:true } ] },
+            "filtro-28113-l1000": { marca: "OEM / Alternativo", titulo: "Filtro de Aire", codigo: "SKU: 28113-L1000", presentacion: "Por definir", desc: "Asegura una combustión limpia.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-28113-l1.jpg", precios: [ { qty:"1 Decena", val:"64,00", desc:"c/u" }, { qty:"Media Caja", val:"60,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"57,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"54,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"51,00", desc:"c/u", highlight:true } ] },
+            "filtro-28113-4h000": { marca: "OEM / Alternativo", titulo: "Filtro de Aire", codigo: "SKU: 28113-4H000", presentacion: "Por definir", desc: "Asegura una combustión limpia.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-28113-4h.jpg", precios: [ { qty:"1 Decena", val:"53,00", desc:"c/u" }, { qty:"Media Caja", val:"50,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"47,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"44,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"42,00", desc:"c/u", highlight:true } ] },
+            "filtro-28113-4f000": { marca: "OEM / Alternativo", titulo: "Filtro de Aire", codigo: "SKU: 28113-4F000", presentacion: "Por definir", desc: "Asegura una combustión limpia.", compatibilidad: "Consulte aplicación exacta.", foto: "filtro-28113-4f.jpg", precios: [ { qty:"1 Decena", val:"68,00", desc:"c/u" }, { qty:"Media Caja", val:"64,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"61,00", desc:"c/u" }, { qty:"3 a 5 Cajas", val:"57,00", desc:"c/u" }, { qty:"6 a 10+ Cajas", val:"54,50", desc:"c/u", highlight:true } ] }
         };
 
         let productoActual = null;
@@ -342,11 +309,19 @@
                 document.getElementById('ui-desc').innerHTML = productoActual.desc;
                 document.getElementById('ui-compatibilidad').innerHTML = productoActual.compatibilidad;
                 
-                // Mapear los precios de los 3 niveles
-                document.getElementById('ui-precio1').innerHTML = productoActual.precio1;
-                document.getElementById('ui-precio2').innerHTML = productoActual.precio2;
-                document.getElementById('ui-precio3').innerHTML = productoActual.precio3;
+                // RENDERIZAR TABLA DE PRECIOS DINÁMICAMENTE
+                let htmlPrecios = '';
+                productoActual.precios.forEach(p => {
+                    htmlPrecios += `
+                    <div class="tier ${p.highlight ? 'highlight' : ''}">
+                        <span class="tier-qty">${p.qty}</span>
+                        <span class="tier-price"><span>S/</span>${p.val}</span>
+                        <span class="tier-unit">${p.desc}</span>
+                    </div>`;
+                });
+                document.getElementById('ui-precios-container').innerHTML = htmlPrecios;
 
+                // FOTOS
                 const img1 = document.getElementById('ui-foto');
                 const img2 = document.getElementById('ui-thumb1');
                 const img3 = document.getElementById('ui-thumb2');
@@ -375,8 +350,8 @@
 
         function enviarPedido() {
             if(!productoActual) return;
-            // El mensaje cotiza en función del número de CAJAS que el cliente seleccionó en el "+"
-            let msj = `¡Buen día LubriBaro! 👨🏽‍🔧\nDeseo cotizar *${cantidadActual} CAJA(S)* de:\n\n*${productoActual.titulo}*\n(${productoActual.codigo})\n\n¿Me confirman disponibilidad y precio para esa cantidad por favor?`;
+            // El mensaje usa "unidad(es) o lote(s)" para dar libertad en el chat
+            let msj = `¡Buen día LubriBaro! 👨🏽‍🔧\nDeseo cotizar *${cantidadActual} unidad(es) / lote(s)* de:\n\n*${productoActual.titulo}*\n(${productoActual.codigo})\n\n¿Me confirman disponibilidad y el precio para mi volumen por favor?`;
             let urlWsp = `https://wa.me/51937229128?text=${encodeURIComponent(msj)}`;
             window.open(urlWsp, '_blank');
         }
