@@ -35,7 +35,7 @@
         .product-sku { color: #888; font-size: 0.85em; margin-bottom: 5px; }
         .product-presentation { color: var(--naranja); font-weight: bold; font-size: 1em; margin-bottom: 20px; background: #fff1e5; padding: 5px 10px; border-radius: 5px; display: inline-block; border: 1px solid #ffd4b3; }
         
-        /* TABLA DINÁMICA DE PRECIOS - CORREGIDA SIN SCROLLBARS */
+        /* TABLA DINÁMICA DE PRECIOS - SIN BARRAS */
         .volume-pricing { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; border-top: 1px solid #eee; padding-top: 20px; padding-bottom: 10px; }
         .tier { flex: 1; min-width: 105px; background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; padding: 12px 5px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
         .tier.highlight { background: #f4ebff; border-color: var(--morado); border-width: 2px; transform: scale(1.05); box-shadow: 0 4px 10px rgba(65, 48, 154, 0.15); z-index: 2; position: relative; }
@@ -51,15 +51,15 @@
         .b2b-icon { font-size: 2.2em; }
         .b2b-text strong { color: var(--naranja); font-size: 1.05em; }
 
-        /* SELECTOR */
+        /* NUEVO SELECTOR B2B */
         .action-row { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .qty-wrapper { display: flex; align-items: center; gap: 10px; }
-        .qty-label { font-weight: bold; color: #666; font-size: 0.9em; text-transform: uppercase; }
-        .qty-selector { display: flex; align-items: center; border: 2px solid #ddd; border-radius: 50px; overflow: hidden; background: white; height: 50px; }
-        .qty-btn { background: none; border: none; font-size: 1.5em; width: 45px; cursor: pointer; color: var(--naranja); font-weight: bold; }
-        .qty-input { width: 40px; text-align: center; border: none; font-size: 1.2em; font-weight: bold; color: var(--gris); outline: none; }
+        .qty-wrapper { display: flex; flex-direction: column; flex: 1; min-width: 200px; gap: 5px; }
+        .qty-label { font-weight: bold; color: #666; font-size: 0.8em; text-transform: uppercase; }
+        .vol-select { border: 2px solid #ddd; border-radius: 8px; background: white; height: 50px; padding: 0 15px; font-size: 0.95em; font-weight: bold; color: var(--gris); outline: none; cursor: pointer; appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF7B1A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 15px center; background-size: 16px; }
+        .vol-select:focus { border-color: var(--naranja); }
         
-        .btn-comprar { flex: 1; background-color: var(--naranja); color: white; border-radius: 50px; font-weight: bold; font-size: 1.1em; display: flex; justify-content: center; align-items: center; gap: 10px; height: 50px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 123, 26, 0.3); text-transform: uppercase; }
+        .btn-comprar { flex: 1; min-width: 200px; background-color: var(--naranja); color: white; border-radius: 8px; font-weight: bold; font-size: 1.1em; display: flex; justify-content: center; align-items: center; gap: 10px; height: 50px; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 123, 26, 0.3); text-transform: uppercase; transition: 0.3s; }
+        .btn-comprar:hover { background-color: #e66a15; }
         
         .stock-status { color: var(--verde-ok); font-weight: bold; font-size: 0.9em; display: flex; align-items: center; gap: 5px; justify-content: center; background: #eef9f7; padding: 10px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #b5e2da;}
         .delivery-box { background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px; }
@@ -105,8 +105,9 @@
         @media (max-width: 768px) { 
             header { flex-direction: column; padding: 15px 5%; } nav.menu { background-color: #f1f1f1; width: 100%; justify-content: center; padding: 10px; border-radius: 5px; gap: 15px; } 
             .gallery-wrapper { flex-direction: column-reverse; } .thumbnails { flex-direction: row; width: 100%; justify-content: center; } .main-image-box { height: 350px; }
-            .product-title { font-size: 1.6em; } .sticky-prod-info { display: none; } .sticky-bar { padding: 15px 5%; }
-            .wa-container { bottom: 90px; }
+            .product-title { font-size: 1.6em; } .sticky-prod-info { display: none; } .sticky-bar { padding: 15px 5%; flex-wrap: wrap; }
+            .sticky-bar .vol-select { width: 100%; margin-bottom: 10px; }
+            .wa-container { bottom: 130px; }
             .tier.highlight { transform: scale(1); border: 2px solid var(--morado); }
         }
     </style>
@@ -150,23 +151,22 @@
                     <!-- Rellenado por JS -->
                 </div>
 
-                <!-- EL NUEVO BANNER PARA ESCONDER EL SÚPER PRECIO -->
+                <!-- BANNER ESTRATÉGICO -->
                 <div class="b2b-banner">
                     <div class="b2b-icon">📦</div>
                     <div class="b2b-text">
                         <strong>¿Buscas abastecer tu almacén?</strong><br>
-                        Contamos con precios especiales y descuentos adicionales para compras a partir de 3 cajas completas. Cotiza por WhatsApp con un asesor.
+                        Contamos con descuentos adicionales para compras a partir de 3 cajas completas. Cotiza por WhatsApp.
                     </div>
                 </div>
 
+                <!-- SELECTOR DESPLEGABLE B2B -->
                 <div class="action-row">
                     <div class="qty-wrapper">
-                        <span class="qty-label">Cantidad:</span>
-                        <div class="qty-selector">
-                            <button class="qty-btn" onclick="cambiarCant(-1)">-</button>
-                            <input type="number" id="input-qty" class="qty-input" value="1" min="1" readonly>
-                            <button class="qty-btn" onclick="cambiarCant(1)">+</button>
-                        </div>
+                        <span class="qty-label">Volumen a cotizar:</span>
+                        <select id="select-volumen" class="vol-select" onchange="syncSelect(this.value)">
+                            <!-- Rellenado por JS según el producto -->
+                        </select>
                     </div>
                     <button class="btn-comprar" onclick="enviarPedido()">Cotizar Stock 📦</button>
                 </div>
@@ -209,12 +209,10 @@
             <img id="sticky-foto" src="" alt="Miniatura">
             <div class="sticky-prod-title" id="sticky-titulo">Producto</div>
         </div>
-        <div class="qty-selector" style="height: 45px;">
-            <button class="qty-btn" onclick="cambiarCant(-1)">-</button>
-            <input type="number" id="sticky-qty" class="qty-input" value="1" readonly>
-            <button class="qty-btn" onclick="cambiarCant(1)">+</button>
-        </div>
-        <button class="btn-comprar" style="height: 45px; padding: 0 30px; font-size: 1.1em;" onclick="enviarPedido()">Cotizar 📦</button>
+        <select id="sticky-volumen" class="vol-select" style="min-width: 200px; max-width: 300px;" onchange="syncSelect(this.value)">
+            <!-- Rellenado por JS -->
+        </select>
+        <button class="btn-comprar" style="height: 50px; padding: 0 30px; font-size: 1.1em; flex: none;" onclick="enviarPedido()">Cotizar 📦</button>
     </div>
 
     <footer>&copy; 2026 LubriBaro. Todos los derechos reservados.</footer>
@@ -253,7 +251,7 @@
             else { stickyBar.classList.remove("visible"); }
         };
 
-        // BASE DE DATOS MAESTRA (MUESTRA SOLO 3 NIVELES ESTRATÉGICAMENTE)
+        // BASE DE DATOS MAESTRA (31 PRODUCTOS)
         const baseDeDatos = {
             // FLUIDOS
             "chevron-atf": { marca: "CHEVRON", titulo: "Aceite Chevron Supreme ATF MD-3", codigo: "SKU: ATF-MD3", presentacion: "Caja de 12 x 1/4 GL", desc: "Máxima protección contra la formación de lacas y lodos. Estabilidad excepcional.", compatibilidad: "Transmisiones Automáticas: Hyundai, Kia, Nissan, Toyota que soliciten DEXRON-III o MERCON.", foto: "chevron.jpg", precios: [ { qty:"1 Caja", val:"290,00", desc:"x Caja" }, { qty:"2 Cajas", val:"285,00", desc:"x Caja", highlight:true } ] },
@@ -304,11 +302,12 @@
         };
 
         let productoActual = null;
-        let cantidadActual = 1;
+        let idProductoGlobal = "";
 
         window.onload = function() {
             const parametros = new URLSearchParams(window.location.search);
-            productoActual = baseDeDatos[parametros.get('id')];
+            idProductoGlobal = parametros.get('id');
+            productoActual = baseDeDatos[idProductoGlobal];
             
             if (productoActual) {
                 document.getElementById('contenido-producto').style.display = 'block';
@@ -322,7 +321,7 @@
                 document.getElementById('ui-desc').innerHTML = productoActual.desc;
                 document.getElementById('ui-compatibilidad').innerHTML = productoActual.compatibilidad;
                 
-                // RENDERIZAR TABLA DE PRECIOS DINÁMICAMENTE
+                // RENDERIZAR TABLA DE PRECIOS
                 let htmlPrecios = '';
                 productoActual.precios.forEach(p => {
                     htmlPrecios += `
@@ -333,6 +332,28 @@
                     </div>`;
                 });
                 document.getElementById('ui-precios-container').innerHTML = htmlPrecios;
+
+                // GENERAR SELECTOR DESPLEGABLE INTELIGENTE
+                let optionsHTML = '';
+                if (idProductoGlobal && idProductoGlobal.startsWith('filtro')) {
+                    optionsHTML = `
+                        <option value="1 Decena (10 unidades)">1 Decena (10 unid.)</option>
+                        <option value="Media Caja (20 unidades)">Media Caja (20 unid.)</option>
+                        <option value="1 Caja Completa" selected>1 Caja Completa</option>
+                        <option value="2 Cajas">2 Cajas</option>
+                        <option value="3 a 5 Cajas (Precio Especial)">3 a 5 Cajas (Precio Especial)</option>
+                        <option value="6 a más Cajas (Mayorista)">6 a más Cajas (Mayorista)</option>
+                    `;
+                } else {
+                    optionsHTML = `
+                        <option value="1 Caja">1 Caja</option>
+                        <option value="2 Cajas" selected>2 Cajas</option>
+                        <option value="3 a 5 Cajas (Precio Especial)">3 a 5 Cajas (Precio Especial)</option>
+                        <option value="6 a más Cajas (Mayorista)">6 a más Cajas (Mayorista)</option>
+                    `;
+                }
+                document.getElementById('select-volumen').innerHTML = optionsHTML;
+                document.getElementById('sticky-volumen').innerHTML = optionsHTML;
 
                 // FOTOS
                 const img1 = document.getElementById('ui-foto');
@@ -354,16 +375,15 @@
 
         function toggleWaPopup() { document.getElementById('wa-popup').classList.toggle('active'); }
 
-        function cambiarCant(valor) {
-            cantidadActual += valor;
-            if(cantidadActual < 1) cantidadActual = 1;
-            document.getElementById('input-qty').value = cantidadActual;
-            document.getElementById('sticky-qty').value = cantidadActual;
+        function syncSelect(valor) {
+            document.getElementById('select-volumen').value = valor;
+            document.getElementById('sticky-volumen').value = valor;
         }
 
         function enviarPedido() {
             if(!productoActual) return;
-            let msj = `¡Buen día LubriBaro! 👨🏽‍🔧\nDeseo cotizar *${cantidadActual} unidad(es) / lote(s)* de:\n\n*${productoActual.titulo}*\n(${productoActual.codigo})\n\n¿Me confirman disponibilidad y el descuento especial por volumen por favor?`;
+            let volumenSeleccionado = document.getElementById('select-volumen').value;
+            let msj = `¡Buen día LubriBaro! 👨🏽‍🔧\nDeseo cotizar *${volumenSeleccionado}* de:\n\n*${productoActual.titulo}*\n(${productoActual.codigo})\n\n¿Me confirman disponibilidad y el precio para este volumen por favor?`;
             let urlWsp = `https://wa.me/51937229128?text=${encodeURIComponent(msj)}`;
             window.open(urlWsp, '_blank');
         }
