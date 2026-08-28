@@ -5,158 +5,316 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LubriBaro B2B - Importador y Distribuidor</title>
     <style>
-        :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F4F6F9; --gris: #333333; --blanco: #ffffff; }
-        * { box-sizing: border-box; } body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); overflow-x: hidden; }
+        :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F4F6F9; --gris: #333333; --oscuro: #111111; --blanco: #ffffff; }
+        * { box-sizing: border-box; } body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--blanco); overflow-x: hidden; }
         
-        /* HEADER Y BUSCADOR */
-        header { background-color: var(--blanco); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 15px; }
-        .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; } .logo span { color: var(--naranja); }
-        .search-bar { display: flex; flex: 1; max-width: 500px; border: 2px solid var(--naranja); border-radius: 5px; overflow: hidden; }
-        .search-bar input { flex: 1; padding: 10px 15px; border: none; outline: none; font-size: 0.95em; }
-        .search-bar button { background: var(--naranja); color: white; border: none; padding: 0 20px; cursor: pointer; font-size: 1.1em; }
-        nav.menu { display: flex; gap: 20px; } nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 0.95rem; } nav.menu a:hover { color: var(--naranja); }
+        /* TOP BAR */
+        .top-bar { background-color: #2A9D8F; color: white; text-align: center; padding: 8px 5%; font-size: 0.85em; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+        .top-bar span { font-style: italic; font-weight: normal; }
+
+        /* HEADER PRINCIPAL */
+        header { background-color: var(--oscuro); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .logo { font-size: 34px; font-weight: 900; color: var(--blanco); text-decoration: none; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; } 
+        .logo span { color: var(--naranja); }
+        
+        /* BUSCADOR FUNCIONAL */
+        .search-form { display: flex; flex: 1; max-width: 600px; background: white; border-radius: 5px; overflow: hidden; height: 45px; }
+        .search-form input { flex: 1; padding: 10px 15px; border: none; outline: none; font-size: 1em; color: var(--gris); }
+        .search-form button { background: var(--naranja); color: white; border: none; padding: 0 25px; cursor: pointer; font-size: 1.2em; font-weight: bold; transition: 0.3s; }
+        .search-form button:hover { background: #e66a15; }
+
+        .header-actions { display: flex; gap: 20px; color: white; align-items: center; }
+        .action-item { display: flex; align-items: center; gap: 8px; font-size: 0.85em; cursor: pointer; }
+        .action-icon { font-size: 1.8em; color: var(--naranja); }
+
+        /* BARRA DE CATEGORÍAS */
+        .cat-nav { background-color: var(--morado); padding: 12px 5%; display: flex; gap: 30px; justify-content: center; border-bottom: 3px solid var(--naranja); overflow-x: auto; white-space: nowrap; }
+        .cat-nav a { text-decoration: none; color: white; font-weight: bold; font-size: 0.9em; text-transform: uppercase; transition: 0.3s; display: flex; align-items: center; gap: 5px; }
+        .cat-nav a:hover { color: var(--naranja); }
+
+        /* BANNER PROVISIONAL */
+        .hero-banner { width: 100%; height: 450px; background: linear-gradient(135deg, #1a1a1a 0%, #333333 50%, var(--naranja) 100%); display: flex; align-items: center; justify-content: center; position: relative; }
+        .hero-content { text-align: center; color: white; z-index: 2; padding: 0 20px; }
+        .hero-content h1 { font-size: 3.5em; margin: 0 0 10px 0; text-transform: uppercase; font-style: italic; line-height: 1.1; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1.5em; margin: 0 0 20px 0; font-weight: bold; }
+        .btn-banner { background: white; color: var(--naranja); padding: 12px 30px; text-decoration: none; font-size: 1.2em; font-weight: bold; border-radius: 50px; text-transform: uppercase; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.3s; display: inline-block; }
+        .btn-banner:hover { transform: scale(1.05); }
+        .banner-placeholder-text { position: absolute; bottom: 20px; right: 20px; font-size: 0.8em; color: rgba(255,255,255,0.6); border: 1px dashed rgba(255,255,255,0.4); padding: 5px 10px; }
 
         /* SECCIONES */
-        .section-container { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
-        .section-title { font-size: 1.8em; color: var(--gris); margin-bottom: 30px; border-left: 5px solid var(--naranja); padding-left: 15px; text-transform: uppercase; }
+        .section-container { padding: 50px 5%; max-width: 1300px; margin: 0 auto; }
+        .section-title { font-size: 1.8em; color: var(--gris); margin-top: 0; margin-bottom: 30px; text-align: center; text-transform: uppercase; font-weight: 900; }
+        .section-title span { color: var(--naranja); }
 
-        /* CATEGORÍAS */
-        .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
-        .cat-card { background: white; border-radius: 8px; padding: 25px; border: 1px solid #eaeaea; text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: space-between; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        /* LÍNEAS DE DISTRIBUCIÓN (GRILLA) */
+        .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .cat-card { background: white; border-radius: 8px; padding: 25px; border: 1px solid #eaeaea; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .cat-card:hover { transform: translateY(-5px); border-color: var(--naranja); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-        .cat-info h3 { margin: 0 0 5px 0; color: var(--gris); text-transform: uppercase; font-size: 1.1em; }
-        .cat-info p { margin: 0 0 15px 0; font-size: 0.85em; color: #888; }
-        .btn-cat { background: var(--naranja); color: white; padding: 8px 15px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; }
-        .cat-icon { font-size: 3em; opacity: 0.8; }
+        .cat-info h3 { margin: 0 0 10px 0; color: var(--gris); text-transform: uppercase; font-size: 1.2em; }
+        .cat-info p { margin: 0 0 20px 0; font-size: 0.85em; color: #888; flex-grow: 1; }
+        .btn-cat { background: var(--naranja); color: white; padding: 10px 15px; border-radius: 5px; font-weight: bold; font-size: 0.9em; text-align: center; display: block; text-transform: uppercase; }
 
         /* PRODUCTOS DESTACADOS */
-        .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .prod-card { background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; }
-        .prod-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: var(--morado); }
-        .prod-img-box { height: 180px; background: #fdfdfd; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; border: 1px solid #f0f0f0; overflow: hidden; }
+        .prod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .prod-card { background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; position: relative; }
+        .prod-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-color: var(--morado); }
+        .prod-badge { position: absolute; top: 15px; left: 15px; background: #E63946; color: white; font-size: 0.7em; font-weight: bold; padding: 5px 10px; border-radius: 4px; text-transform: uppercase; z-index: 2; }
+        .prod-img-box { height: 200px; background: #fdfdfd; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .prod-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; display: none; }
         .prod-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa; font-weight: bold; font-size: 0.9em; background: #f8f9fa; text-align: center; }
-        .prod-title { font-size: 1.05em; margin: 0 0 10px 0; color: var(--morado); text-align: center; font-weight: bold; flex-grow: 1; }
-        .prod-tag { background: #ffe8d6; color: #d65c00; font-size: 0.75em; text-align: center; padding: 4px; border-radius: 4px; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; }
-        .btn-ver { background: var(--naranja); color: white; text-align: center; text-decoration: none; padding: 10px; border-radius: 5px; font-weight: bold; transition: 0.3s; text-transform: uppercase; font-size: 0.9em; }
-        .btn-ver:hover { background: #e66a15; }
+        .prod-title { font-size: 1.1em; margin: 0 0 15px 0; color: var(--gris); text-align: center; font-weight: bold; flex-grow: 1; line-height: 1.3; }
+        .btn-ver { background: var(--morado); color: white; text-align: center; text-decoration: none; padding: 12px; border-radius: 5px; font-weight: bold; transition: 0.3s; text-transform: uppercase; font-size: 0.9em; width: 100%; }
+        .btn-ver:hover { background: var(--naranja); }
 
-        /* FOOTER */
-        footer { background-color: #1a1a1a; color: white; margin-top: 50px; }
-        .footer-payments { background-color: var(--naranja); padding: 20px 5%; text-align: center; font-size: 1.1em; font-weight: bold; display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap; }
-        .payment-logo { height: 40px; border-radius: 5px; border: 2px solid white; object-fit: cover; background: white; }
-        .footer-bottom { background: #000; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #777; }
+        /* FOOTER CORPORATIVO TIPO LUBRIMAS */
+        footer { background-color: #111; color: white; font-size: 0.9em; margin-top: 50px; border-top: 5px solid var(--naranja); }
+        
+        .footer-trust-bar { background-color: #000; padding: 25px 5%; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid #333; }
+        .trust-item { display: flex; align-items: center; gap: 15px; }
+        .trust-icon { font-size: 2em; color: var(--naranja); }
+        .trust-text strong { display: block; font-size: 1.1em; color: white; }
+        .trust-text span { color: #888; font-size: 0.85em; }
 
-        @media (max-width: 768px) { 
-            header { flex-direction: column; } 
-            .search-bar { order: 3; width: 100%; margin-top: 10px; } 
-            nav.menu { order: 2; width: 100%; justify-content: center; background: #f1f1f1; padding: 10px; border-radius: 5px; } 
+        .footer-newsletter { background-color: #1a1a1a; padding: 30px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid #333; }
+        .news-text { display: flex; align-items: center; gap: 15px; }
+        .news-text h3 { margin: 0; color: white; font-size: 1.2em; }
+        .news-text p { margin: 0; color: #888; font-size: 0.9em; }
+        .news-form { display: flex; max-width: 500px; flex: 1; }
+        .news-form input { flex: 1; padding: 12px 15px; border: none; outline: none; border-radius: 4px 0 0 4px; }
+        .news-form button { background: var(--naranja); color: white; border: none; padding: 0 25px; font-weight: bold; cursor: pointer; border-radius: 0 4px 4px 0; }
+
+        .footer-widgets { padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1300px; margin: 0 auto; }
+        .widget-logo h2 { color: var(--blanco); font-size: 2em; margin: 0 0 20px 0; letter-spacing: -1px; }
+        .widget-logo span { color: var(--naranja); }
+        .widget h4 { color: white; font-size: 1.1em; margin: 0 0 20px 0; border-bottom: 2px solid var(--naranja); padding-bottom: 10px; display: inline-block; }
+        .widget p, .widget a { color: #aaa; text-decoration: none; line-height: 1.8; display: block; margin-bottom: 10px; transition: 0.3s; }
+        .widget a:hover { color: var(--naranja); padding-left: 5px; }
+        .widget-contact-item { display: flex; gap: 10px; margin-bottom: 15px; align-items: flex-start; }
+        .widget-contact-icon { color: var(--naranja); font-size: 1.2em; }
+
+        .footer-bottom { background: #000; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #555; }
+
+        @media (max-width: 900px) { 
+            header { flex-direction: column; text-align: center; } 
+            .search-form { width: 100%; max-width: 100%; order: 3; margin-top: 10px; } 
+            .header-actions { order: 2; width: 100%; justify-content: center; }
+            .hero-content h1 { font-size: 2.5em; }
+            .footer-trust-bar { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
 
+    <!-- BARRA SUPERIOR (ANUNCIO) -->
+    <div class="top-bar">
+        🚚 Despachos a nivel nacional por agencia | <span>Atención exclusiva para talleres y lubricentros</span>
+    </div>
+
+    <!-- HEADER PRINCIPAL OSCURO (TIPO LUBRIMAS) -->
     <header>
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
-        <div class="search-bar">
-            <input type="text" placeholder="¿Qué repuesto o lubricante buscas?">
-            <button>🔍</button>
+        
+        <!-- BUSCADOR FUNCIONAL (Redirige a catalogo.html) -->
+        <form action="catalogo.html" method="GET" class="search-form">
+            <input type="text" name="q" placeholder="¿Qué filtro o lubricante buscas? (Ej. 26300-35505)">
+            <button type="submit">🔍</button>
+        </form>
+
+        <div class="header-actions">
+            <div class="action-item">
+                <div class="action-icon">📍</div>
+                <div><strong>Envíos</strong><br><span style="color:#aaa; font-size:0.9em;">Todo el Perú</span></div>
+            </div>
+            <div class="action-item" onclick="window.open('https://wa.me/51937229128', '_blank')">
+                <div class="action-icon">💬</div>
+                <div><strong>Asesoría</strong><br><span style="color:#aaa; font-size:0.9em;">Vía WhatsApp</span></div>
+            </div>
         </div>
-        <nav class="menu"><a href="index.html" style="color: var(--naranja);">Inicio</a><a href="catalogo.html">Catálogo</a><a href="nosotros.html">Nosotros</a></nav>
     </header>
 
+    <!-- BARRA DE CATEGORÍAS -->
+    <nav class="cat-nav">
+        <a href="cat-aceite.html">🛢️ Filtros de Aceite</a>
+        <a href="cat-aire.html">🌬️ Filtros de Aire</a>
+        <a href="cat-combustible.html">⛽ Filtros Combustible</a>
+        <a href="cat-fluidos.html">💧 Fluidos Originales</a>
+    </nav>
+
+    <!-- BANNER PROVISIONAL B2B -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1>Expertos en <br><span style="color: var(--naranja);">Filtros OEM</span></h1>
+            <p>Importación directa y precios mayoristas para tu taller.</p>
+            <a href="catalogo.html" class="btn-banner">Ver Catálogo Completo ➔</a>
+        </div>
+        <div class="banner-placeholder-text">[ Espacio provisional para tu Banner Oficial 1920x600 ]</div>
+    </section>
+
+    <!-- SECCIÓN: LÍNEAS DE DISTRIBUCIÓN -->
     <section class="section-container">
-        <h2 class="section-title">Líneas de Distribución</h2>
+        <h2 class="section-title">Nuestras <span>Líneas</span></h2>
         <div class="cat-grid">
             <a href="cat-aceite.html" class="cat-card">
                 <div class="cat-info">
                     <h3>Filtros de Aceite</h3>
-                    <p>Metálicos y tipo elemento</p>
-                    <span class="btn-cat">Ver categoría</span>
+                    <p>Amplio stock en filtros metálicos y tipo elemento originales.</p>
                 </div>
-                <div class="cat-icon">🛢️</div>
+                <span class="btn-cat">Ver Categoría</span>
             </a>
             <a href="cat-combustible.html" class="cat-card">
                 <div class="cat-info">
-                    <h3>Filtros Combustible</h3>
-                    <p>Protección inyección CRDI</p>
-                    <span class="btn-cat">Ver categoría</span>
+                    <h3>Filtros de Combustible</h3>
+                    <p>Máxima protección para sistemas de inyección CRDI y gasolina.</p>
                 </div>
-                <div class="cat-icon">⛽</div>
+                <span class="btn-cat">Ver Categoría</span>
             </a>
             <a href="cat-aire.html" class="cat-card">
                 <div class="cat-info">
                     <h3>Filtros de Aire</h3>
-                    <p>Admisión de motor</p>
-                    <span class="btn-cat">Ver categoría</span>
+                    <p>Retención superior de partículas para el cuidado del motor.</p>
                 </div>
-                <div class="cat-icon">🌬️</div>
+                <span class="btn-cat">Ver Categoría</span>
             </a>
             <a href="cat-fluidos.html" class="cat-card">
                 <div class="cat-info">
                     <h3>Fluidos Originales</h3>
-                    <p>Lubricantes y Refrigerantes</p>
-                    <span class="btn-cat">Ver categoría</span>
+                    <p>Refrigerantes y lubricantes de transmisión por caja cerrada.</p>
                 </div>
-                <div class="cat-icon">💧</div>
+                <span class="btn-cat">Ver Categoría</span>
             </a>
         </div>
     </section>
 
-    <section class="section-container" style="padding-top: 0;">
-        <h2 class="section-title">Productos Destacados</h2>
+    <!-- SECCIÓN: LOS FILTROS MÁS SOLICITADOS -->
+    <section class="section-container" style="padding-top: 0; padding-bottom: 80px;">
+        <h2 class="section-title">¡Los filtros más <span>solicitados!</span></h2>
         <div class="prod-grid">
             
-            <!-- PRODUCTO 1: CHEVRON ATF -->
+            <!-- PRODUCTO 1 -->
             <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="chevron.jpg" alt="Chevron Supreme ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto Referencial ]</div>
-                </div>
-                <h4 class="prod-title">Chevron Supreme ATF MD-3</h4>
-                <div class="prod-tag">Fluidos Originales</div>
-                <a href="producto.html?id=chevron-atf" class="btn-ver">Ver Producto</a>
-            </div>
-
-            <!-- PRODUCTO 2: EFEOS -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="efeos.jpg" alt="Refrigerante EFEOS" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto Referencial ]</div>
-                </div>
-                <h4 class="prod-title">Refrigerante EFEOS 50/50</h4>
-                <div class="prod-tag">¡Alta Rotación!</div>
-                <a href="producto.html?id=efeos-5050" class="btn-ver">Ver Producto</a>
-            </div>
-
-            <!-- PRODUCTO 3: FILTRO 26300 -->
-            <div class="prod-card">
+                <div class="prod-badge">Hyundai / Kia</div>
                 <div class="prod-img-box">
                     <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="prod-fallback">[ Foto Referencial ]</div>
                 </div>
-                <h4 class="prod-title">Filtro Aceite 26300-35505</h4>
-                <div class="prod-tag">Hyundai / Kia</div>
+                <h4 class="prod-title">Filtro de Aceite (Metálico) <br><span style="color:#888; font-size:0.85em;">26300-35505</span></h4>
                 <a href="producto.html?id=filtro-26300-35505" class="btn-ver">Ver Producto</a>
             </div>
 
-            <!-- PRODUCTO 4: FILTRO 26320 -->
+            <!-- PRODUCTO 2 -->
             <div class="prod-card">
+                <div class="prod-badge">Hyundai Staria</div>
                 <div class="prod-img-box">
                     <img src="filtro-26320.jpg" alt="Filtro 26320-2F100" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="prod-fallback">[ Foto Referencial ]</div>
                 </div>
-                <h4 class="prod-title">Filtro Aceite 26320-2F100</h4>
-                <div class="prod-tag">Tipo Elemento</div>
+                <h4 class="prod-title">Filtro de Aceite (Elemento) <br><span style="color:#888; font-size:0.85em;">26320-2F100</span></h4>
                 <a href="producto.html?id=filtro-26320-2f100" class="btn-ver">Ver Producto</a>
+            </div>
+
+            <!-- PRODUCTO 3 -->
+            <div class="prod-card">
+                <div class="prod-badge">Alta Presión</div>
+                <div class="prod-img-box">
+                    <img src="filtro-31922.jpg" alt="Filtro 31922-2E900" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto Referencial ]</div>
+                </div>
+                <h4 class="prod-title">Filtro Combustible OEM <br><span style="color:#888; font-size:0.85em;">31922-2E900</span></h4>
+                <a href="producto.html?id=filtro-31922-2e900" class="btn-ver">Ver Producto</a>
+            </div>
+
+            <!-- PRODUCTO 4 -->
+            <div class="prod-card">
+                <div class="prod-badge">Caja x 12</div>
+                <div class="prod-img-box">
+                    <img src="chevron.jpg" alt="Chevron ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto Referencial ]</div>
+                </div>
+                <h4 class="prod-title">Aceite Chevron Supreme <br><span style="color:#888; font-size:0.85em;">ATF MD-3</span></h4>
+                <a href="producto.html?id=chevron-atf" class="btn-ver">Ver Producto</a>
             </div>
 
         </div>
     </section>
 
+    <!-- FOOTER CORPORATIVO (ESTILO LUBRIMAS) -->
     <footer>
-        <div class="footer-payments">Medios de Pago Aceptados: <img src="yape.png" alt="Yape" class="payment-logo"> <img src="bcp.png" alt="BCP" class="payment-logo"></div>
-        <div class="footer-bottom">&copy; 2026 LubriBaro. Todos los derechos reservados. Distribución exclusiva para talleres.</div>
+        <!-- Barra de Confianza -->
+        <div class="footer-trust-bar">
+            <div class="trust-item">
+                <div class="trust-icon">🚚</div>
+                <div class="trust-text"><strong>Envíos Nacionales</strong><span>Por agencia de carga terrestre</span></div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">✅</div>
+                <div class="trust-text"><strong>100% Originales</strong><span>Repuestos garantizados</span></div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">👨🏽‍🔧</div>
+                <div class="trust-text"><strong>Asistencia B2B</strong><span>Atención directa para talleres</span></div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-icon">📦</div>
+                <div class="trust-text"><strong>Stock Mayorista</strong><span>Precios especiales por volumen</span></div>
+            </div>
+        </div>
+
+        <!-- Barra de Suscripción -->
+        <div class="footer-newsletter">
+            <div class="news-text">
+                <div style="font-size: 2em;">📩</div>
+                <div>
+                    <h3>Suscríbete a nuestro boletín</h3>
+                    <p>Recibe nuestro catálogo y ofertas exclusivas directamente en tu WhatsApp o Correo.</p>
+                </div>
+            </div>
+            <div class="news-form">
+                <input type="text" placeholder="Ingresa tu correo electrónico o celular">
+                <button>Suscribirse</button>
+            </div>
+        </div>
+
+        <!-- Columnas del Footer -->
+        <div class="footer-widgets">
+            <div class="widget widget-logo">
+                <h2>Lubri<span>Baro</span></h2>
+                <p>Tu socio estratégico en repuestos y lubricantes. Importación directa y distribución mayorista a nivel nacional, enfocados en el crecimiento de tu taller.</p>
+            </div>
+            
+            <div class="widget">
+                <h4>Atención al Cliente</h4>
+                <div class="widget-contact-item">
+                    <div class="widget-contact-icon">📍</div>
+                    <div><strong>Almacén Principal:</strong><br><span style="color:#aaa;">Lima, Perú</span></div>
+                </div>
+                <div class="widget-contact-item">
+                    <div class="widget-contact-icon">📞</div>
+                    <div><strong>Ventas Mayoristas:</strong><br><span style="color:#aaa;">+51 937 229 128</span></div>
+                </div>
+                <div class="widget-contact-item">
+                    <div class="widget-contact-icon">✉️</div>
+                    <div><strong>Correo:</strong><br><span style="color:#aaa;">ventas@lubribaro.com</span></div>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h4>Enlaces Rápidos</h4>
+                <a href="index.html">➔ Inicio</a>
+                <a href="catalogo.html">➔ Catálogo Completo</a>
+                <a href="nosotros.html">➔ Sobre Nosotros</a>
+                <a href="#">➔ Políticas de Envío</a>
+            </div>
+
+            <div class="widget">
+                <h4>Atención Rápida</h4>
+                <p>De Lunes a Sábado<br>8:00 AM - 6:00 PM</p>
+                <a href="https://wa.me/51937229128" target="_blank" style="display:inline-block; margin-top:10px; background:#25D366; color:white; padding:10px 15px; border-radius:5px; font-weight:bold;">Cotizar por WhatsApp</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2026 LubriBaro B2B. Todos los derechos reservados.
+        </div>
     </footer>
 
 </body>
