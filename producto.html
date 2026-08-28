@@ -35,9 +35,9 @@
         .product-sku { color: #888; font-size: 0.85em; margin-bottom: 5px; }
         .product-presentation { color: var(--naranja); font-weight: bold; font-size: 1em; margin-bottom: 20px; background: #fff1e5; padding: 5px 10px; border-radius: 5px; display: inline-block; border: 1px solid #ffd4b3; }
         
-        /* TABLA DINÁMICA DE PRECIOS (SOLO 3 NIVELES) */
-        .volume-pricing { display: flex; gap: 10px; margin-bottom: 15px; border-top: 1px solid #eee; padding-top: 20px; overflow-x: auto; scroll-snap-type: x mandatory; }
-        .tier { flex: 1; min-width: 105px; background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; padding: 12px 5px; text-align: center; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; }
+        /* TABLA DINÁMICA DE PRECIOS - CORREGIDA SIN SCROLLBARS */
+        .volume-pricing { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; border-top: 1px solid #eee; padding-top: 20px; padding-bottom: 10px; }
+        .tier { flex: 1; min-width: 105px; background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; padding: 12px 5px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
         .tier.highlight { background: #f4ebff; border-color: var(--morado); border-width: 2px; transform: scale(1.05); box-shadow: 0 4px 10px rgba(65, 48, 154, 0.15); z-index: 2; position: relative; }
         .tier-qty { display: block; font-size: 0.75em; color: #666; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; line-height: 1.1; }
         .tier.highlight .tier-qty { color: var(--morado); }
@@ -107,7 +107,6 @@
             .gallery-wrapper { flex-direction: column-reverse; } .thumbnails { flex-direction: row; width: 100%; justify-content: center; } .main-image-box { height: 350px; }
             .product-title { font-size: 1.6em; } .sticky-prod-info { display: none; } .sticky-bar { padding: 15px 5%; }
             .wa-container { bottom: 90px; }
-            .volume-pricing { padding-bottom: 10px; }
             .tier.highlight { transform: scale(1); border: 2px solid var(--morado); }
         }
     </style>
