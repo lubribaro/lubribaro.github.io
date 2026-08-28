@@ -34,8 +34,8 @@
         .prod-card { background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; }
         .prod-card:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: var(--morado); }
         .prod-img-box { height: 180px; background: #fdfdfd; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; border: 1px solid #f0f0f0; overflow: hidden; }
-        .prod-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; }
-        .prod-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa; font-weight: bold; font-size: 0.9em; background: #f8f9fa; }
+        .prod-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; display: none; }
+        .prod-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa; font-weight: bold; font-size: 0.9em; background: #f8f9fa; text-align: center; }
         .prod-title { font-size: 1.05em; margin: 0 0 10px 0; color: var(--morado); text-align: center; font-weight: bold; flex-grow: 1; }
         .prod-tag { background: #ffe8d6; color: #d65c00; font-size: 0.75em; text-align: center; padding: 4px; border-radius: 4px; margin-bottom: 15px; font-weight: bold; text-transform: uppercase; }
         .btn-ver { background: var(--naranja); color: white; text-align: center; text-decoration: none; padding: 10px; border-radius: 5px; font-weight: bold; transition: 0.3s; text-transform: uppercase; font-size: 0.9em; }
@@ -110,8 +110,8 @@
             <!-- PRODUCTO 1: CHEVRON ATF -->
             <div class="prod-card">
                 <div class="prod-img-box">
-                    <img src="chevron.jpg" alt="Chevron Supreme ATF" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback" style="display:none;">[ Foto Referencial ]</div>
+                    <img src="chevron.jpg" alt="Chevron Supreme ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto Referencial ]</div>
                 </div>
                 <h4 class="prod-title">Chevron Supreme ATF MD-3</h4>
                 <div class="prod-tag">Fluidos Originales</div>
@@ -121,8 +121,8 @@
             <!-- PRODUCTO 2: EFEOS -->
             <div class="prod-card">
                 <div class="prod-img-box">
-                    <img src="efeos.jpg" alt="Refrigerante EFEOS" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback" style="display:none;">[ Foto Referencial ]</div>
+                    <img src="efeos.jpg" alt="Refrigerante EFEOS" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto Referencial ]</div>
                 </div>
                 <h4 class="prod-title">Refrigerante EFEOS 50/50</h4>
                 <div class="prod-tag">¡Alta Rotación!</div>
@@ -132,8 +132,8 @@
             <!-- PRODUCTO 3: FILTRO 26300 -->
             <div class="prod-card">
                 <div class="prod-img-box">
-                    <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback" style="display:none;">[ Foto Referencial ]</div>
+                    <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto Referencial ]</div>
                 </div>
                 <h4 class="prod-title">Filtro Aceite 26300-35505</h4>
                 <div class="prod-tag">Hyundai / Kia</div>
@@ -143,8 +143,8 @@
             <!-- PRODUCTO 4: FILTRO 26320 -->
             <div class="prod-card">
                 <div class="prod-img-box">
-                    <img src="filtro-26320.jpg" alt="Filtro 26320-2F100" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback" style="display:none;">[ Foto Referencial ]</div>
+                    <img src="filtro-26320.jpg" alt="Filtro 26320-2F100" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto Referencial ]</div>
                 </div>
                 <h4 class="prod-title">Filtro Aceite 26320-2F100</h4>
                 <div class="prod-tag">Tipo Elemento</div>
