@@ -25,7 +25,6 @@
 
         .product-details { flex: 1; min-width: 350px; background: white; padding: 30px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.02); }
         .brand-logo-name { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; color: var(--morado); font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
-        .oem-tag { background: #ffe8d6; color: #d65c00; font-size: 0.8em; padding: 4px 10px; border-radius: 5px; font-weight: bold; display: none; border: 1px solid #ffd4b3; }
         
         .product-title { font-size: 1.8em; margin: 0 0 5px 0; color: var(--gris); line-height: 1.2; text-transform: uppercase; }
         .product-sku { color: #888; font-size: 0.85em; margin-bottom: 5px; }
@@ -55,15 +54,10 @@
         .delivery-item { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; font-size: 0.85em; color: #555; }
         .delivery-icon { background: #e0f2e9; color: var(--verde-ok); min-width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; }
 
-        /* SELLOS DE CONFIANZA */
-        .trust-badges { display: flex; gap: 10px; margin-top: 15px; }
-        .badge { flex: 1; background: #fff; border: 1px dashed #ddd; border-radius: 8px; padding: 10px 5px; text-align: center; font-size: 0.7em; color: #666; font-weight: bold; line-height: 1.3; }
-        .badge-icon { font-size: 1.8em; margin-bottom: 5px; display: block; }
-
         /* TABS Y TABLA TÉCNICA */
         .tabs-container { max-width: 1200px; margin: 0 auto 30px auto; padding: 0 5%; }
         .tabs-header { display: flex; border-bottom: 2px solid #ddd; gap: 10px; flex-wrap: wrap; }
-        .tab-btn { background: none; border: none; padding: 15px 30px; font-size: 1em; font-weight: bold; color: #888; cursor: pointer; border-bottom: 4px solid transparent; margin-bottom: -2px; }
+        .tab-btn { background: none; border: none; padding: 15px 30px; font-size: 1em; font-weight: bold; color: #888; cursor: pointer; border-bottom: 4px solid transparent; margin-bottom: -2px; text-transform: uppercase; }
         .tab-btn.active { color: var(--naranja); border-bottom-color: var(--naranja); }
         .tab-content { background: white; padding: 30px; border: 1px solid #eaeaea; border-top: none; border-radius: 0 0 12px 12px; color: #555; display: none; }
         .tab-content.active { display: block; }
@@ -145,7 +139,6 @@
             <div class="product-details">
                 <div class="brand-logo-name">
                     <span id="ui-marca">MARCA</span>
-                    <span id="ui-equivalencia" class="oem-tag">Reemplaza a: LYS</span>
                 </div>
                 <h1 class="product-title" id="ui-titulo">Título del Producto</h1>
                 <div class="product-sku" id="ui-codigo">SKU: N/A</div>
@@ -169,13 +162,6 @@
                 <div class="delivery-box">
                     <div class="delivery-item"><div class="delivery-icon">🛵</div><div><strong>Lima Metropolitana:</strong><br>Despacho a taller (Contra Entrega o Crédito).</div></div>
                     <div class="delivery-item"><div class="delivery-icon">🚚</div><div><strong>Envíos a Provincia:</strong><br>Vía transporte de carga terrestre pesada (Ej. Sanky) o agencia sugerida por el cliente.</div></div>
-                </div>
-
-                <!-- SELLOS DE CONFIANZA -->
-                <div class="trust-badges">
-                    <div class="badge"><span class="badge-icon">✅</span>100% Originales y Certificados</div>
-                    <div class="badge"><span class="badge-icon">🛡️</span>Garantía de Importador</div>
-                    <div class="badge"><span class="badge-icon">💼</span>Atención Exclusiva Talleres</div>
                 </div>
             </div>
         </section>
@@ -209,7 +195,7 @@
                 <h3 class="faq-title">Preguntas Frecuentes (FAQ)</h3>
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div class="faq-q">¿Por qué elegir a LubriBaro? <span>▼</span></div>
-                    <div class="faq-a">Contamos con amplia experiencia en importación directa, ofreciendo repuestos 100% originales e importados de alta rotación. Nuestro trabajo está respaldado por la preferencia de cientos de clientes y talleres satisfechos a nivel nacional.</div>
+                    <div class="faq-a">Contamos con más de 5 años de experiencia en el rubro de importación directa, ofreciendo repuestos 100% originales e importados de alta rotación. Nuestro trabajo está respaldado por la preferencia de cientos de clientes y talleres satisfechos a nivel nacional.</div>
                 </div>
                 <div class="faq-item" onclick="toggleFaq(this)">
                     <div class="faq-q">¿Cómo envían los pedidos de gran volumen a provincia? <span>▼</span></div>
@@ -282,21 +268,14 @@
         };
 
         const baseDeDatos = {
+            // *** REEMPLAZA CON TU LISTA COMPLETA DE 31 PRODUCTOS AQUÍ ***
             "chevron-atf": { marca: "CHEVRON", titulo: "Chevron Supreme ATF MD-3", codigo: "SKU: ATF-MD3", presentacion: "Caja de 12 x 1/4 GL", desc: "Máxima protección contra la formación de lacas. Estabilidad excepcional.", compatibilidad: "Transmisiones Automáticas Hyundai, Kia que soliciten DEXRON-III.", foto: "chevron.jpg", tipo: "Fluido Transmisión", pdf: "#", precios: [ { qty:"1 Caja", val:"290,00", desc:"x Caja" }, { qty:"2 Cajas", val:"285,00", desc:"x Caja", highlight:true } ] },
             "efeos-5050": { marca: "EFEOS", titulo: "Refrigerante EFEOS 50/50", codigo: "SKU: EF-5050", presentacion: "Caja de 3 Galoneras", desc: "Fórmula lista para usar de larga vida. Previene sobrecalentamiento.", compatibilidad: "Flotas de Hyundai, Kia y vehículos asiáticos.", foto: "efeos.jpg", tipo: "Refrigerante", pdf: "#", precios: [ { qty:"1 Caja", val:"120,00", desc:"x Caja" }, { qty:"2 Cajas", val:"115,00", desc:"x Caja", highlight:true } ] },
             
             "filtro-31922-2e900": { marca: "OEM", titulo: "Filtro Combustible 31922-2E900", codigo: "SKU: 31922-2E900", presentacion: "Por definir", desc: "Filtro para inyección de alta presión.", compatibilidad: "Consulte aplicación.", foto: "filtro-31922.jpg", tipo: "Filtro Combustible", precios: [ { qty:"1 Decena", val:"72,00", desc:"c/u" }, { qty:"Media Caja", val:"68,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"65,00", desc:"c/u", highlight:true } ] },
             
-            "filtro-26330-4a001": { marca: "Hyundai", titulo: "Filtro Aceite 26330-4A001", codigo: "SKU: 26330-4A001", presentacion: "Caja 20x1 unid.", oem: "LYS LF604A", desc: "Elemento filtrante de alta capacidad.", compatibilidad: "Motor diesel.", foto: "filtro-26330.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"33,00", desc:"c/u" }, { qty:"Media Caja", val:"31,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"29,00", desc:"c/u", highlight:true } ] },
-            "filtro-26300-35505": { marca: "HYUNDAI", titulo: "Filtro Aceite 26300-35505", codigo: "SKU: 26300-35505", presentacion: "Caja 40x1 unid.", oem: "LYS 360", desc: "Alta rotación.", compatibilidad: "Aplicación estándar.", foto: "filtro-26300.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"16,50", desc:"c/u" }, { qty:"Media Caja", val:"15,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"14,50", desc:"c/u", highlight:true } ] },
-            "filtro-0k87a-14317": { marca: "Hyundai", titulo: "Filtro Aceite 0K87A-14317", codigo: "SKU: 0K87A-14317", presentacion: "Caja 16x1 unid.", oem: "Sakura C1735", desc: "Filtrado profundo.", compatibilidad: "Motor diesel HD120.", foto: "filtro-0k87a.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"88,00", desc:"c/u" }, { qty:"Media Caja", val:"83,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"79,00", desc:"c/u", highlight:true } ] },
-            "filtro-26316-41000": { marca: "HYUNDAI", titulo: "Filtro Aceite 26316-41000", codigo: "SKU: 26316-41000", presentacion: "Por definir", oem: "LYS LF833N", desc: "Reemplazo exacto.", compatibilidad: "Migthy 1994-2000.", foto: "filtro-26316.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"19,00", desc:"c/u" }, { qty:"Media Caja", val:"17,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"16,50", desc:"c/u", highlight:true } ] },
-            "filtro-26325-52003": { marca: "Hyundai", titulo: "Filtro Aceite 26325-52003", codigo: "SKU: 26325-52003", presentacion: "Caja 40x1 unid.", oem: "26311-52001, 26325-52000", desc: "Tipo cartucho.", compatibilidad: "Migthy/HD38/HD78.", foto: "filtro-26325.jpg", tipo: "Filtro de Aceite (Elemento)", precios: [ { qty:"1 Decena", val:"79,00", desc:"c/u" }, { qty:"Media Caja", val:"75,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"72,00", desc:"c/u", highlight:true } ] },
-            "filtro-16510-m68k20": { marca: "Suzuki", titulo: "Filtro Aceite 16510-M68K20", codigo: "SKU: 16510-M68K20", presentacion: "Caja 24x1 unid.", oem: "LYS 3001, LYS 3010", desc: "Elemento blindado.", compatibilidad: "Celerio, Gran Nomade, Swift.", foto: "filtro-16510.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"110,00", desc:"c/u" }, { qty:"Media Caja", val:"105,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"97,50", desc:"c/u", highlight:true } ] },
-            
-            "filtro-26320-2f100": { marca: "Hyundai", titulo: "Filtro Aceite 26320-2F100", codigo: "SKU: 26320-2F100", presentacion: "Caja 50x1 unid.", desc: "Elemento original.", compatibilidad: "Staria.", foto: "filtro-26320.jpg", tipo: "Filtro de Aceite (Elemento)", precios: [ { qty:"1 Decena", val:"28,50", desc:"c/u" }, { qty:"Media Caja", val:"26,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"25,00", desc:"c/u", highlight:true } ] },
-            "filtro-28113-c7000": { marca: "OEM", titulo: "Filtro Aire 28113-C7000", codigo: "SKU: 28113-C7000", presentacion: "Por definir", desc: "Retención superior.", compatibilidad: "Hyundai i20, Kia Rio.", foto: "filtro-28113.jpg", tipo: "Filtro de Aire", precios: [ { qty:"1 Decena", val:"45,00", desc:"c/u" }, { qty:"Media Caja", val:"42,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"40,00", desc:"c/u", highlight:true } ] }
-            // Nota: Para no saturar el código, aquí debes pegar el resto de la base de datos de los 31 productos tal cual la tenías arriba, agregando su "tipo" y "oem" si corresponde.
+            "filtro-26330-4a001": { marca: "Hyundai", titulo: "Filtro Aceite 26330-4A001", codigo: "SKU: 26330-4A001", presentacion: "Caja 20x1 unid.", desc: "Elemento filtrante de alta capacidad. Equivalencia: LYS LF604A.", compatibilidad: "Motor diesel.", foto: "filtro-26330.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"33,00", desc:"c/u" }, { qty:"Media Caja", val:"31,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"29,00", desc:"c/u", highlight:true } ] },
+            "filtro-26300-35505": { marca: "HYUNDAI", titulo: "Filtro Aceite 26300-35505", codigo: "SKU: 26300-35505", presentacion: "Caja 40x1 unid.", desc: "Alta rotación. Equivalencia: LYS 360.", compatibilidad: "Aplicación estándar.", foto: "filtro-26300.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"16,50", desc:"c/u" }, { qty:"Media Caja", val:"15,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"14,50", desc:"c/u", highlight:true } ] }
         };
 
         let productoActual = null;
@@ -317,13 +296,6 @@
                 document.getElementById('ui-compatibilidad').innerHTML = productoActual.compatibilidad;
                 document.getElementById('ui-tb-tipo').innerHTML = productoActual.tipo;
                 
-                // Mostrar Tag OEM si existe
-                if (productoActual.oem) {
-                    let oemTag = document.getElementById('ui-equivalencia');
-                    oemTag.innerHTML = "Reemplaza a: " + productoActual.oem;
-                    oemTag.style.display = "inline-block";
-                }
-
                 // Mostrar Botón PDF si existe
                 if (productoActual.pdf) {
                     document.getElementById('ui-pdf').style.display = "block";
