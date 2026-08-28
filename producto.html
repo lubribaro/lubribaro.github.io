@@ -14,10 +14,10 @@
         nav.menu { display: flex; gap: 20px; } nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 0.95rem; } nav.menu a:hover { color: var(--naranja); }
         .breadcrumbs { padding: 15px 5%; font-size: 0.85em; color: #888; max-width: 1200px; margin: 0 auto; text-transform: uppercase; } .breadcrumbs a { color: var(--morado); text-decoration: none; font-weight: bold; }
 
-        /* CONTENEDOR PRINCIPAL TIPO LUBRIMAS */
+        /* CONTENEDOR PRINCIPAL */
         .product-container { display: flex; flex-wrap: wrap; padding: 0 5% 30px 5%; max-width: 1200px; margin: 0 auto; gap: 30px; align-items: flex-start; }
         
-        /* GALERÍA DE IMÁGENES (IZQUIERDA) */
+        /* GALERÍA DE IMÁGENES */
         .gallery-wrapper { flex: 1; min-width: 320px; display: flex; gap: 15px; }
         .thumbnails { display: flex; flex-direction: column; gap: 10px; width: 80px; }
         .thumb-box { width: 100%; height: 80px; border: 2px solid #eaeaea; border-radius: 8px; cursor: pointer; background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: 0.3s; }
@@ -28,33 +28,36 @@
         .zoom-icon { position: absolute; bottom: 15px; right: 15px; font-size: 1.5em; color: #aaa; cursor: pointer; }
         .placeholder-text { color: #aaa; font-weight: bold; font-size: 1em; text-align: center; }
 
-        /* DETALLES DE COMPRA (DERECHA) */
+        /* DETALLES DE COMPRA */
         .product-details { flex: 1; min-width: 350px; background: white; padding: 30px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.02); }
         .brand-logo-name { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: var(--morado); font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
-        .brand-logo-name img { height: 25px; }
         .product-title { font-size: 2em; margin: 0 0 5px 0; color: var(--gris); line-height: 1.2; text-transform: uppercase; }
-        .product-sku { color: #888; font-size: 0.85em; margin-bottom: 20px; }
+        .product-sku { color: #888; font-size: 0.85em; margin-bottom: 5px; }
+        .product-presentation { color: var(--naranja); font-weight: bold; font-size: 1em; margin-bottom: 20px; background: #fff1e5; padding: 5px 10px; border-radius: 5px; display: inline-block; border: 1px solid #ffd4b3; }
         
-        /* BLOQUE DE PRECIOS */
-        .price-box { border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 0; margin-bottom: 20px; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .price-regular-label { color: #888; font-size: 0.9em; }
-        .price-regular-val { color: #888; text-decoration: line-through; font-size: 1.1em; }
-        .price-offer-label { color: var(--morado); font-weight: bold; font-size: 1.1em; display: flex; align-items: center; gap: 8px; }
-        .price-offer-val { color: var(--rojo-oferta); font-weight: 900; font-size: 1.8em; }
-        .discount-tag { background-color: var(--rojo-oferta); color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.4em; vertical-align: middle; margin-left: 5px; }
+        /* TABLA B2B: PRECIOS POR VOLUMEN */
+        .volume-pricing { display: flex; gap: 10px; margin-bottom: 25px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 0; }
+        .tier { flex: 1; background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px 10px; text-align: center; }
+        .tier.highlight { background: #f4ebff; border-color: var(--morado); transform: scale(1.05); box-shadow: 0 4px 10px rgba(65, 48, 154, 0.15); z-index: 2; position: relative; }
+        .tier-qty { display: block; font-size: 0.8em; color: #666; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
+        .tier.highlight .tier-qty { color: var(--morado); }
+        .tier-price { display: block; font-size: 1.4em; color: var(--gris); font-weight: 900; }
+        .tier.highlight .tier-price { color: var(--rojo-oferta); font-size: 1.6em; }
+        .tier-unit { display: block; font-size: 0.75em; color: #888; margin-top: 5px; }
 
         /* SELECTOR DE CANTIDAD Y BOTÓN */
         .action-row { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .qty-wrapper { display: flex; align-items: center; gap: 10px; }
+        .qty-label { font-weight: bold; color: #666; font-size: 0.9em; text-transform: uppercase; }
         .qty-selector { display: flex; align-items: center; border: 2px solid #ddd; border-radius: 50px; overflow: hidden; background: white; height: 50px; }
         .qty-btn { background: none; border: none; font-size: 1.5em; width: 45px; cursor: pointer; color: var(--naranja); font-weight: bold; }
         .qty-btn:hover { background: #f8f9fa; }
         .qty-input { width: 40px; text-align: center; border: none; font-size: 1.2em; font-weight: bold; color: var(--gris); outline: none; }
         
-        .btn-comprar { flex: 1; background-color: var(--naranja); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.3em; display: flex; justify-content: center; align-items: center; gap: 10px; height: 50px; transition: 0.3s; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 123, 26, 0.3); }
+        .btn-comprar { flex: 1; background-color: var(--naranja); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; display: flex; justify-content: center; align-items: center; gap: 10px; height: 50px; transition: 0.3s; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 123, 26, 0.3); text-transform: uppercase; }
         .btn-comprar:hover { background-color: #e66a15; transform: translateY(-2px); }
         
-        .stock-status { color: var(--verde-ok); font-weight: bold; font-size: 0.9em; display: flex; align-items: center; gap: 5px; justify-content: center; background: #eef9f7; padding: 10px; border-radius: 8px; margin-bottom: 20px; }
+        .stock-status { color: var(--verde-ok); font-weight: bold; font-size: 0.9em; display: flex; align-items: center; gap: 5px; justify-content: center; background: #eef9f7; padding: 10px; border-radius: 8px; margin-bottom: 20px; border: 1px dashed #b5e2da;}
 
         /* CAJA DE MÉTODOS DE ENTREGA */
         .delivery-box { background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px; }
@@ -72,7 +75,7 @@
         .tab-content h3 { color: var(--morado); margin-top: 0; font-size: 1.3em; text-transform: uppercase; border-left: 4px solid var(--naranja); padding-left: 10px; }
         .tab-content ul { padding-left: 20px; }
 
-        /* STICKY BOTTOM BAR (BARRA FLOTANTE LUBRIMAS) */
+        /* STICKY BOTTOM BAR */
         .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); padding: 10px 5%; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 999; transform: translateY(100%); transition: transform 0.4s ease; border-top: 2px solid var(--naranja); }
         .sticky-bar.visible { transform: translateY(0); }
         .sticky-prod-info { display: flex; align-items: center; gap: 15px; flex: 1; max-width: 600px; }
@@ -103,6 +106,8 @@
             .gallery-wrapper { flex-direction: column-reverse; } .thumbnails { flex-direction: row; width: 100%; justify-content: center; } .main-image-box { height: 350px; }
             .product-title { font-size: 1.6em; } .sticky-prod-info { display: none; } .sticky-bar { padding: 15px 5%; }
             .wa-container { bottom: 90px; }
+            .volume-pricing { flex-direction: column; }
+            .tier.highlight { transform: scale(1); border-left: 5px solid var(--morado); border-right: 5px solid var(--morado); }
         }
     </style>
 </head>
@@ -118,13 +123,11 @@
     <div id="contenido-producto">
         <div class="breadcrumbs"><a href="index.html">Inicio</a> &rsaquo; <a href="catalogo.html">Catálogo</a> &rsaquo; <span id="bread-nombre" style="color:var(--gris);"></span></div>
 
-        <!-- SECCIÓN SUPERIOR: FOTOS Y PRECIOS -->
         <section class="product-container">
             
             <!-- GALERÍA -->
             <div class="gallery-wrapper">
                 <div class="thumbnails">
-                    <!-- Miniaturas estáticas que aparentan una galería real -->
                     <div class="thumb-box active"><img id="ui-thumb1" src="" alt="Thumb"></div>
                     <div class="thumb-box"><img id="ui-thumb2" src="" alt="Thumb"></div>
                 </div>
@@ -135,76 +138,84 @@
                 </div>
             </div>
 
-            <!-- DETALLES Y COMPRA -->
+            <!-- DETALLES Y COMPRA B2B -->
             <div class="product-details">
                 <div class="brand-logo-name" id="ui-marca">MARCA</div>
                 <h1 class="product-title" id="ui-titulo">Título del Producto</h1>
                 <div class="product-sku" id="ui-codigo">SKU: N/A</div>
                 
-                <div class="price-box">
-                    <div class="price-row">
-                        <span class="price-regular-label">Precio Regular</span>
-                        <span class="price-regular-val" id="ui-precio-reg">S/ 0.00</span>
+                <!-- PRESENTACIÓN (Vital para B2B) -->
+                <div class="product-presentation" id="ui-presentacion">Caja x XX unidades</div>
+                
+                <div class="stock-status">✔️ Producto Disponible para Despacho</div>
+
+                <!-- TABLA DE PRECIOS POR VOLUMEN -->
+                <div class="volume-pricing">
+                    <div class="tier">
+                        <span class="tier-qty">1 Caja</span>
+                        <span class="tier-price" id="ui-precio1">S/ 0.00</span>
+                        <span class="tier-unit">Precio por unidad (Inc. IGV)</span>
                     </div>
-                    <div class="price-row">
-                        <span class="price-offer-label">💳 Pagos Yape/Transferencia</span>
-                        <div>
-                            <span class="price-offer-val" id="ui-precio-of">S/ 0.00</span>
-                            <span class="discount-tag">OFERTA</span>
-                        </div>
+                    <div class="tier highlight">
+                        <span class="tier-qty">4 a 9 Cajas</span>
+                        <span class="tier-price" id="ui-precio2">S/ 0.00</span>
+                        <span class="tier-unit">Precio por unidad (Inc. IGV)</span>
+                    </div>
+                    <div class="tier">
+                        <span class="tier-qty">10 a más Cajas</span>
+                        <span class="tier-price" id="ui-precio3">S/ 0.00</span>
+                        <span class="tier-unit">Precio por unidad (Inc. IGV)</span>
                     </div>
                 </div>
 
-                <div class="stock-status">✔️ Producto Disponible en Almacén</div>
-
-                <!-- SELECTOR DE CANTIDAD Y COMPRAR -->
+                <!-- SELECTOR DE CANTIDAD Y BOTÓN COTIZAR -->
                 <div class="action-row">
-                    <div class="qty-selector">
-                        <button class="qty-btn" onclick="cambiarCant(-1)">-</button>
-                        <input type="number" id="input-qty" class="qty-input" value="1" min="1" readonly>
-                        <button class="qty-btn" onclick="cambiarCant(1)">+</button>
+                    <div class="qty-wrapper">
+                        <span class="qty-label">Cajas:</span>
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="cambiarCant(-1)">-</button>
+                            <input type="number" id="input-qty" class="qty-input" value="1" min="1" readonly>
+                            <button class="qty-btn" onclick="cambiarCant(1)">+</button>
+                        </div>
                     </div>
-                    <button class="btn-comprar" onclick="enviarPedido()">Comprar 🛒</button>
+                    <button class="btn-comprar" onclick="enviarPedido()">Cotizar Stock 📦</button>
                 </div>
 
                 <!-- MÉTODOS DE ENTREGA -->
                 <div class="delivery-box">
-                    <div class="delivery-title">Métodos de Entrega Disponibles:</div>
+                    <div class="delivery-title">Métodos de Entrega Exclusivo Talleres:</div>
                     <div class="delivery-item">
                         <div class="delivery-icon">🛵</div>
-                        <div><strong>Lima Metropolitana:</strong><br>Despacho directo al taller (Pago Contra Entrega).</div>
+                        <div><strong>Lima Metropolitana:</strong><br>Despacho directo a tu taller (Pago Contra Entrega o Crédito).</div>
                     </div>
                     <div class="delivery-item">
                         <div class="delivery-icon">📦</div>
-                        <div><strong>Envíos a Provincia:</strong><br>Por agencia Shalom / Marvisur (Previa transferencia).</div>
+                        <div><strong>Envíos a Provincia:</strong><br>Shalom / Marvisur u otras agencias (Previa transferencia).</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PESTAÑAS DE INFORMACIÓN (TABS) -->
+        <!-- PESTAÑAS (TABS) -->
         <div class="tabs-container">
             <div class="tabs-header">
-                <button class="tab-btn active" onclick="abrirTab(event, 'tab-desc')">DESCRIPCIÓN</button>
-                <button class="tab-btn" onclick="abrirTab(event, 'tab-espec')">COMPATIBILIDAD</button>
+                <button class="tab-btn active" onclick="abrirTab(event, 'tab-desc')">BENEFICIOS DEL PRODUCTO</button>
+                <button class="tab-btn" onclick="abrirTab(event, 'tab-espec')">VEHÍCULOS COMPATIBLES</button>
             </div>
             
             <div id="tab-desc" class="tab-content active">
-                <h3>Beneficios para tu Taller</h3>
+                <h3>Detalle Comercial</h3>
                 <p id="ui-desc">Aquí va la descripción del producto.</p>
-                <p>✔ Garantiza la satisfacción de tus clientes utilizando repuestos y fluidos de calidad comprobada.<br>
-                   ✔ Evita reclamos y retornos al taller por filtros de dudosa procedencia.<br>
-                   ✔ Maximiza el rendimiento del motor y protege los sistemas vitales del vehículo.</p>
             </div>
             
             <div id="tab-espec" class="tab-content">
-                <h3>Aplicación Comercial</h3>
+                <h3>Aplicación</h3>
                 <div id="ui-compatibilidad">Aquí va la lista de compatibilidad.</div>
             </div>
         </div>
     </div>
 
-    <!-- BARRA FLOTANTE DE COMPRA (STICKY BAR) -->
+    <!-- STICKY BOTTOM BAR -->
     <div id="sticky-bar" class="sticky-bar">
         <div class="sticky-prod-info">
             <img id="sticky-foto" src="" alt="Miniatura">
@@ -215,7 +226,7 @@
             <input type="number" id="sticky-qty" class="qty-input" value="1" readonly>
             <button class="qty-btn" onclick="cambiarCant(1)">+</button>
         </div>
-        <button class="btn-comprar" style="height: 45px; padding: 0 30px;" onclick="enviarPedido()">Comprar 🛒</button>
+        <button class="btn-comprar" style="height: 45px; padding: 0 30px; font-size: 1.1em;" onclick="enviarPedido()">Cotizar 📦</button>
     </div>
 
     <footer>&copy; 2026 LubriBaro. Todos los derechos reservados.</footer>
@@ -225,13 +236,13 @@
         <div id="wa-popup" class="wa-popup">
             <div class="wa-popup-header">
                 <div class="wa-popup-close" onclick="toggleWaPopup()">✕</div>
-                <div class="wa-popup-title">Ventas Online</div>
-                <div class="wa-popup-subtitle">Respondemos al instante ⚡</div>
+                <div class="wa-popup-title">Ventas Mayoristas</div>
+                <div class="wa-popup-subtitle">Atención exclusiva para talleres ⚡</div>
             </div>
             <div class="wa-popup-body">
                 <div onclick="enviarPedido()" class="wa-contact-card" style="cursor:pointer;">
                     <div class="wa-contact-icon">👨🏽‍🔧</div>
-                    <div class="wa-contact-info"><span class="wa-name">Cotizar este producto</span><span class="wa-status"><span class="wa-dot"></span> Disponible</span></div>
+                    <div class="wa-contact-info"><span class="wa-name">Cotizar este lote</span><span class="wa-status"><span class="wa-dot"></span> Online</span></div>
                 </div>
             </div>
         </div>
@@ -239,7 +250,6 @@
     </div>
 
     <script>
-        // CONTROL DE PESTAÑAS (TABS)
         function abrirTab(evt, tabId) {
             let contents = document.getElementsByClassName("tab-content");
             for (let i = 0; i < contents.length; i++) { contents[i].classList.remove("active"); }
@@ -249,27 +259,68 @@
             evt.currentTarget.classList.add("active");
         }
 
-        // CONTROL DE LA BARRA FLOTANTE (STICKY BAR)
         window.onscroll = function() {
             let stickyBar = document.getElementById("sticky-bar");
             if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
                 stickyBar.classList.add("visible");
-            } else {
-                stickyBar.classList.remove("visible");
-            }
+            } else { stickyBar.classList.remove("visible"); }
         };
 
-        // BASE DE DATOS MEJORADA (AHORA CON PRECIOS PARA EL ANCLAJE VISUAL)
+        // BASE DE DATOS B2B (Datos extraídos de tu tabla de Einer)
         const baseDeDatos = {
-            "chevron-atf": { marca: "CHEVRON", titulo: "Aceite Chevron Supreme ATF MD-3 para Transmisión", codigo: "Presentación: Cuarto (946ml) | Caja x 12", precioReg: "S/ 25.00", precioOf: "S/ 22.00", desc: "El lubricante Chevron Supreme ATF proporciona protección contra la formación de lacas, lodo y depósitos. Su estabilidad excepcional asegura un desempeño silencioso en la transmisión.", compatibilidad: "<strong>Transmisiones Automáticas:</strong> Hyundai, Kia, Nissan, Toyota que soliciten DEXRON-III o MERCON.", foto: "chevron.jpg" },
-            "efeos-5050": { marca: "EFEOS", titulo: "Refrigerante Anticongelante EFEOS 50/50 Larga Vida", codigo: "Presentación: Galón (3.78L)", precioReg: "S/ 45.00", precioOf: "S/ 38.00", desc: "Refrigerante formulado listo para usar. Protege todos los metales del sistema de enfriamiento, previniendo el sobrecalentamiento y la corrosión.", compatibilidad: "<strong>Motores:</strong> Excelente para flotas de Hyundai, Kia y vehículos asiáticos en general.", foto: "efeos.jpg" },
-            "filtro-26300-35505": { marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original (Metálico)", codigo: "SKU: 26300-35505", precioReg: "S/ 28.00", precioOf: "S/ 24.00", desc: "Filtro de aceite 100% genuino de concesionario. Garantiza el flujo exacto de aceite y la máxima retención de impurezas para proteger el motor de tus clientes.", compatibilidad: "<strong>Hyundai:</strong> Accent, Elantra, Tucson, Santa Fe.<br><strong>Kia:</strong> Rio, Cerato, Sportage, Sorento.", foto: "filtro-26300.jpg" },
-            "filtro-26330-4A001": { marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original para Trabajo Pesado", codigo: "SKU: 26330-4A001", precioReg: "S/ 48.00", precioOf: "S/ 42.00", desc: "Filtro blindado original diseñado específicamente para motores diésel de vehículos comerciales y de carga ligera.", compatibilidad: "<strong>Hyundai:</strong> H1, Grand Starex, Porter.<br><strong>Kia:</strong> K2500, Bongo.", foto: "filtro-26330.jpg" },
-            "filtro-26320-2F100": { marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original Tipo Elemento", codigo: "SKU: 26320-2F100", precioReg: "S/ 35.00", precioOf: "S/ 30.00", desc: "Cartucho de aceite original que incluye los sellos O-ring de fábrica para evitar fugas y pérdida de presión.", compatibilidad: "<strong>Motores Diésel CRDI:</strong> Hyundai Santa Fe, Tucson. Kia Sorento, Sportage.", foto: "filtro-26320.jpg" },
-            "filtro-26350-2M000": { marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original Tipo Elemento", codigo: "SKU: 26350-2M000", precioReg: "S/ 32.00", precioOf: "S/ 28.00", desc: "Elemento filtrante ecológico original. Diseño plisado de alta densidad para máxima vida útil del lubricante sintético.", compatibilidad: "<strong>Hyundai:</strong> Creta, Elantra (Nuevas generaciones).<br><strong>Kia:</strong> Seltos, Cerato.", foto: "filtro-26350.jpg" },
-            "filtro-28113-C7000": { marca: "HYUNDAI MOBIS", titulo: "Filtro de Aire de Motor Original", codigo: "SKU: 28113-C7000", precioReg: "S/ 40.00", precioOf: "S/ 35.00", desc: "Filtro de aire genuino. Evita que el polvo y partículas abrasivas ingresen a la cámara de combustión, manteniendo el consumo de combustible en niveles óptimos.", compatibilidad: "<strong>Hyundai:</strong> i20, i30.<br><strong>Kia:</strong> Rio, Sonet, Seltos.", foto: "filtro-28113.jpg" },
-            "filtro-31922-2E900": { marca: "HYUNDAI MOBIS", titulo: "Filtro de Combustible Original Diésel", codigo: "SKU: 31922-2E900", precioReg: "S/ 95.00", precioOf: "S/ 85.00", desc: "Protección crítica para inyectores CRDI. Separa el agua y retiene micropartículas del combustible peruano.", compatibilidad: "<strong>Hyundai:</strong> Tucson, Elantra, Santa Fe.<br><strong>Kia:</strong> Sportage, Cerato (Versiones Diésel).", foto: "filtro-31922.jpg" },
-            "filtro-31922-4H900": { marca: "HYUNDAI MOBIS", titulo: "Filtro de Combustible Original (Trampa de Agua)", codigo: "SKU: 31922-4H900", precioReg: "S/ 110.00", precioOf: "S/ 98.00", desc: "Filtro original de alta capacidad de filtrado para vehículos comerciales. Vital para evitar costosas reparaciones en la bomba de inyección.", compatibilidad: "<strong>Hyundai:</strong> H1, Grand Starex.<br><strong>Kia:</strong> K2500, Bongo, Porter.", foto: "filtro-31922-4h.jpg" }
+            "chevron-atf": { 
+                marca: "CHEVRON", titulo: "Aceite Chevron Supreme ATF MD-3 para Transmisión", codigo: "SKU: ATF-MD3", presentacion: "Caja de 12 x 1/4 GL",
+                precio1: "S/ 25.00", precio2: "S/ 23.00", precio3: "S/ 21.00", 
+                desc: "Máxima protección contra la formación de lacas y lodos. Estabilidad excepcional para un desempeño silencioso en la transmisión.", 
+                compatibilidad: "<strong>Transmisiones Automáticas:</strong> Hyundai, Kia, Nissan, Toyota que soliciten DEXRON-III o MERCON.", foto: "chevron.jpg" 
+            },
+            "efeos-5050": { 
+                marca: "EFEOS", titulo: "Refrigerante Anticongelante EFEOS 50/50 Larga Vida", codigo: "SKU: EF-5050", presentacion: "Caja de 3 Galoneras",
+                precio1: "S/ 40.00", precio2: "S/ 38.00", precio3: "S/ 35.00", 
+                desc: "Fórmula lista para usar de larga vida. Previene el sobrecalentamiento y protege todos los metales del sistema contra la corrosión severa.", 
+                compatibilidad: "<strong>Motores:</strong> Excelente para flotas de Hyundai, Kia y vehículos asiáticos en general.", foto: "efeos.jpg" 
+            },
+            "filtro-26300-35505": { 
+                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original (Metálico)", codigo: "SKU: 26300-35505", presentacion: "Caja x 40 unid.",
+                precio1: "S/ 14.50", precio2: "S/ 13.50", precio3: "S/ 12.50", 
+                desc: "Filtro original que garantiza el flujo exacto de lubricante y máxima retención de impurezas en motores Hyundai/Kia.", 
+                compatibilidad: "<strong>Hyundai:</strong> Accent, Elantra, Tucson, Santa Fe.<br><strong>Kia:</strong> Rio, Cerato, Sportage, Sorento.", foto: "filtro-26300.jpg" 
+            },
+            "filtro-26330-4A001": { 
+                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original para Trabajo Pesado", codigo: "SKU: 26330-4A001", presentacion: "Caja x 20 unid.",
+                precio1: "S/ 29.00", precio2: "S/ 26.50", precio3: "S/ 25.50", 
+                desc: "Diseño blindado y reforzado, ideal para flotas comerciales y vehículos diésel sometidos a rutas exigentes.", 
+                compatibilidad: "<strong>Hyundai:</strong> H1, Grand Starex, Porter.<br><strong>Kia:</strong> K2500, Bongo.", foto: "filtro-26330.jpg" 
+            },
+            "filtro-26320-2F100": { 
+                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original Tipo Elemento", codigo: "SKU: 26320-2F100", presentacion: "Caja x 50 unid.",
+                precio1: "S/ 25.00", precio2: "S/ 23.00", precio3: "S/ 22.00", 
+                desc: "Incluye sellos O-ring originales de fábrica para un ajuste perfecto, evitando fugas y pérdida de presión en motores CRDI.", 
+                compatibilidad: "<strong>Motores Diésel CRDI:</strong> Hyundai Santa Fe, Tucson. Kia Sorento, Sportage.", foto: "filtro-26320.jpg" 
+            },
+            "filtro-26350-2M000": { 
+                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aceite Original Tipo Elemento", codigo: "SKU: 26350-2M000", presentacion: "Caja x 40 unid.",
+                precio1: "S/ 33.50", precio2: "S/ 30.50", precio3: "S/ 29.00", 
+                desc: "Diseño plisado de alta densidad, diseñado para soportar intervalos extendidos con aceites 100% sintéticos.", 
+                compatibilidad: "<strong>Hyundai:</strong> Creta, Elantra (Nuevas generaciones).<br><strong>Kia:</strong> Seltos, Cerato.", foto: "filtro-26350.jpg" 
+            },
+            "filtro-28113-C7000": { 
+                marca: "HYUNDAI MOBIS", titulo: "Filtro de Aire de Motor Original", codigo: "SKU: 28113-C7000", presentacion: "Caja x 20 unid.",
+                precio1: "S/ 45.00", precio2: "S/ 42.00", precio3: "S/ 39.00", 
+                desc: "Retención superior de polvo y partículas abrasivas, asegurando una combustión limpia y manteniendo el rendimiento de combustible del vehículo.", 
+                compatibilidad: "<strong>Hyundai:</strong> i20, i30.<br><strong>Kia:</strong> Rio, Sonet, Seltos.", foto: "filtro-28113.jpg" 
+            },
+            "filtro-31922-2E900": { 
+                marca: "HYUNDAI MOBIS", titulo: "Filtro de Combustible Original Diésel", codigo: "SKU: 31922-2E900", presentacion: "Caja x 20 unid.",
+                precio1: "S/ 65.00", precio2: "S/ 62.00", precio3: "S/ 59.00", 
+                desc: "Separación eficiente de agua y micropartículas. Protección crítica para prolongar la vida útil de los inyectores y la bomba.", 
+                compatibilidad: "<strong>Hyundai:</strong> Tucson, Elantra, Santa Fe.<br><strong>Kia:</strong> Sportage, Cerato (Versiones Diésel).", foto: "filtro-31922.jpg" 
+            },
+            "filtro-31922-4H900": { 
+                marca: "HYUNDAI MOBIS", titulo: "Filtro de Combustible Original (Trampa de Agua)", codigo: "SKU: 31922-4H900", presentacion: "Caja x 20 unid.",
+                precio1: "S/ 70.00", precio2: "S/ 67.00", precio3: "S/ 64.00", 
+                desc: "Alta capacidad de filtrado para vehículos comerciales H1 y K2500, vital para evitar reparaciones costosas en el sistema de inyección.", 
+                compatibilidad: "<strong>Hyundai:</strong> H1, Grand Starex.<br><strong>Kia:</strong> K2500, Bongo, Porter.", foto: "filtro-31922-4h.jpg" }
         };
 
         let productoActual = null;
@@ -282,20 +333,20 @@
             if (productoActual) {
                 document.getElementById('contenido-producto').style.display = 'block';
                 
-                // Textos
                 document.getElementById('bread-nombre').innerHTML = productoActual.titulo;
                 document.getElementById('ui-marca').innerHTML = "⚙️ " + productoActual.marca;
                 document.getElementById('ui-titulo').innerHTML = productoActual.titulo;
                 document.getElementById('sticky-titulo').innerHTML = productoActual.titulo;
                 document.getElementById('ui-codigo').innerHTML = productoActual.codigo;
+                document.getElementById('ui-presentacion').innerHTML = "Presentación: " + productoActual.presentacion;
                 document.getElementById('ui-desc').innerHTML = productoActual.desc;
                 document.getElementById('ui-compatibilidad').innerHTML = productoActual.compatibilidad;
                 
-                // Precios
-                document.getElementById('ui-precio-reg').innerHTML = productoActual.precioReg;
-                document.getElementById('ui-precio-of').innerHTML = productoActual.precioOf;
+                // Mapear los precios de los 3 niveles
+                document.getElementById('ui-precio1').innerHTML = productoActual.precio1;
+                document.getElementById('ui-precio2').innerHTML = productoActual.precio2;
+                document.getElementById('ui-precio3').innerHTML = productoActual.precio3;
 
-                // Imágenes
                 const img1 = document.getElementById('ui-foto');
                 const img2 = document.getElementById('ui-thumb1');
                 const img3 = document.getElementById('ui-thumb2');
@@ -310,14 +361,11 @@
                 img1.onerror = function() {
                     document.getElementById('nombre-foto').innerHTML = productoActual.foto;
                 };
-            } else { 
-                document.getElementById('error-producto').style.display = 'block'; 
-            }
+            } else { document.getElementById('error-producto').style.display = 'block'; }
         };
 
         function toggleWaPopup() { document.getElementById('wa-popup').classList.toggle('active'); }
 
-        // SINCRONIZAR CANTIDAD ENTRE LA PÁGINA Y LA BARRA FLOTANTE
         function cambiarCant(valor) {
             cantidadActual += valor;
             if(cantidadActual < 1) cantidadActual = 1;
@@ -325,11 +373,10 @@
             document.getElementById('sticky-qty').value = cantidadActual;
         }
 
-        // GENERAR MENSAJE INTELIGENTE DE WHATSAPP
         function enviarPedido() {
             if(!productoActual) return;
-            // El mensaje se adapta a la cantidad elegida
-            let msj = `¡Buen día LubriBaro! 👨🏽‍🔧\nDeseo comprar *${cantidadActual} unidad(es)* de:\n\n*${productoActual.titulo}*\n(${productoActual.codigo})\n\n¿Me confirman disponibilidad por favor?`;
+            // El mensaje cotiza en función del número de CAJAS que el cliente seleccionó en el "+"
+            let msj = `¡Buen día LubriBaro! 👨🏽‍🔧\nDeseo cotizar *${cantidadActual} CAJA(S)* de:\n\n*${productoActual.titulo}*\n(${productoActual.codigo})\n\n¿Me confirman disponibilidad y precio para esa cantidad por favor?`;
             let urlWsp = `https://wa.me/51937229128?text=${encodeURIComponent(msj)}`;
             window.open(urlWsp, '_blank');
         }
