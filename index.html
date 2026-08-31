@@ -63,7 +63,7 @@
         .brands-strip img:hover { filter: grayscale(0%); opacity: 1; }
         .brand-placeholder { font-weight: bold; color: #aaa; border: 1px dashed #ccc; padding: 10px 20px; border-radius: 5px; font-size: 0.9em; }
 
-        /* CARRUSEL ASIMÉTRICO (LOS MÁS SOLICITADOS) */
+        /* CARRUSEL ASIMÉTRICO */
         .carousel-section { background: white; padding: 60px 5%; display: flex; gap: 30px; align-items: center; max-width: 1400px; margin: 0 auto; overflow: hidden; position: relative; }
         .carousel-title-col { flex: 0 0 250px; border-left: 5px solid var(--naranja); padding-left: 20px; }
         .carousel-title-col h2 { font-size: 2.2em; color: var(--gris); margin: 0 0 15px 0; line-height: 1.1; font-weight: 300; }
@@ -121,16 +121,27 @@
         .widget a:hover { color: white; padding-left: 5px; }
         .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* WIDGET WHATSAPP FLOTANTE Y PANEL */
-        @keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        /* =========================================
+           WIDGET WHATSAPP ANIMADO (LATIDO FÍSICO) 
+           ========================================= */
+        @keyframes pulse-wa {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); }
+            15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); }
+            30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
         .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
+        
         .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
         .wa-popup.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        
         .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 20px; position: relative; border-bottom: 4px solid var(--naranja); }
         .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; font-weight: bold; line-height: 1; transition: 0.3s; }
         .wa-popup-close:hover { color: var(--naranja); }
         .wa-popup-title { font-size: 1.2em; font-weight: bold; margin-bottom: 5px; } 
         .wa-popup-subtitle { font-size: 0.85em; opacity: 0.9; }
+        
         .wa-popup-body { padding: 20px; }
         .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eaeaea; transition: 0.3s; }
         .wa-contact-card:hover { border-color: var(--naranja); background: #fff4ed; }
@@ -140,7 +151,8 @@
         .wa-name { font-weight: bold; font-size: 1em; color: var(--morado); }
         .wa-status { font-size: 0.8em; color: #666; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
         .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; }
-        .wa-trigger { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: pulse-wa 2s infinite; transition: 0.3s; }
+        
+        .wa-trigger { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: pulse-wa 2.5s infinite; transition: 0.3s; }
         .wa-trigger:hover { transform: scale(1.05); animation: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6); }
         .wa-trigger svg { width: 35px; height: 35px; fill: white; }
 
@@ -161,7 +173,7 @@
         Más de 5 años de experiencia | <span>Envíos seguros a todo el Perú</span>
     </div>
 
-    <!-- HEADER PRINCIPAL (SIN BUSCADOR) -->
+    <!-- HEADER PRINCIPAL -->
     <header>
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
 
@@ -179,24 +191,24 @@
         </div>
     </header>
 
-    <!-- BARRA DE CATEGORÍAS (ÍCONOS VECTORIALES A MEDIDA) -->
+    <!-- BARRA DE CATEGORÍAS -->
     <nav class="cat-nav">
-        <!-- Filtros de Aceite (Gota) -->
+        <!-- Filtros de Aceite -->
         <a href="cat-aceite.html">
             <svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 0 1-7-7c0-3.6 4.3-8.8 6.4-11.1a.8.8 0 0 1 1.2 0C14.7 5.2 19 10.4 19 14a7 7 0 0 1-7 7z"/></svg>
             Filtros de Aceite
         </a>
-        <!-- Filtros de Aire (Viento) -->
+        <!-- Filtros de Aire -->
         <a href="cat-aire.html">
             <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"><path d="M4 12h12a3 3 0 0 0 0-6h-2M4 16h8a2 2 0 0 0 0-4H9M4 8h5a2 2 0 0 1 0 4"/></svg>
             Filtros de Aire
         </a>
-        <!-- Filtros Combustible (Pistola Gasolinera) -->
+        <!-- Filtros Combustible -->
         <a href="cat-combustible.html">
             <svg viewBox="0 0 24 24"><path d="M4 5v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zm3 0h6v4H7V5zm11 11h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2v10z"/></svg>
             Filtros Combustible
         </a>
-        <!-- Fluidos Automotrices (Auto con Gota) -->
+        <!-- Fluidos Automotrices -->
         <a href="cat-fluidos.html">
             <svg viewBox="0 0 24 24">
                 <path d="M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.7 0-1.2.4-1.4 1L3 12v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6zM6.8 7h10.3l1.1 3H5.8l1-3zM19 17H5v-5h14v5z" fill="var(--morado)"/>
@@ -256,7 +268,7 @@
         </div>
     </section>
 
-    <!-- FRANJA DE MARCAS (SIN COMPETENCIA) -->
+    <!-- FRANJA DE MARCAS -->
     <div class="brands-strip">
         <div class="brand-placeholder">Logo HYUNDAI</div>
         <div class="brand-placeholder">Logo KIA</div>
@@ -265,7 +277,7 @@
         <div class="brand-placeholder">Logo SUZUKI</div>
     </div>
 
-    <!-- CARRUSEL ASIMÉTRICO (LOS MÁS SOLICITADOS) -->
+    <!-- CARRUSEL ASIMÉTRICO -->
     <section class="carousel-section">
         <div class="carousel-title-col">
             <h2>¡Los<br><strong>productos más solicitados</strong><br>aquí!</h2>
@@ -277,7 +289,6 @@
         
         <div class="carousel-wrapper">
             <div class="carousel-container" id="prod-carousel">
-                <!-- PRODUCTO 1: FILTRO 26300 -->
                 <div class="prod-card">
                     <div class="prod-img-box">
                         <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -287,7 +298,6 @@
                     <a href="producto.html?id=filtro-26300-35505" class="btn-ver">Ver Detalles</a>
                 </div>
 
-                <!-- PRODUCTO 2: CHEVRON ATF (A MITAD DE CARRUSEL) -->
                 <div class="prod-card">
                     <div class="prod-img-box">
                         <img src="chevron.jpg" alt="Chevron ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -297,7 +307,6 @@
                     <a href="producto.html?id=chevron-atf" class="btn-ver">Ver Detalles</a>
                 </div>
 
-                <!-- PRODUCTO 3: FILTRO 26320 -->
                 <div class="prod-card">
                     <div class="prod-img-box">
                         <img src="filtro-26320.jpg" alt="Filtro 26320-2F100" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -307,7 +316,6 @@
                     <a href="producto.html?id=filtro-26320-2f100" class="btn-ver">Ver Detalles</a>
                 </div>
 
-                <!-- PRODUCTO 4: FILTRO 31922 -->
                 <div class="prod-card">
                     <div class="prod-img-box">
                         <img src="filtro-31922.jpg" alt="Filtro Combustible 31922-2E900" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -317,7 +325,6 @@
                     <a href="producto.html?id=filtro-31922-2e900" class="btn-ver">Ver Detalles</a>
                 </div>
 
-                <!-- PRODUCTO 5: FILTRO 28113 -->
                 <div class="prod-card">
                     <div class="prod-img-box">
                         <img src="filtro-28113.jpg" alt="Filtro Aire 28113-C7000" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -327,7 +334,6 @@
                     <a href="producto.html?id=filtro-28113-c7000" class="btn-ver">Ver Detalles</a>
                 </div>
                 
-                <!-- PRODUCTO 6: FILTRO 26330 -->
                 <div class="prod-card">
                     <div class="prod-img-box">
                         <img src="filtro-26330.jpg" alt="Filtro Aceite 26330-4A001" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -346,19 +352,16 @@
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-number">1</div>
-                <!-- Ícono Documento / Cotización SVG -->
                 <svg class="step-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
                 <h4>Cotiza tu volumen con un asesor especializado</h4>
             </div>
             <div class="step-card">
                 <div class="step-number">2</div>
-                <!-- Ícono Camión SVG -->
                 <svg class="step-icon" viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
                 <h4>Tu pedido se prepara y envía a nivel nacional</h4>
             </div>
             <div class="step-card">
                 <div class="step-number">3</div>
-                <!-- Ícono Caja Recibida SVG -->
                 <svg class="step-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
                 <h4>Recibes el stock completo en tu taller</h4>
             </div>
@@ -435,13 +438,12 @@
             </div>
         </div>
         
-        <!-- Botón que late (Trigger) -->
+        <!-- Botón que late -->
         <div class="wa-trigger" onclick="toggleWaPopup()">
             <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
         </div>
     </div>
 
-    <!-- SCRIPT DE CARRUSEL Y WIDGET -->
     <script>
         function toggleWaPopup() {
             document.getElementById('wa-popup').classList.toggle('active');
@@ -449,7 +451,7 @@
 
         function scrollCarousel(direction) {
             const container = document.getElementById('prod-carousel');
-            const scrollAmount = 270; // 250px ancho + 20px gap
+            const scrollAmount = 270;
             container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }
     </script>
