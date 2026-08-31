@@ -13,27 +13,26 @@
         .top-bar { background-color: var(--morado); color: white; text-align: center; padding: 10px 5%; font-size: 0.85em; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
         .top-bar span { font-style: italic; font-weight: normal; color: #d0c8ff; }
 
-        /* HEADER PRINCIPAL */
+        /* HEADER PRINCIPAL (SIN BUSCADOR) */
         header { background-color: var(--blanco); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; } 
         .logo span { color: var(--naranja); }
         
-        /* BUSCADOR FUNCIONAL */
-        .search-form { display: flex; flex: 1; max-width: 600px; background: #f1f1f1; border-radius: 5px; overflow: hidden; height: 45px; border: 1px solid #ddd; }
-        .search-form input { flex: 1; padding: 10px 15px; border: none; outline: none; font-size: 1em; color: var(--gris); background: transparent; }
-        .search-form button { background: var(--naranja); color: white; border: none; padding: 0 20px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
-        .search-form button:hover { background: #e66a15; }
-        .search-form button svg { width: 20px; height: 20px; fill: white; }
+        .header-actions { display: flex; gap: 25px; color: var(--morado); align-items: center; margin-left: auto; }
+        .action-item { display: flex; align-items: center; gap: 8px; font-size: 0.9em; font-weight: bold; cursor: pointer; text-decoration: none; color: var(--gris); transition: 0.3s; }
+        .action-item:hover { color: var(--naranja); }
+        .action-icon svg { width: 24px; height: 24px; fill: var(--morado); transition: 0.3s; }
+        .action-item:hover .action-icon svg { fill: var(--naranja); }
 
-        .header-actions { display: flex; gap: 20px; color: var(--morado); align-items: center; }
-        .action-item { display: flex; align-items: center; gap: 8px; font-size: 0.85em; cursor: pointer; text-decoration: none; color: inherit; }
-        .action-icon svg { width: 28px; height: 28px; fill: var(--naranja); }
+        .btn-header { background: var(--naranja); color: white; padding: 12px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; text-transform: uppercase; display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,123,26,0.3); }
+        .btn-header:hover { background: #e66a15; transform: translateY(-2px); color: white; }
+        .btn-header svg { width: 20px; height: 20px; fill: white; }
 
         /* BARRA DE CATEGORÍAS */
-        .cat-nav { background-color: white; padding: 12px 5%; display: flex; gap: 30px; justify-content: center; border-bottom: 2px solid #eee; overflow-x: auto; white-space: nowrap; }
+        .cat-nav { background-color: white; padding: 15px 5%; display: flex; gap: 40px; justify-content: center; border-bottom: 2px solid #eee; overflow-x: auto; white-space: nowrap; }
         .cat-nav a { text-decoration: none; color: var(--gris); font-weight: bold; font-size: 0.9em; text-transform: uppercase; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
         .cat-nav a:hover { color: var(--naranja); }
-        .cat-nav a svg { width: 18px; height: 18px; fill: var(--morado); }
+        .cat-nav a svg { width: 20px; height: 20px; fill: var(--morado); }
 
         /* BANNER PROVISIONAL B2B */
         .hero-banner { width: 100%; height: 400px; background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); display: flex; align-items: center; justify-content: center; position: relative; }
@@ -42,7 +41,6 @@
         .hero-content p { font-size: 1.5em; margin: 0 0 20px 0; font-weight: 300; }
         .btn-banner { background: var(--naranja); color: white; padding: 15px 35px; text-decoration: none; font-size: 1.1em; font-weight: bold; border-radius: 5px; text-transform: uppercase; transition: 0.3s; display: inline-block; }
         .btn-banner:hover { background: #e66a15; transform: translateY(-2px); }
-        .banner-placeholder-text { position: absolute; bottom: 20px; right: 20px; font-size: 0.8em; color: rgba(255,255,255,0.4); border: 1px dashed rgba(255,255,255,0.3); padding: 5px 10px; }
 
         /* SECCIONES GENERALES */
         .section-container { padding: 60px 5%; max-width: 1300px; margin: 0 auto; }
@@ -53,26 +51,33 @@
         .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .cat-card { background: white; border-radius: 8px; padding: 25px; border: 1px solid #eaeaea; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
         .cat-card:hover { transform: translateY(-5px); border-color: var(--naranja); box-shadow: 0 10px 20px rgba(65,48,154,0.1); }
-        .cat-info h3 { margin: 0 0 10px 0; color: var(--morado); text-transform: uppercase; font-size: 1.2em; }
-        .cat-info p { margin: 0 0 20px 0; font-size: 0.85em; color: #666; flex-grow: 1; }
+        .cat-info h3 { margin: 0 0 10px 0; color: var(--morado); text-transform: uppercase; font-size: 1.2em; display: flex; align-items: center; gap: 10px; }
+        .cat-info h3 svg { width: 24px; height: 24px; fill: var(--naranja); }
+        .cat-info p { margin: 0 0 20px 0; font-size: 0.85em; color: #666; flex-grow: 1; line-height: 1.5; }
         .btn-cat { background: transparent; color: var(--naranja); border: 2px solid var(--naranja); padding: 8px 15px; border-radius: 5px; font-weight: bold; font-size: 0.9em; text-align: center; display: block; text-transform: uppercase; transition: 0.3s; }
         .cat-card:hover .btn-cat { background: var(--naranja); color: white; }
 
-        /* FRANJA DE MARCAS (BRANDS STRIP) */
-        .brands-strip { background: white; padding: 30px 5%; border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; align-items: center; opacity: 0.6; }
+        /* FRANJA DE MARCAS */
+        .brands-strip { background: white; padding: 30px 5%; border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; align-items: center; opacity: 0.6; }
         .brands-strip img { height: 40px; object-fit: contain; filter: grayscale(100%); transition: 0.3s; }
         .brands-strip img:hover { filter: grayscale(0%); opacity: 1; }
         .brand-placeholder { font-weight: bold; color: #aaa; border: 1px dashed #ccc; padding: 10px 20px; border-radius: 5px; font-size: 0.9em; }
 
-        /* CARRUSEL ASIMÉTRICO (PRODUCTOS ESTRELLA) */
-        .carousel-section { background: white; padding: 60px 5%; display: flex; gap: 30px; align-items: center; max-width: 1400px; margin: 0 auto; overflow: hidden; }
+        /* CARRUSEL ASIMÉTRICO (LOS MÁS SOLICITADOS) */
+        .carousel-section { background: white; padding: 60px 5%; display: flex; gap: 30px; align-items: center; max-width: 1400px; margin: 0 auto; overflow: hidden; position: relative; }
         .carousel-title-col { flex: 0 0 250px; border-left: 5px solid var(--naranja); padding-left: 20px; }
-        .carousel-title-col h2 { font-size: 2.2em; color: var(--gris); margin: 0; line-height: 1.1; font-weight: 300; }
+        .carousel-title-col h2 { font-size: 2.2em; color: var(--gris); margin: 0 0 15px 0; line-height: 1.1; font-weight: 300; }
         .carousel-title-col h2 strong { font-weight: 900; color: var(--morado); display: block; }
-        .carousel-container { flex: 1; display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        
+        .carousel-controls { display: flex; gap: 10px; }
+        .btn-arrow { background: var(--fondo); border: 1px solid #ddd; color: var(--morado); width: 40px; height: 40px; border-radius: 50%; font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .btn-arrow:hover { background: var(--naranja); color: white; border-color: var(--naranja); }
+
+        .carousel-wrapper { flex: 1; overflow: hidden; position: relative; }
+        .carousel-container { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .carousel-container::-webkit-scrollbar { display: none; }
         
-        .prod-card { min-width: 260px; scroll-snap-align: start; background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; position: relative; }
+        .prod-card { min-width: 250px; max-width: 250px; scroll-snap-align: start; background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; }
         .prod-card:hover { box-shadow: 0 10px 25px rgba(65,48,154,0.1); border-color: var(--naranja); }
         .prod-img-box { height: 180px; background: #f9f9f9; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .prod-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; display: none; }
@@ -82,19 +87,23 @@
         .btn-ver { background: var(--fondo); color: var(--morado); text-align: center; text-decoration: none; padding: 10px; border-radius: 5px; font-weight: bold; transition: 0.3s; text-transform: uppercase; font-size: 0.85em; border: 1px solid #ddd; }
         .btn-ver:hover { background: var(--naranja); color: white; border-color: var(--naranja); }
 
-        /* SECCIÓN: DISTRIBUIDOR DE CONFIANZA (BANNERS GRID) */
-        .trust-banners-section { padding: 60px 5%; background: var(--fondo); max-width: 1300px; margin: 0 auto; text-align: center; }
-        .trust-banners-section h2 { font-size: 2em; color: var(--morado); margin-bottom: 40px; text-transform: uppercase; }
-        .trust-banners-section h2 span { color: var(--naranja); border-bottom: 3px solid var(--naranja); }
-        .banners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .banner-card { background: white; border-radius: 10px; height: 160px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .banner-placeholder { color: #888; font-weight: bold; font-size: 0.9em; text-align: center; padding: 20px; border: 2px dashed #ccc; width: 90%; height: 80%; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+        /* SECCIÓN: 3 PASOS DE COMPRA */
+        .trust-steps-section { padding: 80px 5%; background: var(--fondo); max-width: 1300px; margin: 0 auto; text-align: center; }
+        .trust-steps-section h2 { font-size: 2.2em; color: var(--morado); margin-bottom: 50px; text-transform: uppercase; font-weight: 900; }
+        .trust-steps-section h2 span { color: var(--naranja); border-bottom: 3px solid var(--naranja); padding-bottom: 5px; }
+        
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; position: relative; }
+        .step-card { background: white; border-radius: 12px; padding: 40px 20px; border: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.04); position: relative; z-index: 2; transition: 0.3s; }
+        .step-card:hover { border-color: var(--morado); transform: translateY(-5px); }
+        .step-number { background: var(--naranja); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2em; position: absolute; top: -20px; border: 4px solid var(--fondo); }
+        .step-icon { width: 60px; height: 60px; margin-bottom: 20px; fill: var(--morado); }
+        .step-card h4 { color: var(--gris); font-size: 1.1em; margin: 0; line-height: 1.4; }
 
         /* PREGUNTAS FRECUENTES (FAQ) */
-        .faq-section { max-width: 1000px; margin: 0 auto 60px auto; padding: 0 5%; }
-        .faq-title { text-align: center; color: var(--morado); font-size: 1.8em; text-transform: uppercase; margin-bottom: 30px; font-weight: 900; }
+        .faq-section { max-width: 1000px; margin: 0 auto 80px auto; padding: 0 5%; }
+        .faq-title { text-align: center; color: var(--morado); font-size: 1.8em; text-transform: uppercase; margin-bottom: 40px; font-weight: 900; }
         .faq-item { background: white; border: 1px solid #eaeaea; border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
-        .faq-q { padding: 18px 20px; font-weight: bold; color: var(--gris); cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: 0.3s; }
+        .faq-q { padding: 20px; font-weight: bold; color: var(--gris); cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: 0.3s; font-size: 1.05em; }
         .faq-q:hover { color: var(--naranja); }
         .faq-q svg { width: 16px; height: 16px; fill: var(--morado); transition: transform 0.3s; }
         .faq-a { padding: 0 20px 20px 20px; color: #666; font-size: 0.95em; line-height: 1.6; display: none; }
@@ -112,27 +121,16 @@
         .widget a:hover { color: white; padding-left: 5px; }
         .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* =========================================
-           WIDGET WHATSAPP ANIMADO (CERO EMOJIS) 
-           ========================================= */
-        @keyframes pulse-wa {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-        
+        /* WIDGET WHATSAPP FLOTANTE Y PANEL */
+        @keyframes pulse-wa { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
         .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
-        
-        /* El Panel que se abre */
         .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
         .wa-popup.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-        
         .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 20px; position: relative; border-bottom: 4px solid var(--naranja); }
         .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; font-weight: bold; line-height: 1; transition: 0.3s; }
         .wa-popup-close:hover { color: var(--naranja); }
         .wa-popup-title { font-size: 1.2em; font-weight: bold; margin-bottom: 5px; } 
         .wa-popup-subtitle { font-size: 0.85em; opacity: 0.9; }
-        
         .wa-popup-body { padding: 20px; }
         .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eaeaea; transition: 0.3s; }
         .wa-contact-card:hover { border-color: var(--naranja); background: #fff4ed; }
@@ -141,19 +139,17 @@
         .wa-contact-info { display: flex; flex-direction: column; }
         .wa-name { font-weight: bold; font-size: 1em; color: var(--morado); }
         .wa-status { font-size: 0.8em; color: #666; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
-        .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; } /* Punto verde de "En línea" */
-        
-        /* El Botón Flotante con Latido */
+        .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; }
         .wa-trigger { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: pulse-wa 2s infinite; transition: 0.3s; }
         .wa-trigger:hover { transform: scale(1.05); animation: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6); }
         .wa-trigger svg { width: 35px; height: 35px; fill: white; }
 
         @media (max-width: 900px) { 
             header { flex-direction: column; text-align: center; } 
-            .search-form { width: 100%; max-width: 100%; order: 3; margin-top: 10px; } 
-            .header-actions { order: 2; width: 100%; justify-content: center; }
+            .header-actions { margin-left: 0; width: 100%; justify-content: center; flex-wrap: wrap; }
             .carousel-section { flex-direction: column; padding: 40px 5%; }
             .carousel-title-col { flex: none; border-left: none; border-bottom: 5px solid var(--naranja); padding-left: 0; padding-bottom: 15px; text-align: center; width: 100%; }
+            .carousel-controls { justify-content: center; margin-top: 10px; }
             .wa-container { bottom: 20px; right: 20px; }
         }
     </style>
@@ -165,54 +161,59 @@
         Más de 5 años de experiencia | <span>Envíos seguros a todo el Perú</span>
     </div>
 
-    <!-- HEADER PRINCIPAL -->
+    <!-- HEADER PRINCIPAL (SIN BUSCADOR) -->
     <header>
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
-        
-        <!-- BUSCADOR -->
-        <form action="catalogo.html" method="GET" class="search-form">
-            <input type="text" name="q" placeholder="Buscar por código, marca o producto...">
-            <button type="submit">
-                <!-- Ícono Lupa SVG -->
-                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            </button>
-        </form>
 
         <div class="header-actions">
             <a href="catalogo.html" class="action-item">
                 <div class="action-icon">
-                    <!-- Ícono Catálogo SVG -->
                     <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
                 </div>
-                <div><strong>Catálogo</strong></div>
+                Catálogo
             </a>
-            <a href="https://wa.me/51937229128" target="_blank" class="action-item">
-                <div class="action-icon">
-                    <!-- Ícono Usuario/Asesor SVG -->
-                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                </div>
-                <div><strong>Asesoría B2B</strong></div>
+            <a href="https://wa.me/51937229128" target="_blank" class="btn-header">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.12.66 4.09 1.79 5.74L3 21l3.32-.77C7.94 21.36 9.9 22 12 22c5.52 22 10-4.48 10-10S17.52 2 12 2zm-1.8 6c.2-.01.44 0 .64.44.25.54.6 1.48.66 1.58.05.1.08.23.01.4-.07.17-.11.27-.23.4l-.33.37c-.12.13-.25.28-.11.51.14.23.63 1.03 1.35 1.68.93.84 1.7 1.1 1.93 1.23.23.12.37.1.51-.06.14-.16.6-.7.76-.94.16-.25.32-.2.53-.13.22.07 1.38.65 1.62.78.23.12.39.2.45.3.05.11.05.65-.18 1.28-.23.63-1.34 1.22-1.85 1.26-.5.05-1.12.2-3.19-.66-2.48-1.03-4.08-3.56-4.2-3.73-.12-.16-1-1.33-1-2.54s.62-1.81.84-2.06c.22-.25.48-.31.64-.31.16-.01.32-.01.47 0z"/></svg>
+                Cotizar Pedido
             </a>
         </div>
     </header>
 
-    <!-- BARRA DE CATEGORÍAS -->
+    <!-- BARRA DE CATEGORÍAS (ÍCONOS VECTORIALES A MEDIDA) -->
     <nav class="cat-nav">
-        <!-- Puedes reemplazar estos SVGs genéricos por tus propias imágenes <img src="icono.png"> si lo deseas -->
-        <a href="cat-aceite.html"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> Filtros de Aceite</a>
-        <a href="cat-aire.html"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9h-2V7h-2v5H6v-2H4v2c0 1.1.9 2 2 2h2v3h2v-3h2v3h2v-3h2c1.1 0 2-.9 2-2v-2h-2v2h-2v-5z"/></svg> Filtros de Aire</a>
-        <a href="cat-combustible.html"><svg viewBox="0 0 24 24"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2c0-3.32-2.67-7.25-8-11.8zM7.83 14c.37 0 .67.26.74.62 1.33 6.07 6.47 5.09 6.47 5.09.28-.05.52.12.57.4.05.28-.12.52-.4.57 0 0-6.19 1.15-7.98-6.11-.06-.27.1-.53.37-.57h.23z"/></svg> Filtros Combustible</a>
-        <a href="cat-fluidos.html"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg> Fluidos Originales</a>
+        <!-- Filtros de Aceite (Gota) -->
+        <a href="cat-aceite.html">
+            <svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 0 1-7-7c0-3.6 4.3-8.8 6.4-11.1a.8.8 0 0 1 1.2 0C14.7 5.2 19 10.4 19 14a7 7 0 0 1-7 7z"/></svg>
+            Filtros de Aceite
+        </a>
+        <!-- Filtros de Aire (Viento) -->
+        <a href="cat-aire.html">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"><path d="M4 12h12a3 3 0 0 0 0-6h-2M4 16h8a2 2 0 0 0 0-4H9M4 8h5a2 2 0 0 1 0 4"/></svg>
+            Filtros de Aire
+        </a>
+        <!-- Filtros Combustible (Pistola Gasolinera) -->
+        <a href="cat-combustible.html">
+            <svg viewBox="0 0 24 24"><path d="M4 5v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zm3 0h6v4H7V5zm11 11h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2v10z"/></svg>
+            Filtros Combustible
+        </a>
+        <!-- Fluidos Automotrices (Auto con Gota) -->
+        <a href="cat-fluidos.html">
+            <svg viewBox="0 0 24 24">
+                <path d="M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.7 0-1.2.4-1.4 1L3 12v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6zM6.8 7h10.3l1.1 3H5.8l1-3zM19 17H5v-5h14v5z" fill="var(--morado)"/>
+                <path d="M16 11c-1.3 0-3 1.8-3 3.5s1.3 3.5 3 3.5 3-1.8 3-3.5-1.7-3.5-3-3.5z" fill="var(--naranja)"/>
+            </svg>
+            Fluidos Automotrices
+        </a>
     </nav>
 
-    <!-- BANNER PROVISIONAL B2B -->
+    <!-- BANNER PROVISIONAL -->
     <section class="hero-banner">
         <div class="hero-content">
             <h1>Especialistas en<br><span style="color: var(--naranja);">Distribución OEM</span></h1>
             <p>Importación directa y precios mayoristas para tu negocio.</p>
             <a href="catalogo.html" class="btn-banner">Ver Catálogo ➔</a>
         </div>
-        <div class="banner-placeholder-text">[ Espacio provisional para tu Banner de Campaña 1920x400 ]</div>
+        <div class="banner-placeholder-text">[ Espacio provisional para tu Banner 1920x400 ]</div>
     </section>
 
     <!-- LÍNEAS DE DISTRIBUCIÓN -->
@@ -221,28 +222,33 @@
         <div class="cat-grid">
             <a href="cat-aceite.html" class="cat-card">
                 <div class="cat-info">
-                    <h3>Filtros de Aceite</h3>
+                    <h3><svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 0 1-7-7c0-3.6 4.3-8.8 6.4-11.1a.8.8 0 0 1 1.2 0C14.7 5.2 19 10.4 19 14a7 7 0 0 1-7 7z"/></svg> Filtros de Aceite</h3>
                     <p>Amplio stock en filtros metálicos y tipo elemento de alta rotación.</p>
-                </div>
-                <span class="btn-cat">Ver Línea</span>
-            </a>
-            <a href="cat-combustible.html" class="cat-card">
-                <div class="cat-info">
-                    <h3>Filtros Combustible</h3>
-                    <p>Máxima protección para sistemas de inyección CRDI y gasolina.</p>
                 </div>
                 <span class="btn-cat">Ver Línea</span>
             </a>
             <a href="cat-aire.html" class="cat-card">
                 <div class="cat-info">
-                    <h3>Filtros de Aire</h3>
+                    <h3><svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"><path d="M4 12h12a3 3 0 0 0 0-6h-2M4 16h8a2 2 0 0 0 0-4H9M4 8h5a2 2 0 0 1 0 4"/></svg> Filtros de Aire</h3>
                     <p>Retención superior de partículas para el cuidado de la admisión.</p>
+                </div>
+                <span class="btn-cat">Ver Línea</span>
+            </a>
+            <a href="cat-combustible.html" class="cat-card">
+                <div class="cat-info">
+                    <h3><svg viewBox="0 0 24 24"><path d="M4 5v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zm3 0h6v4H7V5zm11 11h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2v10z"/></svg> Filtros Combustible</h3>
+                    <p>Máxima protección para sistemas de inyección CRDI y gasolina.</p>
                 </div>
                 <span class="btn-cat">Ver Línea</span>
             </a>
             <a href="cat-fluidos.html" class="cat-card">
                 <div class="cat-info">
-                    <h3>Fluidos Automotrices</h3>
+                    <h3>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.7 0-1.2.4-1.4 1L3 12v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6zM6.8 7h10.3l1.1 3H5.8l1-3zM19 17H5v-5h14v5z" fill="var(--naranja)"/>
+                            <path d="M16 11c-1.3 0-3 1.8-3 3.5s1.3 3.5 3 3.5 3-1.8 3-3.5-1.7-3.5-3-3.5z" fill="var(--morado)"/>
+                        </svg> Fluidos Automotrices
+                    </h3>
                     <p>Refrigerantes y lubricantes de transmisión por caja cerrada.</p>
                 </div>
                 <span class="btn-cat">Ver Línea</span>
@@ -250,102 +256,111 @@
         </div>
     </section>
 
-    <!-- FRANJA DE MARCAS (BRANDS STRIP) -->
+    <!-- FRANJA DE MARCAS (SIN COMPETENCIA) -->
     <div class="brands-strip">
-        <!-- Reemplaza estos divs con tus imágenes <img src="marca1.png"> -->
         <div class="brand-placeholder">Logo HYUNDAI</div>
         <div class="brand-placeholder">Logo KIA</div>
         <div class="brand-placeholder">Logo CHEVRON</div>
-        <div class="brand-placeholder">Logo SUZUKI</div>
         <div class="brand-placeholder">Logo EFEOS</div>
-        <div class="brand-placeholder">Logo LYS</div>
-        <div class="brand-placeholder">Logo SAKURA</div>
+        <div class="brand-placeholder">Logo SUZUKI</div>
     </div>
 
     <!-- CARRUSEL ASIMÉTRICO (LOS MÁS SOLICITADOS) -->
     <section class="carousel-section">
         <div class="carousel-title-col">
             <h2>¡Los<br><strong>productos más solicitados</strong><br>aquí!</h2>
+            <div class="carousel-controls">
+                <button class="btn-arrow" onclick="scrollCarousel(-1)">&#10094;</button>
+                <button class="btn-arrow" onclick="scrollCarousel(1)">&#10095;</button>
+            </div>
         </div>
-        <div class="carousel-container">
-            <!-- PRODUCTO 1: CHEVRON ATF -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="chevron.jpg" alt="Chevron ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto Chevron ATF ]</div>
+        
+        <div class="carousel-wrapper">
+            <div class="carousel-container" id="prod-carousel">
+                <!-- PRODUCTO 1: FILTRO 26300 -->
+                <div class="prod-card">
+                    <div class="prod-img-box">
+                        <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="prod-fallback">[ Foto 26300-35505 ]</div>
+                    </div>
+                    <h4 class="prod-title">Filtro Aceite Hyundai <span>26300-35505</span></h4>
+                    <a href="producto.html?id=filtro-26300-35505" class="btn-ver">Ver Detalles</a>
                 </div>
-                <h4 class="prod-title">Aceite Chevron Supreme ATF MD-3 <span>Caja 12x1/4 GL</span></h4>
-                <a href="producto.html?id=chevron-atf" class="btn-ver">Ver Detalles</a>
-            </div>
 
-            <!-- PRODUCTO 2: FILTRO 26300 -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto Filtro 26300 ]</div>
+                <!-- PRODUCTO 2: CHEVRON ATF (A MITAD DE CARRUSEL) -->
+                <div class="prod-card">
+                    <div class="prod-img-box">
+                        <img src="chevron.jpg" alt="Chevron ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="prod-fallback">[ Foto Chevron ATF ]</div>
+                    </div>
+                    <h4 class="prod-title">Chevron Supreme ATF MD-3 <span>Caja 12x1/4 GL</span></h4>
+                    <a href="producto.html?id=chevron-atf" class="btn-ver">Ver Detalles</a>
                 </div>
-                <h4 class="prod-title">Filtro de Aceite (Metálico) Hyundai <span>26300-35505</span></h4>
-                <a href="producto.html?id=filtro-26300-35505" class="btn-ver">Ver Detalles</a>
-            </div>
 
-            <!-- PRODUCTO 3: FILTRO 26320 -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="filtro-26320.jpg" alt="Filtro 26320-2F100" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto Filtro 26320 ]</div>
+                <!-- PRODUCTO 3: FILTRO 26320 -->
+                <div class="prod-card">
+                    <div class="prod-img-box">
+                        <img src="filtro-26320.jpg" alt="Filtro 26320-2F100" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="prod-fallback">[ Foto 26320-2F100 ]</div>
+                    </div>
+                    <h4 class="prod-title">Filtro Elemento Hyundai <span>26320-2F100</span></h4>
+                    <a href="producto.html?id=filtro-26320-2f100" class="btn-ver">Ver Detalles</a>
                 </div>
-                <h4 class="prod-title">Filtro de Aceite (Elemento) Hyundai <span>26320-2F100</span></h4>
-                <a href="producto.html?id=filtro-26320-2f100" class="btn-ver">Ver Detalles</a>
-            </div>
 
-            <!-- PRODUCTO 4: FILTRO 31922 -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="filtro-31922.jpg" alt="Filtro Combustible 31922-2E900" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto Filtro 31922 ]</div>
+                <!-- PRODUCTO 4: FILTRO 31922 -->
+                <div class="prod-card">
+                    <div class="prod-img-box">
+                        <img src="filtro-31922.jpg" alt="Filtro Combustible 31922-2E900" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="prod-fallback">[ Foto 31922-2E900 ]</div>
+                    </div>
+                    <h4 class="prod-title">Filtro Combustible OEM <span>31922-2E900</span></h4>
+                    <a href="producto.html?id=filtro-31922-2e900" class="btn-ver">Ver Detalles</a>
                 </div>
-                <h4 class="prod-title">Filtro de Combustible OEM <span>31922-2E900</span></h4>
-                <a href="producto.html?id=filtro-31922-2e900" class="btn-ver">Ver Detalles</a>
-            </div>
 
-            <!-- PRODUCTO 5: EFEOS -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="efeos.jpg" alt="Refrigerante EFEOS" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto EFEOS ]</div>
+                <!-- PRODUCTO 5: FILTRO 28113 -->
+                <div class="prod-card">
+                    <div class="prod-img-box">
+                        <img src="filtro-28113.jpg" alt="Filtro Aire 28113-C7000" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="prod-fallback">[ Foto 28113-C7000 ]</div>
+                    </div>
+                    <h4 class="prod-title">Filtro de Aire Hyundai/Kia <span>28113-C7000</span></h4>
+                    <a href="producto.html?id=filtro-28113-c7000" class="btn-ver">Ver Detalles</a>
                 </div>
-                <h4 class="prod-title">Refrigerante Anticongelante EFEOS 50/50 <span>Caja 3 Gal.</span></h4>
-                <a href="producto.html?id=efeos-5050" class="btn-ver">Ver Detalles</a>
-            </div>
-
-            <!-- PRODUCTO 6: FILTRO 28113 -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="filtro-28113.jpg" alt="Filtro Aire 28113-C7000" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto Filtro 28113 ]</div>
+                
+                <!-- PRODUCTO 6: FILTRO 26330 -->
+                <div class="prod-card">
+                    <div class="prod-img-box">
+                        <img src="filtro-26330.jpg" alt="Filtro Aceite 26330-4A001" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="prod-fallback">[ Foto 26330-4A001 ]</div>
+                    </div>
+                    <h4 class="prod-title">Filtro Aceite Diesel <span>26330-4A001</span></h4>
+                    <a href="producto.html?id=filtro-26330-4a001" class="btn-ver">Ver Detalles</a>
                 </div>
-                <h4 class="prod-title">Filtro de Aire OEM Hyundai/Kia <span>28113-C7000</span></h4>
-                <a href="producto.html?id=filtro-28113-c7000" class="btn-ver">Ver Detalles</a>
             </div>
         </div>
     </section>
 
-    <!-- DISTRIBUIDOR DE CONFIANZA (GRID 4 BANNERS) -->
-    <section class="trust-banners-section">
+    <!-- DISTRIBUIDOR DE CONFIANZA (3 PASOS DE COMPRA) -->
+    <section class="trust-steps-section">
         <h2>¡Tu distribuidor mayorista de <span>confianza!</span></h2>
-        <div class="banners-grid">
-            <!-- Espacios listos para que subas tus 4 imágenes promocionales hechas en Photoshop/Canva -->
-            <div class="banner-card">
-                <div class="banner-placeholder">Banner 1: Envíos Nacionales<br><span style="font-size:0.8em; font-weight:normal;">Subir imagen (Ej. 400x200px)</span></div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <!-- Ícono Documento / Cotización SVG -->
+                <svg class="step-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                <h4>Cotiza tu volumen con un asesor especializado</h4>
             </div>
-            <div class="banner-card">
-                <div class="banner-placeholder">Banner 2: Atención B2B<br><span style="font-size:0.8em; font-weight:normal;">Subir imagen (Ej. 400x200px)</span></div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <!-- Ícono Camión SVG -->
+                <svg class="step-icon" viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                <h4>Tu pedido se prepara y envía a nivel nacional</h4>
             </div>
-            <div class="banner-card">
-                <div class="banner-placeholder">Banner 3: Recojo en Almacén<br><span style="font-size:0.8em; font-weight:normal;">Subir imagen (Ej. 400x200px)</span></div>
-            </div>
-            <div class="banner-card">
-                <div class="banner-placeholder">Banner 4: Productos Originales<br><span style="font-size:0.8em; font-weight:normal;">Subir imagen (Ej. 400x200px)</span></div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <!-- Ícono Caja Recibida SVG -->
+                <svg class="step-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <h4>Recibes el stock completo en tu taller</h4>
             </div>
         </div>
     </section>
@@ -377,9 +392,9 @@
             
             <div class="widget">
                 <h4>Atención al Cliente</h4>
-                <p>📍 <strong>Almacén Principal:</strong><br>Lima, Perú</p>
+                <p>📍 <strong>Almacén Principal:</strong><br>Av. Las Gaviotas, Bellavista</p>
                 <p>📞 <strong>Ventas Mayoristas:</strong><br>+51 937 229 128</p>
-                <p>✉️ <strong>Correo:</strong><br>ventas@lubribaro.com</p>
+                <p>✉️ <strong>Correo:</strong><br>lubribaro@gmail.com</p>
             </div>
 
             <div class="widget">
@@ -398,9 +413,7 @@
         <div class="footer-bottom">&copy; 2026 LubriBaro B2B. Todos los derechos reservados.</div>
     </footer>
 
-    <!-- ==============================================
-         WIDGET WHATSAPP ANIMADO (CERO EMOJIS, PURO SVG)
-         ============================================== -->
+    <!-- WIDGET WHATSAPP ANIMADO -->
     <div class="wa-container">
         <!-- Panel Desplegable -->
         <div id="wa-popup" class="wa-popup">
@@ -428,10 +441,16 @@
         </div>
     </div>
 
-    <!-- SCRIPT PARA EL WIDGET -->
+    <!-- SCRIPT DE CARRUSEL Y WIDGET -->
     <script>
         function toggleWaPopup() {
             document.getElementById('wa-popup').classList.toggle('active');
+        }
+
+        function scrollCarousel(direction) {
+            const container = document.getElementById('prod-carousel');
+            const scrollAmount = 270; // 250px ancho + 20px gap
+            container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }
     </script>
 
