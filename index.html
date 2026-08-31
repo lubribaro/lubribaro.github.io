@@ -112,10 +112,41 @@
         .widget a:hover { color: white; padding-left: 5px; }
         .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* WIDGET WHATSAPP FLOTANTE (VECTOR, CERO EMOJIS) */
-        .wa-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #25D366; border-radius: 50px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 9999; text-decoration: none; transition: 0.3s; }
-        .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6); }
-        .wa-float svg { width: 35px; height: 35px; fill: white; }
+        /* =========================================
+           WIDGET WHATSAPP ANIMADO (CERO EMOJIS) 
+           ========================================= */
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
+        .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
+        
+        /* El Panel que se abre */
+        .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
+        .wa-popup.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        
+        .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 20px; position: relative; border-bottom: 4px solid var(--naranja); }
+        .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; font-weight: bold; line-height: 1; transition: 0.3s; }
+        .wa-popup-close:hover { color: var(--naranja); }
+        .wa-popup-title { font-size: 1.2em; font-weight: bold; margin-bottom: 5px; } 
+        .wa-popup-subtitle { font-size: 0.85em; opacity: 0.9; }
+        
+        .wa-popup-body { padding: 20px; }
+        .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eaeaea; transition: 0.3s; }
+        .wa-contact-card:hover { border-color: var(--naranja); background: #fff4ed; }
+        .wa-contact-icon { width: 45px; height: 45px; background-color: #25D366; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .wa-contact-icon svg { width: 25px; height: 25px; fill: white; }
+        .wa-contact-info { display: flex; flex-direction: column; }
+        .wa-name { font-weight: bold; font-size: 1em; color: var(--morado); }
+        .wa-status { font-size: 0.8em; color: #666; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
+        .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; } /* Punto verde de "En línea" */
+        
+        /* El Botón Flotante con Latido */
+        .wa-trigger { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: pulse-wa 2s infinite; transition: 0.3s; }
+        .wa-trigger:hover { transform: scale(1.05); animation: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6); }
+        .wa-trigger svg { width: 35px; height: 35px; fill: white; }
 
         @media (max-width: 900px) { 
             header { flex-direction: column; text-align: center; } 
@@ -123,6 +154,7 @@
             .header-actions { order: 2; width: 100%; justify-content: center; }
             .carousel-section { flex-direction: column; padding: 40px 5%; }
             .carousel-title-col { flex: none; border-left: none; border-bottom: 5px solid var(--naranja); padding-left: 0; padding-bottom: 15px; text-align: center; width: 100%; }
+            .wa-container { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -366,12 +398,42 @@
         <div class="footer-bottom">&copy; 2026 LubriBaro B2B. Todos los derechos reservados.</div>
     </footer>
 
-    <!-- BOTÓN FLOTANTE DE WHATSAPP (SVG PROFESIONAL) -->
-    <a href="https://wa.me/51937229128" target="_blank" class="wa-float" title="Cotizar por WhatsApp">
-        <svg viewBox="0 0 24 24">
-            <path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/>
-        </svg>
-    </a>
+    <!-- ==============================================
+         WIDGET WHATSAPP ANIMADO (CERO EMOJIS, PURO SVG)
+         ============================================== -->
+    <div class="wa-container">
+        <!-- Panel Desplegable -->
+        <div id="wa-popup" class="wa-popup">
+            <div class="wa-popup-header">
+                <div class="wa-popup-close" onclick="toggleWaPopup()">✕</div>
+                <div class="wa-popup-title">Asesoría Mayorista</div>
+                <div class="wa-popup-subtitle">Atención exclusiva para talleres ⚡</div>
+            </div>
+            <div class="wa-popup-body">
+                <a href="https://wa.me/51937229128?text=¡Buen%20día%20LubriBaro!%20Deseo%20información%20sobre%20su%20catálogo%20mayorista." target="_blank" class="wa-contact-card">
+                    <div class="wa-contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
+                    </div>
+                    <div class="wa-contact-info">
+                        <span class="wa-name">Hablar con un asesor</span>
+                        <span class="wa-status"><span class="wa-dot"></span> En línea</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Botón que late (Trigger) -->
+        <div class="wa-trigger" onclick="toggleWaPopup()">
+            <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
+        </div>
+    </div>
+
+    <!-- SCRIPT PARA EL WIDGET -->
+    <script>
+        function toggleWaPopup() {
+            document.getElementById('wa-popup').classList.toggle('active');
+        }
+    </script>
 
 </body>
 </html>
