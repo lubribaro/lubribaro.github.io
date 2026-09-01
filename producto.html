@@ -5,15 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de Producto - LubriBaro B2B</title>
     <style>
+        /* PALETA DE COLORES LUBRIBARO ESTRICTA */
         :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F4F6F9; --gris: #333333; --blanco: #ffffff; --rojo-oferta: #E63946; --verde-ok: #2A9D8F; }
         * { box-sizing: border-box; } body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); overflow-x: hidden; padding-bottom: 80px; }
         
-        header { background-color: var(--blanco); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; gap: 15px; }
-        .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; } .logo span { color: var(--naranja); }
-        nav.menu { display: flex; gap: 20px; } nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 0.95rem; } nav.menu a:hover { color: var(--naranja); }
-        .breadcrumbs { padding: 15px 5%; font-size: 0.85em; color: #888; max-width: 1200px; margin: 0 auto; text-transform: uppercase; } .breadcrumbs a { color: var(--morado); text-decoration: none; font-weight: bold; }
+        /* TOP BAR */
+        .top-bar { background-color: var(--morado); color: white; text-align: center; padding: 10px 5%; font-size: 0.85em; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+        .top-bar span { font-style: italic; font-weight: normal; color: #d0c8ff; }
 
+        /* HEADER PRINCIPAL */
+        header { background-color: var(--blanco); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        
+        /* BOTÓN HAMBURGUESA (SOLO MÓVIL) */
+        .menu-toggle { display: none; cursor: pointer; padding: 5px; }
+        .menu-toggle svg { width: 32px; height: 32px; fill: var(--morado); }
+
+        .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; display: flex; align-items: center; gap: 8px; } 
+        .logo span { color: var(--naranja); }
+        
+        .desktop-actions { display: flex; gap: 20px; align-items: center; }
+        .action-item { display: flex; align-items: center; gap: 8px; font-size: 0.9em; font-weight: bold; cursor: pointer; text-decoration: none; color: var(--gris); transition: 0.3s; }
+        .action-item:hover { color: var(--naranja); }
+        .action-icon svg { width: 24px; height: 24px; fill: var(--morado); transition: 0.3s; }
+        .action-item:hover .action-icon svg { fill: var(--naranja); }
+
+        .btn-header { background: var(--naranja); color: white; padding: 12px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; text-transform: uppercase; display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,123,26,0.3); }
+        .btn-header:hover { background: #e66a15; transform: translateY(-2px); color: white; }
+        .btn-header svg { width: 20px; height: 20px; fill: white; }
+
+        .breadcrumbs { padding: 20px 5%; font-size: 0.85em; color: #888; max-width: 1200px; margin: 0 auto; text-transform: uppercase; } 
+        .breadcrumbs a { color: var(--morado); text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .breadcrumbs a:hover { color: var(--naranja); }
+
+        /* PRODUCTO PRINCIPAL */
         .product-container { display: flex; flex-wrap: wrap; padding: 0 5% 30px 5%; max-width: 1200px; margin: 0 auto; gap: 30px; align-items: flex-start; }
+        
+        /* GALERÍA */
         .gallery-wrapper { flex: 1; min-width: 320px; display: flex; gap: 15px; }
         .thumbnails { display: flex; flex-direction: column; gap: 10px; width: 80px; }
         .thumb-box { width: 100%; height: 80px; border: 2px solid #eaeaea; border-radius: 8px; cursor: pointer; background: white; display: flex; align-items: center; justify-content: center; overflow: hidden; transition: 0.3s; }
@@ -23,99 +50,197 @@
         .main-image-box img { max-width: 100%; max-height: 100%; object-fit: contain; display: none; }
         .placeholder-text { color: #aaa; font-weight: bold; font-size: 1em; text-align: center; }
 
-        .product-details { flex: 1; min-width: 350px; background: white; padding: 30px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.02); }
-        .brand-logo-name { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; color: var(--morado); font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
+        /* DETALLES Y PRECIOS */
+        .product-details { flex: 1; min-width: 350px; background: white; padding: 35px; border-radius: 12px; border: 1px solid #eaeaea; box-shadow: 0 5px 20px rgba(0,0,0,0.02); }
+        .brand-logo-name { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; color: var(--morado); font-weight: bold; text-transform: uppercase; font-size: 0.9em; }
+        .product-title { font-size: 2em; margin: 0 0 10px 0; color: var(--gris); line-height: 1.2; text-transform: uppercase; font-weight: 900; }
+        .product-sku { color: #888; font-size: 0.9em; margin-bottom: 10px; }
+        .product-presentation { color: var(--verde-ok); font-weight: bold; font-size: 1.05em; margin-bottom: 25px; display: block; }
         
-        .product-title { font-size: 1.8em; margin: 0 0 5px 0; color: var(--gris); line-height: 1.2; text-transform: uppercase; }
-        .product-sku { color: #888; font-size: 0.85em; margin-bottom: 5px; }
-        .product-presentation { color: var(--verde-ok); font-weight: bold; font-size: 1em; margin-bottom: 20px; display: block; }
-        
-        .volume-pricing { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; border-top: 1px solid #eee; padding-top: 20px; padding-bottom: 10px; }
-        .tier { flex: 1; min-width: 105px; background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; padding: 12px 5px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
-        .tier.highlight { background: #f4ebff; border-color: var(--morado); border-width: 2px; transform: scale(1.05); box-shadow: 0 4px 10px rgba(65, 48, 154, 0.15); z-index: 2; position: relative; }
-        .tier-qty { display: block; font-size: 0.75em; color: #666; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
+        /* TABLA DE PRECIOS */
+        .volume-pricing { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; border-top: 1px solid #eee; padding-top: 25px; padding-bottom: 15px; }
+        .tier { flex: 1; min-width: 110px; background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; padding: 15px 5px; text-align: center; display: flex; flex-direction: column; justify-content: center; transition: 0.3s; }
+        .tier.highlight { background: #f4ebff; border-color: var(--morado); border-width: 2px; transform: scale(1.05); box-shadow: 0 5px 15px rgba(65, 48, 154, 0.15); z-index: 2; position: relative; }
+        .tier-qty { display: block; font-size: 0.8em; color: #666; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
         .tier.highlight .tier-qty { color: var(--morado); }
-        .tier-price { display: block; font-size: 1.3em; color: var(--gris); font-weight: 900; }
+        .tier-price { display: block; font-size: 1.4em; color: var(--gris); font-weight: 900; }
         .tier-price span { font-size: 0.7em; margin-right: 2px; }
-        .tier.highlight .tier-price { color: var(--rojo-oferta); font-size: 1.5em; }
+        .tier.highlight .tier-price { color: var(--rojo-oferta); font-size: 1.6em; }
 
-        .b2b-banner { display: flex; align-items: center; gap: 15px; background: #fff4ed; border-left: 4px solid var(--naranja); padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 25px; font-size: 0.9em; color: #444; line-height: 1.5; }
-        .b2b-banner strong { color: var(--naranja); font-size: 1.05em; }
+        /* BANNERS INTERNOS */
+        .b2b-banner { display: flex; align-items: center; gap: 15px; background: #fff4ed; border-left: 5px solid var(--naranja); padding: 15px 20px; border-radius: 0 8px 8px 0; margin-bottom: 30px; font-size: 0.95em; color: #444; line-height: 1.5; }
+        .b2b-banner svg { width: 35px; height: 35px; fill: var(--naranja); flex-shrink: 0; }
+        .b2b-banner strong { color: var(--naranja); font-size: 1.05em; display: block; margin-bottom: 5px; }
 
-        .action-row { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .qty-wrapper { display: flex; flex-direction: column; flex: 1; min-width: 200px; gap: 5px; }
-        .qty-label { font-weight: bold; color: #666; font-size: 0.8em; text-transform: uppercase; }
-        .vol-select { border: 2px solid #ddd; border-radius: 8px; background: white; height: 50px; padding: 0 15px; font-size: 0.95em; font-weight: bold; color: var(--gris); outline: none; cursor: pointer; }
+        /* SELECTOR B2B */
+        .action-row { display: flex; gap: 15px; align-items: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .qty-wrapper { display: flex; flex-direction: column; flex: 1; min-width: 200px; gap: 8px; }
+        .qty-label { font-weight: bold; color: #666; font-size: 0.85em; text-transform: uppercase; }
+        .vol-select { border: 2px solid #ddd; border-radius: 8px; background: white; height: 50px; padding: 0 15px; font-size: 1em; font-weight: bold; color: var(--gris); outline: none; cursor: pointer; transition: 0.3s; }
         .vol-select:focus { border-color: var(--naranja); }
-        .btn-comprar { flex: 1; min-width: 200px; background-color: var(--naranja); color: white; border-radius: 8px; font-weight: bold; font-size: 1.1em; height: 50px; border: none; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .btn-comprar:hover { background-color: #e66a15; }
+        .btn-comprar { flex: 1; min-width: 200px; background-color: var(--naranja); color: white; border-radius: 8px; font-weight: bold; font-size: 1.1em; height: 50px; border: none; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,123,26,0.3); display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-comprar:hover { background-color: #e66a15; transform: translateY(-2px); }
+        .btn-comprar svg { width: 22px; height: 22px; fill: white; }
         
-        .delivery-box { background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 10px; padding: 15px; }
-        .delivery-item { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; font-size: 0.85em; color: #555; }
-        .delivery-icon { background: #e0f2e9; color: var(--verde-ok); min-width: 35px; height: 35px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2em; }
+        .delivery-box { background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 10px; padding: 20px; }
+        .delivery-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; font-size: 0.9em; color: #555; }
+        .delivery-item:last-child { margin-bottom: 0; }
+        .delivery-icon { background: #e0f2e9; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
+        .delivery-icon svg { width: 22px; height: 22px; fill: var(--verde-ok); }
 
         /* TABS Y TABLA TÉCNICA */
-        .tabs-container { max-width: 1200px; margin: 0 auto 30px auto; padding: 0 5%; }
+        .tabs-container { max-width: 1200px; margin: 0 auto 50px auto; padding: 0 5%; }
         .tabs-header { display: flex; border-bottom: 2px solid #ddd; gap: 10px; flex-wrap: wrap; }
-        .tab-btn { background: none; border: none; padding: 15px 30px; font-size: 1em; font-weight: bold; color: #888; cursor: pointer; border-bottom: 4px solid transparent; margin-bottom: -2px; text-transform: uppercase; }
-        .tab-btn.active { color: var(--naranja); border-bottom-color: var(--naranja); }
-        .tab-content { background: white; padding: 30px; border: 1px solid #eaeaea; border-top: none; border-radius: 0 0 12px 12px; color: #555; display: none; }
+        .tab-btn { background: none; border: none; padding: 15px 30px; font-size: 1.05em; font-weight: bold; color: #888; cursor: pointer; border-bottom: 4px solid transparent; margin-bottom: -2px; text-transform: uppercase; transition: 0.3s; }
+        .tab-btn.active { color: var(--morado); border-bottom-color: var(--naranja); }
+        .tab-btn:hover:not(.active) { color: var(--naranja); }
+        .tab-content { background: white; padding: 40px; border: 1px solid #eaeaea; border-top: none; border-radius: 0 0 12px 12px; color: #555; display: none; line-height: 1.8; }
         .tab-content.active { display: block; }
         
-        .tech-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        .tech-table th, .tech-table td { padding: 12px 15px; border: 1px solid #ddd; text-align: left; font-size: 0.9em; }
+        .tech-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .tech-table th, .tech-table td { padding: 15px; border: 1px solid #ddd; text-align: left; font-size: 0.95em; }
         .tech-table th { background-color: #f8f9fa; color: var(--morado); width: 30%; font-weight: bold; }
-        .btn-pdf { display: none; background: var(--morado); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 0.9em; width: max-content; margin-top: 15px; }
+        .btn-pdf { display: none; background: var(--morado); color: white; padding: 12px 25px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 0.9em; width: max-content; margin-top: 20px; transition: 0.3s; }
+        .btn-pdf:hover { background: #2a1f63; }
 
-        /* PREGUNTAS FRECUENTES (FAQ) */
-        .faq-section { max-width: 1200px; margin: 0 auto 50px auto; padding: 0 5%; }
-        .faq-box { background: white; border-radius: 12px; border: 1px solid #eaeaea; padding: 30px; }
-        .faq-title { color: var(--morado); margin-top: 0; margin-bottom: 20px; font-size: 1.4em; }
-        .faq-item { border-bottom: 1px solid #eee; }
-        .faq-item:last-child { border-bottom: none; }
-        .faq-q { padding: 15px 0; font-weight: bold; color: var(--gris); cursor: pointer; display: flex; justify-content: space-between; }
-        .faq-a { padding-bottom: 15px; color: #666; font-size: 0.9em; line-height: 1.6; display: none; }
-        .faq-item.open .faq-a { display: block; }
-        .faq-item.open .faq-q { color: var(--naranja); }
+        /* BLOQUE SATISFACCIÓN */
+        .satisfaction-box { max-width: 1200px; margin: 0 auto 60px auto; padding: 50px 5%; background: var(--morado); color: white; border-radius: 12px; text-align: center; }
+        .satisfaction-box h3 { color: var(--naranja); font-size: 2em; margin-top: 0; text-transform: uppercase; font-weight: 900; }
+        .satisfaction-box p { font-size: 1.1em; line-height: 1.8; max-width: 900px; margin: 0 auto; opacity: 0.95; }
 
-        /* BLOQUE DE SATISFACCIÓN */
-        .satisfaction-box { max-width: 1200px; margin: 0 auto 50px auto; padding: 40px 5%; background: var(--morado); color: white; border-radius: 12px; text-align: center; }
-        .satisfaction-box h3 { color: var(--naranja); font-size: 1.8em; margin-top: 0; }
-        .satisfaction-box p { font-size: 1.05em; line-height: 1.7; max-width: 900px; margin: 0 auto; opacity: 0.95; }
+        /* FOOTER CORPORATIVO */
+        footer { background-color: var(--morado); color: white; font-size: 0.9em; margin-top: 40px; border-top: 5px solid var(--naranja); position: relative; z-index: 10; }
+        .footer-widgets { padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1300px; margin: 0 auto; }
+        .widget-logo h2 { color: var(--blanco); font-size: 2.2em; margin: 0 0 15px 0; letter-spacing: -1px; }
+        .widget-logo span { color: var(--naranja); }
+        .widget h4 { color: var(--naranja); font-size: 1.1em; margin: 0 0 20px 0; text-transform: uppercase; }
+        .widget p, .widget a { color: #d0c8ff; text-decoration: none; line-height: 1.8; display: block; margin-bottom: 10px; transition: 0.3s; }
+        .widget a:hover { color: white; padding-left: 5px; }
+        .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* CARRUSEL DE RESEÑAS */
-        .reviews-section { max-width: 1200px; margin: 0 auto 50px auto; padding: 40px 5%; background: #fff4ed; border-radius: 12px; text-align: center; }
-        .reviews-title { color: var(--morado); margin-top: 0; margin-bottom: 30px; font-size: 1.6em; }
-        .reviews-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; }
-        .review-card { min-width: 320px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); scroll-snap-align: center; text-align: left; border-left: 4px solid #FFD700; }
-        .stars { color: #FFD700; font-size: 1.2em; margin-bottom: 10px; }
-        .review-text { font-size: 0.9em; color: #555; font-style: italic; margin-bottom: 15px; line-height: 1.5; }
-        .review-author { font-weight: bold; color: var(--gris); font-size: 0.85em; }
+        /* WIDGET WHATSAPP ANIMADO (LATIDO FÍSICO) */
+        @keyframes pulse-wa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); } 15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); } 30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .wa-container { position: fixed; bottom: 100px; right: 30px; z-index: 9990; display: flex; flex-direction: column; align-items: flex-end; }
+        .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
+        .wa-popup.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 20px; position: relative; border-bottom: 4px solid var(--naranja); }
+        .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; font-weight: bold; line-height: 1; transition: 0.3s; }
+        .wa-popup-close:hover { color: var(--naranja); }
+        .wa-popup-title { font-size: 1.2em; font-weight: bold; margin-bottom: 5px; } 
+        .wa-popup-subtitle { font-size: 0.85em; opacity: 0.9; }
+        .wa-popup-body { padding: 20px; }
+        .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eaeaea; transition: 0.3s; }
+        .wa-contact-card:hover { border-color: var(--naranja); background: #fff4ed; }
+        .wa-contact-icon { width: 45px; height: 45px; background-color: #25D366; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .wa-contact-icon svg { width: 25px; height: 25px; fill: white; }
+        .wa-contact-info { display: flex; flex-direction: column; }
+        .wa-name { font-weight: bold; font-size: 1em; color: var(--morado); }
+        .wa-status { font-size: 0.8em; color: #666; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
+        .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; }
+        .wa-trigger { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: pulse-wa 2.5s infinite; transition: 0.3s; }
+        .wa-trigger:hover { transform: scale(1.05); animation: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6); }
+        .wa-trigger svg { width: 35px; height: 35px; fill: white; }
 
-        /* STICKY BOTTOM BAR */
-        .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); padding: 10px 5%; display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 999; transform: translateY(100%); transition: transform 0.4s ease; border-top: 2px solid var(--naranja); }
+        /* STICKY BOTTOM BAR (MÓVIL) */
+        .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; gap: 15px; z-index: 999; transform: translateY(100%); transition: transform 0.4s ease; border-top: 3px solid var(--naranja); }
         .sticky-bar.visible { transform: translateY(0); }
         .sticky-prod-info { display: flex; align-items: center; gap: 15px; flex: 1; max-width: 600px; }
-        .sticky-prod-info img { height: 40px; }
+        .sticky-prod-info img { height: 45px; border-radius: 4px; border: 1px solid #ddd; }
         .sticky-prod-title { font-weight: bold; font-size: 1em; color: var(--gris); border-left: 3px solid var(--naranja); padding-left: 10px;}
         
-        footer { background-color: #1a1a1a; color: white; padding: 30px 5%; text-align: center; position: relative; z-index: 10; }
         #contenido-producto, #error-producto { display: none; }
         #error-producto { text-align: center; padding: 100px 5%; color: red; font-size: 1.5em; }
 
-        @media (max-width: 768px) { 
-            header { flex-direction: column; padding: 15px 5%; } nav.menu { background-color: #f1f1f1; width: 100%; justify-content: center; padding: 10px; border-radius: 5px; gap: 15px; } 
-            .gallery-wrapper { flex-direction: column-reverse; } .thumbnails { flex-direction: row; width: 100%; justify-content: center; } .main-image-box { height: 350px; }
-            .product-title { font-size: 1.5em; } .sticky-prod-info { display: none; } .sticky-bar { padding: 15px 5%; flex-wrap: wrap; } .sticky-bar .vol-select { width: 100%; margin-bottom: 10px; }
-            .tier.highlight { transform: scale(1); border: 2px solid var(--morado); }
+        /* DISEÑO MÓVIL Y MENÚ HAMBURGUESA */
+        .side-menu { position: fixed; top: 0; left: -300px; width: 280px; height: 100vh; background: white; z-index: 2000; transition: 0.4s; overflow-y: auto; box-shadow: 2px 0 15px rgba(0,0,0,0.1); }
+        .side-menu.active { left: 0; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 1999; display: none; }
+        .overlay.active { display: block; }
+        .side-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { font-size: 24px; cursor: pointer; color: var(--gris); font-weight: bold; }
+        .side-links { padding: 10px 0; display: flex; flex-direction: column; }
+        .side-links a { padding: 15px 20px; text-decoration: none; color: var(--gris); font-weight: bold; border-bottom: 1px solid #f9f9f9; display: flex; align-items: center; gap: 12px; }
+        .side-links a svg { width: 22px; height: 22px; fill: var(--morado); }
+        .side-title { padding: 15px 20px 5px 20px; font-size: 0.8em; color: #888; text-transform: uppercase; font-weight: bold; }
+        .btn-side-cotizar { background: var(--naranja) !important; color: white !important; margin: 20px; border-radius: 5px; justify-content: center; }
+        .btn-side-cotizar svg { fill: white !important; }
+
+        @media (max-width: 900px) { 
+            header { position: relative; justify-content: center; padding: 15px 5%; height: 70px; } 
+            .menu-toggle { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); display: block; }
+            .logo { font-size: 30px; margin: 0; }
+            .desktop-actions { display: none; }
+            
+            .gallery-wrapper { flex-direction: column-reverse; } 
+            .thumbnails { flex-direction: row; width: 100%; justify-content: center; } 
+            .main-image-box { height: 350px; }
+            .product-title { font-size: 1.6em; } 
+            
+            .sticky-prod-info { display: none; } 
+            .sticky-bar { padding: 15px 5%; flex-direction: column; } 
+            .sticky-bar .vol-select { width: 100%; margin-bottom: 10px; }
+            .sticky-bar .btn-comprar { width: 100%; }
+
+            .wa-container { bottom: 180px; right: 20px; }
+            .wa-trigger { width: 55px; height: 55px; }
+            .wa-trigger svg { width: 30px; height: 30px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- MENÚ HAMBURGUESA OCULTO (MÓVIL) -->
+    <div class="overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="side-menu" id="side-menu">
+        <div class="side-header">
+            <a href="index.html" class="logo">Lubri<span>Baro</span></a>
+            <div class="close-btn" onclick="toggleMobileMenu()">✕</div>
+        </div>
+        <div class="side-links">
+            <a href="index.html"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Inicio</a>
+            <a href="catalogo.html"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg> Catálogo Completo</a>
+            <a href="nosotros.html"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg> Sobre Nosotros</a>
+            
+            <div class="side-title">Líneas de Distribución</div>
+            <a href="cat-aceite.html"><svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 0 1-7-7c0-3.6 4.3-8.8 6.4-11.1a.8.8 0 0 1 1.2 0C14.7 5.2 19 10.4 19 14a7 7 0 0 1-7 7z"/></svg> Filtros de Aceite</a>
+            <a href="cat-aire.html"><svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"><path d="M4 12h12a3 3 0 0 0 0-6h-2M4 16h8a2 2 0 0 0 0-4H9M4 8h5a2 2 0 0 1 0 4"/></svg> Filtros de Aire</a>
+            <a href="cat-combustible.html"><svg viewBox="0 0 24 24"><path d="M4 5v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zm3 0h6v4H7V5zm11 11h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2v10z"/></svg> Filtros Combustible</a>
+            <a href="cat-fluidos.html">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.7 0-1.2.4-1.4 1L3 12v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6zM6.8 7h10.3l1.1 3H5.8l1-3zM19 17H5v-5h14v5z" fill="var(--morado)"/>
+                    <path d="M16 11c-1.3 0-3 1.8-3 3.5s1.3 3.5 3 3.5 3-1.8 3-3.5-1.7-3.5-3-3.5z" fill="var(--naranja)"/>
+                </svg> Fluidos Automotrices
+            </a>
+        </div>
+    </div>
+
+    <!-- BARRA SUPERIOR -->
+    <div class="top-bar">
+        Más de 5 años de experiencia | <span>Envíos seguros a todo el Perú</span>
+    </div>
+
+    <!-- HEADER PRINCIPAL -->
     <header>
+        <div class="menu-toggle" onclick="toggleMobileMenu()">
+            <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </div>
+        
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
-        <nav class="menu"><a href="index.html">Inicio</a><a href="catalogo.html" style="color: var(--naranja);">Catálogo</a><a href="nosotros.html">Nosotros</a></nav>
+
+        <div class="desktop-actions">
+            <a href="index.html" class="action-item">
+                <div class="action-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+                Inicio
+            </a>
+            <a href="catalogo.html" class="action-item">
+                <div class="action-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg></div>
+                Catálogo
+            </a>
+            <a href="nosotros.html" class="action-item">
+                <div class="action-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                Nosotros
+            </a>
+        </div>
     </header>
 
     <div id="error-producto"><h2>Lo sentimos, el producto no fue encontrado.</h2><a href="catalogo.html" style="color: var(--naranja);">Volver al Catálogo</a></div>
@@ -147,8 +272,8 @@
                 <div class="volume-pricing" id="ui-precios-container"></div>
 
                 <div class="b2b-banner">
-                    <div class="b2b-icon">📦</div>
-                    <div class="b2b-text"><strong>¿Buscas abastecer tu almacén?</strong><br>Contamos con descuentos adicionales por volumen a partir de 3 cajas.</div>
+                    <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                    <div><strong>¿Buscas abastecer tu almacén?</strong>Contamos con descuentos adicionales por volumen a partir de 3 cajas completas.</div>
                 </div>
 
                 <div class="action-row">
@@ -156,12 +281,21 @@
                         <span class="qty-label">Volumen a cotizar:</span>
                         <select id="select-volumen" class="vol-select" onchange="syncSelect(this.value)"></select>
                     </div>
-                    <button class="btn-comprar" onclick="enviarPedido()">Cotizar Stock</button>
+                    <button class="btn-comprar" onclick="enviarPedido()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.12.66 4.09 1.79 5.74L3 21l3.32-.77C7.94 21.36 9.9 22 12 22c5.52 22 10-4.48 10-10S17.52 2 12 2zm-1.8 6c.2-.01.44 0 .64.44.25.54.6 1.48.66 1.58.05.1.08.23.01.4-.07.17-.11.27-.23.4l-.33.37c-.12.13-.25.28-.11.51.14.23.63 1.03 1.35 1.68.93.84 1.7 1.1 1.93 1.23.23.12.37.1.51-.06.14-.16.6-.7.76-.94.16-.25.32-.2.53-.13.22.07 1.38.65 1.62.78.23.12.39.2.45.3.05.11.05.65-.18 1.28-.23.63-1.34 1.22-1.85 1.26-.5.05-1.12.2-3.19-.66-2.48-1.03-4.08-3.56-4.2-3.73-.12-.16-1-1.33-1-2.54s.62-1.81.84-2.06c.22-.25.48-.31.64-.31.16-.01.32-.01.47 0z"/></svg>
+                        Cotizar Stock
+                    </button>
                 </div>
 
                 <div class="delivery-box">
-                    <div class="delivery-item"><div class="delivery-icon">🛵</div><div><strong>Lima Metropolitana:</strong><br>Despacho a taller (Contra Entrega o Crédito).</div></div>
-                    <div class="delivery-item"><div class="delivery-icon">🚚</div><div><strong>Envíos a Provincia:</strong><br>Vía transporte de carga terrestre pesada (Ej. Sanky) o agencia sugerida por el cliente.</div></div>
+                    <div class="delivery-item">
+                        <div class="delivery-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+                        <div><strong>Lima Metropolitana:</strong><br>Despacho directo a taller.</div>
+                    </div>
+                    <div class="delivery-item">
+                        <div class="delivery-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+                        <div><strong>Envíos a Provincia:</strong><br>Vía transporte de carga pesada (Sanky o sugerida).</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -189,65 +323,84 @@
             </div>
         </div>
 
-        <!-- PREGUNTAS FRECUENTES -->
-        <div class="faq-section">
-            <div class="faq-box">
-                <h3 class="faq-title">Preguntas Frecuentes (FAQ)</h3>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-q">¿Por qué elegir a LubriBaro? <span>▼</span></div>
-                    <div class="faq-a">Contamos con más de 5 años de experiencia en el rubro de importación directa, ofreciendo repuestos 100% originales e importados de alta rotación. Nuestro trabajo está respaldado por la preferencia de cientos de clientes y talleres satisfechos a nivel nacional.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-q">¿Cómo envían los pedidos de gran volumen a provincia? <span>▼</span></div>
-                    <div class="faq-a">Trabajamos con agencias de carga terrestre pesada (como Sanky Transportes, entre otras) para asegurar que el flete de sus cajas sea económico. Además, usted puede sugerir su agencia de confianza al momento de cotizar.</div>
-                </div>
-                <div class="faq-item" onclick="toggleFaq(this)">
-                    <div class="faq-q">¿Los precios mostrados incluyen IGV? <span>▼</span></div>
-                    <div class="faq-a">Sí, somos una empresa completamente formal. Todos nuestros precios incluyen IGV y emitimos boleta o factura electrónica según lo requiera su negocio.</div>
-                </div>
-            </div>
-        </div>
-
         <!-- COMPROMISO LUBRIBARO -->
         <div class="satisfaction-box">
             <h3>Nuestro Compromiso Contigo</h3>
             <p>El crecimiento de tu negocio es nuestra prioridad en LubriBaro. Nos dedicamos a abastecerte con repuestos de calidad garantizada y un servicio mayorista ágil, transparente y seguro. Nuestro equipo de asesores está siempre disponible para garantizar que cada pedido rinda al máximo en tu taller. La confianza y lealtad que depositan nuestros clientes en nosotros es el motor que nos exige superar nuestras metas día a día.</p>
         </div>
-
-        <!-- CARRUSEL GOOGLE REVIEWS -->
-        <div class="reviews-section">
-            <h3 class="reviews-title">Lo que dicen los talleres sobre nosotros</h3>
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <div class="review-text">"Excelente proveedor mayorista. Los filtros originales llegan sellados y los envíos por carga pesada llegaron a tiempo a Arequipa sin problemas."</div>
-                    <div class="review-author">- Taller Automotriz Sur, Arequipa</div>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <div class="review-text">"Compro cajas de Chevron ATF. Los precios nos dejan buen margen y el asesoramiento por WhatsApp es rapidísimo. 100% empresa seria."</div>
-                    <div class="review-author">- Lubricentro El Chamo, Lima</div>
-                </div>
-                <div class="review-card">
-                    <div class="stars">★★★★★</div>
-                    <div class="review-text">"Buena variedad de filtros elemento para Hyundai. El despacho a nuestra agencia de carga fue el mismo día de la transferencia."</div>
-                    <div class="review-author">- Flotas del Norte, Piura</div>
-                </div>
-            </div>
-        </div>
     </div>
 
-    <!-- STICKY BAR -->
+    <!-- STICKY BAR (SE OCULTA EN MÓVIL AL ABRIR TECLADO) -->
     <div id="sticky-bar" class="sticky-bar">
         <div class="sticky-prod-info">
             <img id="sticky-foto" src="" alt="Miniatura">
             <div class="sticky-prod-title" id="sticky-titulo">Producto</div>
         </div>
         <select id="sticky-volumen" class="vol-select" style="min-width: 200px;" onchange="syncSelect(this.value)"></select>
-        <button class="btn-comprar" style="height: 50px; flex:none; padding: 0 30px;" onclick="enviarPedido()">Cotizar 📦</button>
+        <button class="btn-comprar" style="height: 50px; flex:none; padding: 0 30px;" onclick="enviarPedido()">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.12.66 4.09 1.79 5.74L3 21l3.32-.77C7.94 21.36 9.9 22 12 22c5.52 22 10-4.48 10-10S17.52 2 12 2zm-1.8 6c.2-.01.44 0 .64.44.25.54.6 1.48.66 1.58.05.1.08.23.01.4-.07.17-.11.27-.23.4l-.33.37c-.12.13-.25.28-.11.51.14.23.63 1.03 1.35 1.68.93.84 1.7 1.1 1.93 1.23.23.12.37.1.51-.06.14-.16.6-.7.76-.94.16-.25.32-.2.53-.13.22.07 1.38.65 1.62.78.23.12.39.2.45.3.05.11.05.65-.18 1.28-.23.63-1.34 1.22-1.85 1.26-.5.05-1.12.2-3.19-.66-2.48-1.03-4.08-3.56-4.2-3.73-.12-.16-1-1.33-1-2.54s.62-1.81.84-2.06c.22-.25.48-.31.64-.31.16-.01.32-.01.47 0z"/></svg>
+            Cotizar 📦
+        </button>
     </div>
 
-    <footer>&copy; 2026 LubriBaro. Todos los derechos reservados.</footer>
+    <!-- FOOTER CORPORATIVO -->
+    <footer>
+        <div class="footer-widgets">
+            <div class="widget widget-logo">
+                <h2>Lubri<span>Baro</span></h2>
+                <p>Tu socio estratégico en repuestos y lubricantes. Importación directa y distribución mayorista a nivel nacional, enfocados en el crecimiento de tu taller.</p>
+            </div>
+            
+            <div class="widget">
+                <h4>Atención al Cliente</h4>
+                <p>📍 <strong>Almacén Principal:</strong><br>Av. Las Gaviotas, Bellavista</p>
+                <p>📞 <strong>Ventas Mayoristas:</strong><br>+51 937 229 128</p>
+                <p>✉️ <strong>Correo:</strong><br>lubribaro@gmail.com</p>
+            </div>
+
+            <div class="widget">
+                <h4>Enlaces Rápidos</h4>
+                <a href="index.html">Inicio</a>
+                <a href="catalogo.html">Catálogo Completo</a>
+                <a href="nosotros.html">Sobre Nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+            </div>
+
+            <div class="widget">
+                <h4>Atención Rápida</h4>
+                <p>De Lunes a Sábado<br>8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 LubriBaro B2B. Todos los derechos reservados.</div>
+    </footer>
+
+    <!-- WIDGET WHATSAPP ANIMADO -->
+    <div class="wa-container">
+        <!-- Panel Desplegable -->
+        <div id="wa-popup" class="wa-popup">
+            <div class="wa-popup-header">
+                <div class="wa-popup-close" onclick="toggleWaPopup()">✕</div>
+                <div class="wa-popup-title">Asesoría Mayorista</div>
+                <div class="wa-popup-subtitle">Atención exclusiva para talleres ⚡</div>
+            </div>
+            <div class="wa-popup-body">
+                <a href="https://wa.me/51937229128?text=¡Buen%20día%20LubriBaro!%20Deseo%20información%20sobre%20su%20catálogo%20mayorista." target="_blank" class="wa-contact-card">
+                    <div class="wa-contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
+                    </div>
+                    <div class="wa-contact-info">
+                        <span class="wa-name">Hablar con un asesor</span>
+                        <span class="wa-status"><span class="wa-dot"></span> En línea</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Botón que late -->
+        <div class="wa-trigger" onclick="toggleWaPopup()">
+            <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
+        </div>
+    </div>
 
     <script>
         function abrirTab(evt, tabId) {
@@ -259,7 +412,14 @@
             evt.currentTarget.classList.add("active");
         }
 
-        function toggleFaq(elemento) { elemento.classList.toggle("open"); }
+        function toggleWaPopup() {
+            document.getElementById('wa-popup').classList.toggle('active');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('side-menu').classList.toggle('active');
+            document.getElementById('mobile-overlay').classList.toggle('active');
+        }
 
         window.onscroll = function() {
             let stickyBar = document.getElementById("sticky-bar");
@@ -268,12 +428,10 @@
         };
 
         const baseDeDatos = {
-            // *** REEMPLAZA CON TU LISTA COMPLETA DE 31 PRODUCTOS AQUÍ ***
+            // *** PEGA TU BASE DE DATOS COMPLETA AQUÍ ***
             "chevron-atf": { marca: "CHEVRON", titulo: "Chevron Supreme ATF MD-3", codigo: "SKU: ATF-MD3", presentacion: "Caja de 12 x 1/4 GL", desc: "Máxima protección contra la formación de lacas. Estabilidad excepcional.", compatibilidad: "Transmisiones Automáticas Hyundai, Kia que soliciten DEXRON-III.", foto: "chevron.jpg", tipo: "Fluido Transmisión", pdf: "#", precios: [ { qty:"1 Caja", val:"290,00", desc:"x Caja" }, { qty:"2 Cajas", val:"285,00", desc:"x Caja", highlight:true } ] },
             "efeos-5050": { marca: "EFEOS", titulo: "Refrigerante EFEOS 50/50", codigo: "SKU: EF-5050", presentacion: "Caja de 3 Galoneras", desc: "Fórmula lista para usar de larga vida. Previene sobrecalentamiento.", compatibilidad: "Flotas de Hyundai, Kia y vehículos asiáticos.", foto: "efeos.jpg", tipo: "Refrigerante", pdf: "#", precios: [ { qty:"1 Caja", val:"120,00", desc:"x Caja" }, { qty:"2 Cajas", val:"115,00", desc:"x Caja", highlight:true } ] },
-            
             "filtro-31922-2e900": { marca: "OEM", titulo: "Filtro Combustible 31922-2E900", codigo: "SKU: 31922-2E900", presentacion: "Por definir", desc: "Filtro para inyección de alta presión.", compatibilidad: "Consulte aplicación.", foto: "filtro-31922.jpg", tipo: "Filtro Combustible", precios: [ { qty:"1 Decena", val:"72,00", desc:"c/u" }, { qty:"Media Caja", val:"68,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"65,00", desc:"c/u", highlight:true } ] },
-            
             "filtro-26330-4a001": { marca: "Hyundai", titulo: "Filtro Aceite 26330-4A001", codigo: "SKU: 26330-4A001", presentacion: "Caja 20x1 unid.", desc: "Elemento filtrante de alta capacidad. Equivalencia: LYS LF604A.", compatibilidad: "Motor diesel.", foto: "filtro-26330.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"33,00", desc:"c/u" }, { qty:"Media Caja", val:"31,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"29,00", desc:"c/u", highlight:true } ] },
             "filtro-26300-35505": { marca: "HYUNDAI", titulo: "Filtro Aceite 26300-35505", codigo: "SKU: 26300-35505", presentacion: "Caja 40x1 unid.", desc: "Alta rotación. Equivalencia: LYS 360.", compatibilidad: "Aplicación estándar.", foto: "filtro-26300.jpg", tipo: "Filtro de Aceite (Metálico)", precios: [ { qty:"1 Decena", val:"16,50", desc:"c/u" }, { qty:"Media Caja", val:"15,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"14,50", desc:"c/u", highlight:true } ] }
         };
@@ -296,29 +454,20 @@
                 document.getElementById('ui-compatibilidad').innerHTML = productoActual.compatibilidad;
                 document.getElementById('ui-tb-tipo').innerHTML = productoActual.tipo;
                 
-                // Mostrar Botón PDF si existe
-                if (productoActual.pdf) {
-                    document.getElementById('ui-pdf').style.display = "block";
-                }
+                if (productoActual.pdf) document.getElementById('ui-pdf').style.display = "block";
 
-                // RENDER PRECIOS
                 let htmlPrecios = '';
                 productoActual.precios.forEach(p => {
-                    htmlPrecios += `<div class="tier ${p.highlight ? 'highlight' : ''}">
-                        <span class="tier-qty">${p.qty}</span>
-                        <span class="tier-price"><span>S/</span>${p.val}</span>
-                    </div>`;
+                    htmlPrecios += `<div class="tier ${p.highlight ? 'highlight' : ''}"><span class="tier-qty">${p.qty}</span><span class="tier-price"><span>S/</span>${p.val}</span></div>`;
                 });
                 document.getElementById('ui-precios-container').innerHTML = htmlPrecios;
 
-                // SELECTOR
                 let optionsHTML = id.startsWith('filtro') ? 
                     `<option value="1 Decena (10 unid.)">1 Decena (10 unid.)</option><option value="Media Caja (20 unid.)">Media Caja</option><option value="1 Caja Completa" selected>1 Caja Completa</option><option value="2 Cajas">2 Cajas</option><option value="3 a 5 Cajas">3 a 5 Cajas (Descuento extra)</option><option value="6 a más Cajas">6 a más Cajas</option>` :
                     `<option value="1 Caja">1 Caja</option><option value="2 Cajas" selected>2 Cajas</option><option value="3 a 5 Cajas">3 a 5 Cajas (Descuento extra)</option><option value="6 a más Cajas">6 a más Cajas</option>`;
                 document.getElementById('select-volumen').innerHTML = optionsHTML;
                 document.getElementById('sticky-volumen').innerHTML = optionsHTML;
 
-                // FOTOS
                 const img = document.getElementById('ui-foto');
                 img.src = productoActual.foto; document.getElementById('ui-thumb1').src = productoActual.foto; document.getElementById('sticky-foto').src = productoActual.foto;
                 img.onload = () => { img.style.display = 'block'; document.getElementById('ui-placeholder').style.display = 'none'; };
