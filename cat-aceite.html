@@ -42,17 +42,25 @@
         /* CATÁLOGO GRID Y SUBCATEGORÍAS */
         .section-container { padding: 50px 5%; max-width: 1300px; margin: 0 auto; min-height: 50vh; }
         .subcategory-title { color: var(--morado); margin-top: 0; border-bottom: 3px solid var(--naranja); padding-bottom: 10px; margin-bottom: 30px; font-size: 1.6em; text-transform: uppercase; font-weight: 900; }
+        
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
         
+        /* NUEVO DISEÑO DE TARJETA (ESTILO CATÁLOGO TÉCNICO) */
         .product-card { background: white; border-radius: 10px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; }
         .product-card:hover { box-shadow: 0 8px 25px rgba(65,48,154,0.1); border-color: var(--naranja); transform: translateY(-5px); }
-        .product-img { background-color: #f9f9f9; height: 200px; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 0.9em; }
-        .product-info { padding: 25px 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-info h4 { margin: 0 0 15px 0; color: var(--morado); font-size: 1.2em; line-height: 1.3; }
-        .product-code { background-color: #fff4ed; color: var(--naranja); padding: 5px 12px; border-radius: 5px; font-size: 0.85em; font-weight: bold; margin-bottom: 15px; width: fit-content; border: 1px solid #ffe1cc; }
-        .product-cars { font-size: 0.9em; color: #666; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
-        .product-cars strong { color: var(--gris); }
-        .btn-small { background-color: var(--fondo); color: var(--morado); text-align: center; text-decoration: none; padding: 12px; border-radius: 5px; font-weight: bold; transition: 0.3s; border: 1px solid #ddd; text-transform: uppercase; font-size: 0.85em; }
+        
+        .product-img { background-color: #f9f9f9; height: 220px; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 0.9em; overflow: hidden; border-bottom: 1px solid #eee; padding: 15px; }
+        .product-img img { width: 100%; height: 100%; object-fit: contain; }
+        
+        .product-info { padding: 25px 20px; display: flex; flex-direction: column; flex-grow: 1; align-items: center; text-align: center; }
+        
+        .product-code-main { margin: 0 0 10px 0; color: var(--morado); font-size: 1.4em; font-weight: 900; letter-spacing: 0.5px; }
+        .product-title-eqv { color: var(--gris); font-weight: bold; font-size: 0.95em; margin-bottom: 15px; display: flex; flex-direction: column; gap: 4px; }
+        .product-title-eqv span { color: var(--naranja); font-size: 0.9em; }
+        
+        .product-cars { font-size: 0.85em; color: #555; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; font-style: italic; border-top: 1px solid #eee; padding-top: 15px; width: 100%; }
+        
+        .btn-small { background-color: var(--fondo); color: var(--morado); text-align: center; text-decoration: none; padding: 12px; border-radius: 5px; font-weight: bold; transition: 0.3s; border: 1px solid #ddd; text-transform: uppercase; font-size: 0.85em; width: 100%; }
         .btn-small:hover { background-color: var(--naranja); color: white; border-color: var(--naranja); }
 
         /* FOOTER CORPORATIVO */
@@ -65,7 +73,7 @@
         .widget a:hover { color: white; padding-left: 5px; }
         .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* WIDGET WHATSAPP ANIMADO (LATIDO FÍSICO) */
+        /* WIDGET WHATSAPP ANIMADO */
         @keyframes pulse-wa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); } 15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); } 30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
         .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9990; display: flex; flex-direction: column; align-items: flex-end; }
         .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
@@ -187,76 +195,84 @@
         <!-- FILTROS METÁLICOS -->
         <h3 class="subcategory-title">Filtros Estándar (Metálicos)</h3>
         <div class="catalog-grid">
+            
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26300.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro de Aceite OEM</h4>
-                    <div class="product-code">Cód: 26300-35505</div>
-                    <div class="product-cars"><strong>Hyundai/Kia:</strong> Aplicación estándar.</div>
+                    <h4 class="product-code-main">26300-35505</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-260</span></div>
+                    <div class="product-cars">Cerato - Elantra - Optima - Sportage - Tucson</div>
                     <a href="producto.html?id=filtro-26300-35505" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26300-02752.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro de Aceite OEM</h4>
-                    <div class="product-code">Cód: 26330-4A001</div>
-                    <div class="product-cars"><strong>Hyundai/Kia:</strong> Motor diesel.</div>
+                    <h4 class="product-code-main">26300-02752</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-3007</span></div>
+                    <div class="product-cars">Soluto - Verna - Gran i10 - Picanto</div>
+                    <a href="producto.html?id=filtro-26300-02752" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"><img src="filtro-26330-4A001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-info">
+                    <h4 class="product-code-main">26330-4A001</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-604A</span></div>
+                    <div class="product-cars">H100 - H1 - K2700 - Bongo</div>
                     <a href="producto.html?id=filtro-26330-4a001" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26316-41000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro de Aceite OEM</h4>
-                    <div class="product-code">Cód: 0K87A-14317</div>
-                    <div class="product-cars"><strong>Hyundai:</strong> Motor diesel HD120.</div>
-                    <a href="producto.html?id=filtro-0k87a-14317" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
-                <div class="product-info">
-                    <h4>Filtro de Aceite OEM</h4>
-                    <div class="product-code">Cód: 26316-41000</div>
-                    <div class="product-cars"><strong>Hyundai:</strong> Migthy 1994-2000.</div>
+                    <h4 class="product-code-main">26316-41000</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-833N</span></div>
+                    <div class="product-cars">Migthy HD65 - HD72 - HD78 (1998+)</div>
                     <a href="producto.html?id=filtro-26316-41000" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-0K87A-14317.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro de Aceite OEM</h4>
-                    <div class="product-code">Cód: 26311-45010</div>
-                    <div class="product-cars"><strong>Hyundai:</strong> Serie HD45/HD65/HD75.</div>
-                    <a href="producto.html?id=filtro-26311-45010" class="btn-small">Ver Detalles</a>
+                    <h4 class="product-code-main">0K87A-14317</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Hyundai HD120 (Motor D6DA Diesel)</div>
+                    <a href="producto.html?id=filtro-0k87a-14317" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-16510-M68K20.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro de Aceite OEM</h4>
-                    <div class="product-code">Cód: 23304-EV120</div>
-                    <div class="product-cars"><strong>OEM:</strong> Alta calidad.</div>
-                    <a href="producto.html?id=filtro-23304-ev120" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-            <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
-                <div class="product-info">
-                    <h4>Filtro de Aceite OEM</h4>
-                    <div class="product-code">Cód: 16510-M68K20</div>
-                    <div class="product-cars"><strong>Suzuki:</strong> Swift, Grand Vitara.</div>
+                    <h4 class="product-code-main">16510-M68K20</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-3001 CHATO</span></div>
+                    <div class="product-cars">Maruti Alto - SX4 - Vitara - Nomade</div>
                     <a href="producto.html?id=filtro-16510-m68k20" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26311-45010.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro de Aceite OEM</h4>
-                    <div class="product-code">Cód: 26300-02752</div>
-                    <div class="product-cars"><strong>Hyundai:</strong> Motor a gasolina.</div>
-                    <a href="producto.html?id=filtro-26300-02752" class="btn-small">Ver Detalles</a>
+                    <h4 class="product-code-main">26311-45010</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Serie HD45 - HD65 - HD75</div>
+                    <a href="producto.html?id=filtro-26311-45010" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"><img src="filtro-23304-EV120.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-info">
+                    <h4 class="product-code-main">23304-EV120</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Alta calidad</div>
+                    <a href="producto.html?id=filtro-23304-ev120" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
         </div>
@@ -265,110 +281,121 @@
         <h3 class="subcategory-title">Filtros Tipo Elemento (Cartucho)</h3>
         <div class="catalog-grid">
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26320-2f100.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26320-2F100</div>
-                    <div class="product-cars"><strong>Hyundai:</strong> Staria.</div>
+                    <h4 class="product-code-main">26320-2F100</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Hyundai Staria</div>
                     <a href="producto.html?id=filtro-26320-2f100" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+            
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26320-3N000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26320-3N000</div>
-                    <div class="product-cars"><strong>OEM:</strong> Alta eficiencia.</div>
+                    <h4 class="product-code-main">26320-3N000</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Alta eficiencia</div>
                     <a href="producto.html?id=filtro-26320-3n000" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26320-2R000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26320-2R000</div>
-                    <div class="product-cars"><strong>Hyundai/Kia:</strong> Motor diesel 2.0L.</div>
+                    <h4 class="product-code-main">26320-2R000</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Hyundai/Kia Motor diesel 2.0L</div>
                     <a href="producto.html?id=filtro-26320-2r000" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26350-2M000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26350-2M000</div>
-                    <div class="product-cars"><strong>Kia:</strong> New Sorento, Rio.</div>
+                    <h4 class="product-code-main">26350-2M000</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Kia New Sorento - Rio</div>
                     <a href="producto.html?id=filtro-26350-2m000" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26350-2J001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26350-2J001</div>
-                    <div class="product-cars"><strong>OEM:</strong> Alta eficiencia.</div>
+                    <h4 class="product-code-main">26350-2J001</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Alta eficiencia</div>
                     <a href="producto.html?id=filtro-26350-2j001" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26320-3C100.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26320-3C100</div>
-                    <div class="product-cars"><strong>OEM:</strong> Alta eficiencia.</div>
+                    <h4 class="product-code-main">26320-3C100</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Alta eficiencia</div>
                     <a href="producto.html?id=filtro-26320-3c100" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26325-52003.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26325-52003</div>
-                    <div class="product-cars"><strong>Hyundai:</strong> Migthy HD38/HD78.</div>
+                    <h4 class="product-code-main">26325-52003</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Hyundai Migthy HD38 - HD78</div>
                     <a href="producto.html?id=filtro-26325-52003" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26350-2S001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26350-2S001</div>
-                    <div class="product-cars"><strong>OEM:</strong> Alta eficiencia.</div>
+                    <h4 class="product-code-main">26350-2S001</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Alta eficiencia</div>
                     <a href="producto.html?id=filtro-26350-2s001" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26320-30000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26320-30000</div>
-                    <div class="product-cars"><strong>Kia/Hyundai:</strong> Carnival, Genesis.</div>
+                    <h4 class="product-code-main">26320-30000</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Kia/Hyundai Carnival - Genesis</div>
                     <a href="producto.html?id=filtro-26320-30000" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26350-25000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26350-25000</div>
-                    <div class="product-cars"><strong>Hyundai:</strong> Tucson modernas.</div>
+                    <h4 class="product-code-main">26350-25000</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Hyundai Tucson modernas</div>
                     <a href="producto.html?id=filtro-26350-25000" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26320-30100.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26320-30100</div>
-                    <div class="product-cars"><strong>Hyundai/Kia:</strong> Santa Fe, Sonata.</div>
+                    <h4 class="product-code-main">26320-30100</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Hyundai/Kia Santa Fe - Sonata</div>
                     <a href="producto.html?id=filtro-26320-30100" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
+
             <div class="product-card">
-                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-img"><img src="filtro-26350-20001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4>Filtro Elemento OEM</h4>
-                    <div class="product-code">Cód: 26350-20001</div>
-                    <div class="product-cars"><strong>Hyundai:</strong> Santa Fe IV, Tucson NX4.</div>
+                    <h4 class="product-code-main">26350-20001</h4>
+                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
+                    <div class="product-cars">Hyundai Santa Fe IV - Tucson NX4</div>
                     <a href="producto.html?id=filtro-26350-20001" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
