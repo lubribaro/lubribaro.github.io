@@ -13,12 +13,23 @@
         .top-bar { background-color: var(--morado); color: white; text-align: center; padding: 10px 5%; font-size: 0.85em; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
         .top-bar span { font-style: italic; font-weight: normal; color: #d0c8ff; }
 
-        /* HEADER PRINCIPAL (SIN BUSCADOR) */
-        header { background-color: var(--blanco); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        /* HEADER PRINCIPAL */
+        header { background-color: var(--blanco); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        
+        /* BOTÓN HAMBURGUESA (SOLO MÓVIL) */
+        .menu-toggle { display: none; cursor: pointer; padding: 5px; }
+        .menu-toggle svg { width: 32px; height: 32px; fill: var(--morado); }
+
         .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; } 
         .logo span { color: var(--naranja); }
         
-        .header-actions { display: flex; gap: 25px; color: var(--morado); align-items: center; margin-left: auto; }
+        .search-form { display: flex; flex: 1; max-width: 500px; margin: 0 30px; background: #f1f1f1; border-radius: 5px; overflow: hidden; height: 45px; border: 1px solid #ddd; }
+        .search-form input { flex: 1; padding: 10px 15px; border: none; outline: none; font-size: 1em; color: var(--gris); background: transparent; }
+        .search-form button { background: var(--naranja); color: white; border: none; padding: 0 20px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .search-form button:hover { background: #e66a15; }
+        .search-form button svg { width: 20px; height: 20px; fill: white; }
+
+        .desktop-actions { display: flex; gap: 20px; align-items: center; }
         .action-item { display: flex; align-items: center; gap: 8px; font-size: 0.9em; font-weight: bold; cursor: pointer; text-decoration: none; color: var(--gris); transition: 0.3s; }
         .action-item:hover { color: var(--naranja); }
         .action-icon svg { width: 24px; height: 24px; fill: var(--morado); transition: 0.3s; }
@@ -28,19 +39,20 @@
         .btn-header:hover { background: #e66a15; transform: translateY(-2px); color: white; }
         .btn-header svg { width: 20px; height: 20px; fill: white; }
 
-        /* BARRA DE CATEGORÍAS */
+        /* BARRA DE CATEGORÍAS (ESCRITORIO) */
         .cat-nav { background-color: white; padding: 15px 5%; display: flex; gap: 40px; justify-content: center; border-bottom: 2px solid #eee; overflow-x: auto; white-space: nowrap; }
         .cat-nav a { text-decoration: none; color: var(--gris); font-weight: bold; font-size: 0.9em; text-transform: uppercase; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
         .cat-nav a:hover { color: var(--naranja); }
         .cat-nav a svg { width: 20px; height: 20px; fill: var(--morado); }
 
         /* BANNER PROVISIONAL B2B */
-        .hero-banner { width: 100%; height: 400px; background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); display: flex; align-items: center; justify-content: center; position: relative; }
-        .hero-content { text-align: center; color: white; z-index: 2; padding: 0 20px; }
+        .hero-banner { width: 100%; height: 450px; background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); display: flex; align-items: center; justify-content: center; position: relative; }
+        .hero-content { text-align: center; color: white; z-index: 2; padding: 0 20px; width: 100%; }
         .hero-content h1 { font-size: 3.5em; margin: 0 0 10px 0; text-transform: uppercase; font-weight: 900; line-height: 1.1; }
         .hero-content p { font-size: 1.5em; margin: 0 0 20px 0; font-weight: 300; }
         .btn-banner { background: var(--naranja); color: white; padding: 15px 35px; text-decoration: none; font-size: 1.1em; font-weight: bold; border-radius: 5px; text-transform: uppercase; transition: 0.3s; display: inline-block; }
         .btn-banner:hover { background: #e66a15; transform: translateY(-2px); }
+        .banner-placeholder-text { position: absolute; bottom: 20px; right: 20px; font-size: 0.8em; color: rgba(255,255,255,0.4); border: 1px dashed rgba(255,255,255,0.3); padding: 5px 10px; }
 
         /* SECCIONES GENERALES */
         .section-container { padding: 60px 5%; max-width: 1300px; margin: 0 auto; }
@@ -65,19 +77,20 @@
 
         /* CARRUSEL ASIMÉTRICO */
         .carousel-section { background: white; padding: 60px 5%; display: flex; gap: 30px; align-items: center; max-width: 1400px; margin: 0 auto; overflow: hidden; position: relative; }
-        .carousel-title-col { flex: 0 0 250px; border-left: 5px solid var(--naranja); padding-left: 20px; }
+        .carousel-title-col { flex: 0 0 250px; border-left: 5px solid var(--naranja); padding-left: 20px; display: flex; flex-direction: column; justify-content: center; }
         .carousel-title-col h2 { font-size: 2.2em; color: var(--gris); margin: 0 0 15px 0; line-height: 1.1; font-weight: 300; }
         .carousel-title-col h2 strong { font-weight: 900; color: var(--morado); display: block; }
+        .carousel-title-col h2 span { display: block; }
         
-        .carousel-controls { display: flex; gap: 10px; }
-        .btn-arrow { background: var(--fondo); border: 1px solid #ddd; color: var(--morado); width: 40px; height: 40px; border-radius: 50%; font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .carousel-controls { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-arrow { background: var(--fondo); border: 1px solid #ddd; color: var(--morado); width: 45px; height: 45px; border-radius: 50%; font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 10; }
         .btn-arrow:hover { background: var(--naranja); color: white; border-color: var(--naranja); }
 
         .carousel-wrapper { flex: 1; overflow: hidden; position: relative; }
-        .carousel-container { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .carousel-container { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .carousel-container::-webkit-scrollbar { display: none; }
         
-        .prod-card { min-width: 250px; max-width: 250px; scroll-snap-align: start; background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; }
+        .prod-card { min-width: 260px; max-width: 260px; scroll-snap-align: start; background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; }
         .prod-card:hover { box-shadow: 0 10px 25px rgba(65,48,154,0.1); border-color: var(--naranja); }
         .prod-img-box { height: 180px; background: #f9f9f9; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .prod-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; display: none; }
@@ -92,7 +105,7 @@
         .trust-steps-section h2 { font-size: 2.2em; color: var(--morado); margin-bottom: 50px; text-transform: uppercase; font-weight: 900; }
         .trust-steps-section h2 span { color: var(--naranja); border-bottom: 3px solid var(--naranja); padding-bottom: 5px; }
         
-        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; position: relative; }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; position: relative; }
         .step-card { background: white; border-radius: 12px; padding: 40px 20px; border: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.04); position: relative; z-index: 2; transition: 0.3s; }
         .step-card:hover { border-color: var(--morado); transform: translateY(-5px); }
         .step-number { background: var(--naranja); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2em; position: absolute; top: -20px; border: 4px solid var(--fondo); }
@@ -124,24 +137,15 @@
         /* =========================================
            WIDGET WHATSAPP ANIMADO (LATIDO FÍSICO) 
            ========================================= */
-        @keyframes pulse-wa {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); }
-            15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); }
-            30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-        
-        .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
-        
+        @keyframes pulse-wa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); } 15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); } 30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9990; display: flex; flex-direction: column; align-items: flex-end; }
         .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
         .wa-popup.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-        
         .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 20px; position: relative; border-bottom: 4px solid var(--naranja); }
         .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; font-weight: bold; line-height: 1; transition: 0.3s; }
         .wa-popup-close:hover { color: var(--naranja); }
         .wa-popup-title { font-size: 1.2em; font-weight: bold; margin-bottom: 5px; } 
         .wa-popup-subtitle { font-size: 0.85em; opacity: 0.9; }
-        
         .wa-popup-body { padding: 20px; }
         .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eaeaea; transition: 0.3s; }
         .wa-contact-card:hover { border-color: var(--naranja); background: #fff4ed; }
@@ -151,22 +155,80 @@
         .wa-name { font-weight: bold; font-size: 1em; color: var(--morado); }
         .wa-status { font-size: 0.8em; color: #666; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
         .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; }
-        
         .wa-trigger { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: pulse-wa 2.5s infinite; transition: 0.3s; }
         .wa-trigger:hover { transform: scale(1.05); animation: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6); }
         .wa-trigger svg { width: 35px; height: 35px; fill: white; }
 
+        /* =========================================
+           DISEÑO MÓVIL Y MENÚ HAMBURGUESA
+           ========================================= */
+        .side-menu { position: fixed; top: 0; left: -300px; width: 280px; height: 100vh; background: white; z-index: 2000; transition: 0.4s; overflow-y: auto; box-shadow: 2px 0 15px rgba(0,0,0,0.1); }
+        .side-menu.active { left: 0; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 1999; display: none; }
+        .overlay.active { display: block; }
+        .side-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { font-size: 24px; cursor: pointer; color: var(--gris); font-weight: bold; }
+        .side-links { padding: 10px 0; display: flex; flex-direction: column; }
+        .side-links a { padding: 15px 20px; text-decoration: none; color: var(--gris); font-weight: bold; border-bottom: 1px solid #f9f9f9; display: flex; align-items: center; gap: 12px; }
+        .side-links a svg { width: 22px; height: 22px; fill: var(--morado); }
+        .side-title { padding: 15px 20px 5px 20px; font-size: 0.8em; color: #888; text-transform: uppercase; font-weight: bold; }
+        .btn-side-cotizar { background: var(--naranja) !important; color: white !important; margin: 20px; border-radius: 5px; justify-content: center; }
+        .btn-side-cotizar svg { fill: white !important; }
+
         @media (max-width: 900px) { 
-            header { flex-direction: column; text-align: center; } 
-            .header-actions { margin-left: 0; width: 100%; justify-content: center; flex-wrap: wrap; }
+            header { flex-direction: row; padding: 15px 5%; justify-content: space-between; flex-wrap: wrap; } 
+            .menu-toggle { display: block; order: 1; }
+            .logo { order: 2; margin: 0 auto; padding-right: 20px; }
+            .desktop-actions { display: none; }
+            .cat-nav { display: none; }
+            .search-form { width: 100%; margin: 15px 0 0 0; max-width: 100%; order: 3; } 
+            
+            /* Textos Adaptables */
+            .hero-banner { height: 350px; }
+            .hero-content h1 { font-size: 2.2em; }
+            .hero-content p { font-size: 1.1em; }
+            .trust-steps-section h2 { font-size: 1.8em; }
+
+            /* Ajustes Carrusel Móvil */
             .carousel-section { flex-direction: column; padding: 40px 5%; }
-            .carousel-title-col { flex: none; border-left: none; border-bottom: 5px solid var(--naranja); padding-left: 0; padding-bottom: 15px; text-align: center; width: 100%; }
-            .carousel-controls { justify-content: center; margin-top: 10px; }
+            .carousel-title-col { flex: none; border-left: none; padding-left: 0; text-align: center; width: 100%; border-bottom: 3px solid var(--naranja); padding-bottom: 20px; }
+            .carousel-title-col h2 { font-size: 1.8em; }
+            .carousel-controls { justify-content: center; margin-top: 15px; }
+            .carousel-container { padding-bottom: 10px; }
+            
             .wa-container { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- MENÚ HAMBURGUESA OCULTO (MÓVIL) -->
+    <div class="overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="side-menu" id="side-menu">
+        <div class="side-header">
+            <a href="index.html" class="logo">Lubri<span>Baro</span></a>
+            <div class="close-btn" onclick="toggleMobileMenu()">✕</div>
+        </div>
+        <div class="side-links">
+            <a href="catalogo.html"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg> Catálogo Completo</a>
+            
+            <div class="side-title">Líneas de Distribución</div>
+            <a href="cat-aceite.html"><svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 0 1-7-7c0-3.6 4.3-8.8 6.4-11.1a.8.8 0 0 1 1.2 0C14.7 5.2 19 10.4 19 14a7 7 0 0 1-7 7z"/></svg> Filtros de Aceite</a>
+            <a href="cat-aire.html"><svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"><path d="M4 12h12a3 3 0 0 0 0-6h-2M4 16h8a2 2 0 0 0 0-4H9M4 8h5a2 2 0 0 1 0 4"/></svg> Filtros de Aire</a>
+            <a href="cat-combustible.html"><svg viewBox="0 0 24 24"><path d="M4 5v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zm3 0h6v4H7V5zm11 11h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2v10z"/></svg> Filtros Combustible</a>
+            <a href="cat-fluidos.html">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.7 0-1.2.4-1.4 1L3 12v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6zM6.8 7h10.3l1.1 3H5.8l1-3zM19 17H5v-5h14v5z" fill="var(--morado)"/>
+                    <path d="M16 11c-1.3 0-3 1.8-3 3.5s1.3 3.5 3 3.5 3-1.8 3-3.5-1.7-3.5-3-3.5z" fill="var(--naranja)"/>
+                </svg> Fluidos Automotrices
+            </a>
+            
+            <a href="https://wa.me/51937229128" target="_blank" class="btn-side-cotizar">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.12.66 4.09 1.79 5.74L3 21l3.32-.77C7.94 21.36 9.9 22 12 22c5.52 22 10-4.48 10-10S17.52 2 12 2zm-1.8 6c.2-.01.44 0 .64.44.25.54.6 1.48.66 1.58.05.1.08.23.01.4-.07.17-.11.27-.23.4l-.33.37c-.12.13-.25.28-.11.51.14.23.63 1.03 1.35 1.68.93.84 1.7 1.1 1.93 1.23.23.12.37.1.51-.06.14-.16.6-.7.76-.94.16-.25.32-.2.53-.13.22.07 1.38.65 1.62.78.23.12.39.2.45.3.05.11.05.65-.18 1.28-.23.63-1.34 1.22-1.85 1.26-.5.05-1.12.2-3.19-.66-2.48-1.03-4.08-3.56-4.2-3.73-.12-.16-1-1.33-1-2.54s.62-1.81.84-2.06c.22-.25.48-.31.64-.31.16-.01.32-.01.47 0z"/></svg>
+                Cotizar Pedido
+            </a>
+        </div>
+    </div>
 
     <!-- BARRA SUPERIOR -->
     <div class="top-bar">
@@ -175,9 +237,14 @@
 
     <!-- HEADER PRINCIPAL -->
     <header>
+        <!-- Menú Hamburguesa -->
+        <div class="menu-toggle" onclick="toggleMobileMenu()">
+            <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </div>
+        
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
 
-        <div class="header-actions">
+        <div class="desktop-actions">
             <a href="catalogo.html" class="action-item">
                 <div class="action-icon">
                     <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
@@ -189,26 +256,30 @@
                 Cotizar Pedido
             </a>
         </div>
+
+        <!-- BUSCADOR VISUAL -->
+        <form action="catalogo.html" method="GET" class="search-form">
+            <input type="text" name="q" placeholder="Buscar por código, marca o producto...">
+            <button type="submit">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </button>
+        </form>
     </header>
 
-    <!-- BARRA DE CATEGORÍAS -->
+    <!-- BARRA DE CATEGORÍAS (ESCRITORIO) -->
     <nav class="cat-nav">
-        <!-- Filtros de Aceite -->
         <a href="cat-aceite.html">
             <svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 0 1-7-7c0-3.6 4.3-8.8 6.4-11.1a.8.8 0 0 1 1.2 0C14.7 5.2 19 10.4 19 14a7 7 0 0 1-7 7z"/></svg>
             Filtros de Aceite
         </a>
-        <!-- Filtros de Aire -->
         <a href="cat-aire.html">
             <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"><path d="M4 12h12a3 3 0 0 0 0-6h-2M4 16h8a2 2 0 0 0 0-4H9M4 8h5a2 2 0 0 1 0 4"/></svg>
             Filtros de Aire
         </a>
-        <!-- Filtros Combustible -->
         <a href="cat-combustible.html">
             <svg viewBox="0 0 24 24"><path d="M4 5v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zm3 0h6v4H7V5zm11 11h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2v10z"/></svg>
             Filtros Combustible
         </a>
-        <!-- Fluidos Automotrices -->
         <a href="cat-fluidos.html">
             <svg viewBox="0 0 24 24">
                 <path d="M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.7 0-1.2.4-1.4 1L3 12v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6zM6.8 7h10.3l1.1 3H5.8l1-3zM19 17H5v-5h14v5z" fill="var(--morado)"/>
@@ -280,7 +351,7 @@
     <!-- CARRUSEL ASIMÉTRICO -->
     <section class="carousel-section">
         <div class="carousel-title-col">
-            <h2>¡Los<br><strong>productos más solicitados</strong><br>aquí!</h2>
+            <h2>¡Los<br><strong>productos más solicitados</strong><span style="display:block;">aquí!</span></h2>
             <div class="carousel-controls">
                 <button class="btn-arrow" onclick="scrollCarousel(-1)">&#10094;</button>
                 <button class="btn-arrow" onclick="scrollCarousel(1)">&#10095;</button>
@@ -444,14 +515,20 @@
         </div>
     </div>
 
+    <!-- SCRIPT DEL CARRUSEL Y MENÚ MÓVIL -->
     <script>
         function toggleWaPopup() {
             document.getElementById('wa-popup').classList.toggle('active');
         }
 
+        function toggleMobileMenu() {
+            document.getElementById('side-menu').classList.toggle('active');
+            document.getElementById('mobile-overlay').classList.toggle('active');
+        }
+
         function scrollCarousel(direction) {
             const container = document.getElementById('prod-carousel');
-            const scrollAmount = 270;
+            const scrollAmount = 280; // Ancho de tarjeta + gap
             container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }
     </script>
