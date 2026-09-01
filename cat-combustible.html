@@ -1,21 +1,309 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Filtros de Combustible - LubriBaro B2B</title>
-<style>:root{--morado:#41309A;--naranja:#FF7B1A;--fondo:#F8F9FA;--gris:#333333;}*{box-sizing:border-box;}body{font-family:'Segoe UI',Arial,sans-serif;margin:0;background-color:var(--fondo);overflow-x:hidden;}header{background-color:white;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.1);}.logo{font-size:34px;font-weight:900;color:var(--morado);text-decoration:none;letter-spacing:-1px;}.logo span{color:var(--naranja);}nav.menu{display:flex;gap:25px;}nav.menu a{text-decoration:none;color:var(--gris);font-weight:600;}.page-header{background:var(--morado);color:white;padding:30px 5%;text-align:center;border-bottom:4px solid var(--naranja);}.back-btn{display:inline-block;margin-top:15px;color:white;text-decoration:none;background:rgba(255,255,255,0.2);padding:8px 15px;border-radius:5px;font-size:0.9em;}.section-container{padding:40px 5%;max-width:1200px;margin:0 auto;}.catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px;}.product-card{background:white;border-radius:10px;border:1px solid #eaeaea;display:flex;flex-direction:column;overflow:hidden;transition:0.3s;}.product-card:hover{box-shadow:0 8px 20px rgba(0,0,0,0.1);border-color:var(--naranja);transform:translateY(-5px);}.product-img{background-color:#e9ecef;height:180px;display:flex;align-items:center;justify-content:center;color:#888;font-weight:bold;}.product-info{padding:20px;display:flex;flex-direction:column;flex-grow:1;}.product-info h4{margin:0 0 10px 0;color:var(--morado);font-size:1.2em;}.product-code{background-color:#fce8d8;color:#d65c00;padding:4px 10px;border-radius:4px;font-size:0.9em;font-weight:bold;margin-bottom:10px;width:fit-content;}.product-cars{font-size:0.85em;color:#555;margin-bottom:15px;flex-grow:1;}.btn-small{background-color:var(--naranja);color:white;text-align:center;text-decoration:none;padding:10px;border-radius:5px;font-weight:bold;transition:0.3s;}.btn-small:hover{background-color:#e66a15;}footer{background-color:#1a1a1a;color:white;margin-top:50px;}.footer-payments{background-color:var(--naranja);padding:20px 5%;text-align:center;font-size:1.1em;font-weight:bold;display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;}.payment-logo{height:40px;border-radius:5px;border:2px solid white;object-fit:cover;background:white;}.footer-bottom{background:#000;padding:20px 5%;text-align:center;font-size:0.85em;color:#777;}@media (max-width:768px){header{flex-direction:column;padding:15px 5% 20px 5%;}.logo{margin-bottom:15px;}nav.menu{background:#edeaf5;padding:12px;border-radius:10px;width:100%;justify-content:center;gap:15px;}}</style>
-</head><body>
-    <header><a href="index.html" class="logo">Lubri<span>Baro</span></a><nav class="menu"><a href="index.html">Inicio</a><a href="catalogo.html" style="color: var(--naranja);">Catálogo</a><a href="nosotros.html">Nosotros</a></nav></header>
-    <div class="page-header"><h1 style="margin:0;">Filtros de Combustible</h1><a href="catalogo.html" class="back-btn">← Volver a Categorías</a></div>
-    
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtros de Combustible - LubriBaro B2B</title>
+    <style>
+        /* PALETA DE COLORES LUBRIBARO ESTRICTA */
+        :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F4F6F9; --gris: #333333; --blanco: #ffffff; }
+        * { box-sizing: border-box; } body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); overflow-x: hidden; }
+        
+        /* TOP BAR */
+        .top-bar { background-color: var(--morado); color: white; text-align: center; padding: 10px 5%; font-size: 0.85em; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+        .top-bar span { font-style: italic; font-weight: normal; color: #d0c8ff; }
+
+        /* HEADER PRINCIPAL */
+        header { background-color: var(--blanco); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        
+        /* BOTÓN HAMBURGUESA (SOLO MÓVIL) */
+        .menu-toggle { display: none; cursor: pointer; padding: 5px; }
+        .menu-toggle svg { width: 32px; height: 32px; fill: var(--morado); }
+
+        .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; display: flex; align-items: center; gap: 8px; } 
+        .logo span { color: var(--naranja); }
+        
+        .desktop-actions { display: flex; gap: 20px; align-items: center; }
+        .action-item { display: flex; align-items: center; gap: 8px; font-size: 0.9em; font-weight: bold; cursor: pointer; text-decoration: none; color: var(--gris); transition: 0.3s; }
+        .action-item:hover { color: var(--naranja); }
+        .action-icon svg { width: 24px; height: 24px; fill: var(--morado); transition: 0.3s; }
+        .action-item:hover .action-icon svg { fill: var(--naranja); }
+
+        .btn-header { background: var(--naranja); color: white; padding: 12px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; text-transform: uppercase; display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,123,26,0.3); }
+        .btn-header:hover { background: #e66a15; transform: translateY(-2px); color: white; }
+        .btn-header svg { width: 20px; height: 20px; fill: white; }
+
+        /* CABECERA PÁGINA */
+        .page-header { background: var(--morado); color: white; padding: 40px 5%; text-align: center; border-bottom: 4px solid var(--naranja); }
+        .page-header h1 { margin: 0 0 15px 0; font-size: 2.2em; text-transform: uppercase; font-weight: 900; }
+        .back-btn { display: inline-block; color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 5px; font-weight: bold; transition: 0.3s; }
+        .back-btn:hover { background: rgba(255,255,255,0.3); }
+
+        /* CATÁLOGO GRID */
+        .section-container { padding: 50px 5%; max-width: 1300px; margin: 0 auto; min-height: 50vh; }
+        .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .product-card { background: white; border-radius: 10px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; }
+        .product-card:hover { box-shadow: 0 8px 25px rgba(65,48,154,0.1); border-color: var(--naranja); transform: translateY(-5px); }
+        .product-img { background-color: #f9f9f9; height: 200px; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 0.9em; }
+        .product-info { padding: 25px 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-info h4 { margin: 0 0 15px 0; color: var(--morado); font-size: 1.2em; line-height: 1.3; }
+        .product-code { background-color: #fff4ed; color: var(--naranja); padding: 5px 12px; border-radius: 5px; font-size: 0.85em; font-weight: bold; margin-bottom: 15px; width: fit-content; border: 1px solid #ffe1cc; }
+        .product-cars { font-size: 0.9em; color: #666; margin-bottom: 20px; flex-grow: 1; line-height: 1.5; }
+        .product-cars strong { color: var(--gris); }
+        .btn-small { background-color: var(--fondo); color: var(--morado); text-align: center; text-decoration: none; padding: 12px; border-radius: 5px; font-weight: bold; transition: 0.3s; border: 1px solid #ddd; text-transform: uppercase; font-size: 0.85em; }
+        .btn-small:hover { background-color: var(--naranja); color: white; border-color: var(--naranja); }
+
+        /* FOOTER CORPORATIVO */
+        footer { background-color: var(--morado); color: white; font-size: 0.9em; margin-top: 40px; border-top: 5px solid var(--naranja); }
+        .footer-widgets { padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1300px; margin: 0 auto; }
+        .widget-logo h2 { color: var(--blanco); font-size: 2.2em; margin: 0 0 15px 0; letter-spacing: -1px; }
+        .widget-logo span { color: var(--naranja); }
+        .widget h4 { color: var(--naranja); font-size: 1.1em; margin: 0 0 20px 0; text-transform: uppercase; }
+        .widget p, .widget a { color: #d0c8ff; text-decoration: none; line-height: 1.8; display: block; margin-bottom: 10px; transition: 0.3s; }
+        .widget a:hover { color: white; padding-left: 5px; }
+        .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
+
+        /* WIDGET WHATSAPP ANIMADO (LATIDO FÍSICO) */
+        @keyframes pulse-wa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); } 15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); } 30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9990; display: flex; flex-direction: column; align-items: flex-end; }
+        .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
+        .wa-popup.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 20px; position: relative; border-bottom: 4px solid var(--naranja); }
+        .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; font-weight: bold; line-height: 1; transition: 0.3s; }
+        .wa-popup-close:hover { color: var(--naranja); }
+        .wa-popup-title { font-size: 1.2em; font-weight: bold; margin-bottom: 5px; } 
+        .wa-popup-subtitle { font-size: 0.85em; opacity: 0.9; }
+        .wa-popup-body { padding: 20px; }
+        .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eaeaea; transition: 0.3s; }
+        .wa-contact-card:hover { border-color: var(--naranja); background: #fff4ed; }
+        .wa-contact-icon { width: 45px; height: 45px; background-color: #25D366; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .wa-contact-icon svg { width: 25px; height: 25px; fill: white; }
+        .wa-contact-info { display: flex; flex-direction: column; }
+        .wa-name { font-weight: bold; font-size: 1em; color: var(--morado); }
+        .wa-status { font-size: 0.8em; color: #666; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
+        .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; }
+        .wa-trigger { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: pulse-wa 2.5s infinite; transition: 0.3s; }
+        .wa-trigger:hover { transform: scale(1.05); animation: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6); }
+        .wa-trigger svg { width: 35px; height: 35px; fill: white; }
+
+        /* DISEÑO MÓVIL Y MENÚ HAMBURGUESA */
+        .side-menu { position: fixed; top: 0; left: -300px; width: 280px; height: 100vh; background: white; z-index: 2000; transition: 0.4s; overflow-y: auto; box-shadow: 2px 0 15px rgba(0,0,0,0.1); }
+        .side-menu.active { left: 0; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 1999; display: none; }
+        .overlay.active { display: block; }
+        .side-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { font-size: 24px; cursor: pointer; color: var(--gris); font-weight: bold; }
+        .side-links { padding: 10px 0; display: flex; flex-direction: column; }
+        .side-links a { padding: 15px 20px; text-decoration: none; color: var(--gris); font-weight: bold; border-bottom: 1px solid #f9f9f9; display: flex; align-items: center; gap: 12px; }
+        .side-links a svg { width: 22px; height: 22px; fill: var(--morado); }
+        .side-title { padding: 15px 20px 5px 20px; font-size: 0.8em; color: #888; text-transform: uppercase; font-weight: bold; }
+        .btn-side-cotizar { background: var(--naranja) !important; color: white !important; margin: 20px; border-radius: 5px; justify-content: center; }
+        .btn-side-cotizar svg { fill: white !important; }
+
+        @media (max-width: 900px) { 
+            header { position: relative; justify-content: center; padding: 15px 5%; height: 70px; } 
+            .menu-toggle { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); display: block; }
+            .logo { font-size: 30px; margin: 0; }
+            .desktop-actions { display: none; }
+            
+            .page-header h1 { font-size: 1.8em; }
+            .catalog-grid { gap: 15px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+            
+            .wa-container { bottom: 20px; right: 20px; }
+            .wa-trigger { width: 55px; height: 55px; }
+            .wa-trigger svg { width: 30px; height: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENÚ HAMBURGUESA OCULTO (MÓVIL) -->
+    <div class="overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="side-menu" id="side-menu">
+        <div class="side-header">
+            <a href="index.html" class="logo">Lubri<span>Baro</span></a>
+            <div class="close-btn" onclick="toggleMobileMenu()">✕</div>
+        </div>
+        <div class="side-links">
+            <a href="index.html"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Inicio</a>
+            <a href="catalogo.html"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg> Catálogo Completo</a>
+            <a href="nosotros.html"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg> Sobre Nosotros</a>
+            
+            <div class="side-title">Líneas de Distribución</div>
+            <a href="cat-aceite.html"><svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 0 1-7-7c0-3.6 4.3-8.8 6.4-11.1a.8.8 0 0 1 1.2 0C14.7 5.2 19 10.4 19 14a7 7 0 0 1-7 7z"/></svg> Filtros de Aceite</a>
+            <a href="cat-aire.html"><svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"><path d="M4 12h12a3 3 0 0 0 0-6h-2M4 16h8a2 2 0 0 0 0-4H9M4 8h5a2 2 0 0 1 0 4"/></svg> Filtros de Aire</a>
+            <a href="cat-combustible.html"><svg viewBox="0 0 24 24"><path d="M4 5v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zm3 0h6v4H7V5zm11 11h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2v10z"/></svg> Filtros Combustible</a>
+            <a href="cat-fluidos.html">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.7 0-1.2.4-1.4 1L3 12v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6zM6.8 7h10.3l1.1 3H5.8l1-3zM19 17H5v-5h14v5z" fill="var(--morado)"/>
+                    <path d="M16 11c-1.3 0-3 1.8-3 3.5s1.3 3.5 3 3.5 3-1.8 3-3.5-1.7-3.5-3-3.5z" fill="var(--naranja)"/>
+                </svg> Fluidos Automotrices
+            </a>
+            
+            <a href="https://wa.me/51937229128" target="_blank" class="btn-side-cotizar">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.12.66 4.09 1.79 5.74L3 21l3.32-.77C7.94 21.36 9.9 22 12 22c5.52 22 10-4.48 10-10S17.52 2 12 2zm-1.8 6c.2-.01.44 0 .64.44.25.54.6 1.48.66 1.58.05.1.08.23.01.4-.07.17-.11.27-.23.4l-.33.37c-.12.13-.25.28-.11.51.14.23.63 1.03 1.35 1.68.93.84 1.7 1.1 1.93 1.23.23.12.37.1.51-.06.14-.16.6-.7.76-.94.16-.25.32-.2.53-.13.22.07 1.38.65 1.62.78.23.12.39.2.45.3.05.11.05.65-.18 1.28-.23.63-1.34 1.22-1.85 1.26-.5.05-1.12.2-3.19-.66-2.48-1.03-4.08-3.56-4.2-3.73-.12-.16-1-1.33-1-2.54s.62-1.81.84-2.06c.22-.25.48-.31.64-.31.16-.01.32-.01.47 0z"/></svg>
+                Cotizar Pedido
+            </a>
+        </div>
+    </div>
+
+    <!-- BARRA SUPERIOR -->
+    <div class="top-bar">
+        Más de 5 años de experiencia | <span>Envíos seguros a todo el Perú</span>
+    </div>
+
+    <!-- HEADER PRINCIPAL -->
+    <header>
+        <div class="menu-toggle" onclick="toggleMobileMenu()">
+            <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </div>
+        
+        <a href="index.html" class="logo">Lubri<span>Baro</span></a>
+
+        <div class="desktop-actions">
+            <a href="index.html" class="action-item">
+                <div class="action-icon"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div>
+                Inicio
+            </a>
+            <a href="catalogo.html" class="action-item">
+                <div class="action-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg></div>
+                Catálogo
+            </a>
+            <a href="nosotros.html" class="action-item">
+                <div class="action-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                Nosotros
+            </a>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>Filtros de Combustible</h1>
+        <a href="catalogo.html" class="back-btn">← Volver a Categorías</a>
+    </div>
+
     <section class="section-container">
         <div class="catalog-grid">
-            <div class="product-card"><div class="product-img">[ Foto Referencial ]</div><div class="product-info"><h4>Filtro Combustible OEM</h4><div class="product-code">Cód: 31922-2E900</div><div class="product-cars"><strong>OEM:</strong> Alta presión.</div><a href="producto.html?id=filtro-31922-2e900" class="btn-small">Ver Producto</a></div></div>
-            <div class="product-card"><div class="product-img">[ Foto Referencial ]</div><div class="product-info"><h4>Filtro Combustible OEM</h4><div class="product-code">Cód: 31922-4H900</div><div class="product-cars"><strong>OEM:</strong> Separador de agua.</div><a href="producto.html?id=filtro-31922-4h900" class="btn-small">Ver Producto</a></div></div>
-            <div class="product-card"><div class="product-img">[ Foto Referencial ]</div><div class="product-info"><h4>Filtro Combustible OEM</h4><div class="product-code">Cód: 31922-4H001</div><div class="product-cars"><strong>OEM:</strong> Protección CRDI.</div><a href="producto.html?id=filtro-31922-4h001" class="btn-small">Ver Producto</a></div></div>
-            <div class="product-card"><div class="product-img">[ Foto Referencial ]</div><div class="product-info"><h4>Filtro Combustible OEM</h4><div class="product-code">Cód: 31922-26910</div><div class="product-cars"><strong>OEM:</strong> Larga duración.</div><a href="producto.html?id=filtro-31922-26910" class="btn-small">Ver Producto</a></div></div>
-            <div class="product-card"><div class="product-img">[ Foto Referencial ]</div><div class="product-info"><h4>Filtro Combustible OEM</h4><div class="product-code">Cód: 31922-CG950</div><div class="product-cars"><strong>OEM:</strong> Larga duración.</div><a href="producto.html?id=filtro-31922-cg950" class="btn-small">Ver Producto</a></div></div>
-            <div class="product-card"><div class="product-img">[ Foto Referencial ]</div><div class="product-info"><h4>Filtro Combustible OEM</h4><div class="product-code">Cód: 31945-41002</div><div class="product-cars"><strong>OEM:</strong> Larga duración.</div><a href="producto.html?id=filtro-31945-41002" class="btn-small">Ver Producto</a></div></div>
-            <div class="product-card"><div class="product-img">[ Foto Referencial ]</div><div class="product-info"><h4>Filtro Combustible OEM</h4><div class="product-code">Cód: 31945-52161</div><div class="product-cars"><strong>OEM:</strong> Larga duración.</div><a href="producto.html?id=filtro-31945-52161" class="btn-small">Ver Producto</a></div></div>
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31922-2E900</div>
+                    <div class="product-cars"><strong>OEM:</strong> Alta presión.</div>
+                    <a href="producto.html?id=filtro-31922-2e900" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31922-4H900</div>
+                    <div class="product-cars"><strong>OEM:</strong> Separador de agua.</div>
+                    <a href="producto.html?id=filtro-31922-4h900" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31922-4H001</div>
+                    <div class="product-cars"><strong>OEM:</strong> Protección CRDI.</div>
+                    <a href="producto.html?id=filtro-31922-4h001" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31922-26910</div>
+                    <div class="product-cars"><strong>OEM:</strong> Larga duración.</div>
+                    <a href="producto.html?id=filtro-31922-26910" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31922-CG950</div>
+                    <div class="product-cars"><strong>OEM:</strong> Larga duración.</div>
+                    <a href="producto.html?id=filtro-31922-cg950" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31945-41002</div>
+                    <div class="product-cars"><strong>OEM:</strong> Larga duración.</div>
+                    <a href="producto.html?id=filtro-31945-41002" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">[ Foto Referencial ]</div>
+                <div class="product-info">
+                    <h4>Filtro Combustible OEM</h4>
+                    <div class="product-code">Cód: 31945-52161</div>
+                    <div class="product-cars"><strong>OEM:</strong> Larga duración.</div>
+                    <a href="producto.html?id=filtro-31945-52161" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
         </div>
     </section>
-    
-    <footer><div class="footer-payments">Medios de Pago Aceptados: <img src="yape.png" alt="Yape" class="payment-logo"> <img src="bcp.png" alt="BCP" class="payment-logo"></div><div class="footer-bottom">&copy; 2026 LubriBaro. Todos los derechos reservados.</div></footer>
-</body></html>
+
+    <!-- FOOTER CORPORATIVO -->
+    <footer>
+        <div class="footer-widgets">
+            <div class="widget widget-logo">
+                <h2>Lubri<span>Baro</span></h2>
+                <p>Tu socio estratégico en repuestos y lubricantes. Importación directa y distribución mayorista a nivel nacional, enfocados en el crecimiento de tu taller.</p>
+            </div>
+            
+            <div class="widget">
+                <h4>Atención al Cliente</h4>
+                <p>📍 <strong>Almacén Principal:</strong><br>Av. Las Gaviotas, Bellavista</p>
+                <p>📞 <strong>Ventas Mayoristas:</strong><br>+51 937 229 128</p>
+                <p>✉️ <strong>Correo:</strong><br>lubribaro@gmail.com</p>
+            </div>
+
+            <div class="widget">
+                <h4>Enlaces Rápidos</h4>
+                <a href="index.html">Inicio</a>
+                <a href="catalogo.html">Catálogo Completo</a>
+                <a href="nosotros.html">Sobre Nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 LubriBaro B2B. Todos los derechos reservados.</div>
+    </footer>
+
+    <!-- WIDGET WHATSAPP ANIMADO -->
+    <div class="wa-container">
+        <div id="wa-popup" class="wa-popup">
+            <div class="wa-popup-header">
+                <div class="wa-popup-close" onclick="toggleWaPopup()">✕</div>
+                <div class="wa-popup-title">Asesoría Mayorista</div>
+                <div class="wa-popup-subtitle">Atención exclusiva para talleres ⚡</div>
+            </div>
+            <div class="wa-popup-body">
+                <a href="https://wa.me/51937229128?text=¡Buen%20día%20LubriBaro!%20Deseo%20información%20sobre%20su%20catálogo%20mayorista." target="_blank" class="wa-contact-card">
+                    <div class="wa-contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
+                    </div>
+                    <div class="wa-contact-info">
+                        <span class="wa-name">Hablar con un asesor</span>
+                        <span class="wa-status"><span class="wa-dot"></span> En línea</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="wa-trigger" onclick="toggleWaPopup()">
+            <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
+        </div>
+    </div>
+
+    <!-- SCRIPT MENÚ MÓVIL -->
+    <script>
+        function toggleWaPopup() { document.getElementById('wa-popup').classList.toggle('active'); }
+        function toggleMobileMenu() { document.getElementById('side-menu').classList.toggle('active'); document.getElementById('mobile-overlay').classList.toggle('active'); }
+    </script>
+</body>
+</html>
