@@ -45,14 +45,13 @@
         .cat-nav a:hover { color: var(--naranja); }
         .cat-nav a svg { width: 20px; height: 20px; fill: var(--morado); }
 
-        /* BANNER PROVISIONAL B2B */
+        /* BANNER B2B */
         .hero-banner { width: 100%; height: 450px; background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); display: flex; align-items: center; justify-content: center; position: relative; }
         .hero-content { text-align: center; color: white; z-index: 2; padding: 0 20px; width: 100%; max-width: 1000px; margin: 0 auto; }
         .hero-content h1 { font-size: 4em; margin: 0 0 15px 0; text-transform: uppercase; font-weight: 900; line-height: 1.1; }
         .hero-content p { font-size: 1.4em; margin: 0 0 25px 0; font-weight: 300; }
         .btn-banner { background: var(--naranja); color: white; padding: 15px 35px; text-decoration: none; font-size: 1.1em; font-weight: bold; border-radius: 5px; text-transform: uppercase; transition: 0.3s; display: inline-block; }
         .btn-banner:hover { background: #e66a15; transform: translateY(-2px); }
-        .banner-placeholder-text { position: absolute; bottom: 20px; right: 20px; font-size: 0.8em; color: rgba(255,255,255,0.4); border: 1px dashed rgba(255,255,255,0.3); padding: 5px 10px; }
 
         /* SECCIONES GENERALES */
         .section-container { padding: 60px 5%; max-width: 1300px; margin: 0 auto; }
@@ -134,9 +133,7 @@
         .widget a:hover { color: white; padding-left: 5px; }
         .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* =========================================
-           WIDGET WHATSAPP ANIMADO (LATIDO FÍSICO) 
-           ========================================= */
+        /* WIDGET WHATSAPP ANIMADO */
         @keyframes pulse-wa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); } 15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); } 30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
         .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9990; display: flex; flex-direction: column; align-items: flex-end; }
         .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
@@ -159,9 +156,7 @@
         .wa-trigger:hover { transform: scale(1.05); animation: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6); }
         .wa-trigger svg { width: 35px; height: 35px; fill: white; }
 
-        /* =========================================
-           DISEÑO MÓVIL Y MENÚ HAMBURGUESA
-           ========================================= */
+        /* DISEÑO MÓVIL Y MENÚ HAMBURGUESA */
         .side-menu { position: fixed; top: 0; left: -300px; width: 280px; height: 100vh; background: white; z-index: 2000; transition: 0.4s; overflow-y: auto; box-shadow: 2px 0 15px rgba(0,0,0,0.1); }
         .side-menu.active { left: 0; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 1999; display: none; }
@@ -176,12 +171,12 @@
         .btn-side-cotizar svg { fill: white !important; }
 
         @media (max-width: 900px) { 
-            /* Header Limpio (Logo Centrado, Hamburguesa a la izquierda) */
+            /* Header Limpio */
             header { position: relative; justify-content: center; padding: 15px 5%; height: 70px; } 
             .menu-toggle { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); display: block; }
             .logo { font-size: 30px; margin: 0; }
             
-            /* Ocultar elementos de escritorio */
+            /* Ocultar elementos de PC */
             .search-form, .desktop-actions, .cat-nav { display: none; }
             
             /* Banner Adaptable */
@@ -189,16 +184,16 @@
             .hero-content h1 { font-size: 2.4em; line-height: 1.1; margin-bottom: 15px; }
             .hero-content p { font-size: 1.1em; margin-bottom: 25px; }
             .btn-banner { font-size: 1em; padding: 12px 25px; }
-            .banner-placeholder-text { position: relative; bottom: 0; right: 0; display: block; margin-top: 30px; }
 
             /* Ajustes Carrusel Móvil */
             .carousel-section { flex-direction: column; padding: 40px 5%; align-items: flex-start; }
             .carousel-title-col { flex: none; border-left: none; padding-left: 0; text-align: center; width: 100%; border-bottom: 3px solid var(--naranja); padding-bottom: 15px; margin-bottom: 10px; }
             .carousel-title-col h2 { font-size: 1.8em; }
-            .carousel-controls { display: none; } /* Ocultar flechas en móvil */
+            
+            /* Mostrar flechas del carrusel y centrarlas en móvil */
+            .carousel-controls { display: flex; justify-content: center; margin-top: 15px; width: 100%; }
             .carousel-container { padding-left: 0; padding-right: 0; gap: 15px; }
             
-            /* Ajustes Varios */
             .trust-steps-section h2 { font-size: 1.8em; }
             .wa-container { bottom: 20px; right: 20px; }
             .wa-trigger { width: 55px; height: 55px; }
@@ -295,14 +290,13 @@
         </a>
     </nav>
 
-    <!-- BANNER PROVISIONAL -->
+    <!-- BANNER B2B -->
     <section class="hero-banner">
         <div class="hero-content">
             <h1>Especialistas en<br><span style="color: var(--naranja);">Distribución OEM</span></h1>
             <p>Importación directa y precios mayoristas para tu negocio.</p>
             <a href="catalogo.html" class="btn-banner">Ver Catálogo ➔</a>
         </div>
-        <div class="banner-placeholder-text">[ Espacio provisional para tu Banner 1920x400 ]</div>
     </section>
 
     <!-- LÍNEAS DE DISTRIBUCIÓN -->
