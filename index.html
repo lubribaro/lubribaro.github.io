@@ -56,7 +56,7 @@
         /* SECCIONES GENERALES */
         .section-container { padding: 60px 5%; max-width: 1300px; margin: 0 auto; }
         .section-title { font-size: 2em; color: var(--gris); margin-top: 0; margin-bottom: 40px; text-align: center; text-transform: uppercase; font-weight: 900; line-height: 1.2; }
-        .section-title span { color: var(--naranja); border-bottom: 3px solid var(--morado); padding-bottom: 5px; }
+        .section-title span { color: var(--naranja); }
 
         /* LÍNEAS DE DISTRIBUCIÓN */
         .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
@@ -74,7 +74,7 @@
         .brands-strip img:hover { filter: grayscale(0%); opacity: 1; }
         .brand-placeholder { font-weight: bold; color: #aaa; border: 1px dashed #ccc; padding: 10px 20px; border-radius: 5px; font-size: 0.9em; }
 
-        /* LOS MÁS SOLICITADOS (NUEVA GRILLA 4 PRODUCTOS) */
+        /* LOS MÁS SOLICITADOS (GRILLA 4 PRODUCTOS) */
         .best-sellers-section { background: white; padding: 60px 5%; }
         .best-sellers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1300px; margin: 0 auto; }
         
@@ -91,7 +91,7 @@
         /* SECCIÓN: 3 PASOS DE COMPRA */
         .trust-steps-section { padding: 80px 5%; background: var(--fondo); max-width: 1300px; margin: 0 auto; text-align: center; }
         .trust-steps-section h2 { font-size: 2.2em; color: var(--morado); margin-bottom: 50px; text-transform: uppercase; font-weight: 900; }
-        .trust-steps-section h2 span { color: var(--naranja); border-bottom: 3px solid var(--naranja); padding-bottom: 5px; }
+        .trust-steps-section h2 span { color: var(--naranja); }
         
         .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; position: relative; }
         .step-card { background: white; border-radius: 12px; padding: 40px 20px; border: 1px solid #ddd; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.04); position: relative; z-index: 2; transition: 0.3s; }
@@ -122,7 +122,7 @@
         .widget a:hover { color: white; padding-left: 5px; }
         .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* WIDGET WHATSAPP ANIMADO */
+        /* WIDGET WHATSAPP ANIMADO (LATIDO FÍSICO) */
         @keyframes pulse-wa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); } 15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); } 30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
         .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9990; display: flex; flex-direction: column; align-items: flex-end; }
         .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
@@ -159,7 +159,7 @@
         .btn-side-cotizar { background: var(--naranja) !important; color: white !important; margin: 20px; border-radius: 5px; justify-content: center; }
         .btn-side-cotizar svg { fill: white !important; }
 
-        /* ADAPTACIÓN MÓVIL (NUEVA GRILLA 2x2) */
+        /* ADAPTACIÓN MÓVIL (GRILLA 2x2 EN MÁS SOLICITADOS) */
         @media (max-width: 900px) { 
             header { position: relative; justify-content: center; padding: 15px 5%; height: 70px; } 
             .menu-toggle { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); display: block; }
@@ -172,9 +172,10 @@
             .hero-content p { font-size: 1.1em; margin-bottom: 25px; }
             .btn-banner { font-size: 1em; padding: 12px 25px; }
 
-            /* GRILLA 2x2 EN MÓVIL */
             .best-sellers-section { padding: 40px 5%; }
             .section-title { font-size: 1.8em; }
+            
+            /* Grilla 2x2 exacta para el celular */
             .best-sellers-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             
             .prod-card { padding: 10px; }
