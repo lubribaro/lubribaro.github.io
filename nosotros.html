@@ -3,79 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre Nosotros y FAQ - LubriBaro</title>
+    <title>Sobre Nosotros y FAQ - LubriBaro B2B</title>
     <style>
-        :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F8F9FA; --gris: #333333; }
-        * { box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); overflow-x: hidden; }
+        /* PALETA DE COLORES LUBRIBARO ESTRICTA */
+        :root { --morado: #41309A; --naranja: #FF7B1A; --fondo: #F4F6F9; --gris: #333333; --blanco: #ffffff; }
+        * { box-sizing: border-box; } body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; color: var(--gris); background-color: var(--fondo); overflow-x: hidden; }
         
-        header { background-color: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; flex-wrap: wrap; }
-        .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; }
+        /* TOP BAR */
+        .top-bar { background-color: var(--morado); color: white; text-align: center; padding: 10px 5%; font-size: 0.85em; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+        .top-bar span { font-style: italic; font-weight: normal; color: #d0c8ff; }
+
+        /* HEADER PRINCIPAL */
+        header { background-color: var(--blanco); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        
+        /* BOTÓN HAMBURGUESA (SOLO MÓVIL) */
+        .menu-toggle { display: none; cursor: pointer; padding: 5px; }
+        .menu-toggle svg { width: 32px; height: 32px; fill: var(--morado); }
+
+        .logo { font-size: 34px; font-weight: 900; color: var(--morado); text-decoration: none; letter-spacing: -1px; display: flex; align-items: center; gap: 8px; } 
         .logo span { color: var(--naranja); }
-        nav.menu { display: flex; gap: 25px; }
-        nav.menu a { text-decoration: none; color: var(--gris); font-weight: 600; font-size: 1rem; transition: color 0.3s; }
-        nav.menu a:hover { color: var(--naranja); }
+        
+        .desktop-actions { display: flex; gap: 20px; align-items: center; }
+        .action-item { display: flex; align-items: center; gap: 8px; font-size: 0.9em; font-weight: bold; cursor: pointer; text-decoration: none; color: var(--gris); transition: 0.3s; }
+        .action-item:hover { color: var(--naranja); }
+        .action-icon svg { width: 24px; height: 24px; fill: var(--morado); transition: 0.3s; }
+        .action-item:hover .action-icon svg { fill: var(--naranja); }
 
-        .page-header { background: var(--morado); color: white; padding: 40px 5%; text-align: center; }
-        .page-header h1 { margin: 0; font-size: 2.2em; }
-        .page-header p { font-size: 1.1em; color: #E0E0E0; max-width: 600px; margin: 10px auto 0 auto; }
+        .btn-header { background: var(--naranja); color: white; padding: 12px 25px; border-radius: 5px; font-weight: bold; text-decoration: none; text-transform: uppercase; display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 4px 10px rgba(255,123,26,0.3); }
+        .btn-header:hover { background: #e66a15; transform: translateY(-2px); color: white; }
+        .btn-header svg { width: 20px; height: 20px; fill: white; }
 
-        .section-container { padding: 50px 5%; }
-        .section-title { text-align: center; color: var(--morado); font-size: 2em; margin-bottom: 40px; }
+        /* CABECERA PÁGINA */
+        .page-header { background: var(--morado); color: white; padding: 50px 5%; text-align: center; }
+        .page-header h1 { margin: 0; font-size: 2.5em; text-transform: uppercase; font-weight: 900; }
+        .page-header p { font-size: 1.2em; color: #d0c8ff; margin-top: 10px; max-width: 600px; margin-left: auto; margin-right: auto; }
 
-        .about-box { background-color: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto; text-align: center; border-bottom: 4px solid var(--naranja); }
+        /* CONTENIDO NOSOTROS */
+        .section-container { padding: 60px 5%; max-width: 900px; margin: 0 auto; }
+        .section-title { text-align: center; color: var(--morado); font-size: 2.2em; margin-bottom: 40px; text-transform: uppercase; font-weight: 900; }
+        .section-title span { color: var(--naranja); }
+
+        .about-box { background-color: white; padding: 50px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); text-align: center; border-bottom: 5px solid var(--naranja); }
         .about-box p { font-size: 1.1em; line-height: 1.8; color: #555; }
-        .about-box strong { color: var(--morado); font-size: 1.2em; display: block; margin-top: 20px; }
+        .about-box strong { color: var(--morado); font-size: 1.3em; display: block; margin-top: 30px; }
 
-        .faq-grid { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
-        .faq-item { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border-left: 4px solid var(--morado); }
-        .faq-item h4 { margin: 0 0 10px 0; color: var(--morado); font-size: 1.2em; }
-        .faq-item p { margin: 0; color: #555; }
+        /* FAQ Grid */
+        .faq-grid { display: flex; flex-direction: column; gap: 20px; }
+        .faq-item { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border-left: 5px solid var(--morado); }
+        .faq-item h4 { margin: 0 0 15px 0; color: var(--morado); font-size: 1.3em; display: flex; align-items: center; gap: 10px; }
+        .faq-item h4 svg { width: 24px; height: 24px; fill: var(--naranja); }
+        .faq-item p { margin: 0; color: #555; line-height: 1.6; font-size: 1.05em; }
 
-        footer { text-align: center; padding: 30px 5%; background: #222; color: white; margin-top: 40px; }
+        /* FOOTER CORPORATIVO */
+        footer { background-color: var(--morado); color: white; font-size: 0.9em; margin-top: 40px; border-top: 5px solid var(--naranja); }
+        .footer-widgets { padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1300px; margin: 0 auto; }
+        .widget-logo h2 { color: var(--blanco); font-size: 2.2em; margin: 0 0 15px 0; letter-spacing: -1px; }
+        .widget-logo span { color: var(--naranja); }
+        .widget h4 { color: var(--naranja); font-size: 1.1em; margin: 0 0 20px 0; text-transform: uppercase; }
+        .widget p, .widget a { color: #d0c8ff; text-decoration: none; line-height: 1.8; display: block; margin-bottom: 10px; transition: 0.3s; }
+        .widget a:hover { color: white; padding-left: 5px; }
+        .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* WIDGET WHATSAPP */
-        .wa-container { position: fixed; bottom: 25px; right: 25px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
-        .wa-popup { width: 330px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        /* WIDGET WHATSAPP ANIMADO */
+        @keyframes pulse-wa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); } 15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); } 30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9990; display: flex; flex-direction: column; align-items: flex-end; }
+        .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
         .wa-popup.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-        .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 25px 20px; position: relative; text-align: left; border-bottom: 4px solid var(--naranja); }
-        .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; opacity: 0.8; font-family: sans-serif; font-weight: bold; }
-        .wa-popup-close:hover { opacity: 1; }
-        .wa-popup-title { font-size: 1.4em; font-weight: bold; margin-bottom: 5px; }
-        .wa-popup-subtitle { font-size: 0.9em; opacity: 0.9; }
+        .wa-popup-header { background: linear-gradient(135deg, var(--morado) 0%, #2a1f63 100%); color: white; padding: 20px; position: relative; border-bottom: 4px solid var(--naranja); }
+        .wa-popup-close { position: absolute; top: 15px; right: 15px; font-size: 18px; cursor: pointer; font-weight: bold; line-height: 1; transition: 0.3s; }
+        .wa-popup-close:hover { color: var(--naranja); }
+        .wa-popup-title { font-size: 1.2em; font-weight: bold; margin-bottom: 5px; } 
+        .wa-popup-subtitle { font-size: 0.85em; opacity: 0.9; }
         .wa-popup-body { padding: 20px; }
-        .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; color: #333; background: white; padding: 12px; border-radius: 8px; border: 1px solid #eaeaea; transition: background 0.2s, border-color 0.2s; }
-        .wa-contact-card:hover { background: #fdfdfd; border-color: var(--naranja); }
-        .wa-contact-icon { width: 50px; height: 50px; background-color: #fce8d8; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 26px; }
+        .wa-contact-card { display: flex; align-items: center; gap: 15px; text-decoration: none; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eaeaea; transition: 0.3s; }
+        .wa-contact-card:hover { border-color: var(--naranja); background: #fff4ed; }
+        .wa-contact-icon { width: 45px; height: 45px; background-color: #25D366; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .wa-contact-icon svg { width: 25px; height: 25px; fill: white; }
         .wa-contact-info { display: flex; flex-direction: column; }
-        .wa-greeting { font-size: 0.75em; color: #777; margin-bottom: 2px; }
-        .wa-name { font-weight: bold; font-size: 1.05em; color: var(--morado); }
-        .wa-status { font-size: 0.75em; color: #555; display: flex; align-items: center; gap: 5px; margin-top: 4px; font-weight: 600; }
-        .wa-dot { width: 8px; height: 8px; background-color: #25D366; border-radius: 50%; box-shadow: 0 0 5px rgba(37,211,102,0.5); }
-        .wa-trigger { width: 65px; height: 65px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4); position: relative; z-index: 2; }
-        .wa-trigger img { width: 38px; height: 38px; z-index: 3; position: relative; }
-        .wa-trigger::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #25D366; border-radius: 50%; z-index: 1; animation: latido 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
-        @keyframes latido { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
+        .wa-name { font-weight: bold; font-size: 1em; color: var(--morado); }
+        .wa-status { font-size: 0.8em; color: #666; display: flex; align-items: center; gap: 5px; margin-top: 3px; }
+        .wa-dot { width: 8px; height: 8px; background: #25D366; border-radius: 50%; }
+        .wa-trigger { width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; animation: pulse-wa 2.5s infinite; transition: 0.3s; }
+        .wa-trigger:hover { transform: scale(1.05); animation: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.6); }
+        .wa-trigger svg { width: 35px; height: 35px; fill: white; }
 
-        @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; padding: 15px 5% 20px 5%; }
-            .logo { margin-bottom: 15px; }
-            nav.menu { display: flex; flex-wrap: nowrap; justify-content: center; gap: 20px; width: 100%; background-color: #edeaf5; padding: 12px; border-radius: 10px; }
-            nav.menu a { font-size: 0.95rem; }
-            .about-box { padding: 25px; }
-            .wa-popup { width: 290px; right: 0; bottom: 85px; position: fixed; margin-right: 20px;}
+        /* DISEÑO MÓVIL Y MENÚ HAMBURGUESA */
+        .side-menu { position: fixed; top: 0; left: -300px; width: 280px; height: 100vh; background: white; z-index: 2000; transition: 0.4s; overflow-y: auto; box-shadow: 2px 0 15px rgba(0,0,0,0.1); }
+        .side-menu.active { left: 0; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.6); z-index: 1999; display: none; }
+        .overlay.active { display: block; }
+        .side-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .close-btn { font-size: 24px; cursor: pointer; color: var(--gris); font-weight: bold; }
+        .side-links { padding: 10px 0; display: flex; flex-direction: column; }
+        .side-links a { padding: 15px 20px; text-decoration: none; color: var(--gris); font-weight: bold; border-bottom: 1px solid #f9f9f9; display: flex; align-items: center; gap: 12px; }
+        .side-links a svg { width: 22px; height: 22px; fill: var(--morado); }
+        .side-title { padding: 15px 20px 5px 20px; font-size: 0.8em; color: #888; text-transform: uppercase; font-weight: bold; }
+        .btn-side-cotizar { background: var(--naranja) !important; color: white !important; margin: 20px; border-radius: 5px; justify-content: center; }
+        .btn-side-cotizar svg { fill: white !important; }
+
+        @media (max-width: 900px) { 
+            header { position: relative; justify-content: center; padding: 15px 5%; height: 70px; } 
+            .menu-toggle { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); display: block; }
+            .logo { font-size: 30px; margin: 0; }
+            .desktop-actions { display: none; }
+            
+            .page-header { padding: 40px 5%; }
+            .page-header h1 { font-size: 2em; }
+            .section-title { font-size: 1.8em; }
+            .about-box { padding: 30px 20px; }
+            
+            .wa-container { bottom: 20px; right: 20px; }
+            .wa-trigger { width: 55px; height: 55px; }
+            .wa-trigger svg { width: 30px; height: 30px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- MENÚ HAMBURGUESA OCULTO (MÓVIL) -->
+    <div class="overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+    <div class="side-menu" id="side-menu">
+        <div class="side-header">
+            <a href="index.html" class="logo">Lubri<span>Baro</span></a>
+            <div class="close-btn" onclick="toggleMobileMenu()">✕</div>
+        </div>
+        <div class="side-links">
+            <a href="index.html"><svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg> Inicio</a>
+            <a href="catalogo.html"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg> Catálogo Completo</a>
+            
+            <div class="side-title">Líneas de Distribución</div>
+            <a href="cat-aceite.html"><svg viewBox="0 0 24 24"><path d="M12 21a7 7 0 0 1-7-7c0-3.6 4.3-8.8 6.4-11.1a.8.8 0 0 1 1.2 0C14.7 5.2 19 10.4 19 14a7 7 0 0 1-7 7z"/></svg> Filtros de Aceite</a>
+            <a href="cat-aire.html"><svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"><path d="M4 12h12a3 3 0 0 0 0-6h-2M4 16h8a2 2 0 0 0 0-4H9M4 8h5a2 2 0 0 1 0 4"/></svg> Filtros de Aire</a>
+            <a href="cat-combustible.html"><svg viewBox="0 0 24 24"><path d="M4 5v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zm3 0h6v4H7V5zm11 11h2c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-2v10z"/></svg> Filtros Combustible</a>
+            <a href="cat-fluidos.html">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18.9 6c-.2-.6-.8-1-1.4-1h-11c-.7 0-1.2.4-1.4 1L3 12v8c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-1h12v1c0 .6.4 1 1 1h1c.6 0 1-.4 1-1v-8l-2.1-6zM6.8 7h10.3l1.1 3H5.8l1-3zM19 17H5v-5h14v5z" fill="var(--morado)"/>
+                    <path d="M16 11c-1.3 0-3 1.8-3 3.5s1.3 3.5 3 3.5 3-1.8 3-3.5-1.7-3.5-3-3.5z" fill="var(--naranja)"/>
+                </svg> Fluidos Automotrices
+            </a>
+            
+            <a href="https://wa.me/51937229128" target="_blank" class="btn-side-cotizar">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.12.66 4.09 1.79 5.74L3 21l3.32-.77C7.94 21.36 9.9 22 12 22c5.52 22 10-4.48 10-10S17.52 2 12 2zm-1.8 6c.2-.01.44 0 .64.44.25.54.6 1.48.66 1.58.05.1.08.23.01.4-.07.17-.11.27-.23.4l-.33.37c-.12.13-.25.28-.11.51.14.23.63 1.03 1.35 1.68.93.84 1.7 1.1 1.93 1.23.23.12.37.1.51-.06.14-.16.6-.7.76-.94.16-.25.32-.2.53-.13.22.07 1.38.65 1.62.78.23.12.39.2.45.3.05.11.05.65-.18 1.28-.23.63-1.34 1.22-1.85 1.26-.5.05-1.12.2-3.19-.66-2.48-1.03-4.08-3.56-4.2-3.73-.12-.16-1-1.33-1-2.54s.62-1.81.84-2.06c.22-.25.48-.31.64-.31.16-.01.32-.01.47 0z"/></svg>
+                Cotizar Pedido
+            </a>
+        </div>
+    </div>
+
+    <!-- BARRA SUPERIOR -->
+    <div class="top-bar">
+        Más de 5 años de experiencia | <span>Envíos seguros a todo el Perú</span>
+    </div>
+
+    <!-- HEADER PRINCIPAL -->
     <header>
+        <div class="menu-toggle" onclick="toggleMobileMenu()">
+            <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+        </div>
+        
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
-        <nav class="menu">
-            <a href="index.html">Inicio</a>
-            <a href="catalogo.html">Catálogo</a>
-            <a href="nosotros.html" style="color: var(--naranja);">Nosotros</a>
-        </nav>
+
+        <div class="desktop-actions">
+            <a href="index.html" class="action-item">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                </div>
+                Inicio
+            </a>
+            <a href="catalogo.html" class="action-item">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+                </div>
+                Catálogo
+            </a>
+            <a href="https://wa.me/51937229128" target="_blank" class="btn-header">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.12.66 4.09 1.79 5.74L3 21l3.32-.77C7.94 21.36 9.9 22 12 22c5.52 22 10-4.48 10-10S17.52 2 12 2zm-1.8 6c.2-.01.44 0 .64.44.25.54.6 1.48.66 1.58.05.1.08.23.01.4-.07.17-.11.27-.23.4l-.33.37c-.12.13-.25.28-.11.51.14.23.63 1.03 1.35 1.68.93.84 1.7 1.1 1.93 1.23.23.12.37.1.51-.06.14-.16.6-.7.76-.94.16-.25.32-.2.53-.13.22.07 1.38.65 1.62.78.23.12.39.2.45.3.05.11.05.65-.18 1.28-.23.63-1.34 1.22-1.85 1.26-.5.05-1.12.2-3.19-.66-2.48-1.03-4.08-3.56-4.2-3.73-.12-.16-1-1.33-1-2.54s.62-1.81.84-2.06c.22-.25.48-.31.64-.31.16-.01.32-.01.47 0z"/></svg>
+                Cotizar Pedido
+            </a>
+        </div>
     </header>
 
     <div class="page-header">
@@ -84,65 +188,105 @@
     </div>
 
     <section class="section-container">
-        <h2 class="section-title">¿Por qué los talleres confían en nosotros?</h2>
+        <h2 class="section-title">¿Por qué los talleres confían en <span>nosotros?</span></h2>
         <div class="about-box">
-            <p>Somos una empresa con oficinas en Lima y 5 años de experiencia importando filtros originales y comercializando fluidos de alta rotación. Llevamos 5 años cumpliendo de manera exitosa las expectativas de nuestros clientes a nivel nacional.</p>
-            <p>Operamos desde nuestro almacén logístico garantizando que tu pedido sea procesado y empacado de la mejor manera.</p>
-            <strong>No arriesgues el motor de tus clientes, nosotros te respaldamos.</strong>
+            <p>Somos una empresa con oficinas en Lima y más de 5 años de experiencia en el rubro automotriz, importando filtros originales y comercializando fluidos de alta rotación. Llevamos media década cumpliendo de manera exitosa las expectativas de nuestros clientes a nivel nacional.</p>
+            <p>Operamos directamente desde nuestro almacén logístico, garantizando que tu pedido mayorista sea procesado, empacado y despachado con la mayor agilidad del mercado.</p>
+            <strong>No arriesgues el motor de tus clientes, nosotros te respaldamos con calidad OEM.</strong>
         </div>
     </section>
 
-    <section class="section-container" style="background-color: var(--fondo); padding-top: 0;">
-        <h2 class="section-title">Preguntas Frecuentes</h2>
+    <section class="section-container" style="padding-top: 0;">
+        <h2 class="section-title">Preguntas <span>Frecuentes</span></h2>
         <div class="faq-grid">
             <div class="faq-item">
-                <h4>¿Hacen envíos a provincia?</h4>
-                <p>Sí, realizamos envíos a todo el Perú mediante agencias de transporte seguras. Para provincias, trabajamos estrictamente con pago anticipado al 100%.</p>
+                <h4><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm12 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg> ¿Hacen envíos a provincia?</h4>
+                <p>Sí, realizamos envíos a todo el Perú mediante agencias de transporte terrestre de carga pesada seguras (como Sanky Transportes). Para provincias, trabajamos estrictamente con pago anticipado al 100%.</p>
             </div>
             <div class="faq-item">
-                <h4>¿Cuál es la modalidad de pago para Lima Metropolitana?</h4>
-                <p>Para tu mayor seguridad y comodidad, en Lima Metropolitana aceptamos la modalidad de pago contra entrega.</p>
+                <h4><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> ¿Cuál es la modalidad para Lima Metropolitana?</h4>
+                <p>Para tu mayor seguridad y comodidad, si tu taller se encuentra en Lima Metropolitana aceptamos la modalidad de pago contra entrega directamente en tu local.</p>
             </div>
             <div class="faq-item">
-                <h4>¿Qué métodos de pago aceptan?</h4>
-                <p>Aceptamos Yape, Plin y transferencias bancarias directas a nuestras cuentas corporativas.</p>
+                <h4><svg viewBox="0 0 24 24"><path d="M21 4H3c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h18c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H3V6h18v12zm-9-8.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"/></svg> ¿Qué métodos de pago aceptan?</h4>
+                <p>Aceptamos transferencias bancarias directas a nuestras cuentas corporativas, yape y plin para facilitar las operaciones de tu negocio.</p>
             </div>
             <div class="faq-item">
-                <h4>¿Emiten comprobantes de pago?</h4>
-                <p>Sí, emitimos factura para que puedas sustentar los gastos de tu negocio o taller mecánico.</p>
+                <h4><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg> ¿Emiten comprobantes de pago?</h4>
+                <p>Sí, somos una empresa formal. Emitimos boleta o factura electrónica para que puedas sustentar los gastos logísticos de tu taller mecánico.</p>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER CORPORATIVO -->
     <footer>
-        <p>&copy; 2026 LubriBaro. Oficinas en Lima, Perú.</p>
+        <div class="footer-widgets">
+            <div class="widget widget-logo">
+                <h2>Lubri<span>Baro</span></h2>
+                <p>Tu socio estratégico en repuestos y lubricantes. Importación directa y distribución mayorista a nivel nacional, enfocados en el crecimiento de tu taller.</p>
+            </div>
+            
+            <div class="widget">
+                <h4>Atención al Cliente</h4>
+                <p>📍 <strong>Almacén Principal:</strong><br>Av. Las Gaviotas, Bellavista</p>
+                <p>📞 <strong>Ventas Mayoristas:</strong><br>+51 937 229 128</p>
+                <p>✉️ <strong>Correo:</strong><br>lubribaro@gmail.com</p>
+            </div>
+
+            <div class="widget">
+                <h4>Enlaces Rápidos</h4>
+                <a href="index.html">Inicio</a>
+                <a href="catalogo.html">Catálogo Completo</a>
+                <a href="nosotros.html">Sobre Nosotros</a>
+                <a href="#">Términos y Condiciones</a>
+            </div>
+
+            <div class="widget">
+                <h4>Atención Rápida</h4>
+                <p>De Lunes a Sábado<br>8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 LubriBaro B2B. Todos los derechos reservados.</div>
     </footer>
 
-    <!-- WIDGET DE WHATSAPP -->
+    <!-- WIDGET WHATSAPP ANIMADO -->
     <div class="wa-container">
+        <!-- Panel Desplegable -->
         <div id="wa-popup" class="wa-popup">
             <div class="wa-popup-header">
                 <div class="wa-popup-close" onclick="toggleWaPopup()">✕</div>
-                <div class="wa-popup-title">Asesoría en Línea</div>
-                <div class="wa-popup-subtitle">Respondemos en menos de 5 minutos ⚡</div>
+                <div class="wa-popup-title">Asesoría Mayorista</div>
+                <div class="wa-popup-subtitle">Atención exclusiva para talleres ⚡</div>
             </div>
             <div class="wa-popup-body">
-                <a href="https://wa.me/51937229128?text=Buen%20d%C3%ADa%20Lubribaro!%20Tengo%20una%20consulta." target="_blank" class="wa-contact-card">
-                    <div class="wa-contact-icon">👨🏽‍🔧</div>
+                <a href="https://wa.me/51937229128?text=¡Buen%20día%20LubriBaro!%20Deseo%20información%20sobre%20su%20catálogo%20mayorista." target="_blank" class="wa-contact-card">
+                    <div class="wa-contact-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
+                    </div>
                     <div class="wa-contact-info">
-                        <span class="wa-greeting">Cotiza directo con un experto</span>
-                        <span class="wa-name">Ventas y Despachos</span>
-                        <span class="wa-status"><span class="wa-dot"></span> Disponible ahora</span>
+                        <span class="wa-name">Hablar con un asesor</span>
+                        <span class="wa-status"><span class="wa-dot"></span> En línea</span>
                     </div>
                 </a>
             </div>
         </div>
+        
+        <!-- Botón que late -->
         <div class="wa-trigger" onclick="toggleWaPopup()">
-            <img src="wsp.png" alt="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
         </div>
     </div>
+
+    <!-- SCRIPT MENÚ MÓVIL -->
     <script>
-        function toggleWaPopup() { document.getElementById('wa-popup').classList.toggle('active'); }
+        function toggleWaPopup() {
+            document.getElementById('wa-popup').classList.toggle('active');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('side-menu').classList.toggle('active');
+            document.getElementById('mobile-overlay').classList.toggle('active');
+        }
     </script>
 
 </body>
