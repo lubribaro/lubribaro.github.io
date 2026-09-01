@@ -45,7 +45,7 @@
         
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
         
-        /* NUEVO DISEÑO DE TARJETA (ESTILO CATÁLOGO TÉCNICO) */
+        /* DISEÑO DE TARJETA TÉCNICA */
         .product-card { background: white; border-radius: 10px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; }
         .product-card:hover { box-shadow: 0 8px 25px rgba(65,48,154,0.1); border-color: var(--naranja); transform: translateY(-5px); }
         
@@ -64,7 +64,7 @@
         .btn-small:hover { background-color: var(--naranja); color: white; border-color: var(--naranja); }
 
         /* FOOTER CORPORATIVO */
-        footer { background-color: var(--morado); color: white; font-size: 0.9em; margin-top: 40px; border-top: 5px solid var(--naranja); }
+        footer { background-color: var(--morado); color: white; font-size: 0.9em; margin-top: 40px; border-top: 5px solid var(--naranja); position: relative; z-index: 10; }
         .footer-widgets { padding: 50px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1300px; margin: 0 auto; }
         .widget-logo h2 { color: var(--blanco); font-size: 2.2em; margin: 0 0 15px 0; letter-spacing: -1px; }
         .widget-logo span { color: var(--naranja); }
@@ -73,7 +73,7 @@
         .widget a:hover { color: white; padding-left: 5px; }
         .footer-bottom { background: #2a1f63; padding: 20px 5%; text-align: center; font-size: 0.85em; color: #aaa; }
 
-        /* WIDGET WHATSAPP ANIMADO */
+        /* WIDGET WHATSAPP ANIMADO (LATIDO FÍSICO) */
         @keyframes pulse-wa { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.8); } 15% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0.4); } 30% { transform: scale(1); box-shadow: 0 0 0 30px rgba(37, 211, 102, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
         .wa-container { position: fixed; bottom: 30px; right: 30px; z-index: 9990; display: flex; flex-direction: column; align-items: flex-end; }
         .wa-popup { width: 320px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; margin-bottom: 20px; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transform-origin: bottom right; transition: all 0.3s; }
@@ -127,7 +127,6 @@
 </head>
 <body>
 
-    <!-- MENÚ HAMBURGUESA OCULTO (MÓVIL) -->
     <div class="overlay" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
     <div class="side-menu" id="side-menu">
         <div class="side-header">
@@ -157,12 +156,10 @@
         </div>
     </div>
 
-    <!-- BARRA SUPERIOR -->
     <div class="top-bar">
         Más de 5 años de experiencia | <span>Envíos seguros a todo el Perú</span>
     </div>
 
-    <!-- HEADER PRINCIPAL -->
     <header>
         <div class="menu-toggle" onclick="toggleMobileMenu()">
             <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
@@ -179,6 +176,10 @@
                 <div class="action-icon"><svg viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg></div>
                 Catálogo
             </a>
+            <a href="nosotros.html" class="action-item">
+                <div class="action-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg></div>
+                Nosotros
+            </a>
             <a href="https://wa.me/51937229128" target="_blank" class="btn-header">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.12.66 4.09 1.79 5.74L3 21l3.32-.77C7.94 21.36 9.9 22 12 22c5.52 22 10-4.48 10-10S17.52 2 12 2zm-1.8 6c.2-.01.44 0 .64.44.25.54.6 1.48.66 1.58.05.1.08.23.01.4-.07.17-.11.27-.23.4l-.33.37c-.12.13-.25.28-.11.51.14.23.63 1.03 1.35 1.68.93.84 1.7 1.1 1.93 1.23.23.12.37.1.51-.06.14-.16.6-.7.76-.94.16-.25.32-.2.53-.13.22.07 1.38.65 1.62.78.23.12.39.2.45.3.05.11.05.65-.18 1.28-.23.63-1.34 1.22-1.85 1.26-.5.05-1.12.2-3.19-.66-2.48-1.03-4.08-3.56-4.2-3.73-.12-.16-1-1.33-1-2.54s.62-1.81.84-2.06c.22-.25.48-.31.64-.31.16-.01.32-.01.47 0z"/></svg>
                 Cotizar Pedido
@@ -192,12 +193,22 @@
     </div>
 
     <section class="section-container">
-        <!-- FILTROS METÁLICOS -->
+        
         <h3 class="subcategory-title">Filtros Estándar (Metálicos)</h3>
         <div class="catalog-grid">
             
             <div class="product-card">
-                <div class="product-img"><img src="filtro-26300.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-img"><img src="filtro-26330-4a001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-info">
+                    <h4 class="product-code-main">26330-4A001</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-604A</span></div>
+                    <div class="product-cars">H100 - H1 - K2700 - Bongo</div>
+                    <a href="producto.html?id=filtro-26330-4a001" class="btn-small">Ver Detalles</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"><img src="filtro-26300-35505.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
                     <h4 class="product-code-main">26300-35505</h4>
                     <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-260</span></div>
@@ -207,22 +218,12 @@
             </div>
 
             <div class="product-card">
-                <div class="product-img"><img src="filtro-26300-02752.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-img"><img src="filtro-ok87a-14317.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
-                    <h4 class="product-code-main">26300-02752</h4>
-                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-3007</span></div>
-                    <div class="product-cars">Soluto - Verna - Gran i10 - Picanto</div>
-                    <a href="producto.html?id=filtro-26300-02752" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-26330-4A001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">26330-4A001</h4>
-                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-604A</span></div>
-                    <div class="product-cars">H100 - H1 - K2700 - Bongo</div>
-                    <a href="producto.html?id=filtro-26330-4a001" class="btn-small">Ver Detalles</a>
+                    <h4 class="product-code-main">OK87A-14317</h4>
+                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV SAKURA C1735</span></div>
+                    <div class="product-cars">Hyundai HD120 (Motor D6DA Diesel)</div>
+                    <a href="producto.html?id=filtro-ok87a-14317" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
 
@@ -237,26 +238,6 @@
             </div>
 
             <div class="product-card">
-                <div class="product-img"><img src="filtro-0K87A-14317.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">0K87A-14317</h4>
-                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS [Pendiente]</span></div>
-                    <div class="product-cars">Hyundai HD120 (Motor D6DA Diesel)</div>
-                    <a href="producto.html?id=filtro-0k87a-14317" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-16510-M68K20.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">16510-M68K20</h4>
-                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS LF-3001 CHATO</span></div>
-                    <div class="product-cars">Maruti Alto - SX4 - Vitara - Nomade</div>
-                    <a href="producto.html?id=filtro-16510-m68k20" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-
-            <div class="product-card">
                 <div class="product-img"><img src="filtro-26311-45010.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
                     <h4 class="product-code-main">26311-45010</h4>
@@ -266,20 +247,11 @@
                 </div>
             </div>
 
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-23304-EV120.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">23304-EV120</h4>
-                    <div class="product-title-eqv">Filtro de Aceite OEM <span>• EQV LYS [Pendiente]</span></div>
-                    <div class="product-cars">Alta calidad</div>
-                    <a href="producto.html?id=filtro-23304-ev120" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
         </div>
 
-        <!-- FILTROS ELEMENTO -->
         <h3 class="subcategory-title">Filtros Tipo Elemento (Cartucho)</h3>
         <div class="catalog-grid">
+            
             <div class="product-card">
                 <div class="product-img"><img src="filtro-26320-2f100.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
@@ -291,7 +263,7 @@
             </div>
             
             <div class="product-card">
-                <div class="product-img"><img src="filtro-26320-3N000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-img"><img src="filtro-26320-3n000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
                     <h4 class="product-code-main">26320-3N000</h4>
                     <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
@@ -301,7 +273,7 @@
             </div>
 
             <div class="product-card">
-                <div class="product-img"><img src="filtro-26320-2R000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-img"><img src="filtro-26320-2r000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
                     <h4 class="product-code-main">26320-2R000</h4>
                     <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
@@ -311,7 +283,7 @@
             </div>
 
             <div class="product-card">
-                <div class="product-img"><img src="filtro-26350-2M000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-img"><img src="filtro-26350-2m000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
                     <h4 class="product-code-main">26350-2M000</h4>
                     <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
@@ -321,7 +293,7 @@
             </div>
 
             <div class="product-card">
-                <div class="product-img"><img src="filtro-26350-2J001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-img"><img src="filtro-26350-2j001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
                     <h4 class="product-code-main">26350-2J001</h4>
                     <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
@@ -331,7 +303,7 @@
             </div>
 
             <div class="product-card">
-                <div class="product-img"><img src="filtro-26320-3C100.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
+                <div class="product-img"><img src="filtro-26320-3c100.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
                 <div class="product-info">
                     <h4 class="product-code-main">26320-3C100</h4>
                     <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
@@ -339,124 +311,3 @@
                     <a href="producto.html?id=filtro-26320-3c100" class="btn-small">Ver Detalles</a>
                 </div>
             </div>
-
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-26325-52003.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">26325-52003</h4>
-                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
-                    <div class="product-cars">Hyundai Migthy HD38 - HD78</div>
-                    <a href="producto.html?id=filtro-26325-52003" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-26350-2S001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">26350-2S001</h4>
-                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
-                    <div class="product-cars">Alta eficiencia</div>
-                    <a href="producto.html?id=filtro-26350-2s001" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-26320-30000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">26320-30000</h4>
-                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
-                    <div class="product-cars">Kia/Hyundai Carnival - Genesis</div>
-                    <a href="producto.html?id=filtro-26320-30000" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-26350-25000.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">26350-25000</h4>
-                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
-                    <div class="product-cars">Hyundai Tucson modernas</div>
-                    <a href="producto.html?id=filtro-26350-25000" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-26320-30100.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">26320-30100</h4>
-                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
-                    <div class="product-cars">Hyundai/Kia Santa Fe - Sonata</div>
-                    <a href="producto.html?id=filtro-26320-30100" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-img"><img src="filtro-26350-20001.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><span style="display:none;">[ Foto ]</span></div>
-                <div class="product-info">
-                    <h4 class="product-code-main">26350-20001</h4>
-                    <div class="product-title-eqv">Filtro Elemento OEM <span>• EQV LYS [Pendiente]</span></div>
-                    <div class="product-cars">Hyundai Santa Fe IV - Tucson NX4</div>
-                    <a href="producto.html?id=filtro-26350-20001" class="btn-small">Ver Detalles</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER CORPORATIVO -->
-    <footer>
-        <div class="footer-widgets">
-            <div class="widget widget-logo">
-                <h2>Lubri<span>Baro</span></h2>
-                <p>Tu socio estratégico en repuestos y lubricantes. Importación directa y distribución mayorista a nivel nacional, enfocados en el crecimiento de tu taller.</p>
-            </div>
-            
-            <div class="widget">
-                <h4>Atención al Cliente</h4>
-                <p>📍 <strong>Almacén Principal:</strong><br>Av. Las Gaviotas, Bellavista</p>
-                <p>📞 <strong>Ventas Mayoristas:</strong><br>+51 937 229 128</p>
-                <p>✉️ <strong>Correo:</strong><br>lubribaro@gmail.com</p>
-            </div>
-
-            <div class="widget">
-                <h4>Enlaces Rápidos</h4>
-                <a href="index.html">Inicio</a>
-                <a href="catalogo.html">Catálogo Completo</a>
-                <a href="nosotros.html">Sobre Nosotros</a>
-                <a href="#">Términos y Condiciones</a>
-            </div>
-        </div>
-        <div class="footer-bottom">&copy; 2026 LubriBaro B2B. Todos los derechos reservados.</div>
-    </footer>
-
-    <!-- WIDGET WHATSAPP ANIMADO -->
-    <div class="wa-container">
-        <div id="wa-popup" class="wa-popup">
-            <div class="wa-popup-header">
-                <div class="wa-popup-close" onclick="toggleWaPopup()">✕</div>
-                <div class="wa-popup-title">Asesoría Mayorista</div>
-                <div class="wa-popup-subtitle">Atención exclusiva para talleres ⚡</div>
-            </div>
-            <div class="wa-popup-body">
-                <a href="https://wa.me/51937229128?text=¡Buen%20día%20LubriBaro!%20Deseo%20información%20sobre%20su%20catálogo%20mayorista." target="_blank" class="wa-contact-card">
-                    <div class="wa-contact-icon">
-                        <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
-                    </div>
-                    <div class="wa-contact-info">
-                        <span class="wa-name">Hablar con un asesor</span>
-                        <span class="wa-status"><span class="wa-dot"></span> En línea</span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="wa-trigger" onclick="toggleWaPopup()">
-            <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.384 0 12.03c0 2.128.552 4.195 1.602 6.02L.031 24l6.115-1.603A11.96 11.96 0 0012.03 24c6.645 0 12.03-5.385 12.03-12.03S18.676 0 12.031 0zm0 21.996c-1.803 0-3.568-.485-5.116-1.404l-.367-.218-3.8.996.996-3.8-.218-.367C2.485 15.594 2 13.829 2 12.03 2 6.502 6.503 2 12.03 2c5.529 0 10.032 4.502 10.032 10.03S17.56 21.996 12.03 21.996zm5.503-7.525c-.302-.152-1.782-.88-2.059-.982-.278-.102-.48-.152-.682.152-.202.304-.781.982-.958 1.184-.177.202-.354.228-.656.076-2.115-1.064-3.5-2.05-4.821-4.328-.178-.304-.019-.47.132-.622.136-.137.304-.356.456-.534.152-.178.203-.304.304-.508.102-.203.05-.38-.025-.534-.076-.152-.682-1.648-.934-2.257-.246-.595-.497-.514-.682-.524h-.581c-.203 0-.532.076-.811.38-.278.304-1.064 1.04-1.064 2.535 0 1.495 1.089 2.94 1.241 3.143.152.203 2.144 3.275 5.195 4.593 1.954.845 2.766.917 3.738.775.986-.145 2.458-1 2.812-1.966.354-.966.354-1.794.248-1.966-.106-.172-.385-.274-.688-.426z"/></svg>
-        </div>
-    </div>
-
-    <!-- SCRIPT MENÚ MÓVIL -->
-    <script>
-        function toggleWaPopup() { document.getElementById('wa-popup').classList.toggle('active'); }
-        function toggleMobileMenu() { document.getElementById('side-menu').classList.toggle('active'); document.getElementById('mobile-overlay').classList.toggle('active'); }
-    </script>
-</body>
-</html>
