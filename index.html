@@ -55,7 +55,7 @@
 
         /* SECCIONES GENERALES */
         .section-container { padding: 60px 5%; max-width: 1300px; margin: 0 auto; }
-        .section-title { font-size: 2em; color: var(--gris); margin-top: 0; margin-bottom: 40px; text-align: center; text-transform: uppercase; font-weight: 900; }
+        .section-title { font-size: 2em; color: var(--gris); margin-top: 0; margin-bottom: 40px; text-align: center; text-transform: uppercase; font-weight: 900; line-height: 1.2; }
         .section-title span { color: var(--naranja); border-bottom: 3px solid var(--morado); padding-bottom: 5px; }
 
         /* LÍNEAS DE DISTRIBUCIÓN */
@@ -74,23 +74,12 @@
         .brands-strip img:hover { filter: grayscale(0%); opacity: 1; }
         .brand-placeholder { font-weight: bold; color: #aaa; border: 1px dashed #ccc; padding: 10px 20px; border-radius: 5px; font-size: 0.9em; }
 
-        /* CARRUSEL ASIMÉTRICO */
-        .carousel-section { background: white; padding: 60px 5%; display: flex; gap: 30px; align-items: center; max-width: 1400px; margin: 0 auto; overflow: hidden; position: relative; }
-        .carousel-title-col { flex: 0 0 250px; border-left: 5px solid var(--naranja); padding-left: 20px; display: flex; flex-direction: column; justify-content: center; }
-        .carousel-title-col h2 { font-size: 2.2em; color: var(--gris); margin: 0 0 15px 0; line-height: 1.1; font-weight: 300; }
-        .carousel-title-col h2 strong { font-weight: 900; color: var(--morado); display: block; }
-        .carousel-title-col h2 span { display: block; }
+        /* LOS MÁS SOLICITADOS (NUEVA GRILLA 4 PRODUCTOS) */
+        .best-sellers-section { background: white; padding: 60px 5%; }
+        .best-sellers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1300px; margin: 0 auto; }
         
-        .carousel-controls { display: flex; gap: 10px; margin-top: 10px; }
-        .btn-arrow { background: var(--fondo); border: 1px solid #ddd; color: var(--morado); width: 45px; height: 45px; border-radius: 50%; font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 10; }
-        .btn-arrow:hover { background: var(--naranja); color: white; border-color: var(--naranja); }
-
-        .carousel-wrapper { flex: 1; overflow: hidden; position: relative; }
-        .carousel-container { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-        .carousel-container::-webkit-scrollbar { display: none; }
-        
-        .prod-card { min-width: 260px; max-width: 260px; scroll-snap-align: start; background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; }
-        .prod-card:hover { box-shadow: 0 10px 25px rgba(65,48,154,0.1); border-color: var(--naranja); }
+        .prod-card { background: white; border-radius: 8px; border: 1px solid #eaeaea; display: flex; flex-direction: column; overflow: hidden; transition: 0.3s; padding: 15px; }
+        .prod-card:hover { box-shadow: 0 10px 25px rgba(65,48,154,0.1); border-color: var(--naranja); transform: translateY(-5px); }
         .prod-img-box { height: 180px; background: #f9f9f9; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .prod-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 10px; display: none; }
         .prod-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #aaa; font-weight: bold; font-size: 0.9em; background: #f1f1f1; text-align: center; }
@@ -170,29 +159,30 @@
         .btn-side-cotizar { background: var(--naranja) !important; color: white !important; margin: 20px; border-radius: 5px; justify-content: center; }
         .btn-side-cotizar svg { fill: white !important; }
 
+        /* ADAPTACIÓN MÓVIL (NUEVA GRILLA 2x2) */
         @media (max-width: 900px) { 
-            /* Header Limpio */
             header { position: relative; justify-content: center; padding: 15px 5%; height: 70px; } 
             .menu-toggle { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); display: block; }
             .logo { font-size: 30px; margin: 0; }
             
-            /* Ocultar elementos de PC */
             .search-form, .desktop-actions, .cat-nav { display: none; }
             
-            /* Banner Adaptable */
             .hero-banner { height: auto; padding: 60px 5%; }
             .hero-content h1 { font-size: 2.4em; line-height: 1.1; margin-bottom: 15px; }
             .hero-content p { font-size: 1.1em; margin-bottom: 25px; }
             .btn-banner { font-size: 1em; padding: 12px 25px; }
 
-            /* Ajustes Carrusel Móvil */
-            .carousel-section { flex-direction: column; padding: 40px 5%; align-items: flex-start; }
-            .carousel-title-col { flex: none; border-left: none; padding-left: 0; text-align: center; width: 100%; border-bottom: 3px solid var(--naranja); padding-bottom: 15px; margin-bottom: 10px; }
-            .carousel-title-col h2 { font-size: 1.8em; }
+            /* GRILLA 2x2 EN MÓVIL */
+            .best-sellers-section { padding: 40px 5%; }
+            .section-title { font-size: 1.8em; }
+            .best-sellers-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             
-            /* Mostrar flechas del carrusel y centrarlas en móvil */
-            .carousel-controls { display: flex; justify-content: center; margin-top: 15px; width: 100%; }
-            .carousel-container { padding-left: 0; padding-right: 0; gap: 15px; }
+            .prod-card { padding: 10px; }
+            .prod-card:hover { transform: translateY(-2px); }
+            .prod-img-box { height: 130px; margin-bottom: 10px; }
+            .prod-title { font-size: 0.8em; margin-bottom: 10px; }
+            .prod-title span { font-size: 1.05em; }
+            .btn-ver { font-size: 0.75em; padding: 8px; }
             
             .trust-steps-section h2 { font-size: 1.8em; }
             .wa-container { bottom: 20px; right: 20px; }
@@ -238,14 +228,12 @@
 
     <!-- HEADER PRINCIPAL -->
     <header>
-        <!-- Menú Hamburguesa -->
         <div class="menu-toggle" onclick="toggleMobileMenu()">
             <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
         </div>
         
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
 
-        <!-- Buscador (Oculto en Móvil, Visible en PC) -->
         <form action="catalogo.html" method="GET" class="search-form">
             <input type="text" name="q" placeholder="Buscar por código, marca o producto...">
             <button type="submit">
@@ -348,72 +336,51 @@
         <div class="brand-placeholder">Logo SUZUKI</div>
     </div>
 
-    <!-- CARRUSEL ASIMÉTRICO -->
-    <section class="carousel-section">
-        <div class="carousel-title-col">
-            <h2>¡Los<br><strong>productos más solicitados</strong><span style="display:block;">aquí!</span></h2>
-            <div class="carousel-controls">
-                <button class="btn-arrow" onclick="scrollCarousel(-1)">&#10094;</button>
-                <button class="btn-arrow" onclick="scrollCarousel(1)">&#10095;</button>
+    <!-- LOS MÁS SOLICITADOS (GRILLA 4 PRODUCTOS - 2x2 EN MÓVIL) -->
+    <section class="best-sellers-section">
+        <h2 class="section-title">¡Los <span>productos más solicitados</span> aquí!</h2>
+        <div class="best-sellers-grid">
+            
+            <!-- PRODUCTO 1: CHEVRON ATF -->
+            <div class="prod-card">
+                <div class="prod-img-box">
+                    <img src="chevron.jpg" alt="Chevron ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto Chevron ATF ]</div>
+                </div>
+                <h4 class="prod-title">Chevron Supreme ATF MD-3 <span>Caja 12x1/4 GL</span></h4>
+                <a href="producto.html?id=chevron-atf" class="btn-ver">Ver Detalles</a>
             </div>
-        </div>
-        
-        <div class="carousel-wrapper">
-            <div class="carousel-container" id="prod-carousel">
-                <div class="prod-card">
-                    <div class="prod-img-box">
-                        <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="prod-fallback">[ Foto 26300-35505 ]</div>
-                    </div>
-                    <h4 class="prod-title">Filtro Aceite Hyundai <span>26300-35505</span></h4>
-                    <a href="producto.html?id=filtro-26300-35505" class="btn-ver">Ver Detalles</a>
-                </div>
 
-                <div class="prod-card">
-                    <div class="prod-img-box">
-                        <img src="chevron.jpg" alt="Chevron ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="prod-fallback">[ Foto Chevron ATF ]</div>
-                    </div>
-                    <h4 class="prod-title">Chevron Supreme ATF MD-3 <span>Caja 12x1/4 GL</span></h4>
-                    <a href="producto.html?id=chevron-atf" class="btn-ver">Ver Detalles</a>
+            <!-- PRODUCTO 2: FILTRO 26300 -->
+            <div class="prod-card">
+                <div class="prod-img-box">
+                    <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto 26300-35505 ]</div>
                 </div>
-
-                <div class="prod-card">
-                    <div class="prod-img-box">
-                        <img src="filtro-26320.jpg" alt="Filtro 26320-2F100" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="prod-fallback">[ Foto 26320-2F100 ]</div>
-                    </div>
-                    <h4 class="prod-title">Filtro Elemento Hyundai <span>26320-2F100</span></h4>
-                    <a href="producto.html?id=filtro-26320-2f100" class="btn-ver">Ver Detalles</a>
-                </div>
-
-                <div class="prod-card">
-                    <div class="prod-img-box">
-                        <img src="filtro-31922.jpg" alt="Filtro Combustible 31922-2E900" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="prod-fallback">[ Foto 31922-2E900 ]</div>
-                    </div>
-                    <h4 class="prod-title">Filtro Combustible OEM <span>31922-2E900</span></h4>
-                    <a href="producto.html?id=filtro-31922-2e900" class="btn-ver">Ver Detalles</a>
-                </div>
-
-                <div class="prod-card">
-                    <div class="prod-img-box">
-                        <img src="filtro-28113.jpg" alt="Filtro Aire 28113-C7000" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="prod-fallback">[ Foto 28113-C7000 ]</div>
-                    </div>
-                    <h4 class="prod-title">Filtro de Aire Hyundai/Kia <span>28113-C7000</span></h4>
-                    <a href="producto.html?id=filtro-28113-c7000" class="btn-ver">Ver Detalles</a>
-                </div>
-                
-                <div class="prod-card">
-                    <div class="prod-img-box">
-                        <img src="filtro-26330.jpg" alt="Filtro Aceite 26330-4A001" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="prod-fallback">[ Foto 26330-4A001 ]</div>
-                    </div>
-                    <h4 class="prod-title">Filtro Aceite Diesel <span>26330-4A001</span></h4>
-                    <a href="producto.html?id=filtro-26330-4a001" class="btn-ver">Ver Detalles</a>
-                </div>
+                <h4 class="prod-title">Filtro Aceite Hyundai <span>26300-35505</span></h4>
+                <a href="producto.html?id=filtro-26300-35505" class="btn-ver">Ver Detalles</a>
             </div>
+
+            <!-- PRODUCTO 3: FILTRO 31922 (ALTA PRESIÓN) -->
+            <div class="prod-card">
+                <div class="prod-img-box">
+                    <img src="filtro-31922.jpg" alt="Filtro Combustible 31922-2E900" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto 31922-2E900 ]</div>
+                </div>
+                <h4 class="prod-title">Filtro Combustible OEM <span>31922-2E900</span></h4>
+                <a href="producto.html?id=filtro-31922-2e900" class="btn-ver">Ver Detalles</a>
+            </div>
+
+            <!-- PRODUCTO 4: EFEOS -->
+            <div class="prod-card">
+                <div class="prod-img-box">
+                    <img src="efeos.jpg" alt="Refrigerante EFEOS" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="prod-fallback">[ Foto EFEOS ]</div>
+                </div>
+                <h4 class="prod-title">Refrigerante Anticongelante EFEOS 50/50 <span>Caja 3 Gal.</span></h4>
+                <a href="producto.html?id=efeos-5050" class="btn-ver">Ver Detalles</a>
+            </div>
+            
         </div>
     </section>
 
@@ -515,7 +482,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT DEL CARRUSEL Y MENÚ MÓVIL -->
+    <!-- SCRIPT MENÚ MÓVIL -->
     <script>
         function toggleWaPopup() {
             document.getElementById('wa-popup').classList.toggle('active');
@@ -524,12 +491,6 @@
         function toggleMobileMenu() {
             document.getElementById('side-menu').classList.toggle('active');
             document.getElementById('mobile-overlay').classList.toggle('active');
-        }
-
-        function scrollCarousel(direction) {
-            const container = document.getElementById('prod-carousel');
-            const scrollAmount = 280; // Ancho de tarjeta + gap
-            container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }
     </script>
 
