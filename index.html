@@ -165,7 +165,11 @@
             .menu-toggle { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); display: block; }
             .logo { font-size: 30px; margin: 0; }
             
-            .search-form, .desktop-actions, .cat-nav { display: none; }
+            .desktop-actions, .cat-nav { display: none; }
+            header { flex-wrap: wrap; height: auto; }
+            .menu-toggle { top: 35px; }
+            .search-form { order: 3; flex: 1 1 100%; max-width: none; margin: 12px 0 0 0; height: 42px; }
+            .search-form input { font-size: 16px; }
             
             .hero-banner { height: auto; padding: 60px 5%; }
             .hero-content h1 { font-size: 2.4em; line-height: 1.1; margin-bottom: 15px; }
@@ -236,7 +240,7 @@
         <a href="index.html" class="logo">Lubri<span>Baro</span></a>
 
         <form action="catalogo.html" method="GET" class="search-form">
-            <input type="text" name="q" placeholder="Buscar por código, marca o producto...">
+            <input type="text" name="q" placeholder="Código o modelo (ej. Tucson, HD78)" aria-label="Buscar por código o modelo de vehículo">
             <button type="submit">
                 <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             </button>
@@ -340,49 +344,7 @@
     <!-- LOS MÁS SOLICITADOS (GRILLA 4 PRODUCTOS - 2x2 EN MÓVIL) -->
     <section class="best-sellers-section">
         <h2 class="section-title">¡Los <span>productos más solicitados</span> aquí!</h2>
-        <div class="best-sellers-grid">
-            
-            <!-- PRODUCTO 1: CHEVRON ATF -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="chevron.jpg" alt="Chevron ATF" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto Chevron ATF ]</div>
-                </div>
-                <h4 class="prod-title">Chevron Supreme ATF MD-3 <span>Caja 12x1/4 GL</span></h4>
-                <a href="producto.html?id=chevron-atf" class="btn-ver">Ver Detalles</a>
-            </div>
-
-            <!-- PRODUCTO 2: FILTRO 26300 -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="filtro-26300.jpg" alt="Filtro 26300-35505" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto 26300-35505 ]</div>
-                </div>
-                <h4 class="prod-title">Filtro Aceite Hyundai <span>26300-35505</span></h4>
-                <a href="producto.html?id=filtro-26300-35505" class="btn-ver">Ver Detalles</a>
-            </div>
-
-            <!-- PRODUCTO 3: FILTRO 31922 (ALTA PRESIÓN) -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="filtro-31922.jpg" alt="Filtro Combustible 31922-2E900" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto 31922-2E900 ]</div>
-                </div>
-                <h4 class="prod-title">Filtro Combustible OEM <span>31922-2E900</span></h4>
-                <a href="producto.html?id=filtro-31922-2e900" class="btn-ver">Ver Detalles</a>
-            </div>
-
-            <!-- PRODUCTO 4: EFEOS -->
-            <div class="prod-card">
-                <div class="prod-img-box">
-                    <img src="efeos.jpg" alt="Refrigerante EFEOS" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="prod-fallback">[ Foto EFEOS ]</div>
-                </div>
-                <h4 class="prod-title">Refrigerante Anticongelante EFEOS 50/50 <span>Caja 3 Gal.</span></h4>
-                <a href="producto.html?id=efeos-5050" class="btn-ver">Ver Detalles</a>
-            </div>
-            
-        </div>
+        <div class="best-sellers-grid" id="grid-destacados"></div>
     </section>
 
     <!-- DISTRIBUIDOR DE CONFIANZA (3 PASOS DE COMPRA) -->
@@ -484,7 +446,22 @@
     </div>
 
     <!-- SCRIPT MENÚ MÓVIL -->
+    <script src="productos.js"></script>
     <script>
+        // "Más solicitados" generados desde productos.js (lista DESTACADOS)
+        document.getElementById('grid-destacados').innerHTML = DESTACADOS.map(obtenerProducto).filter(Boolean).map(p => {
+            const alt = escaparHTML(altProducto(p));
+            const foto = p.foto
+                ? `<img src="${p.foto}" alt="${alt}" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="prod-fallback">[ Foto ${escaparHTML(p.codigo)} ]</div>`
+                : `<div class="prod-fallback">[ Foto ${escaparHTML(p.codigo)} ]</div>`;
+            return `<div class="prod-card">
+                <div class="prod-img-box">${foto}</div>
+                <h4 class="prod-title">${escaparHTML(p.titulo)} <span>${escaparHTML(p.resumen || p.codigo)}</span></h4>
+                <a href="producto.html?id=${p.id}" class="btn-ver">Ver Detalles</a>
+            </div>`;
+        }).join('');
+
+
         function toggleWaPopup() {
             document.getElementById('wa-popup').classList.toggle('active');
         }
