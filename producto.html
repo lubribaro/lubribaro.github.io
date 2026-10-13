@@ -257,11 +257,11 @@
             <!-- GALERÍA -->
             <div class="gallery-wrapper">
                 <div class="thumbnails">
-                    <div class="thumb-box active"><img id="ui-thumb1" src="" alt="Thumb"></div>
+                    <div class="thumb-box active"><img id="ui-thumb1" alt=""></div>
                 </div>
                 <div class="main-image-box">
-                    <img id="ui-foto" src="" alt="Producto">
-                    <div id="ui-placeholder" class="placeholder-text">Sube la foto:<br><span id="nombre-foto" style="color:var(--morado);"></span><br>a tu GitHub</div>
+                    <img id="ui-foto" alt="">
+                    <div id="ui-placeholder" class="placeholder-text">[ Foto referencial<br>próximamente ]</div>
                 </div>
             </div>
 
@@ -316,10 +316,11 @@
                 <p id="ui-desc" style="margin-top:0;">Descripción del producto.</p>
                 <table class="tech-table">
                     <tr><th>Tipo de Producto</th><td id="ui-tb-tipo">-</td></tr>
+                    <tr id="ui-fila-eqv" style="display:none;"><th>Equivalencia</th><td id="ui-tb-eqv">-</td></tr>
                     <tr><th>Procedencia</th><td id="ui-tb-proc">Importación Directa / OEM</td></tr>
                     <tr><th>Garantía</th><td>Respaldo del fabricante contra defectos.</td></tr>
                 </table>
-                <a href="#" id="ui-pdf" class="btn-pdf" target="_blank">📄 Descargar Ficha Técnica PDF</a>
+                <a href="#" id="ui-pdf" class="btn-pdf" target="_blank" rel="noopener">📄 Descargar Ficha Técnica PDF</a>
             </div>
             
             <div id="tab-espec" class="tab-content">
@@ -338,7 +339,7 @@
     <!-- STICKY BAR (SE OCULTA EN MÓVIL AL ABRIR TECLADO) -->
     <div id="sticky-bar" class="sticky-bar">
         <div class="sticky-prod-info">
-            <img id="sticky-foto" src="" alt="Miniatura">
+            <img id="sticky-foto" alt="">
             <div class="sticky-prod-title" id="sticky-titulo">Producto</div>
         </div>
         <select id="sticky-volumen" class="vol-select" style="min-width: 200px;" onchange="syncSelect(this.value)"></select>
@@ -406,6 +407,7 @@
     </div>
 
     <!-- SCRIPT MENÚ MÓVIL -->
+    <script src="productos.js"></script>
     <script>
         function abrirTab(evt, tabId) {
             let contents = document.getElementsByClassName("tab-content");
@@ -425,63 +427,58 @@
             else stickyBar.classList.remove("visible");
         };
 
-        const baseDeDatos = {
-            // *** FLUIDOS ***
-            "chevron-atf": { marca: "CHEVRON", titulo: "Chevron Supreme ATF MD-3", codigo: "SKU: ATF-MD3", presentacion: "Caja de 12 x 1/4 GL", desc: "Máxima protección contra la formación de lacas. Estabilidad excepcional para transmisiones automáticas.", compatibilidad: "Transmisiones Automáticas Hyundai, Kia que soliciten DEXRON-III.", foto: "chevron.jpg", tipo: "Fluido de Transmisión", pdf: "#", precios: [ { qty:"1 Caja", val:"290,00", desc:"x Caja" }, { qty:"2 Cajas", val:"285,00", desc:"x Caja", highlight:true } ] },
-            "efeos-5050": { marca: "EFEOS", titulo: "Refrigerante EFEOS 50/50", codigo: "SKU: EF-5050", presentacion: "Caja de 3 Galoneras", desc: "Fórmula lista para usar de larga vida. Previene sobrecalentamiento y corrosión del motor.", compatibilidad: "Flotas de Hyundai, Kia y vehículos asiáticos.", foto: "efeos.jpg", tipo: "Refrigerante / Anticongelante", pdf: "#", precios: [ { qty:"1 Caja", val:"120,00", desc:"x Caja" }, { qty:"2 Cajas", val:"115,00", desc:"x Caja", highlight:true } ] },
-
-            // *** FILTROS DE ACEITE (METÁLICOS) ***
-            "filtro-26330-4a001": { marca: "HYUNDAI / KIA", titulo: "Filtro Aceite Metálico", codigo: "SKU: 26330-4A001", presentacion: "Caja x 10 und / Caja x 20 und", desc: "Elemento filtrante de alta capacidad para motores diesel.", compatibilidad: "Hyundai H100, H1, Kia K2700, Bongo.", foto: "filtro-26330-4a001.jpg", tipo: "Filtro de Aceite (Metálico)", pdf: "#", precios: [ { qty:"1 Decena", val:"23,14", desc:"c/u" }, { qty:"Media Caja", val:"22,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"21,50", desc:"c/u", highlight:true } ] },
-            "filtro-26300-35505": { marca: "HYUNDAI / KIA", titulo: "Filtro Aceite Metálico", codigo: "SKU: 26300-35505", presentacion: "Caja x 40 und", desc: "Filtro de aceite estándar de alta rotación para vehículos asiáticos.", compatibilidad: "Cerato, Elantra, Optima, Sportage, Tucson.", foto: "filtro-26300-35505.jpg", tipo: "Filtro de Aceite (Metálico)", pdf: "#", precios: [ { qty:"1 Decena", val:"11,50", desc:"c/u" }, { qty:"Media Caja", val:"11,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"10,50", desc:"c/u", highlight:true } ] },
-            "filtro-ok87a-14317": { marca: "HYUNDAI", titulo: "Filtro Aceite Metálico", codigo: "SKU: OK87A-14317", presentacion: "Por definir", desc: "Filtro de aceite de alto rendimiento para motores diesel pesados.", compatibilidad: "Hyundai HD120 (Motor D6DA diesel).", foto: "filtro-ok87a-14317.jpg", tipo: "Filtro de Aceite (Metálico)", pdf: "#", precios: [ { qty:"1 Decena", val:"65,74", desc:"c/u" }, { qty:"Media Caja", val:"64,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"62,50", desc:"c/u", highlight:true } ] },
-            "filtro-26316-41000": { marca: "HYUNDAI", titulo: "Filtro Aceite Metálico", codigo: "SKU: 26316-41000", presentacion: "Por definir", desc: "Elemento de filtración superior para vehículos comerciales.", compatibilidad: "Hyundai Migthy HD65, HD72, HD78 (1998+).", foto: "filtro-26316-41000.jpg", tipo: "Filtro de Aceite (Metálico)", pdf: "#", precios: [ { qty:"1 Decena", val:"13,24", desc:"c/u" }, { qty:"Media Caja", val:"12,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"11,80", desc:"c/u", highlight:true } ] },
-            "filtro-26311-45010": { marca: "HYUNDAI", titulo: "Filtro Aceite Metálico", codigo: "SKU: 26311-45010", presentacion: "Por definir", desc: "Filtro metálico robusto para serie HD.", compatibilidad: "Hyundai Serie HD45, HD65, HD75.", foto: "filtro-26311-45010.jpg", tipo: "Filtro de Aceite (Metálico)", pdf: "#", precios: [ { qty:"1 Decena", val:"42,58", desc:"c/u" }, { qty:"Media Caja", val:"41,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"39,50", desc:"c/u", highlight:true } ] },
-
-            // *** FILTROS DE ACEITE (TIPO ELEMENTO) ***
-            "filtro-26320-2f100": { marca: "HYUNDAI", titulo: "Filtro Aceite Elemento", codigo: "SKU: 26320-2F100", presentacion: "Por definir", desc: "Filtro tipo elemento (cartucho) ecológico y de alta eficiencia.", compatibilidad: "Hyundai Staria.", foto: "filtro-26320-2f100.jpg", tipo: "Filtro de Aceite (Elemento)", pdf: "#", precios: [ { qty:"1 Decena", val:"19,81", desc:"c/u" }, { qty:"Media Caja", val:"18,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"17,80", desc:"c/u", highlight:true } ] },
-            "filtro-26320-3n000": { marca: "OEM", titulo: "Filtro Aceite Elemento", codigo: "SKU: 26320-3N000", presentacion: "Por definir", desc: "Cartucho de aceite con retención de impurezas superior.", compatibilidad: "Consulte aplicación en catálogo.", foto: "filtro-26320-3n000.jpg", tipo: "Filtro de Aceite (Elemento)", pdf: "#", precios: [ { qty:"1 Decena", val:"24,72", desc:"c/u" }, { qty:"Media Caja", val:"23,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"22,50", desc:"c/u", highlight:true } ] },
-            "filtro-26320-2r000": { marca: "HYUNDAI / KIA", titulo: "Filtro Aceite Elemento", codigo: "SKU: 26320-2R000", presentacion: "Por definir", desc: "Cartucho filtrante para motores diesel modernos.", compatibilidad: "Motores diesel 2.0L Hyundai y Kia.", foto: "filtro-26320-2r000.jpg", tipo: "Filtro de Aceite (Elemento)", pdf: "#", precios: [ { qty:"1 Decena", val:"23,86", desc:"c/u" }, { qty:"Media Caja", val:"22,80", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"21,50", desc:"c/u", highlight:true } ] },
-            "filtro-26350-2m000": { marca: "KIA", titulo: "Filtro Aceite Elemento", codigo: "SKU: 26350-2M000", presentacion: "Por definir", desc: "Cartucho original para retención óptima de partículas.", compatibilidad: "Kia New Sorento, Rio.", foto: "filtro-26350-2m000.jpg", tipo: "Filtro de Aceite (Elemento)", pdf: "#", precios: [ { qty:"1 Decena", val:"26,57", desc:"c/u" }, { qty:"Media Caja", val:"25,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"24,50", desc:"c/u", highlight:true } ] },
-            "filtro-26350-2j001": { marca: "OEM", titulo: "Filtro Aceite Elemento", codigo: "SKU: 26350-2J001", presentacion: "Por definir", desc: "Cartucho ecológico para vehículos modernos.", compatibilidad: "Consulte aplicación en catálogo.", foto: "filtro-26350-2j001.jpg", tipo: "Filtro de Aceite (Elemento)", pdf: "#", precios: [ { qty:"1 Decena", val:"26,57", desc:"c/u" }, { qty:"Media Caja", val:"25,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"24,50", desc:"c/u", highlight:true } ] },
-            "filtro-26320-3c100": { marca: "OEM", titulo: "Filtro Aceite Elemento", codigo: "SKU: 26320-3C100", presentacion: "Por definir", desc: "Cartucho de filtración de flujo constante.", compatibilidad: "Consulte aplicación en catálogo.", foto: "filtro-26320-3c100.jpg", tipo: "Filtro de Aceite (Elemento)", pdf: "#", precios: [ { qty:"1 Decena", val:"20,93", desc:"c/u" }, { qty:"Media Caja", val:"19,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"18,80", desc:"c/u", highlight:true } ] },
-            "filtro-26325-52003": { marca: "HYUNDAI", titulo: "Filtro Aceite Elemento", codigo: "SKU: 26325-52003", presentacion: "Por definir", desc: "Cartucho de aceite reforzado para vehículos de carga.", compatibilidad: "Hyundai Migthy HD38, HD78.", foto: "filtro-26325-52003.jpg", tipo: "Filtro de Aceite (Elemento)", pdf: "#", precios: [ { qty:"1 Decena", val:"58,78", desc:"c/u" }, { qty:"Media Caja", val:"57,00", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"55,50", desc:"c/u", highlight:true } ] },
-            "filtro-26350-2s001": { marca: "OEM", titulo: "Filtro Aceite Elemento", codigo: "SKU: 26350-2S001", presentacion: "Por definir", desc: "Cartucho ecológico y de alta capacidad.", compatibilidad: "Consulte aplicación en catálogo.", foto: "filtro-26350-2s001.jpg", tipo: "Filtro de Aceite (Elemento)", pdf: "#", precios: [ { qty:"1 Decena", val:"26,57", desc:"c/u" }, { qty:"Media Caja", val:"25,50", desc:"c/u" }, { qty:"1 a 2 Cajas", val:"24,50", desc:"c/u", highlight:true } ] }
-        };
+        let productoActual = null;
 
         window.onload = function() {
             const id = new URLSearchParams(window.location.search).get('id');
-            productoActual = baseDeDatos[id];
-            
+            productoActual = obtenerProducto(id);
+
             if (productoActual) {
+                const p = productoActual;
+                document.title = `${p.titulo} ${p.codigo} - LubriBaro B2B`;
                 document.getElementById('contenido-producto').style.display = 'block';
-                document.getElementById('bread-nombre').innerHTML = productoActual.titulo;
-                document.getElementById('ui-marca').innerHTML = "⚙️ " + productoActual.marca;
-                document.getElementById('ui-titulo').innerHTML = productoActual.titulo;
-                document.getElementById('sticky-titulo').innerHTML = productoActual.titulo;
-                document.getElementById('ui-codigo').innerHTML = productoActual.codigo;
-                document.getElementById('ui-presentacion').innerHTML = "Caja / Presentación: " + productoActual.presentacion;
-                document.getElementById('ui-desc').innerHTML = productoActual.desc;
-                document.getElementById('ui-compatibilidad').innerHTML = productoActual.compatibilidad;
-                document.getElementById('ui-tb-tipo').innerHTML = productoActual.tipo;
-                
-                if (productoActual.pdf) document.getElementById('ui-pdf').style.display = "block";
+                document.getElementById('bread-nombre').textContent = p.titulo;
+                document.getElementById('ui-marca').textContent = "⚙️ " + p.marca;
+                document.getElementById('ui-titulo').textContent = p.titulo;
+                document.getElementById('sticky-titulo').textContent = p.titulo;
+                document.getElementById('ui-codigo').textContent = "SKU: " + p.codigo;
+                document.getElementById('ui-presentacion').textContent = "Caja / Presentación: " + p.presentacion;
+                document.getElementById('ui-desc').textContent = p.desc;
+                document.getElementById('ui-compatibilidad').textContent = p.compatibilidad;
+                document.getElementById('ui-tb-tipo').textContent = p.tipo;
+                if (p.equivalencia) {
+                    document.getElementById('ui-tb-eqv').textContent = p.equivalencia;
+                    document.getElementById('ui-fila-eqv').style.display = 'table-row';
+                }
+
+                // Solo se muestra el botón si el producto tiene un PDF real
+                const btnPdf = document.getElementById('ui-pdf');
+                if (tienePdf(p)) { btnPdf.href = p.pdf; btnPdf.style.display = "block"; }
 
                 let htmlPrecios = '';
-                productoActual.precios.forEach(p => {
-                    htmlPrecios += `<div class="tier ${p.highlight ? 'highlight' : ''}"><span class="tier-qty">${p.qty}</span><span class="tier-price"><span>S/</span>${p.val}</span></div>`;
+                p.precios.forEach(pr => {
+                    htmlPrecios += `<div class="tier ${pr.highlight ? 'highlight' : ''}"><span class="tier-qty">${pr.qty}</span><span class="tier-price"><span>S/</span>${pr.val}</span></div>`;
                 });
+                if (!htmlPrecios) htmlPrecios = `<div class="tier highlight tier-consultar"><span class="tier-qty">Precio mayorista</span><span class="tier-price">A consultar</span></div>`;
                 document.getElementById('ui-precios-container').innerHTML = htmlPrecios;
 
-                let optionsHTML = id.startsWith('filtro') ? 
+                let optionsHTML = p.categoria !== 'fluidos' ?
                     `<option value="1 Decena (10 unid.)">1 Decena (10 unid.)</option><option value="Media Caja (20 unid.)">Media Caja</option><option value="1 Caja Completa" selected>1 Caja Completa</option><option value="2 Cajas">2 Cajas</option><option value="3 a 5 Cajas">3 a 5 Cajas (Descuento extra)</option><option value="6 a más Cajas">6 a más Cajas</option>` :
                     `<option value="1 Caja">1 Caja</option><option value="2 Cajas" selected>2 Cajas</option><option value="3 a 5 Cajas">3 a 5 Cajas (Descuento extra)</option><option value="6 a más Cajas">6 a más Cajas</option>`;
                 document.getElementById('select-volumen').innerHTML = optionsHTML;
                 document.getElementById('sticky-volumen').innerHTML = optionsHTML;
 
                 const img = document.getElementById('ui-foto');
-                img.src = productoActual.foto; document.getElementById('ui-thumb1').src = productoActual.foto; document.getElementById('sticky-foto').src = productoActual.foto;
-                img.onload = () => { img.style.display = 'block'; document.getElementById('ui-placeholder').style.display = 'none'; };
-                img.onerror = () => document.getElementById('nombre-foto').innerHTML = productoActual.foto;
+                const thumb = document.getElementById('ui-thumb1');
+                const sticky = document.getElementById('sticky-foto');
+                [img, thumb, sticky].forEach(el => el.alt = altProducto(p));
+                if (p.foto) {
+                    img.onload = () => { img.style.display = 'block'; document.getElementById('ui-placeholder').style.display = 'none'; };
+                    img.src = p.foto; thumb.src = p.foto; sticky.src = p.foto;
+                } else {
+                    thumb.closest('.thumbnails').style.display = 'none';
+                    sticky.style.display = 'none';
+                }
             } else { document.getElementById('error-producto').style.display = 'block'; }
         };
 
