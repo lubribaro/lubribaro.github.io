@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | LubriBaro</title>
+    <meta name="description" content="Contacta a LubriBaro por WhatsApp (+51 937 229 128) o correo. Atendemos Lima y Callao, con envíos a provincias.">
+    <meta name="theme-color" content="#41309A">
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body data-pagina="contacto">
+    <header id="sitio-header"></header>
+    <script src="productos.js"></script>
+    <script src="sitio.js"></script>
+
+    <main>
+        <section class="page-hero">
+            <div class="contenedor">
+                <div class="migas"><a href="index.html">Inicio</a><span class="sep">›</span><span>Contacto</span></div>
+                <h1>Contacto</h1>
+                <p>Escríbenos por WhatsApp: es la forma más rápida de cotizar y coordinar tu pedido.</p>
+            </div>
+        </section>
+
+        <section class="seccion">
+            <div class="contenedor contacto-grid">
+                <div class="contacto-cards">
+                    <a class="c-card wa" id="c-wa" href="#" target="_blank" rel="noopener">
+                        <div class="ico-grande" id="ic-wa"></div>
+                        <div><h3>WhatsApp</h3><p class="grande" id="c-wa-num"></p><p>Cotizaciones, pedidos y consultas de aplicación.</p></div>
+                    </a>
+                    <a class="c-card" id="c-correo" href="#">
+                        <div class="ico-grande" id="ic-correo"></div>
+                        <div><h3>Correo</h3><p class="grande" id="c-correo-txt"></p><p>Para enviar órdenes de compra o datos de facturación.</p></div>
+                    </a>
+                    <div class="c-card">
+                        <div class="ico-grande" id="ic-zona"></div>
+                        <div><h3>Zona de atención</h3><p>Entrega personal en <b id="c-zona"></b>. Envíos a provincias por agencia de carga, con pago adelantado.</p></div>
+                    </div>
+                    <div class="c-card">
+                        <div class="ico-grande" id="ic-reloj"></div>
+                        <div><h3>Horario</h3><p id="c-horario"></p></div>
+                    </div>
+                </div>
+
+                <form class="form-contacto" id="form-contacto">
+                    <h2 style="font-size:1.4rem">Envíanos un mensaje</h2>
+                    <p style="color:var(--texto-2);font-size:.95rem">Completa los datos y se abrirá WhatsApp con tu mensaje listo para enviar.</p>
+                    <div class="fila">
+                        <div class="grupo"><label for="f-nombre">Nombre</label><input class="campo" id="f-nombre" required autocomplete="name"></div>
+                        <div class="grupo"><label for="f-negocio">Negocio (opcional)</label><input class="campo" id="f-negocio" autocomplete="organization"></div>
+                    </div>
+                    <div class="fila">
+                        <div class="grupo"><label for="f-tipo">Tipo de negocio</label>
+                            <select class="campo" id="f-tipo"><option>Tienda de repuestos</option><option>Lubricentro</option><option>Taller</option><option>Otro</option></select></div>
+                        <div class="grupo"><label for="f-distrito">Distrito o ciudad</label><input class="campo" id="f-distrito"></div>
+                    </div>
+                    <div class="grupo"><label for="f-mensaje">¿Qué necesitas?</label><textarea class="campo" id="f-mensaje" required placeholder="Ej.: 20 filtros 26350-2M000 y 2 cajas de ATF"></textarea></div>
+                    <button class="btn btn-wa btn-bloque" type="submit" id="f-btn">Enviar por WhatsApp</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="sitio-footer"></footer>
+    <script>
+        document.getElementById("ic-wa").innerHTML = WA_SVG;
+        document.getElementById("ic-correo").innerHTML = ico("correo");
+        document.getElementById("ic-zona").innerHTML = ico("ubicacion");
+        document.getElementById("ic-reloj").innerHTML = ico("reloj");
+        document.getElementById("c-wa").href = enlaceWhatsApp("Hola LubriBaro, quisiera hacer una consulta.");
+        document.getElementById("c-wa-num").textContent = CONFIG.whatsappVisible;
+        document.getElementById("c-correo").href = "mailto:" + CONFIG.correo;
+        document.getElementById("c-correo-txt").textContent = CONFIG.correo;
+        document.getElementById("c-zona").textContent = CONFIG.zona;
+        document.getElementById("c-horario").textContent = CONFIG.horario;
+        document.getElementById("form-contacto").addEventListener("submit", e => {
+            e.preventDefault();
+            const v = id => document.getElementById(id).value.trim();
+            let t = `Hola LubriBaro, soy ${v("f-nombre")}`;
+            if (v("f-negocio")) t += ` de ${v("f-negocio")}`;
+            t += ` (${v("f-tipo")}${v("f-distrito") ? ", " + v("f-distrito") : ""}).\n\n${v("f-mensaje")}`;
+            window.open(enlaceWhatsApp(t), "_blank", "noopener");
+        });
+    </script>
+</body>
+</html>
