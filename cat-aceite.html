@@ -18,30 +18,49 @@
         <section class="page-hero">
             <div class="contenedor">
                 <div class="migas"><a href="index.html">Inicio</a><span class="sep">›</span><a href="catalogo.html">Catálogo</a><span class="sep">›</span><span>Filtros de aceite</span></div>
-                <h1>Filtros de aceite</h1>
+                <h1>Filtros de <b>aceite</b></h1>
                 <p>Filtros originales Hyundai y Kia, roscados y tipo elemento (cartucho).</p>
             </div>
         </section>
 
-        <section class="contenedor" style="padding-bottom:60px">
-            <div class="barra-catalogo">
-                <form class="buscador" id="form-buscar" role="search">
-                    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-                    <label class="sr" for="q">Buscar por código o vehículo</label>
-                    <input id="q" type="search" placeholder="Busca en filtros de aceite: 2S001, Sorento, Rio…" autocomplete="off">
-                    <button class="btn btn-morado" type="submit">Buscar</button>
-                </form>
-                <div class="chips"><a class="chip" href="catalogo.html">← Todo el catálogo</a></div>
-            </div>
-            <div class="resultado-info" id="info"></div>
-            <div class="grid-productos" id="grid"></div>
-            <p class="nota-igv centro" style="margin-top:22px"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios incluyen IGV · Emitimos factura electrónica</p>
+        <div class="contenedor catalogo-layout">
+            <aside class="filtros">
+                <div class="panel">
+                    <h3>Buscar</h3>
+                    <form class="campo-buscar" id="form-buscar" role="search">
+                        <label class="sr" for="q">Buscar por código o vehículo</label>
+                        <input id="q" type="search" placeholder="Código o vehículo" autocomplete="off">
+                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+                    </form>
+                </div>
+                <div class="panel panel-lineas">
+                    <h3>Líneas</h3>
+                    <div class="lista-lineas" id="lista-lineas"></div>
+                </div>
+                <div class="panel panel-wa">
+                    <h3>¿No encuentras tu código?</h3>
+                    <p>Trabajamos más códigos Hyundai y Kia a pedido. Escríbenos el código o el vehículo y te cotizamos.</p>
+                    <a class="btn btn-wa btn-bloque" id="aviso-wa" href="#" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+                </div>
+            </aside>
 
-            <div class="aviso-pedido">
-                <p><strong>¿No encuentras tu código?</strong>Trabajamos más códigos Hyundai y Kia a pedido. Escríbenos el código o el vehículo y te cotizamos.</p>
-                <a class="btn btn-wa" id="aviso-wa" target="_blank" rel="noopener" href="#">Consultar por WhatsApp</a>
-            </div>
-        </section>
+            <section aria-label="Productos">
+                <div class="chips-movil" id="chips-movil"></div>
+                <div class="barra-resultados">
+                    <div class="info" id="info"></div>
+                    <label class="orden">Ordenar por
+                        <select id="orden">
+                            <option value="">Destacados</option>
+                            <option value="menor">Precio: menor a mayor</option>
+                            <option value="mayor">Precio: mayor a menor</option>
+                            <option value="codigo">Código</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="grid-productos" id="grid"></div>
+                <p class="nota-igv centro" style="margin-top:24px"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios incluyen IGV · Emitimos factura electrónica</p>
+            </section>
+        </div>
     </main>
 
     <footer id="sitio-footer"></footer>

@@ -1,62 +1,56 @@
 /* =====================================================================
    LUBRIBARO - CATÁLOGO Y PÁGINAS DE LÍNEA
-   catalogo.html: todas las líneas, con filtros por línea y buscador.
-   cat-*.html: una sola línea (se indica con data-categoria en <body>).
+   catalogo.html muestra todas las líneas; cat-*.html una sola línea
+   (se indica con data-categoria en <body>).
    ===================================================================== */
 (function () {
-    const fija = document.body.dataset.categoria || "";
+    const linea = LINEAS[document.body.dataset.categoria] ? document.body.dataset.categoria : "";
     const params = new URLSearchParams(location.search);
-    let linea = fija || params.get("linea") || "";
-    if (linea && !LINEAS[linea]) linea = "";
-
     const input = document.getElementById("q");
-    const chips = document.getElementById("chips");
     const grid = document.getElementById("grid");
     const info = document.getElementById("info");
+    const orden = document.getElementById("orden");
     input.value = params.get("q") || "";
 
-    if (chips && !fija) {
-        chips.innerHTML = `<button class="chip" data-linea="">Todas</button>` +
-            Object.entries(LINEAS).map(([k, l]) => `<button class="chip" data-linea="${k}">${l.nombre}</button>`).join("");
-        chips.addEventListener("click", e => {
-            const b = e.target.closest(".chip");
-            if (!b) return;
-            linea = b.dataset.linea;
-            pintar(true);
-        });
-    }
+    // Líneas (barra lateral y chips en celular)
+    const total = productosPublicados().length;
+    const items = [["", "Todo el catálogo", "catalogo.html", total, "grid"]]
+        .concat(Object.entries(LINEAS).map(([k, l]) => [k, l.nombre, l.pagina, productosDeCategoria(k).length, k]));
+    document.getElementById("lista-lineas").innerHTML = items.map(([k, n, url, c, i]) =>
+        `<a href="${url}" class="${k === linea ? "activo" : ""}">${ico(i)}${n}<span class="n">${c}</span></a>`).join("");
+    document.getElementById("chips-movil").innerHTML = items.map(([k, n, url]) =>
+        `<a href="${url}" class="${k === linea ? "activo" : ""}">${k ? n : "Todo"}</a>`).join("");
+    document.getElementById("aviso-wa").href = enlaceWhatsApp("Hola LubriBaro, busco este código o filtro: ");
+    document.getElementById("aviso-wa").insertAdjacentHTML("afterbegin", waIcono(20));
 
     function pintar(actualizarUrl) {
         const q = input.value.trim();
         let lista = buscarProductos(q);
         if (linea) lista = lista.filter(p => p.categoria === linea);
+        if (orden.value === "menor") lista = [...lista].sort((a, b) => a.precio - b.precio);
+        if (orden.value === "mayor") lista = [...lista].sort((a, b) => b.precio - a.precio);
+        if (orden.value === "codigo") lista = [...lista].sort((a, b) => nombreCorto(a).localeCompare(nombreCorto(b)));
 
-        if (chips && !fija) chips.querySelectorAll(".chip").forEach(c => c.classList.toggle("activo", c.dataset.linea === linea));
+        const n = lista.length;
+        info.innerHTML = q
+            ? `<b>${n}</b> ${n === 1 ? "resultado" : "resultados"} para "${escaparHTML(q)}"`
+            : `<b>${n}</b> ${n === 1 ? "producto" : "productos"}`;
 
-        const ambito = linea ? LINEAS[linea].nombre.toLowerCase() : "el catálogo";
-        info.textContent = q
-            ? `${lista.length} ${lista.length === 1 ? "resultado" : "resultados"} para "${q}" en ${ambito}`
-            : `${lista.length} ${lista.length === 1 ? "producto" : "productos"}`;
-
-        grid.innerHTML = lista.length ? lista.map(htmlTarjeta).join("") : `
-            <div class="sin-resultados" style="grid-column:1/-1">
-                <h3>No encontramos "${escaparHTML(q)}" en la web</h3>
+        grid.innerHTML = n ? lista.map(htmlTarjeta).join("") : `
+            <div class="sin-resultados">
+                <h3>No encontramos "${escaparHTML(q)}"</h3>
                 <p>Trabajamos más códigos Hyundai y Kia a pedido. Escríbenos el código o el vehículo (marca, modelo, año y motor) y te cotizamos.</p>
-                <a class="btn btn-wa" target="_blank" rel="noopener" href="${enlaceWhatsApp(`Hola LubriBaro, busco: ${q}. ¿Lo tienen?`)}">Consultar por WhatsApp</a>
+                <a class="btn btn-wa" target="_blank" rel="noopener" href="${enlaceWhatsApp(`Hola LubriBaro, busco: ${q}. ¿Lo tienen?`)}">${waIcono(20)}Consultar por WhatsApp</a>
             </div>`;
 
         if (actualizarUrl && history.replaceState) {
-            const u = new URLSearchParams();
-            if (q) u.set("q", q);
-            if (linea && !fija) u.set("linea", linea);
-            history.replaceState(null, "", location.pathname + (u.toString() ? "?" + u : ""));
+            history.replaceState(null, "", location.pathname + (q ? "?q=" + encodeURIComponent(q) : ""));
         }
     }
 
     let t = null;
     input.addEventListener("input", () => { clearTimeout(t); t = setTimeout(() => pintar(true), 150); });
     document.getElementById("form-buscar").addEventListener("submit", e => { e.preventDefault(); pintar(true); input.blur(); });
-    const avisoWa = document.getElementById("aviso-wa");
-    if (avisoWa) avisoWa.href = enlaceWhatsApp("Hola LubriBaro, busco este código o filtro: ");
+    orden.addEventListener("change", () => pintar(false));
     pintar(false);
 })();

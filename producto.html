@@ -28,11 +28,12 @@
                 <!-- FOTO -->
                 <div class="galeria">
                     <div class="foto-principal" id="ui-foto"></div>
+                    <div class="garantias" id="ui-garantias"></div>
                 </div>
 
                 <!-- DATOS Y PRECIOS -->
                 <div class="detalle">
-                    <span class="marca" id="ui-marca"></span>
+                    <span class="marca-p" id="ui-marca"></span>
                     <h1 id="ui-titulo"></h1>
                     <div class="sku" id="ui-codigo"></div>
                     <div class="datos-cortos" id="ui-pills"></div>
@@ -88,7 +89,7 @@
 
             <!-- RELACIONADOS -->
             <section id="bloque-relacionados" style="margin-bottom:46px">
-                <h2 style="font-size:1.4rem">También en <span id="rel-linea"></span></h2>
+                <div class="titulo"><div class="barras"><i></i><i></i></div><h2>También en <b id="rel-linea"></b></h2></div>
                 <div class="grid-productos" id="grid-relacionados"></div>
             </section>
 
@@ -143,9 +144,9 @@
             $("ui-calculo").innerHTML = html;
             $("sticky-precio").textContent = pr.especial ? "Precio especial a confirmar" : `${soles(pr.precio)} ${prod.unidad === "caja" ? "x caja" : "c/u"} · ${n} ${u}`;
             // Resalta la tarjeta del tramo que aplica
-            document.querySelectorAll(".tier").forEach(t => t.style.outline = "");
-            const activa = document.querySelector(`.tier[data-tramo="${pr.especial ? "lote" : pr.tramo === "volumen" ? "volumen" : "unidad"}"]`);
-            if (activa) activa.style.outline = "3px solid rgba(255,123,26,.45)";
+            document.querySelectorAll("#ui-precios .tier").forEach(t => t.classList.remove("aplica"));
+            const activa = document.querySelector(`#ui-precios .tier[data-tramo="${pr.especial ? "lote" : pr.tramo === "volumen" ? "volumen" : "unidad"}"]`);
+            if (activa) activa.classList.add("aplica");
         }
 
         function tarjetasPrecio(p) {
@@ -180,13 +181,15 @@
             $("miga-linea").href = linea.pagina;
             $("miga-codigo").textContent = caja ? p.titulo : p.codigo;
 
-            $("ui-foto").innerHTML = (caja ? "" : '<span class="etiqueta-orig">Original</span>') + htmlFoto(p).replace(' loading="lazy"', "");
-            $("ui-marca").textContent = p.marca;
-            $("ui-titulo").textContent = caja ? p.titulo : `${p.titulo} ${p.marca}`;
-            $("ui-codigo").innerHTML = caja ? `Se vende por caja` : `Código: <b>${escaparHTML(p.codigo)}</b>`;
+            $("ui-foto").innerHTML = (caja ? "" : `<span class="sello-orig">${ico("original")}Original garantizado</span>`) + htmlFoto(p, false);
+            $("ui-garantias").innerHTML = [["original", caja ? "Producto original" : "Original en su caja"], ["camion", "Entrega personal en Lima"], ["factura", "Factura electrónica"]]
+                .map(([i, t]) => `<div>${ico(i)}${t}</div>`).join("");
+            $("ui-marca").textContent = caja ? `${p.marca} · ${linea.nombre}` : `${p.marca} original · ${linea.nombre}`;
+            $("ui-titulo").innerHTML = caja ? escaparHTML(p.titulo) : `<span class="cod">${escaparHTML(p.codigo)}</span>${escaparHTML(p.titulo)}`;
+            $("ui-codigo").innerHTML = caja ? `Se vende por caja` : (p.equivalencias.length ? `Equivale a: <b>${escaparHTML(p.equivalencias.join(", "))}</b>` : "");
             $("ui-pills").innerHTML = `<span class="pill">Presentación: <b>${escaparHTML(p.presentacion)}</b></span>` +
                 (p.elemento ? `<span class="pill"><b>Tipo elemento</b> (cartucho)</span>` : "") +
-                (p.equivalencias.length ? `<span class="pill">Equivale a: <b>${escaparHTML(p.equivalencias.slice(0, 2).join(", "))}${p.equivalencias.length > 2 ? "…" : ""}</b></span>` : "");
+                "";
             $("ui-aplic").innerHTML = `<b>Aplicación:</b> <span class="${p.aplicacion ? "" : "consultar"}">${escaparHTML(textoAplicacion(p))}</span>`;
             $("lbl-cantidad").textContent = caja ? "Cantidad (cajas)" : "Cantidad (unidades)";
             tarjetasPrecio(p);

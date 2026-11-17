@@ -1,6 +1,6 @@
 /* =====================================================================
    LUBRIBARO - FUNCIONES COMPARTIDAS
-   Menú, pie de página, carrito de cotización y WhatsApp.
+   Encabezado, menú, pie de página, carrito de cotización y WhatsApp.
    Se carga en todas las páginas, justo después de productos.js.
    ===================================================================== */
 
@@ -12,8 +12,19 @@ const CONFIG = {
     ruc: "",                              // ej. "20123456789". Si está vacío, no se muestra
     razonSocial: "",                      // ej. "LUBRIBARO E.I.R.L." (opcional)
     horario: "Lunes a sábado, 8:00 a. m. a 6:00 p. m.",
+    horarioCorto: "Lun. a sáb., 8 a. m. a 6 p. m.",
     zona: "Lima y Callao"
 };
+
+/* Franja de marcas de la portada. Si consigues el logo oficial de una marca,
+   súbelo al repositorio y escribe aquí el nombre del archivo, por ejemplo
+   logo: "marca-hyundai.png". Mientras logo sea null, se muestra el nombre. */
+const MARCAS = [
+    { nombre: "Hyundai", logo: null },
+    { nombre: "Kia", logo: null },
+    { nombre: "Chevron", logo: null },
+    { nombre: "Prestone", logo: null }
+];
 
 /* ---------- ÍCONOS ---------- */
 const ICO = {
@@ -42,82 +53,152 @@ const ICO = {
     gota: '<path d="M12 3s-6 6.5-6 11a6 6 0 0 0 12 0c0-4.5-6-11-6-11z"/>',
     pago: '<rect x="2.5" y="6" width="19" height="13" rx="2"/><path d="M2.5 10h19M6 15h4"/>',
     telefono: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+    flecha: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    izq: '<path d="M15 6l-6 6 6 6"/>',
+    der: '<path d="M9 6l6 6-6 6"/>',
+    grid: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
     provincia: '<path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/>'
 };
 const WA_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.03 0C5.39 0 0 5.38 0 12.03c0 2.13.55 4.2 1.6 6.02L.03 24l6.12-1.6A11.96 11.96 0 0 0 12.03 24C18.68 24 24 18.62 24 11.97 24 5.32 18.68 0 12.03 0zm0 22c-1.8 0-3.57-.49-5.12-1.4l-.37-.22-3.8 1 1-3.8-.22-.37A9.9 9.9 0 0 1 2 12.03C2 6.5 6.5 2 12.03 2 17.56 2 22 6.5 22 12.03 22 17.56 17.56 22 12.03 22zm5.5-7.53c-.3-.15-1.78-.88-2.06-.98-.28-.1-.48-.15-.68.15-.2.3-.78.98-.96 1.18-.18.2-.35.23-.66.08-2.11-1.06-3.5-2.05-4.82-4.33-.18-.3-.02-.47.13-.62.14-.14.3-.36.46-.53.15-.18.2-.3.3-.51.1-.2.05-.38-.03-.53-.07-.15-.68-1.65-.93-2.26-.25-.6-.5-.51-.68-.52h-.58c-.2 0-.53.07-.81.38-.28.3-1.06 1.04-1.06 2.54s1.09 2.94 1.24 3.14c.15.2 2.14 3.28 5.2 4.6 1.95.84 2.76.92 3.74.77.99-.14 2.46-1 2.81-1.97.35-.97.35-1.8.25-1.97-.1-.17-.39-.27-.69-.43z"/></svg>';
 
+
+
 function ico(nombre, extra) {
     return `<svg class="ico ${extra || ""}" viewBox="0 0 24 24" aria-hidden="true">${ICO[nombre] || ""}</svg>`;
+}
+function waIcono(tam) {
+    return tam ? WA_SVG.replace("<svg", `<svg width="${tam}" height="${tam}" fill="currentColor"`) : WA_SVG;
 }
 function enlaceWhatsApp(texto) {
     return `https://wa.me/${CONFIG.whatsapp}${texto ? "?text=" + encodeURIComponent(texto) : ""}`;
 }
+const WA_SALUDO = "Hola LubriBaro, quisiera hacer una consulta.";
 
 /* ---------- FOTO O MARCADOR DE FOTO ---------- */
-function htmlFoto(p) {
-    if (p.foto) return `<img src="${p.foto}" alt="${escaparHTML(altProducto(p))}" loading="lazy" width="400" height="300">`;
-    return `<div class="foto-pendiente">${ico(p.categoria)}<b>${escaparHTML(p.codigo.startsWith("PRESTONE") ? "Prestone" : p.codigo)}</b><small>Foto real próximamente</small></div>`;
+function htmlFoto(p, perezosa) {
+    if (p.foto) return `<img src="${p.foto}" alt="${escaparHTML(altProducto(p))}"${perezosa === false ? "" : ' loading="lazy"'} width="400" height="400">`;
+    const etiqueta = p.categoria === "fluidos" ? p.marca : p.codigo;
+    return `<div class="foto-pendiente">${ico(p.categoria)}<b>${escaparHTML(etiqueta)}</b><small>Foto real próximamente</small></div>`;
 }
+function nombreCorto(p) { return p.unidad === "caja" ? p.titulo : p.codigo; }
 
-/* ---------- TARJETA DE PRODUCTO (catálogo, inicio, líneas) ---------- */
+/* ---------- TARJETA DE PRODUCTO ---------- */
 function htmlTarjeta(p) {
     const url = `producto.html?id=${encodeURIComponent(p.id)}`;
-    const esFluido = p.unidad === "caja";
-    const codigoVisible = esFluido ? p.titulo : p.codigo;
-    const nombre = esFluido ? p.presentacion : `${p.titulo} ${p.marca}`;
-    const desde = p.volumen ? `<div class="desde">${soles(p.volumen.precio)} desde ${p.volumen.desde} ${p.unidad === "caja" ? "cajas" : "und"}</div>` : "";
+    const caja = p.unidad === "caja";
+    const meta = caja ? p.marca : `${p.marca} original`;
+    const nombre = caja ? p.presentacion : p.titulo;
+    const vol = p.volumen
+        ? `<div class="vol"><b>${soles(p.volumen.precio)}</b> desde ${p.volumen.desde} ${caja ? "cajas" : "und"}</div>` : "";
     return `
     <article class="card-prod">
-        <a class="cubre" href="${url}" aria-label="Ver ${escaparHTML(codigoVisible)}"></a>
-        ${esFluido ? "" : '<span class="etiqueta-orig">Original</span>'}
+        <a class="cubre" href="${url}" aria-label="Ver ${escaparHTML(nombreCorto(p))}"></a>
+        ${caja ? "" : `<span class="sello-orig">${ico("original")}Original</span>`}
         <div class="foto">${htmlFoto(p)}</div>
         <div class="cuerpo">
-            <span class="linea">${LINEAS[p.categoria].nombre}</span>
-            <h3 class="codigo">${escaparHTML(codigoVisible)}</h3>
+            <span class="meta">${escaparHTML(meta)}</span>
+            <h3 class="codigo">${escaparHTML(nombreCorto(p))}</h3>
             <p class="nombre">${escaparHTML(nombre)}</p>
             <div class="aplic ${p.aplicacion ? "" : "consultar"}">${escaparHTML(textoAplicacion(p))}</div>
-            <div class="precio-fila">
-                <div>
-                    <div class="precio">${soles(p.precio)} <small>${esFluido ? "x caja" : "c/u"}</small></div>
-                    ${desde}
-                </div>
-                <button class="btn btn-naranja btn-chico" onclick="agregarACotizacion('${p.id}', 1)" aria-label="Agregar ${escaparHTML(codigoVisible)} a la cotización">${ico("mas")}</button>
+            <div class="precios-card">
+                <div class="precio">${soles(p.precio)}<small>${caja ? "x caja" : "c/u"}</small></div>
+                ${vol}
             </div>
+            <button class="btn btn-agregar" type="button" onclick="agregarACotizacion('${p.id}', 1)">${ico("cotizacion")}<span>Agregar<span class="txt-largo"> a cotización</span></span></button>
         </div>
     </article>`;
 }
 
-/* ---------- MENÚ SUPERIOR ---------- */
+/* ---------- BUSCADOR CON SUGERENCIAS ---------- */
+function htmlBuscador(id) {
+    return `
+    <div class="buscador-header">
+        <form action="catalogo.html" method="get" role="search" autocomplete="off">
+            <label class="sr" for="${id}">Buscar por código o vehículo</label>
+            <input id="${id}" name="q" type="search" placeholder="Busca por código o vehículo: 2M000, Tucson, H100…" oninput="sugerir(this)" onfocus="sugerir(this)" onkeydown="navegarSugerencias(event, this)">
+            <button type="submit" aria-label="Buscar">${ico("buscar")}<span class="txt">Buscar</span></button>
+        </form>
+        <div class="sugerencias oculto" role="listbox"></div>
+    </div>`;
+}
+function sugerir(input) {
+    const caja = input.closest(".buscador-header").querySelector(".sugerencias");
+    const q = input.value.trim();
+    if (q.length < 2) { caja.classList.add("oculto"); return; }
+    const res = buscarProductos(q);
+    caja.innerHTML = res.length
+        ? res.slice(0, 5).map(p => `
+            <a href="producto.html?id=${encodeURIComponent(p.id)}" role="option">
+                <span class="s-img">${p.foto ? `<img src="${p.foto}" alt="">` : ico(p.categoria)}</span>
+                <span><b>${escaparHTML(nombreCorto(p))}</b><small>${escaparHTML(p.unidad === "caja" ? p.presentacion : p.titulo + " " + p.marca + " · " + textoAplicacion(p))}</small></span>
+                <span class="s-precio">${soles(p.precio)}</span>
+            </a>`).join("") + `<a class="s-todos" href="catalogo.html?q=${encodeURIComponent(q)}">Ver todos los resultados (${res.length})</a>`
+        : `<div class="s-vacio">No encontramos "${escaparHTML(q)}" en la web. <a href="${enlaceWhatsApp("Hola LubriBaro, busco: " + q + ". ¿Lo tienen?")}" target="_blank" rel="noopener">Consúltalo por WhatsApp</a>: trabajamos más códigos a pedido.</div>`;
+    caja.classList.remove("oculto");
+}
+function navegarSugerencias(e, input) {
+    const caja = input.closest(".buscador-header").querySelector(".sugerencias");
+    const items = [...caja.querySelectorAll("a")];
+    if (!items.length || caja.classList.contains("oculto")) return;
+    let i = items.findIndex(a => a.classList.contains("activa"));
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        if (i >= 0) items[i].classList.remove("activa");
+        i = e.key === "ArrowDown" ? (i + 1) % items.length : (i - 1 + items.length) % items.length;
+        items[i].classList.add("activa");
+    } else if (e.key === "Enter" && i >= 0) {
+        e.preventDefault();
+        location.href = items[i].href;
+    }
+}
+
+/* ---------- ENCABEZADO ---------- */
 function htmlHeader(pagina) {
     const act = n => (pagina === n ? "activo" : "");
     const lineas = Object.entries(LINEAS).map(([k, l]) =>
-        `<a href="${l.pagina}"><span class="ico-caja">${ico(k)}</span><span>${l.nombre}<small>${l.desc}</small></span></a>`).join("");
+        `<a href="${l.pagina}"><span class="ico-caja">${ico(k)}</span><span><strong>${l.nombre}</strong><small>${l.desc}</small></span></a>`).join("");
     return `
-    <div class="top-bar"><strong>Precios con IGV</strong><span class="sep">·</span>Factura electrónica<span class="opc"><span class="sep">·</span>Entrega personal en Lima</span></div>
-    <div class="header-inner">
+    <div class="util-bar"><div class="contenedor">
+        <div class="util-izq">
+            <span>${ico("camion")}Entrega personal en ${CONFIG.zona}</span>
+            <span>${ico("provincia")}Envíos a provincias por agencia</span>
+        </div>
+        <div class="util-der">
+            <span>${ico("reloj")}${CONFIG.horarioCorto}</span>
+            <span>${ico("telefono")}<a href="${enlaceWhatsApp(WA_SALUDO)}" target="_blank" rel="noopener">${CONFIG.whatsappVisible}</a></span>
+        </div>
+    </div></div>
+    <div class="header-main"><div class="contenedor">
         <button class="menu-toggle" onclick="abrirMenu(true)" aria-label="Abrir menú">${ico("menu")}</button>
-        <a href="index.html" class="logo" aria-label="LubriBaro, inicio"><img src="logo-marca.png" alt="" width="38" height="40"><span class="logo-txt">Lubri<span>Baro</span></span></a>
-        <nav class="nav" aria-label="Menú principal">
+        <a href="index.html" class="logo" aria-label="LubriBaro, inicio"><img src="logo-marca.png" alt="" width="42" height="44"><span class="logo-txt">Lubri<span>Baro</span></span></a>
+        ${htmlBuscador("q-header")}
+        <div class="header-acciones">
+            <a class="accion wa" href="${enlaceWhatsApp(WA_SALUDO)}" target="_blank" rel="noopener">
+                <span class="ic">${WA_SVG}</span><span class="txt"><small>Pedidos por WhatsApp</small><strong>${CONFIG.whatsappVisible}</strong></span>
+            </a>
+            <button class="accion" onclick="abrirCotizacion(true)" aria-label="Ver mi cotización">
+                <span class="ic">${ico("cotizacion")}<span class="contador contador-cot cero">0</span></span>
+                <span class="txt"><small>Mi cotización</small><strong id="total-cot">S/ 0.00</strong></span>
+            </button>
+        </div>
+    </div></div>
+    <div class="header-buscar-movil">${htmlBuscador("q-movil")}</div>
+    <div class="header-nav"><div class="contenedor">
+        <nav aria-label="Menú principal">
             <a href="index.html" class="${act("inicio")}">Inicio</a>
             <div class="nav-drop ${act("catalogo")}" id="drop-catalogo">
-                <button type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleDrop(event)">Catálogo ${ico("abajo")}</button>
+                <button type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleDrop(event)">${ico("grid", "ico-menu")}Catálogo${ico("abajo", "flecha")}</button>
                 <div class="drop-menu" role="menu">
                     ${lineas}
-                    <hr>
-                    <a href="catalogo.html"><span class="ico-caja">${ico("buscar")}</span><span>Ver todo el catálogo<small>Busca por código o vehículo</small></span></a>
+                    <a href="catalogo.html" class="drop-todo"><span>Ver todo el catálogo y buscar por código</span>${ico("flecha")}</a>
                 </div>
             </div>
             <a href="nosotros.html" class="${act("nosotros")}">Quiénes somos</a>
             <a href="como-comprar.html" class="${act("como-comprar")}">Cómo comprar</a>
             <a href="contacto.html" class="${act("contacto")}">Contacto</a>
         </nav>
-        <div class="header-acciones">
-            <button class="btn-cotizacion" onclick="abrirCotizacion(true)" aria-label="Ver mi cotización">
-                ${ico("cotizacion")}<span class="txt">Cotización</span><span class="contador cero" id="contador-cot">0</span>
-            </button>
-            <a class="btn btn-wa btn-chico" href="${enlaceWhatsApp("Hola LubriBaro, quisiera hacer una consulta.")}" target="_blank" rel="noopener">${WA_SVG.replace("<svg", '<svg width="18" height="18" fill="currentColor"')} WhatsApp</a>
-        </div>
-    </div>`;
+        <div class="nav-sellos"><span>${ico("check")}Precios con IGV</span><span>${ico("factura")}Factura electrónica</span></div>
+    </div></div>`;
 }
 
 function htmlMenuLateral(pagina) {
@@ -133,7 +214,7 @@ function htmlMenuLateral(pagina) {
         <nav class="side-links">
             <a href="index.html" class="${act("inicio")}">${ico("tienda")}Inicio</a>
             <div class="side-titulo">Catálogo</div>
-            <div class="side-sub">${lineas}<a href="catalogo.html">${ico("buscar")}Ver todo el catálogo</a></div>
+            ${lineas}<a href="catalogo.html">${ico("buscar")}Ver todo el catálogo</a>
             <div class="side-titulo">LubriBaro</div>
             <a href="nosotros.html" class="${act("nosotros")}">${ico("persona")}Quiénes somos</a>
             <a href="como-comprar.html" class="${act("como-comprar")}">${ico("cotizacion")}Cómo comprar</a>
@@ -141,9 +222,34 @@ function htmlMenuLateral(pagina) {
         </nav>
         <div class="side-pie">
             <button class="btn btn-morado" onclick="abrirMenu(false); abrirCotizacion(true)">${ico("cotizacion")} Ver mi cotización</button>
-            <a class="btn btn-wa" href="${enlaceWhatsApp("Hola LubriBaro, quisiera hacer una consulta.")}" target="_blank" rel="noopener">${WA_SVG.replace("<svg", '<svg width="20" height="20" fill="currentColor"')} Escríbenos por WhatsApp</a>
+            <a class="btn btn-wa" href="${enlaceWhatsApp(WA_SALUDO)}" target="_blank" rel="noopener">${waIcono(20)} Escríbenos por WhatsApp</a>
         </div>
     </aside>`;
+}
+
+/* ---------- WHATSAPP FLOTANTE ---------- */
+function htmlWhatsApp() {
+    const opciones = [
+        ["Cotizar filtros", "Envíanos el código o el vehículo", "Hola LubriBaro, quiero cotizar filtros. El código o vehículo es: "],
+        ["Cotizar ATF o refrigerante", "Precio por caja y por volumen", "Hola LubriBaro, quiero cotizar ATF Chevron MD-3 / refrigerante Prestone. Cantidad: "],
+        ["Otra consulta", "Pedidos, entregas o facturación", "Hola LubriBaro, tengo una consulta: "]
+    ];
+    return `
+    <div class="wa-container" id="wa-container">
+        <div class="wa-popup" id="wa-popup" role="dialog" aria-label="Escríbenos por WhatsApp">
+            <div class="wa-popup-header"><b>¿Te ayudamos a cotizar?</b><span>Elige una opción y escríbenos por WhatsApp.</span></div>
+            <div class="wa-popup-body">
+                ${opciones.map(([t, s, m]) => `<a class="wa-opcion" href="${enlaceWhatsApp(m)}" target="_blank" rel="noopener"><span class="ic">${WA_SVG}</span><span><strong>${t}</strong><small>${s}</small></span></a>`).join("")}
+                <div class="wa-horario">${ico("reloj")}Atención: ${CONFIG.horarioCorto}</div>
+            </div>
+        </div>
+        <button class="wa-trigger" type="button" onclick="abrirWa()" aria-label="Escríbenos por WhatsApp" aria-controls="wa-popup">${WA_SVG}${ico("cerrar", "x")}</button>
+    </div>`;
+}
+function abrirWa(abrir) {
+    const w = document.getElementById("wa-container");
+    if (!w) return;
+    w.classList.toggle("abierto", abrir);
 }
 
 /* ---------- PIE DE PÁGINA ---------- */
@@ -152,8 +258,9 @@ function htmlFooter() {
     return `
     <div class="footer-grid">
         <div>
-            <a href="index.html" class="logo"><img src="logo-marca.png" alt="" width="38" height="40"><span class="logo-txt">Lubri<span class="naranja">Baro</span></span></a>
-            <p>Filtros originales Hyundai y Kia, ATF y refrigerante para tiendas de repuestos, lubricentros y talleres. Trato directo y entrega personal en Lima.</p>
+            <a href="index.html" class="logo"><img src="logo-marca.png" alt="" width="42" height="44"><span class="logo-txt">Lubri<span>Baro</span></span></a>
+            <p>Filtros originales Hyundai y Kia, ATF Chevron Supreme MD-3 y refrigerante Prestone para tiendas de repuestos, lubricentros y talleres.</p>
+            <div class="footer-sellos"><span>Precios con IGV</span><span>Factura y boleta electrónica</span><span>Transferencia o efectivo</span></div>
         </div>
         <div>
             <h4>Catálogo</h4>
@@ -168,10 +275,10 @@ function htmlFooter() {
             <a href="contacto.html">Contacto</a>
         </div>
         <div>
-            <h4>Contacto</h4>
-            <div class="dato">${ico("telefono")}<span>WhatsApp: <a href="${enlaceWhatsApp()}" target="_blank" rel="noopener">${CONFIG.whatsappVisible}</a></span></div>
+            <h4>Atención</h4>
+            <div class="dato">${ico("telefono")}<span>WhatsApp<br><a href="${enlaceWhatsApp(WA_SALUDO)}" target="_blank" rel="noopener">${CONFIG.whatsappVisible}</a></span></div>
             <div class="dato">${ico("correo")}<a href="mailto:${CONFIG.correo}">${CONFIG.correo}</a></div>
-            <div class="dato">${ico("ubicacion")}<span>Atendemos ${CONFIG.zona}. Envíos a provincias por agencia.</span></div>
+            <div class="dato">${ico("ubicacion")}<span>Entrega personal en ${CONFIG.zona}. Envíos a provincias por agencia.</span></div>
             <div class="dato">${ico("reloj")}<span>${CONFIG.horario}</span></div>
         </div>
     </div>
@@ -207,8 +314,7 @@ function agregarACotizacion(id, cantidad) {
     if (it) it.cantidad = cantidadValida(it.cantidad + cantidad);
     else items.push({ id, cantidad });
     guardarCotizacion(items);
-    const c = document.getElementById("contador-cot");
-    if (c) { c.classList.remove("salta"); void c.offsetWidth; c.classList.add("salta"); }
+    document.querySelectorAll(".contador-cot").forEach(c => { c.classList.remove("salta"); void c.offsetWidth; c.classList.add("salta"); });
     mostrarToast(`${p.unidad === "caja" ? p.titulo : p.codigo} agregado (${cantidad} ${p.unidad === "caja" ? (cantidad === 1 ? "caja" : "cajas") : "und"})`);
 }
 function cambiarCantidad(id, cantidad) {
@@ -225,11 +331,10 @@ function vaciarCotizacion() {
     guardarCotizacion([]);
 }
 function actualizarContador() {
-    const c = document.getElementById("contador-cot");
-    if (!c) return;
     const n = leerCotizacion().length;
-    c.textContent = n;
-    c.classList.toggle("cero", n === 0);
+    document.querySelectorAll(".contador-cot").forEach(c => { c.textContent = n; c.classList.toggle("cero", n === 0); });
+    const t = document.getElementById("total-cot");
+    if (t) t.textContent = n ? soles(calcularCotizacion().total) : "S/ 0.00";
 }
 function unidadTexto(p, n) {
     return p.unidad === "caja" ? (n === 1 ? "caja" : "cajas") : "und";
@@ -347,7 +452,7 @@ function abrirCotizacion(abrir) {
     if (abrir) pintarCotizacion();
     document.getElementById("cajon").classList.toggle("activo", abrir);
     document.getElementById("overlay").classList.toggle("activo", abrir);
-    if (abrir) document.getElementById("toast").classList.remove("activo");
+    if (abrir) { document.getElementById("toast").classList.remove("activo"); abrirWa(false); }
 }
 function cerrarTodo() {
     abrirMenu(false);
@@ -362,8 +467,17 @@ function toggleDrop(e) {
 document.addEventListener("click", e => {
     const d = document.getElementById("drop-catalogo");
     if (d && !d.contains(e.target)) d.classList.remove("abierto");
+    const w = document.getElementById("wa-container");
+    if (w && !w.contains(e.target)) abrirWa(false);
+    document.querySelectorAll(".buscador-header").forEach(b => { if (!b.contains(e.target)) b.querySelector(".sugerencias").classList.add("oculto"); });
 });
-document.addEventListener("keydown", e => { if (e.key === "Escape") { cerrarTodo(); const d = document.getElementById("drop-catalogo"); if (d) d.classList.remove("abierto"); } });
+document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    cerrarTodo();
+    const d = document.getElementById("drop-catalogo"); if (d) d.classList.remove("abierto");
+    abrirWa(false);
+    document.querySelectorAll(".sugerencias").forEach(s => s.classList.add("oculto"));
+});
 
 let temporizadorToast = null;
 function mostrarToast(texto) {
@@ -374,19 +488,20 @@ function mostrarToast(texto) {
     temporizadorToast = setTimeout(() => t.classList.remove("activo"), 3500);
 }
 
+
 /* ---------- ARMADO DE LA PÁGINA ---------- */
 (function iniciarSitio() {
     const pagina = document.body.dataset.pagina || "";
     const header = document.getElementById("sitio-header");
     if (header) { header.className = "header"; header.innerHTML = htmlHeader(pagina); }
-    document.body.insertAdjacentHTML("beforeend", htmlMenuLateral(pagina) + htmlCajon() +
-        `<a class="wa-flotante" href="${enlaceWhatsApp("Hola LubriBaro, quisiera hacer una consulta.")}" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">${WA_SVG}</a>`);
+    document.body.insertAdjacentHTML("beforeend", htmlMenuLateral(pagina) + htmlCajon() + htmlWhatsApp());
+    const q = new URLSearchParams(location.search).get("q");
+    if (q) document.querySelectorAll(".buscador-header input").forEach(i => i.value = q);
     document.addEventListener("DOMContentLoaded", () => {
         const footer = document.getElementById("sitio-footer");
         if (footer) { footer.className = "footer"; footer.innerHTML = htmlFooter(); }
         actualizarContador();
     });
     actualizarContador();
-    // Si otra pestaña cambia la cotización, se actualiza aquí también.
     window.addEventListener("storage", e => { if (e.key === CLAVE_COT) { actualizarContador(); pintarCotizacion(); } });
 })();

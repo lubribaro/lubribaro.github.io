@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LubriBaro | Filtros originales Hyundai y Kia, ATF y refrigerante en Lima</title>
-    <meta name="description" content="Filtros originales Hyundai y Kia de aceite, aire y combustible, ATF Chevron Supreme MD-3 y refrigerante Prestone. Trato directo, entrega personal en Lima y factura electrónica.">
+    <meta name="description" content="Filtros originales Hyundai y Kia de aceite, aire y combustible, ATF Chevron Supreme MD-3 y refrigerante Prestone. Entrega personal en Lima, precios con IGV y factura electrónica.">
     <meta name="theme-color" content="#41309A">
     <link rel="icon" href="favicon.png">
+    <link rel="preload" href="fuente-barlow-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fuente-barlow-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body data-pagina="inicio">
@@ -15,117 +17,182 @@
     <script src="sitio.js"></script>
 
     <main>
-        <!-- PROPUESTA DE VALOR -->
-        <section class="hero">
-            <div class="contenedor hero-grid">
-                <div>
-                    <span class="eyebrow">Filtros Hyundai y Kia · ATF · Refrigerante</span>
-                    <h1>Filtros <span>originales</span> para tu tienda, lubricentro o taller</h1>
-                    <p class="lead">Filtros de aceite, aire y combustible Hyundai y Kia, ATF Chevron Supreme MD-3 y refrigerante Prestone. Cotiza en línea y te confirmamos por WhatsApp.</p>
-                    <form class="buscador" action="catalogo.html" method="get" role="search">
-                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-                        <label class="sr" for="q-inicio">Buscar por código o vehículo</label>
-                        <input id="q-inicio" name="q" type="search" placeholder="Código o vehículo: 2M000, Tucson, H100…" autocomplete="off">
-                        <button class="btn btn-morado" type="submit">Buscar</button>
-                    </form>
-                    <div class="hero-botones">
-                        <a class="btn btn-naranja" href="catalogo.html">Ver catálogo</a>
-                        <a class="btn btn-borde" id="hero-wa" href="#" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+        <!-- CARRUSEL PRINCIPAL -->
+        <section class="portada" aria-label="Destacados">
+            <div class="contenedor">
+                <div class="slider" id="slider">
+                    <div class="slide activo">
+                        <div>
+                            <span class="etiqueta"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Original garantizado</span>
+                            <h1 class="display">Filtros originales <b>Hyundai y Kia</b></h1>
+                            <p>Aceite, aire y combustible para tiendas de repuestos, lubricentros y talleres. Precio por unidad y mejor precio por volumen.</p>
+                            <div class="slide-botones">
+                                <a class="btn btn-naranja" href="catalogo.html">Ver catálogo</a>
+                                <a class="btn btn-fantasma" data-wa="Hola LubriBaro, quiero cotizar filtros. El código o vehículo es: " href="#" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+                            </div>
+                        </div>
+                        <div class="slide-media">
+                            <figure class="m1"><img src="foto-filtros-caja-original.jpg" alt="Filtros Hyundai en su caja original" width="1000" height="853" fetchpriority="high"></figure>
+                            <figure class="m2"><img src="filtro-26350-2s001.jpg" alt="Filtro de aceite Hyundai 26350-2S001" width="900" height="900"></figure>
+                        </div>
                     </div>
-                    <ul class="checks">
-                        <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Original garantizado</li>
-                        <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Trato directo</li>
-                        <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Entrega personal en Lima</li>
-                        <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Factura electrónica</li>
-                    </ul>
+
+                    <div class="slide">
+                        <div>
+                            <span class="etiqueta"><svg class="ico" viewBox="0 0 24 24"><path d="M9 3h6v3l2 3v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V9l2-3z"/><path d="M7 13h10"/></svg>Stock propio en Lima</span>
+                            <h2 class="display">ATF Chevron <b>Supreme MD-3</b></h2>
+                            <p>Fluido para transmisiones automáticas. Caja de 12 botellas de 1 qt (946 ml), lista para entregar en tu taller.</p>
+                            <div class="precio-desde">Desde <strong id="precio-atf"></strong> por caja, llevando 5 o más</div>
+                            <div class="slide-botones">
+                                <a class="btn btn-naranja" href="producto.html?id=chevron-atf">Ver ATF MD-3</a>
+                                <a class="btn btn-fantasma" data-wa="Hola LubriBaro, quiero cotizar ATF Chevron Supreme MD-3. Cantidad de cajas: " href="#" target="_blank" rel="noopener">Cotizar por WhatsApp</a>
+                            </div>
+                        </div>
+                        <div class="slide-media">
+                            <figure class="m1"><img src="foto-almacen-atf.jpg" alt="Stock de cajas de ATF Chevron Supreme MD-3" width="1000" height="926" loading="lazy"></figure>
+                            <figure class="m2"><img src="chevron.jpg" alt="Botella de ATF Chevron Supreme MD-3" width="900" height="834" loading="lazy"></figure>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div>
+                            <span class="etiqueta"><svg class="ico" viewBox="0 0 24 24"><path d="M2.5 6h11v10h-11z"/><path d="M13.5 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Entrega personal</span>
+                            <h2 class="display">Te lo llevamos <b>a tu tienda o taller</b></h2>
+                            <p>Entregamos nosotros mismos en Lima y Callao. Pagas contra entrega o al contado, con factura electrónica.</p>
+                            <div class="slide-botones">
+                                <a class="btn btn-naranja" href="como-comprar.html">Cómo comprar</a>
+                                <a class="btn btn-fantasma" data-wa="Hola LubriBaro, quiero coordinar un pedido para mi negocio en: " href="#" target="_blank" rel="noopener">Escríbenos</a>
+                            </div>
+                        </div>
+                        <div class="slide-media">
+                            <figure class="m1"><img src="foto-despacho-taller.jpg" alt="Entrega de cajas de ATF en un taller de Lima" width="636" height="1000" loading="lazy"></figure>
+                            <figure class="m2"><img src="filtro-26320-3c100.jpg" alt="Filtro de aceite Hyundai / Kia 26320-3C100" width="699" height="900" loading="lazy"></figure>
+                        </div>
+                    </div>
+
+                    <div class="slider-ctrl"><div class="slider-dots" id="slider-dots"></div></div>
+                    <div class="slider-flechas">
+                        <button type="button" onclick="moverSlide(-1)" aria-label="Anterior"><svg class="ico" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+                        <button type="button" onclick="moverSlide(1)" aria-label="Siguiente"><svg class="ico" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                    </div>
                 </div>
-                <div class="hero-fotos">
-                    <figure class="f1"><img src="foto-filtros-caja-original.jpg" alt="Filtros Hyundai en su caja original Genuine Parts" width="1000" height="853" fetchpriority="high"></figure>
-                    <figure class="f2"><img src="foto-almacen-atf.jpg" alt="Cajas de ATF Chevron Supreme MD-3 en stock" width="1000" height="926"></figure>
-                    <figure class="f3"><img src="filtro-26350-2m000.jpg" alt="Filtro de aceite Hyundai 26350-2M000" width="900" height="900" style="object-fit:contain;background:#fff;padding:10px"></figure>
-                    <div class="sello"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><div>Original garantizado<small>En su caja original</small></div></div>
-                </div>
+
+                <!-- BENEFICIOS -->
+                <div class="beneficios" id="beneficios"></div>
+            </div>
+        </section>
+
+        <!-- MARCAS -->
+        <section class="marcas" aria-label="Marcas que vendemos">
+            <div class="contenedor">
+                <div class="marcas-label">Marcas originales <b>que vendemos</b></div>
+                <div class="marcas-lista" id="marcas"></div>
             </div>
         </section>
 
         <!-- LÍNEAS -->
-        <section class="seccion seccion-blanca">
+        <section class="seccion">
             <div class="contenedor">
-                <div class="titulo-seccion">
-                    <span class="eyebrow">Nuestras líneas</span>
-                    <h2>Lo que vendemos</h2>
-                    <p>Cuatro líneas, todas con precio por unidad y por volumen.</p>
+                <div class="titulo centro">
+                    <div class="barras"><i></i><i></i></div>
+                    <h2>Nuestras <b>líneas</b></h2>
+                    <p>Filtros originales y fluidos, con precio por unidad y por volumen.</p>
                 </div>
                 <div class="grid-lineas" id="grid-lineas"></div>
             </div>
         </section>
 
         <!-- DESTACADOS -->
+        <section class="seccion blanca">
+            <div class="contenedor">
+                <div class="titulo fila">
+                    <div>
+                        <div class="barras"><i></i><i></i></div>
+                        <h2>Productos <b>destacados</b></h2>
+                        <p>Precios con IGV. Agrégalos a tu cotización y envíanos la lista completa por WhatsApp.</p>
+                    </div>
+                    <a class="btn btn-borde" href="catalogo.html">Ver todo el catálogo</a>
+                </div>
+                <div class="grid-productos cuatro" id="grid-destacados"></div>
+            </div>
+        </section>
+
+        <!-- COMPRA POR VOLUMEN -->
         <section class="seccion">
             <div class="contenedor">
-                <div class="titulo-seccion">
-                    <span class="eyebrow">Productos destacados</span>
-                    <h2>Los más pedidos</h2>
-                    <p>Precios con IGV. Agrégalos a tu cotización y envíanos la lista completa por WhatsApp.</p>
+                <div class="volumen">
+                    <div class="volumen-txt">
+                        <h2>Compra por volumen <b>y paga menos</b></h2>
+                        <p>Cada filtro tiene precio por unidad y un mejor precio desde cierta cantidad. Si llevas la caja completa, te damos un precio especial.</p>
+                        <a class="btn btn-naranja" href="catalogo.html">Arma tu cotización</a>
+                    </div>
+                    <div class="volumen-ej" id="volumen-ej"></div>
                 </div>
-                <div class="grid-productos" id="grid-destacados"></div>
-                <p style="text-align:center;margin-top:28px"><a class="btn btn-borde" href="catalogo.html">Ver todo el catálogo</a></p>
             </div>
         </section>
 
-        <!-- POR QUÉ ELEGIRNOS -->
-        <section class="seccion seccion-blanca">
-            <div class="contenedor">
-                <div class="titulo-seccion">
-                    <span class="eyebrow">Por qué elegirnos</span>
-                    <h2>Compra tranquilo, vende tranquilo</h2>
-                    <p>No competimos por ser los más baratos. Competimos con producto original, trato directo y rapidez.</p>
+        <!-- POR QUÉ LUBRIBARO -->
+        <section class="seccion blanca">
+            <div class="contenedor porque">
+                <div class="porque-fotos">
+                    <figure class="a"><img src="foto-almacen-atf.jpg" alt="Stock de cajas de ATF Chevron Supreme MD-3" width="1000" height="926" loading="lazy"></figure>
+                    <figure class="b"><img src="foto-despacho-taller.jpg" alt="Entrega de ATF en un taller de Lima" width="636" height="1000" loading="lazy"></figure>
+                    <figcaption>Fotos reales: nuestro stock de ATF y una entrega en un taller de Lima.</figcaption>
                 </div>
-                <div class="grid-razones" id="grid-razones"></div>
+                <div>
+                    <div class="titulo" style="margin-bottom:10px">
+                        <div class="barras"><i></i><i></i></div>
+                        <h2>¿Por qué <b>LubriBaro</b>?</h2>
+                        <p>No competimos por ser los más baratos. Competimos con producto original, trato directo y rapidez.</p>
+                    </div>
+                    <div class="razones" id="razones"></div>
+                </div>
             </div>
         </section>
 
-        <!-- FOTOS REALES -->
+        <!-- PASOS -->
         <section class="seccion">
             <div class="contenedor">
-                <div class="titulo-seccion">
-                    <span class="eyebrow">Fotos reales</span>
-                    <h2>Así trabajamos</h2>
-                </div>
-                <div class="fotos-reales">
-                    <figure><img src="foto-filtros-caja-original.jpg" alt="Filtros Hyundai en caja original" loading="lazy" width="1000" height="853"><figcaption>Filtros Hyundai en su caja original.</figcaption></figure>
-                    <figure><img src="foto-almacen-atf.jpg" alt="Stock de cajas de ATF Chevron Supreme MD-3" loading="lazy" width="1000" height="926"><figcaption>Parte de nuestro stock de ATF Chevron Supreme MD-3.</figcaption></figure>
-                    <figure><img src="foto-despacho-taller.jpg" alt="Entrega de cajas de ATF en un taller de Lima" loading="lazy" width="636" height="1000"><figcaption>Una entrega de ATF en un taller de Lima.</figcaption></figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- CÓMO COMPRAR -->
-        <section class="seccion seccion-blanca">
-            <div class="contenedor">
-                <div class="titulo-seccion">
-                    <span class="eyebrow">Cómo comprar</span>
-                    <h2>Tu pedido en 4 pasos</h2>
+                <div class="titulo centro">
+                    <div class="barras"><i></i><i></i></div>
+                    <h2>Compra en <b>4 pasos</b></h2>
+                    <p>Sin registros ni pagos en línea: armas tu pedido aquí y lo cerramos juntos por WhatsApp.</p>
                 </div>
                 <div class="pasos">
-                    <div class="paso"><div class="num">1</div><h3>Arma tu cotización</h3><p>Agrega productos y cantidades. El precio por volumen se aplica solo.</p></div>
-                    <div class="paso"><div class="num">2</div><h3>Te confirmamos por WhatsApp</h3><p>Revisamos disponibilidad, aplicación y fecha de entrega.</p></div>
-                    <div class="paso"><div class="num">3</div><h3>Pagas</h3><p>Por transferencia o en efectivo. Te emitimos factura o boleta electrónica.</p></div>
-                    <div class="paso"><div class="num">4</div><h3>Entregamos en Lima</h3><p>Llevamos el pedido nosotros mismos a tu tienda o taller.</p></div>
+                    <div class="paso"><div class="num">1</div><div><h3>Arma tu cotización</h3><p>Agrega productos y cantidades. El precio por volumen se aplica solo.</p></div></div>
+                    <div class="paso"><div class="num">2</div><div><h3>Te confirmamos por WhatsApp</h3><p>Revisamos disponibilidad, aplicación y fecha de entrega.</p></div></div>
+                    <div class="paso"><div class="num">3</div><div><h3>Pagas</h3><p>Por transferencia o en efectivo, con factura o boleta electrónica.</p></div></div>
+                    <div class="paso"><div class="num">4</div><div><h3>Entregamos en Lima</h3><p>Llevamos el pedido nosotros mismos a tu tienda o taller.</p></div></div>
                 </div>
-                <p style="text-align:center;margin-top:26px"><a href="como-comprar.html" style="font-weight:750">Ver cómo comprar y preguntas frecuentes →</a></p>
             </div>
         </section>
 
-        <!-- CTA WHATSAPP -->
+        <!-- PREGUNTAS FRECUENTES -->
+        <section class="seccion blanca">
+            <div class="contenedor">
+                <div class="titulo centro">
+                    <div class="barras"><i></i><i></i></div>
+                    <h2>Preguntas <b>frecuentes</b></h2>
+                </div>
+                <div class="faq">
+                    <details><summary>¿Los productos son originales?</summary><div class="resp"><p>Sí. Los filtros son originales Hyundai y Kia y se entregan en su empaque. El ATF es Chevron Supreme MD-3 y el refrigerante es Prestone.</p></div></details>
+                    <details><summary>¿Los precios incluyen IGV?</summary><div class="resp"><p>Sí. Todos los precios están en soles e incluyen IGV. Emitimos factura o boleta electrónica.</p></div></details>
+                    <details><summary>¿Cómo sé si el filtro es el correcto para el vehículo?</summary><div class="resp"><p>Envíanos la marca, el modelo, el año y el motor (o el código del filtro que vas a cambiar) y te lo confirmamos antes de despachar.</p></div></details>
+                    <details><summary>¿Envían a provincias?</summary><div class="resp"><p>Sí, por agencia de carga (Sanky u otra que elijas), con pago 100% adelantado.</p></div></details>
+                </div>
+                <p style="text-align:center;margin:24px 0 0"><a href="como-comprar.html#preguntas" style="font-weight:700">Ver todas las preguntas</a></p>
+            </div>
+        </section>
+
+        <!-- CTA -->
         <section class="seccion">
             <div class="contenedor">
                 <div class="banda-cta">
                     <div>
-                        <h2>¿Buscas un código que no ves aquí?</h2>
+                        <h2>¿No encuentras <b>tu código</b>?</h2>
                         <p>Trabajamos más códigos Hyundai y Kia a pedido. Escríbenos el código o el vehículo y te cotizamos.</p>
                     </div>
-                    <a class="btn btn-wa" id="cta-wa" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+                    <a class="btn btn-wa" data-wa="Hola LubriBaro, busco este código o filtro para este vehículo: " href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
                 </div>
             </div>
         </section>
@@ -134,27 +201,80 @@
     <footer id="sitio-footer"></footer>
 
     <script>
-        document.getElementById("grid-lineas").innerHTML = Object.entries(LINEAS).map(([k, l]) => `
-            <a class="card-linea" href="${l.pagina}">
-                <div class="ico-grande">${ico(k)}</div>
+        // Enlaces de WhatsApp con mensaje listo
+        document.querySelectorAll("[data-wa]").forEach(a => { a.href = enlaceWhatsApp(a.dataset.wa); if (a.classList.contains("btn-wa")) a.insertAdjacentHTML("afterbegin", waIcono(20)); });
+
+        // Precio del ATF desde los datos
+        const atf = obtenerProducto("chevron-atf");
+        if (atf && atf.volumen) document.getElementById("precio-atf").textContent = soles(atf.volumen.precio);
+
+        // Beneficios
+        document.getElementById("beneficios").innerHTML = [
+            ["original", "Original garantizado", "En su caja original"],
+            ["camion", "Entrega personal", "En Lima y Callao"],
+            ["factura", "Factura electrónica", "Precios con IGV"],
+            ["pago", "Pago contra entrega", "En Lima, al recibir tu pedido"]
+        ].map(([i, t, s]) => `<div class="beneficio"><span class="ic">${ico(i)}</span><span><strong>${t}</strong><small>${s}</small></span></div>`).join("");
+
+        // Marcas
+        document.getElementById("marcas").innerHTML = MARCAS.map(m =>
+            `<span class="marca" title="${m.nombre}">${m.logo ? `<img src="${m.logo}" alt="${m.nombre}">` : m.nombre}</span>`).join("");
+
+        // Líneas
+        document.getElementById("grid-lineas").innerHTML = Object.entries(LINEAS).map(([k, l]) => {
+            const n = productosDeCategoria(k).length;
+            return `<a class="card-linea" href="${l.pagina}">
+                <span class="ic">${ico(k)}</span>
                 <h3>${l.nombre}</h3>
                 <p>${l.desc}</p>
-                <span class="ver">Ver ${productosDeCategoria(k).length === 1 ? "1 producto" : productosDeCategoria(k).length + " productos"} →</span>
-            </a>`).join("");
+                <span class="ver">Ver ${n === 1 ? "1 producto" : n + " productos"} ${ico("flecha")}</span>
+            </a>`;
+        }).join("");
 
+        // Destacados
         document.getElementById("grid-destacados").innerHTML = DESTACADOS.map(obtenerProducto).filter(Boolean).map(htmlTarjeta).join("");
 
-        const razones = [
+        // Ejemplo de precios por volumen
+        const ej = obtenerProducto("filtro-26350-2m000");
+        if (ej) document.getElementById("volumen-ej").innerHTML = `
+            <div class="ej-titulo"><img src="${ej.foto}" alt=""><div><small>Ejemplo</small><b>${ej.codigo}</b><small>${ej.titulo} ${ej.marca}</small></div></div>
+            <div class="precios">
+                <div class="tier"><span class="t-label">Por unidad</span><span class="t-precio"><small>S/</small>${ej.precio.toFixed(2)}</span><span class="t-tramo">1 a ${ej.volumen.desde - 1} und</span></div>
+                <div class="tier mejor"><span class="badge">Mejor precio</span><span class="t-label">Por volumen</span><span class="t-precio"><small>S/</small>${ej.volumen.precio.toFixed(2)}</span><span class="t-tramo">${ej.volumen.desde}+ und</span></div>
+                <div class="tier cotiza"><span class="t-label">${ej.lote.tipo} ${ej.lote.cantidad} und</span><span class="t-precio">Precio especial: cotiza</span><span class="t-tramo">${ej.lote.cantidad}+ und</span></div>
+            </div>
+            <p class="nota-igv">${ico("check")}Precios incluyen IGV · Emitimos factura electrónica</p>`;
+
+        // Razones
+        document.getElementById("razones").innerHTML = [
             ["original", "Original garantizado", "Filtros originales Hyundai y Kia en su caja. Evitas vender un falsificado y perder a tu cliente."],
             ["persona", "Trato directo", "Hablas por WhatsApp con quien te cotiza y te entrega, sin intermediarios."],
             ["camion", "Entrega personal en Lima", "Llevamos tu pedido nosotros mismos y coordinamos contigo el día de entrega."],
             ["factura", "Factura electrónica", "Precios con IGV y factura o boleta electrónica en cada compra."]
-        ];
-        document.getElementById("grid-razones").innerHTML = razones.map(([i, t, d]) =>
-            `<div class="razon"><div class="ico-grande">${ico(i)}</div><h3>${t}</h3><p>${d}</p></div>`).join("");
+        ].map(([i, t, d]) => `<div class="razon"><span class="ic">${ico(i)}</span><div><h3>${t}</h3><p>${d}</p></div></div>`).join("");
 
-        document.getElementById("hero-wa").href = enlaceWhatsApp("Hola LubriBaro, quiero cotizar filtros / ATF / refrigerante.");
-        document.getElementById("cta-wa").href = enlaceWhatsApp("Hola LubriBaro, busco este código o filtro para este vehículo: ");
+        // Carrusel
+        const slides = [...document.querySelectorAll(".slide")];
+        const dots = document.getElementById("slider-dots");
+        let actual = 0, timer = null;
+        const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        dots.innerHTML = slides.map((_, i) => `<button type="button" aria-label="Ir al banner ${i + 1}"></button>`).join("");
+        function irA(i) {
+            actual = (i + slides.length) % slides.length;
+            slides.forEach((s, j) => { s.classList.toggle("activo", j === actual); s.setAttribute("aria-hidden", j !== actual); });
+            [...dots.children].forEach((d, j) => d.classList.toggle("activo", j === actual));
+        }
+        function moverSlide(d) { irA(actual + d); reiniciar(); }
+        function reiniciar() { clearInterval(timer); if (!quieto) timer = setInterval(() => irA(actual + 1), 6500); }
+        [...dots.children].forEach((d, i) => d.addEventListener("click", () => { irA(i); reiniciar(); }));
+        const slider = document.getElementById("slider");
+        slider.addEventListener("mouseenter", () => clearInterval(timer));
+        slider.addEventListener("mouseleave", reiniciar);
+        slider.addEventListener("focusin", () => clearInterval(timer));
+        let x0 = null;
+        slider.addEventListener("touchstart", e => x0 = e.touches[0].clientX, { passive: true });
+        slider.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) moverSlide(dx < 0 ? 1 : -1); x0 = null; });
+        irA(0); reiniciar();
     </script>
 </body>
 </html>

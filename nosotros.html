@@ -18,16 +18,15 @@
         <section class="page-hero">
             <div class="contenedor">
                 <div class="migas"><a href="index.html">Inicio</a><span class="sep">›</span><span>Quiénes somos</span></div>
-                <h1>Quiénes somos</h1>
+                <h1>Quiénes <b>somos</b></h1>
                 <p>Un emprendimiento de Lima que vende filtros originales Hyundai y Kia, con trato directo.</p>
             </div>
         </section>
 
-        <section class="seccion seccion-blanca">
+        <section class="seccion blanca">
             <div class="contenedor historia">
                 <div>
-                    <span class="eyebrow">Nuestra historia</span>
-                    <h2>Empezamos llevando ATF a talleres, hoy sumamos filtros originales</h2>
+                    <div class="titulo" style="margin-bottom:18px"><div class="barras"><i></i><i></i></div><h2>Empezamos llevando ATF a talleres, <b>hoy sumamos filtros originales</b></h2></div>
                     <p>LubriBaro es un emprendimiento de Lima. Nuestros primeros clientes fueron talleres de cajas automáticas de San Martín de Porres: los visitamos, les vendimos ATF Chevron Supreme MD-3 y les entregamos cada pedido nosotros mismos.</p>
                     <p>Hoy sumamos filtros originales Hyundai y Kia de aceite, aire y combustible, y refrigerante Prestone, para tiendas de repuestos, lubricentros y talleres.</p>
                     <p class="destacado">Una tienda o un taller no puede arriesgarse a vender un filtro falsificado y perder a su cliente. Por eso trabajamos solo con productos originales.</p>
@@ -42,24 +41,18 @@
 
         <section class="seccion">
             <div class="contenedor">
-                <div class="titulo-seccion">
-                    <span class="eyebrow">Cómo trabajamos</span>
-                    <h2>Lo que puedes esperar de nosotros</h2>
-                </div>
-                <div class="grid-razones" id="grid-razones"></div>
+                <div class="titulo centro"><div class="barras"><i></i><i></i></div><h2>Lo que puedes <b>esperar de nosotros</b></h2></div>
+                <div class="panel"><div class="razones dos" id="grid-razones"></div></div>
             </div>
         </section>
 
-        <section class="seccion seccion-blanca">
+        <section class="seccion blanca">
             <div class="contenedor">
-                <div class="titulo-seccion">
-                    <span class="eyebrow">A quién atendemos</span>
-                    <h2>Para quien vende o instala repuestos</h2>
-                </div>
+                <div class="titulo centro"><div class="barras"><i></i><i></i></div><h2>A quién <b>atendemos</b></h2><p>A quienes venden o instalan repuestos.</p></div>
                 <div class="lista-clientes">
-                    <div class="cliente"><div class="ico-grande" id="ic-tienda"></div><h3>Tiendas de repuestos</h3><p>Sobre todo las que trabajan Hyundai y Kia. Reponen stock con códigos originales de alta rotación.</p></div>
-                    <div class="cliente"><div class="ico-grande" id="ic-gota"></div><h3>Lubricentros</h3><p>Cada cambio de aceite lleva filtro. Tenemos filtros de aceite, aire y combustible, y refrigerante.</p></div>
-                    <div class="cliente"><div class="ico-grande" id="ic-taller"></div><h3>Talleres</h3><p>De mecánica y de cajas automáticas: ATF Chevron Supreme MD-3 y filtros por trabajo.</p></div>
+                    <div class="cliente"><div class="ic" id="ic-tienda"></div><h3>Tiendas de repuestos</h3><p>Sobre todo las que trabajan Hyundai y Kia. Reponen stock con códigos originales de alta rotación.</p></div>
+                    <div class="cliente"><div class="ic" id="ic-gota"></div><h3>Lubricentros</h3><p>Cada cambio de aceite lleva filtro. Tenemos filtros de aceite, aire y combustible, y refrigerante.</p></div>
+                    <div class="cliente"><div class="ic" id="ic-taller"></div><h3>Talleres</h3><p>De mecánica y de cajas automáticas: ATF Chevron Supreme MD-3 y filtros por trabajo.</p></div>
                 </div>
             </div>
         </section>
@@ -72,7 +65,7 @@
                     <figure><img src="chevron.jpg" alt="ATF Chevron Supreme MD-3" loading="lazy" width="900" height="834" style="object-fit:contain;background:#fff;padding:14px"><figcaption>ATF Chevron Supreme MD-3, caja de 12 botellas de 1 qt.</figcaption></figure>
                 </div>
                 <div class="banda-cta" style="margin-top:40px">
-                    <div><h2>Conversemos</h2><p>Cuéntanos qué vendes o qué vehículos atiendes y te armamos una cotización.</p></div>
+                    <div><h2>Hablemos de <b>tu pedido</b></h2><p>Cuéntanos qué vendes o qué vehículos atiendes y te armamos una cotización.</p></div>
                     <a class="btn btn-wa" id="cta-wa" href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
                 </div>
             </div>
@@ -89,7 +82,7 @@
             ["factura", "Factura electrónica", "Precios con IGV. Emitimos factura o boleta electrónica."]
         ];
         document.getElementById("grid-razones").innerHTML = razones.map(([i, t, d]) =>
-            `<div class="razon" style="background:#fff;border:1px solid var(--borde)"><div class="ico-grande">${ico(i)}</div><h3>${t}</h3><p>${d}</p></div>`).join("");
+            `<div class="razon"><span class="ic">${ico(i)}</span><div><h3>${t}</h3><p>${d}</p></div></div>`).join("");
         document.getElementById("ic-tienda").innerHTML = ico("tienda");
         document.getElementById("ic-gota").innerHTML = ico("gota");
         document.getElementById("ic-taller").innerHTML = ico("taller");
