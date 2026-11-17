@@ -12,7 +12,7 @@
    - Precio único por unidad ("Precio mayorista"). No hay precio por volumen.
    - Caja completa de un mismo código: se cotiza por WhatsApp (no se publica).
    - precio: null = "Precio: consultar" (se cotiza por WhatsApp).
-   - Despacho gratis en Lima desde S/ 200 (filtros, packs y fluidos), en las
+   - Despacho gratis en Lima desde S/ 400 (filtros, packs y fluidos), en las
      rutas de miércoles y sábado.
    - Desde S/ 500 en filtros y packs, el carrito avisa que el pedido califica
      para un beneficio exclusivo (los montos se confirman por WhatsApp; no se
@@ -196,7 +196,7 @@ const LINEAS = {
 
 // Reglas comerciales de la web
 const REGLAS = {
-    despachoGratisDesde: 200,   // S/ con IGV, en Lima (filtros, packs y fluidos)
+    despachoGratisDesde: 400,   // S/ con IGV, en Lima (filtros, packs y fluidos)
     avisoBeneficioDesde: 500    // S/ en filtros y packs: el carrito avisa que el pedido califica para un beneficio
 };
 

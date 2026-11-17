@@ -403,7 +403,7 @@ function unidadTexto(p, n) {
    - precio único por unidad (fluidos: precio por caja según cantidad);
    - si un filtro llega a su caja o lote: "precio de caja a confirmar"
      y el total usa el precio único;
-   - despacho gratis en Lima desde S/ 200 (todo el pedido);
+   - despacho gratis en Lima desde S/ 400 (todo el pedido);
    - desde S/ 500 en filtros y packs: aviso de beneficio exclusivo
      (el beneficio se confirma por WhatsApp; no se muestran montos). */
 function calcularCotizacion() {

@@ -20,8 +20,6 @@
         `<a href="${url}" class="${k === linea ? "activo" : ""}">${ico(i)}${n}<span class="n">${c}</span></a>`).join("");
     document.getElementById("chips-movil").innerHTML = items.map(([k, n, url]) =>
         `<a href="${url}" class="${k === linea ? "activo" : ""}">${k ? n : "Todo"}</a>`).join("");
-    document.getElementById("aviso-wa").href = enlaceWhatsApp("Hola LubriBaro, busco este código o filtro: ");
-    document.getElementById("aviso-wa").insertAdjacentHTML("afterbegin", waIcono(20));
 
     function pintar(actualizarUrl) {
         const q = input.value.trim();

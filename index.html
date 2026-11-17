@@ -58,7 +58,7 @@
                         <div>
                             <span class="etiqueta"><svg class="ico" viewBox="0 0 24 24"><path d="M2.5 6h11v10h-11z"/><path d="M13.5 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Entrega personal</span>
                             <h2 class="display">Te lo llevamos <b>a tu tienda o taller</b></h2>
-                            <p>Despacho gratis en Lima desde S/ 200, en nuestras rutas de miércoles y sábado. Pagas contra entrega o al contado, con factura electrónica.</p>
+                            <p>Despacho gratis en Lima desde S/ 400, en nuestras rutas de miércoles y sábado. Pagas contra entrega o al contado, con factura electrónica.</p>
                             <div class="slide-botones">
                                 <a class="btn btn-naranja" href="como-comprar.html">Cómo comprar</a>
                                 <a class="btn btn-fantasma" data-wa="Hola LubriBaro, quiero coordinar un pedido para mi negocio en: " href="#" target="_blank" rel="noopener">Escríbenos</a>
@@ -177,7 +177,7 @@
                     <div class="paso"><div class="num">1</div><div><h3>Arma tu cotización</h3><p>Agrega productos y cantidades. Mientras más llevas, más beneficios.</p></div></div>
                     <div class="paso"><div class="num">2</div><div><h3>Te confirmamos por WhatsApp</h3><p>Revisamos disponibilidad, aplicación y fecha de entrega.</p></div></div>
                     <div class="paso"><div class="num">3</div><div><h3>Pagas</h3><p>Por transferencia o en efectivo, con factura o boleta electrónica.</p></div></div>
-                    <div class="paso"><div class="num">4</div><div><h3>Entregamos en Lima</h3><p>Despacho gratis desde S/ 200, en nuestras rutas de miércoles y sábado.</p></div></div>
+                    <div class="paso"><div class="num">4</div><div><h3>Entregamos en Lima</h3><p>Despacho gratis desde S/ 400, en nuestras rutas de miércoles y sábado.</p></div></div>
                 </div>
             </div>
         </section>
@@ -200,18 +200,6 @@
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="seccion">
-            <div class="contenedor">
-                <div class="banda-cta">
-                    <div>
-                        <h2>¿No encuentras <b>tu código</b>?</h2>
-                        <p>Trabajamos más códigos Hyundai y Kia a pedido. Escríbenos el código o el vehículo y te cotizamos.</p>
-                    </div>
-                    <a class="btn btn-wa" data-wa="Hola LubriBaro, busco este código o filtro para este vehículo: " href="#" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer id="sitio-footer"></footer>
@@ -231,7 +219,7 @@
         // Beneficios
         document.getElementById("beneficios").innerHTML = [
             ["original", "Original garantizado", "En su caja original"],
-            ["camion", "Despacho gratis", "En Lima desde S/ 200"],
+            ["camion", "Despacho gratis", "En Lima desde S/ 400"],
             ["factura", "Factura electrónica", "Precios con IGV"],
             ["pago", "Pago contra entrega", "En Lima, al recibir tu pedido"]
         ].map(([i, t, s]) => `<div class="beneficio"><span class="ic">${ico(i)}</span><span><strong>${t}</strong><small>${s}</small></span></div>`).join("");
@@ -261,7 +249,7 @@
         document.getElementById("razones-beneficio").innerHTML = [
             ["original", "Más volumen, más beneficios", "Mientras más compras, más ganas: descuentos en soles o filtros de regalo, combinando los códigos que quieras."],
             ["persona", "Pide seguido y sale mejor", "Nuestros clientes frecuentes reciben bonos para su siguiente pedido y trato preferente."],
-            ["camion", "Despacho gratis en Lima desde S/ 200", "En nuestras rutas de los miércoles y sábados."]
+            ["camion", "Despacho gratis en Lima desde S/ 400", "En nuestras rutas de los miércoles y sábados."]
         ].map(([i, t, d]) => `<div class="razon"><span class="ic">${ico(i)}</span><div><h3>${t}</h3><p>${d}</p></div></div>`).join("");
 
         // Razones

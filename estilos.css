@@ -888,3 +888,8 @@ a.c-card:hover { border-color: var(--morado); }
 .toast #toast-txt { flex: 1; min-width: 0; }
 .card-prod .foto > .foto-pack { position: absolute; inset: 14px; }
 @media (max-width: 560px) { .foto-pack .foto-pendiente b { display: none; } .foto-pack .foto-pendiente svg.ico { width: 22px; height: 22px; } }
+
+/* Botón secundario de WhatsApp en la ficha (debajo de "Agregar a cotización") */
+.btn-wa-borde { background: #fff; color: #11803F; border-color: var(--wa); margin-top: 10px; }
+.btn-wa-borde:hover { background: #F0FCF4; }
+.btn-wa-borde svg { width: 20px; height: 20px; fill: currentColor; }

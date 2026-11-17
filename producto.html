@@ -37,12 +37,11 @@
                     <h1 id="ui-titulo"></h1>
                     <div class="sku" id="ui-codigo"></div>
                     <div class="datos-cortos" id="ui-pills"></div>
-                    <p class="aplic-ficha" id="ui-aplic"></p>
                     <div id="ui-piezas"></div>
                     <div id="ui-pack-aviso"></div>
 
                     <div class="precios" id="ui-precios"></div>
-                    <p class="nota-igv"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span id="ui-nota-precio">Precio con IGV · Comprando por volumen recibes beneficios exclusivos · Emitimos factura electrónica</span></p>
+                    <p class="nota-igv"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span id="ui-nota-precio">Precio con IGV</span></p>
 
                     <div class="agregar" id="bloque-agregar">
                         <label for="cantidad" id="lbl-cantidad">Cantidad</label>
@@ -57,13 +56,13 @@
                                 <span id="txt-agregar">Agregar a cotización</span>
                             </button>
                         </div>
+                        <a class="btn btn-wa-borde btn-bloque" id="ui-wa" href="#" target="_blank" rel="noopener"></a>
                         <div class="calculo" id="ui-calculo"></div>
-                        <a class="link-wa" id="ui-wa" href="#" target="_blank" rel="noopener"></a>
                     </div>
 
                     <div class="entrega">
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M2.5 6h11v10h-11z"/><path d="M13.5 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></div>
-                            <div><strong>Lima: despacho gratis desde S/ 200</strong>Combinando filtros, packs y fluidos, en nuestras rutas de los miércoles y sábados. Para montos menores, puedes recoger o sumarlo a tu siguiente pedido. Pagas contra entrega o al contado.</div></div>
+                            <div><strong>Lima: despacho gratis desde S/ 400</strong>Combinando filtros, packs y fluidos, en nuestras rutas de los miércoles y sábados. Para montos menores, puedes recoger o sumarlo a tu siguiente pedido. Pagas contra entrega o al contado.</div></div>
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></div>
                             <div><strong>Provincias: envío por agencia</strong>Por Sanky u otra agencia que elijas, con pago adelantado al 100%.</div></div>
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
@@ -85,7 +84,6 @@
                     <h3>Aplicación</h3>
                     <p id="ui-compat"></p>
                     <div id="ui-equiv"></div>
-                    <div class="aviso-aplic"><b>¿No estás seguro de que sea el correcto?</b> Envíanos la marca, el modelo, el año y el motor del vehículo (o el código del filtro que vas a cambiar) y te lo confirmamos antes de despachar.</div>
                 </div>
             </section>
 
@@ -146,11 +144,7 @@
                 const sig = prod.escalas.find(e => n < e.desde);
                 if (sig) html += `<br>Desde ${sig.desde} cajas pagas ${soles(sig.precio)} por caja.`;
             }
-            // Aviso de beneficio (sin montos): lo que ya está en la cotización + esta línea
-            if (sumaAlBeneficio(prod)) {
-                const resto = calcularCotizacion().lineas.filter(l => l.p.id !== prod.id && sumaAlBeneficio(l.p)).reduce((a, l) => a + l.subtotal, 0);
-                if (resto + subtotal >= REGLAS.avisoBeneficioDesde) html += `<br><span class="ok">Con tu cotización, tu pedido ya califica para un beneficio exclusivo: te lo confirmamos por WhatsApp.</span>`;
-            }
+            if (sumaAlBeneficio(prod)) html += `<br><span class="ok">Comprando por volumen recibes beneficios exclusivos</span>`;
             $("ui-calculo").innerHTML = html;
             $("sticky-precio").textContent = `${soles(pr.precio)} ${prod.unidad === "caja" ? "x caja" : prod.unidad === "pack" ? "el pack" : "c/u"} · ${n} ${u}`;
             // Resalta la tarjeta del precio que aplica
@@ -218,14 +212,13 @@
             const sello = pack ? `<span class="sello-orig sello-ahorro">Ahorras ${soles(ahorroPack(p))}</span>`
                 : (caja ? "" : `<span class="sello-orig">${ico("original")}Original garantizado</span>`);
             $("ui-foto").innerHTML = sello + htmlFoto(p, false);
-            $("ui-garantias").innerHTML = [["original", caja ? "Producto original" : "Original en su caja"], ["camion", "Despacho gratis en Lima desde S/ 200"], ["factura", "Factura electrónica"]]
+            $("ui-garantias").innerHTML = [["original", caja ? "Producto original" : "Original en su caja"], ["camion", "Despacho gratis en Lima desde S/ 400"], ["factura", "Factura electrónica"]]
                 .map(([i, t]) => `<div>${ico(i)}${t}</div>`).join("");
             $("ui-marca").textContent = pack ? `Pack Ahorro · ${p.marca}` : (caja ? `${p.marca} · ${linea.nombre}` : `${p.marca} original · ${linea.nombre}`);
             $("ui-titulo").innerHTML = caja || pack ? escaparHTML(p.titulo) : `<span class="cod">${escaparHTML(p.codigo)}</span>${escaparHTML(p.titulo)}`;
             $("ui-codigo").innerHTML = pack ? "Un solo pedido, más barato que por separado" : (caja ? "Se vende por caja" : (p.equivalencias.length ? `Equivale a: <b>${escaparHTML(p.equivalencias.join(", "))}</b>` : ""));
             $("ui-pills").innerHTML = `<span class="pill">${pack ? "Incluye" : "Presentación"}: <b>${escaparHTML(p.presentacion)}</b></span>` +
                 (p.elemento ? `<span class="pill"><b>Tipo elemento</b> (cartucho)</span>` : "");
-            $("ui-aplic").innerHTML = `<b>${pack ? "Para" : "Aplicación"}:</b> <span class="${p.aplicacion ? "" : "consultar"}">${escaparHTML(textoAplicacion(p))}</span>`;
             $("lbl-cantidad").textContent = caja ? "Cantidad (cajas)" : pack ? "Cantidad (packs)" : "Cantidad (unidades)";
             if (pack) $("txt-agregar").textContent = "Agregar pack a cotización";
             tarjetasPrecio(p);
@@ -236,7 +229,7 @@
                     const f = productoPorCodigo(x.codigo);
                     return `<a class="pieza" href="producto.html?id=${encodeURIComponent(f.id)}">
                         <span class="mini">${htmlFoto(f)}</span>
-                        <span><strong>${x.cantidad > 1 ? x.cantidad + " × " : ""}${escaparHTML(f.codigo)}</strong><small>${escaparHTML(f.titulo)} · ${escaparHTML(textoAplicacion(f))}</small></span>
+                        <span><strong>${x.cantidad > 1 ? x.cantidad + " × " : ""}${escaparHTML(f.codigo)}</strong><small>${escaparHTML(f.titulo)}</small></span>
                         <span class="p-precio">${soles(f.precio * x.cantidad)}</span>
                     </a>`;
                 }).join("")}</div>`;
@@ -250,10 +243,10 @@
             // Precio "consultar": sin carrito, solo WhatsApp
             const msgWa = `Hola LubriBaro, consulto por ${caja || pack ? p.titulo : "el " + p.codigo + " (" + p.titulo + " " + p.marca + ")"}. `;
             if (p.precio === null) {
-                $("bloque-agregar").innerHTML = `<a class="btn btn-wa btn-bloque" href="${enlaceWhatsApp(`Hola LubriBaro, quiero el precio del ${p.codigo} (${p.titulo} ${p.marca}).`)}" target="_blank" rel="noopener">${waIcono(20)} Consultar precio por WhatsApp</a><div class="calculo" id="ui-calculo"></div><a class="link-wa oculto" id="ui-wa"></a>`;
+                $("bloque-agregar").innerHTML = `<a class="btn btn-wa btn-bloque" href="${enlaceWhatsApp(`Hola LubriBaro, quiero el precio del ${p.codigo} (${p.titulo} ${p.marca}).`)}" target="_blank" rel="noopener">${waIcono(20)} Consultar precio por WhatsApp</a><div class="calculo" id="ui-calculo"></div><a class="oculto" id="ui-wa"></a>`;
                 $("sticky-bar").querySelector(".btn").outerHTML = `<a class="btn btn-wa" href="${enlaceWhatsApp(`Hola LubriBaro, quiero el precio del ${p.codigo}.`)}" target="_blank" rel="noopener">Consultar precio</a>`;
             } else {
-                $("ui-wa").innerHTML = WA_SVG + (p.aplicacion ? "Consultar este producto por WhatsApp" : "Consultar aplicación por WhatsApp");
+                $("ui-wa").innerHTML = waIcono(20) + (p.aplicacion ? "Consultar este producto por WhatsApp" : "Consultar aplicación por WhatsApp");
                 $("ui-wa").href = enlaceWhatsApp(msgWa);
                 if (pack) $("sticky-bar").querySelector(".btn").textContent = "Agregar pack a cotización";
             }
