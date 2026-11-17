@@ -26,10 +26,10 @@
         <section class="seccion">
             <div class="contenedor">
                 <div class="pasos">
-                    <div class="paso"><div class="num">1</div><div><h3>Arma tu cotización</h3><p>En el catálogo, elige la cantidad de cada producto y toca "Agregar a cotización". El precio por volumen se aplica solo.</p></div></div>
+                    <div class="paso"><div class="num">1</div><div><h3>Arma tu cotización</h3><p>En el catálogo, elige la cantidad de cada producto y toca "Agregar a cotización". Combina códigos: desde 10 filtros, el precio por volumen se aplica solo.</p></div></div>
                     <div class="paso"><div class="num">2</div><div><h3>Te confirmamos por WhatsApp</h3><p>Envías la lista con un toque. Te confirmamos disponibilidad, aplicación, total y fecha de entrega.</p></div></div>
                     <div class="paso"><div class="num">3</div><div><h3>Pagas por transferencia o efectivo</h3><p>En Lima, al contado o contra entrega. Te emitimos factura o boleta electrónica.</p></div></div>
-                    <div class="paso"><div class="num">4</div><div><h3>Entregamos en Lima</h3><p>Llevamos el pedido nosotros mismos a tu tienda o taller. A provincias, enviamos por agencia.</p></div></div>
+                    <div class="paso"><div class="num">4</div><div><h3>Entregamos en Lima</h3><p>Delivery gratis en Lima desde S/ 200. Para montos menores, coordinamos contigo. A provincias, enviamos por agencia.</p></div></div>
                 </div>
                 <p style="text-align:center;margin-top:30px"><a class="btn btn-naranja" href="catalogo.html">Empezar mi cotización</a></p>
             </div>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="ejemplo-precios">
                     <div class="precios tres" id="ejemplo"></div>
-                    <p class="nota-igv centro"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios incluyen IGV · Emitimos factura electrónica</p>
+                    <p class="nota-igv centro"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios con IGV · Combina códigos para llegar al precio por volumen · Emitimos factura electrónica</p>
                 </div>
             </div>
         </section>
@@ -54,12 +54,15 @@
                     <h2>Preguntas <b>frecuentes</b></h2>
                 </div>
                 <div class="faq">
-                    <details><summary>¿Los precios incluyen IGV?</summary><div class="resp"><p>Sí. Todos los precios de la web están en soles, incluyen IGV y son por unidad (en fluidos, por caja). Emitimos factura o boleta electrónica.</p></div></details>
-                    <details><summary>¿Cómo funciona el precio por volumen?</summary><div class="resp"><p>Cada producto tiene un precio por unidad y un precio por volumen desde cierta cantidad (por ejemplo, 10+ und). Cuando pones la cantidad en tu cotización, el precio que corresponde se aplica solo.</p><p>Si llevas la caja o el lote completo, el precio es especial y te lo confirmamos por WhatsApp.</p></div></details>
+                    <details><summary>¿Tengo que comprar muchas unidades?</summary><div class="resp"><p>No. Atendemos pedidos de cualquier tamaño. Si combinas 10 filtros o más, de los códigos que quieras, accedes al precio por volumen.</p></div></details>
+                    <details><summary>¿Venden al público?</summary><div class="resp"><p>Somos distribuidores para talleres, lubricentros y tiendas. Si eres cliente final, escríbenos y te indicamos dónde conseguirlo.</p></div></details>
+                    <details><summary>¿Cobran delivery?</summary><div class="resp"><p>En Lima es gratis desde S/ 200. Para montos menores, coordinamos contigo.</p></div></details>
+                    <details><summary>¿Cómo funciona el precio por volumen?</summary><div class="resp"><p>Cada filtro tiene un precio mayorista (por unidad) y un precio por volumen. Accedes al precio por volumen si llevas la cantidad indicada de ese código (por ejemplo, 10+ und) o si tu pedido suma 10 filtros o más, combinando los códigos que quieras. El carrito lo calcula solo.</p><p>Si llevas la caja o el lote completo de un código, el precio es especial y te lo confirmamos por WhatsApp.</p></div></details>
+                    <details><summary>¿Necesito RUC para comprar?</summary><div class="resp"><p>No. Puedes comprar con boleta o con factura electrónica.</p></div></details>
+                    <details><summary>¿Los precios incluyen IGV?</summary><div class="resp"><p>Sí. Todos los precios de la web están en soles e incluyen IGV. En los filtros, el precio es por unidad; en los fluidos, por caja.</p></div></details>
                     <details><summary>¿Los productos son originales?</summary><div class="resp"><p>Sí. Los filtros son originales Hyundai y Kia y se entregan en su empaque. El ATF es Chevron Supreme MD-3 y el refrigerante es Prestone.</p></div></details>
                     <details><summary>¿Cómo sé si el filtro es el correcto para el vehículo?</summary><div class="resp"><p>En cada ficha está la aplicación y las equivalencias. Si tienes dudas, envíanos la marca, el modelo, el año y el motor del vehículo, o el código del filtro que vas a cambiar, y te lo confirmamos antes de despachar.</p></div></details>
                     <details><summary>¿Cómo pago?</summary><div class="resp"><p>Por transferencia o en efectivo. En Lima puedes pagar al contado o contra entrega.</p></div></details>
-                    <details><summary>¿Hacen entregas en Lima?</summary><div class="resp"><p>Sí. Llevamos el pedido nosotros mismos a tu tienda o taller en Lima y coordinamos contigo el día de entrega por WhatsApp.</p></div></details>
                     <details><summary>¿Envían a provincias?</summary><div class="resp"><p>Sí, por agencia de carga (Sanky u otra que elijas). Para provincias, el pago es 100% adelantado.</p></div></details>
                     <details><summary>¿Y si no encuentro el código que busco?</summary><div class="resp"><p>Trabajamos más códigos Hyundai y Kia a pedido. Escríbenos el código o el vehículo por WhatsApp y te cotizamos.</p></div></details>
                 </div>
@@ -77,8 +80,8 @@
         const ej = obtenerProducto("filtro-26350-2m000");
         if (ej) {
             document.getElementById("ejemplo").innerHTML = `
-                <div class="tier"><span class="t-label">Precio por unidad</span><span class="t-precio"><small>S/</small>${ej.precio.toFixed(2)}</span><span class="t-tramo">1 a ${ej.volumen.desde - 1} und</span></div>
-                <div class="tier mejor"><span class="badge">Mejor precio</span><span class="t-label">Por volumen</span><span class="t-precio"><small>S/</small>${ej.volumen.precio.toFixed(2)}</span><span class="t-tramo">${ej.volumen.desde}+ und</span></div>
+                <div class="tier"><span class="t-label">Precio mayorista</span><span class="t-precio"><small>S/</small>${ej.precio.toFixed(2)}</span><span class="t-tramo">por unidad</span></div>
+                <div class="tier mejor"><span class="badge">Mejor precio</span><span class="t-label">Precio por volumen</span><span class="t-precio"><small>S/</small>${ej.volumen.precio.toFixed(2)}</span><span class="t-tramo">desde ${ej.volumen.desde} und o ${REGLAS.filtrosCombinados} filtros combinados</span></div>
                 <div class="tier cotiza"><span class="t-label">${ej.lote.tipo} ${ej.lote.cantidad} und</span><span class="t-precio">Precio especial: cotiza</span><span class="t-tramo">${ej.lote.cantidad}+ und</span></div>`;
         }
         document.getElementById("cta-wa").href = enlaceWhatsApp("Hola LubriBaro, tengo una consulta: ");

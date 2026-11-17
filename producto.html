@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producto | LubriBaro</title>
-    <meta name="description" content="Ficha de producto LubriBaro: precio por unidad, por volumen, aplicación y equivalencias.">
+    <meta name="description" content="Ficha de producto LubriBaro: precio mayorista, precio por volumen, aplicación y equivalencias.">
     <meta name="theme-color" content="#41309A">
     <link rel="icon" href="favicon.png">
     <link rel="stylesheet" href="estilos.css">
@@ -40,7 +40,7 @@
                     <p class="aplic-ficha" id="ui-aplic"></p>
 
                     <div class="precios" id="ui-precios"></div>
-                    <p class="nota-igv"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios incluyen IGV · Emitimos factura electrónica</p>
+                    <p class="nota-igv"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios con IGV · Combina códigos para llegar al precio por volumen · Emitimos factura electrónica</p>
 
                     <div class="agregar">
                         <label for="cantidad" id="lbl-cantidad">Cantidad</label>
@@ -61,7 +61,7 @@
 
                     <div class="entrega">
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M2.5 6h11v10h-11z"/><path d="M13.5 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></div>
-                            <div><strong>Lima: entrega personal</strong>Llevamos tu pedido a tu tienda o taller. Coordinamos el día por WhatsApp. Pagas contra entrega o al contado.</div></div>
+                            <div><strong>Lima: delivery gratis desde S/ 200</strong>Combinando filtros y fluidos. Para montos menores, coordinamos contigo el delivery o el recojo. Pagas contra entrega o al contado.</div></div>
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></div>
                             <div><strong>Provincias: envío por agencia</strong>Por Sanky u otra agencia que elijas, con pago adelantado al 100%.</div></div>
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
@@ -129,23 +129,29 @@
 
         function actualizarCalculo() {
             const n = leerCantidad();
-            const pr = precioParaCantidad(prod, n);
+            // Filtros que ya están en la cotización (otros códigos): cuentan para los 10 combinados
+            const otros = esFiltro(prod) ? contarFiltros(leerCotizacion().filter(i => i.id !== prod.id)) : 0;
+            const pr = precioParaCantidad(prod, n, otros + n);
             const u = unidadTexto(prod, n);
-            let html;
+            let html = `${n} ${u} x <b>${soles(pr.precio)}</b>${pr.tramo === "volumen" ? ` <span class="ok">(precio por volumen${pr.porCombinacion ? ", combinando códigos" : ""})</span>` : ""} = <b>${soles(pr.precio * n)}</b>`;
             if (pr.especial) {
-                html = `<span class="especial">${n} ${u}: precio especial a confirmar</span>`;
-            } else {
-                html = `${n} ${u} x <b>${soles(pr.precio)}</b>${pr.tramo === "volumen" ? ' <span class="ok">(precio por volumen)</span>' : ""} = <b>${soles(pr.precio * n)}</b>`;
-                if (prod.volumen && n < prod.volumen.desde) {
-                    const faltan = prod.volumen.desde - n;
-                    html += `<br>Agrega ${faltan} ${unidadTexto(prod, faltan)} más y pagas ${soles(prod.volumen.precio)} c/u.`;
+                html += `<br><span class="especial">Desde ${prod.lote.cantidad} ${u}: precio especial a confirmar</span>`;
+            } else if (pr.tramo === "mayorista" && prod.volumen) {
+                const faltanCodigo = prod.volumen.desde - n;
+                if (esFiltro(prod)) {
+                    const faltanMix = REGLAS.filtrosCombinados - (otros + n);
+                    html += `<br>Agrega ${faltanCodigo} und más de este código, o completa ${REGLAS.filtrosCombinados} filtros combinando códigos${otros ? ` (ya tienes ${otros} en tu cotización, te faltan ${faltanMix})` : ""}, y pagas ${soles(prod.volumen.precio)} c/u.`;
+                } else {
+                    html += `<br>Desde ${prod.volumen.desde} cajas pagas ${soles(prod.volumen.precio)} por caja.`;
                 }
             }
             $("ui-calculo").innerHTML = html;
             $("sticky-precio").textContent = pr.especial ? "Precio especial a confirmar" : `${soles(pr.precio)} ${prod.unidad === "caja" ? "x caja" : "c/u"} · ${n} ${u}`;
-            // Resalta la tarjeta del tramo que aplica
+            // Resalta la tarjeta del precio que aplica
             document.querySelectorAll("#ui-precios .tier").forEach(t => t.classList.remove("aplica"));
-            const activa = document.querySelector(`#ui-precios .tier[data-tramo="${pr.especial ? "lote" : pr.tramo === "volumen" ? "volumen" : "unidad"}"]`);
+            let tramo = pr.especial ? "lote" : pr.tramo === "volumen" ? "volumen" : "unidad";
+            if (prod.escalas && pr.tramo === "volumen") tramo = "e" + prod.escalas.filter(e => n >= e.desde).length;
+            const activa = document.querySelector(`#ui-precios .tier[data-tramo="${tramo}"]`);
             if (activa) activa.classList.add("aplica");
         }
 
@@ -153,13 +159,27 @@
             const caja = p.unidad === "caja";
             const u = caja ? "cajas" : "und";
             const t = [];
-            const hasta = p.volumen ? (p.volumen.desde - 1) : null;
-            t.push(`<div class="tier" data-tramo="unidad"><span class="t-label">${caja ? "Precio por caja" : "Precio por unidad"}</span>
-                <span class="t-precio"><small>S/</small>${p.precio.toFixed(2)}</span>
-                <span class="t-tramo">${hasta ? (hasta === 1 ? `1 ${caja ? "caja" : "und"}` : `1 a ${hasta} ${u}`) : (caja ? "por caja" : "por unidad")}</span></div>`);
-            if (p.volumen) t.push(`<div class="tier mejor" data-tramo="volumen"><span class="badge">Mejor precio</span><span class="t-label">Por volumen</span>
-                <span class="t-precio"><small>S/</small>${p.volumen.precio.toFixed(2)}</span>
-                <span class="t-tramo">${p.volumen.desde}+ ${u}</span></div>`);
+            if (caja) {
+                // Fluidos: precio por caja y sus escalas
+                const escalas = p.escalas || (p.volumen ? [p.volumen] : []);
+                const hasta = escalas.length ? escalas[0].desde - 1 : null;
+                t.push(`<div class="tier" data-tramo="unidad"><span class="t-label">Precio por caja</span>
+                    <span class="t-precio"><small>S/</small>${p.precio.toFixed(2)}</span>
+                    <span class="t-tramo">${hasta ? (hasta === 1 ? "1 caja" : `1 a ${hasta} cajas`) : "por caja"}</span></div>`);
+                escalas.forEach((e, i) => {
+                    const ultima = i === escalas.length - 1;
+                    t.push(`<div class="tier${ultima ? " mejor" : ""}" data-tramo="e${i + 1}">${ultima ? '<span class="badge">Mejor precio</span>' : ""}<span class="t-label">Desde ${e.desde} cajas</span>
+                        <span class="t-precio"><small>S/</small>${e.precio.toFixed(2)}</span>
+                        <span class="t-tramo">por caja</span></div>`);
+                });
+            } else {
+                t.push(`<div class="tier" data-tramo="unidad"><span class="t-label">Precio mayorista</span>
+                    <span class="t-precio"><small>S/</small>${p.precio.toFixed(2)}</span>
+                    <span class="t-tramo">por unidad</span></div>`);
+                if (p.volumen) t.push(`<div class="tier mejor" data-tramo="volumen"><span class="badge">Mejor precio</span><span class="t-label">Precio por volumen</span>
+                    <span class="t-precio"><small>S/</small>${p.volumen.precio.toFixed(2)}</span>
+                    <span class="t-tramo">desde ${p.volumen.desde} und o ${REGLAS.filtrosCombinados} filtros combinados</span></div>`);
+            }
             if (p.lote) t.push(`<div class="tier cotiza" data-tramo="lote"><span class="t-label">${p.lote.tipo} ${p.lote.cantidad} ${u}</span>
                 <span class="t-precio">Precio especial: cotiza</span>
                 <span class="t-tramo">${p.lote.cantidad}+ ${u}</span></div>`);
@@ -205,7 +225,7 @@
                 ["Equivalencias", p.equivalencias.length ? p.equivalencias.join(", ") : null],
                 ["Presentación", p.presentacion],
                 ["Condición", "Original, en su empaque"],
-                ["Precio", `${soles(p.precio)} ${caja ? "por caja" : "por unidad"}, IGV incluido`]
+                ["Precio", caja ? `${soles(p.precio)} por caja, IGV incluido` : `${soles(p.precio)} precio mayorista por unidad, IGV incluido`]
             ].filter(f => f[1]);
             $("ui-tabla").innerHTML = filas.map(([k, v]) => `<tr><th>${k}</th><td>${escaparHTML(v)}</td></tr>`).join("");
 
@@ -217,7 +237,7 @@
             else $("bloque-relacionados").remove();
 
             $("sticky-titulo").textContent = caja ? p.titulo : p.codigo;
-            $("sticky-foto").innerHTML = p.foto ? `<img src="${p.foto}" alt="">` : "";
+            $("sticky-foto").innerHTML = `<img src="${p.foto}" alt="" onerror="this.remove()">`;
 
             $("cantidad").addEventListener("input", actualizarCalculo);
             $("cantidad").addEventListener("change", () => { $("cantidad").value = leerCantidad(); actualizarCalculo(); });

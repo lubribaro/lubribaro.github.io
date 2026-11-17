@@ -75,10 +75,27 @@ function enlaceWhatsApp(texto) {
 const WA_SALUDO = "Hola LubriBaro, quisiera hacer una consulta.";
 
 /* ---------- FOTO O MARCADOR DE FOTO ---------- */
-function htmlFoto(p, perezosa) {
-    if (p.foto) return `<img src="${p.foto}" alt="${escaparHTML(altProducto(p))}"${perezosa === false ? "" : ' loading="lazy"'} width="400" height="400">`;
+function htmlMarcadorFoto(p) {
     const etiqueta = p.categoria === "fluidos" ? p.marca : p.codigo;
     return `<div class="foto-pendiente">${ico(p.categoria)}<b>${escaparHTML(etiqueta)}</b><small>Foto real próximamente</small></div>`;
+}
+/* Intenta img/productos/[código].jpg; si no existe, la genérica de su tipo
+   (marcada como "Imagen referencial"); si tampoco existe, un marcador. */
+function htmlFoto(p, perezosa) {
+    return `<img src="${p.foto}" alt="${escaparHTML(altProducto(p))}"${perezosa === false ? "" : ' loading="lazy"'} width="400" height="400" data-id="${p.id}" onerror="fotoError(this)">`;
+}
+function fotoError(img) {
+    const p = PRODUCTOS.find(x => x.id === img.dataset.id);
+    const generica = p && fotoGenerica(p);
+    if (generica && !img.dataset.generica) {
+        img.dataset.generica = "1";
+        img.src = generica;
+        img.insertAdjacentHTML("afterend", '<span class="ref-badge">Imagen referencial</span>');
+        return;
+    }
+    const badge = img.nextElementSibling;
+    if (badge && badge.classList.contains("ref-badge")) badge.remove();
+    img.outerHTML = p ? htmlMarcadorFoto(p) : "";
 }
 function nombreCorto(p) { return p.unidad === "caja" ? p.titulo : p.codigo; }
 
@@ -88,8 +105,9 @@ function htmlTarjeta(p) {
     const caja = p.unidad === "caja";
     const meta = caja ? p.marca : `${p.marca} original`;
     const nombre = caja ? p.presentacion : p.titulo;
-    const vol = p.volumen
-        ? `<div class="vol"><b>${soles(p.volumen.precio)}</b> desde ${p.volumen.desde} ${caja ? "cajas" : "und"}</div>` : "";
+    const mejor = p.escalas ? p.escalas[p.escalas.length - 1] : p.volumen;
+    const vol = mejor
+        ? `<div class="vol"><b>${soles(mejor.precio)}</b> ${caja ? `desde ${mejor.desde} cajas` : "por volumen"}</div>` : "";
     return `
     <article class="card-prod">
         <a class="cubre" href="${url}" aria-label="Ver ${escaparHTML(nombreCorto(p))}"></a>
@@ -129,7 +147,7 @@ function sugerir(input) {
     caja.innerHTML = res.length
         ? res.slice(0, 5).map(p => `
             <a href="producto.html?id=${encodeURIComponent(p.id)}" role="option">
-                <span class="s-img">${p.foto ? `<img src="${p.foto}" alt="">` : ico(p.categoria)}</span>
+                <span class="s-img">${htmlFoto(p)}</span>
                 <span><b>${escaparHTML(nombreCorto(p))}</b><small>${escaparHTML(p.unidad === "caja" ? p.presentacion : p.titulo + " " + p.marca + " · " + textoAplicacion(p))}</small></span>
                 <span class="s-precio">${soles(p.precio)}</span>
             </a>`).join("") + `<a class="s-todos" href="catalogo.html?q=${encodeURIComponent(q)}">Ver todos los resultados (${res.length})</a>`
@@ -160,12 +178,9 @@ function htmlHeader(pagina) {
     return `
     <div class="util-bar"><div class="contenedor">
         <div class="util-izq">
-            <span>${ico("camion")}Entrega personal en ${CONFIG.zona}</span>
-            <span>${ico("provincia")}Envíos a provincias por agencia</span>
-        </div>
-        <div class="util-der">
-            <span>${ico("reloj")}${CONFIG.horarioCorto}</span>
-            <span>${ico("telefono")}<a href="${enlaceWhatsApp(WA_SALUDO)}" target="_blank" rel="noopener">${CONFIG.whatsappVisible}</a></span>
+            <span class="u1">${ico("tienda")}Precios mayoristas para talleres, lubricentros y tiendas</span>
+            <span class="u2">${ico("aceite")}Combina códigos: desde ${REGLAS.filtrosCombinados} filtros accedes al precio por volumen</span>
+            <span class="u3">${ico("camion")}Delivery gratis en Lima desde S/ ${REGLAS.deliveryGratisDesde}</span>
         </div>
     </div></div>
     <div class="header-main"><div class="contenedor">
@@ -340,15 +355,27 @@ function unidadTexto(p, n) {
     return p.unidad === "caja" ? (n === 1 ? "caja" : "cajas") : "und";
 }
 
+/* Calcula la cotización con las reglas del archivo 05:
+   - todos los filtros pasan a precio por volumen si el pedido suma 10 o más;
+   - las líneas con precio especial (caja o lote) suman al total estimado
+     con su precio por volumen. */
+function contarFiltros(items) {
+    return items.reduce((s, i) => { const p = obtenerProducto(i.id); return s + (p && esFiltro(p) ? i.cantidad : 0); }, 0);
+}
 function calcularCotizacion() {
-    const lineas = leerCotizacion().map(i => {
+    const items = leerCotizacion();
+    const filtros = contarFiltros(items);
+    const lineas = items.map(i => {
         const p = obtenerProducto(i.id);
-        const pr = precioParaCantidad(p, i.cantidad);
-        return { p, cantidad: i.cantidad, ...pr, subtotal: pr.especial ? null : pr.precio * i.cantidad };
+        const pr = precioParaCantidad(p, i.cantidad, filtros);
+        return { p, cantidad: i.cantidad, ...pr, subtotal: pr.precio * i.cantidad };
     });
-    const total = lineas.reduce((s, l) => s + (l.subtotal || 0), 0);
+    const total = lineas.reduce((s, l) => s + l.subtotal, 0);
     const hayEspecial = lineas.some(l => l.especial);
-    return { lineas, total, hayEspecial };
+    const filtrosAMayorista = lineas.some(l => esFiltro(l.p) && l.tramo === "mayorista" && l.p.volumen);
+    const faltanFiltros = filtros > 0 && filtrosAMayorista ? Math.max(0, REGLAS.filtrosCombinados - filtros) : 0;
+    const faltaDelivery = Math.max(0, REGLAS.deliveryGratisDesde - total);
+    return { lineas, total, hayEspecial, filtros, faltanFiltros, faltaDelivery };
 }
 
 function htmlCajon() {
@@ -368,7 +395,7 @@ function pintarCotizacion() {
     const body = document.getElementById("cajon-body");
     const pie = document.getElementById("cajon-pie");
     if (!body) return;
-    const { lineas, total, hayEspecial } = calcularCotizacion();
+    const { lineas, total, hayEspecial, faltanFiltros, faltaDelivery } = calcularCotizacion();
 
     if (!lineas.length) {
         body.innerHTML = `<div class="cajon-vacio">${ico("cotizacion")}<p><b>Tu cotización está vacía.</b></p><p>Agrega productos desde el catálogo y envíanos la lista completa por WhatsApp.</p><a class="btn btn-borde" href="catalogo.html">Ver catálogo</a></div>`;
@@ -380,8 +407,8 @@ function pintarCotizacion() {
         const p = l.p;
         const nombre = p.unidad === "caja" ? p.presentacion : `${p.titulo} ${p.marca}`;
         const calc = l.especial
-            ? `<span class="especial">Precio especial a confirmar</span>`
-            : `<b>${soles(l.subtotal)}</b>${l.cantidad} ${unidadTexto(p, l.cantidad)} x ${soles(l.precio)}${l.tramo === "volumen" ? ' <span class="tramo-vol">· volumen</span>' : ""}`;
+            ? `<b>${soles(l.subtotal)}</b><span class="especial">Precio especial a confirmar</span>`
+            : `<b>${soles(l.subtotal)}</b>${l.cantidad} ${unidadTexto(p, l.cantidad)} x ${soles(l.precio)}${l.tramo === "volumen" ? ` <span class="tramo-vol">· ${l.porCombinacion ? "volumen (combinado)" : "volumen"}</span>` : ""}`;
         return `
         <div class="item-cot">
             <div class="mini">${htmlFoto(p)}</div>
@@ -404,9 +431,15 @@ function pintarCotizacion() {
 
     const negocio = sessionStorageSeguro("lb_negocio");
     const distrito = sessionStorageSeguro("lb_distrito");
+    const avisos = [];
+    if (faltanFiltros > 0) avisos.push(`<div class="aviso-cot">${ico("aceite")}<span>Te faltan <b>${faltanFiltros} ${faltanFiltros === 1 ? "filtro" : "filtros"}</b> para el precio por volumen. Puedes combinar códigos.</span></div>`);
+    avisos.push(faltaDelivery > 0
+        ? `<div class="aviso-cot">${ico("camion")}<span>Te faltan <b>${soles(faltaDelivery)}</b> para delivery gratis en Lima.</span></div>`
+        : `<div class="aviso-cot ok">${ico("check")}<span>Tu pedido tiene <b>delivery gratis en Lima</b>.</span></div>`);
     pie.innerHTML = `
-        <div class="total-fila"><span>Total referencial</span><b>${soles(total)}</b></div>
-        <p class="nota-chica">${hayEspecial ? "No incluye los productos con precio especial, que te confirmamos por WhatsApp. " : ""}Precios incluyen IGV · Emitimos factura electrónica.</p>
+        ${avisos.join("")}
+        <div class="total-fila"><span>Total estimado</span><b>${soles(total)}</b></div>
+        <p class="nota-chica">${hayEspecial ? "Los productos con precio especial se calculan a precio por volumen y te confirmamos el precio final por WhatsApp. " : ""}Precios con IGV · Emitimos factura electrónica.</p>
         <div class="datos-cliente">
             <input class="campo" id="cot-negocio" placeholder="Tu nombre o negocio" value="${escaparHTML(negocio)}" oninput="sessionStorageGuardar('lb_negocio', this.value)">
             <input class="campo" id="cot-distrito" placeholder="Distrito" value="${escaparHTML(distrito)}" oninput="sessionStorageGuardar('lb_distrito', this.value)">
@@ -419,23 +452,22 @@ function sessionStorageSeguro(k) { try { return sessionStorage.getItem(k) || "";
 function sessionStorageGuardar(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { } }
 
 function textoCotizacion() {
-    const { lineas, total, hayEspecial } = calcularCotizacion();
+    const { lineas, total, hayEspecial, faltaDelivery } = calcularCotizacion();
     let t = "Hola LubriBaro, quiero cotizar estos productos:\n\n";
     lineas.forEach((l, i) => {
         const p = l.p;
         const cod = p.unidad === "caja" ? p.titulo : `${p.codigo} - ${p.titulo} ${p.marca}`;
         t += `${i + 1}. *${cod}*\n`;
-        t += l.especial
-            ? `   ${l.cantidad} ${unidadTexto(p, l.cantidad)} - precio especial a confirmar\n`
-            : `   ${l.cantidad} ${unidadTexto(p, l.cantidad)} x ${soles(l.precio)}${l.tramo === "volumen" ? " (volumen)" : ""} = ${soles(l.subtotal)}\n`;
+        t += `   ${l.cantidad} ${unidadTexto(p, l.cantidad)} x ${soles(l.precio)}${l.tramo === "volumen" ? (l.porCombinacion ? " (volumen, combinado)" : " (volumen)") : ""} = ${soles(l.subtotal)}${l.especial ? " - precio especial a confirmar" : ""}\n`;
     });
-    t += `\n*Total referencial: ${soles(total)}*${hayEspecial ? " (sin contar los productos con precio especial)" : ""}\n`;
-    t += "Precios con IGV.\n";
+    t += `\n*Total estimado: ${soles(total)}*\n`;
+    t += "Precios con IGV.";
+    t += faltaDelivery > 0 ? "\n" : " Delivery gratis en Lima.\n";
     const negocio = (document.getElementById("cot-negocio") || {}).value || "";
     const distrito = (document.getElementById("cot-distrito") || {}).value || "";
     if (negocio.trim()) t += `\nNombre / negocio: ${negocio.trim()}`;
     if (distrito.trim()) t += `\nDistrito: ${distrito.trim()}`;
-    t += "\n\n¿Me confirman disponibilidad y la fecha de entrega?";
+    t = t.replace(/\n+$/, "") + "\n\n¿Me confirman disponibilidad y la fecha de entrega?";
     return t;
 }
 function enviarCotizacion() {

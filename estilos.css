@@ -773,3 +773,33 @@ a.c-card:hover { border-color: var(--morado); }
 .form-contacto textarea { resize: vertical; min-height: 110px; }
 @media (max-width: 860px) { .contacto-grid { grid-template-columns: 1fr; } }
 @media (max-width: 480px) { .form-contacto .fila { grid-template-columns: 1fr; } .seccion { padding: 50px 0; } .form-contacto { padding: 20px; } }
+
+/* =====================================================================
+   AJUSTES 17 NOV 2026: modelo mayorista (archivo 05)
+   ===================================================================== */
+/* Barra superior con los mensajes comerciales */
+.util-izq { gap: 26px; }
+.util-bar .util-izq span { white-space: nowrap; }
+@media (max-width: 1240px) { .util-bar .u1 { display: none; } }
+@media (max-width: 900px) {
+    .header { top: -36px; }
+    .util-bar { display: block; }
+    .util-bar .contenedor { justify-content: center; }
+    .util-bar .u1, .util-bar .u2 { display: none; }
+}
+
+/* Imagen genérica marcada como referencial */
+.ref-badge { position: absolute; right: 10px; bottom: 10px; z-index: 2; background: rgba(22, 19, 44, .78); color: #fff; font-size: .7rem; font-weight: 600; padding: 3px 8px; border-radius: 6px; pointer-events: none; }
+.item-cot .mini .ref-badge, .s-img .ref-badge, .sticky-inner .ref-badge { display: none; }
+.sugerencias .s-img { position: relative; }
+.sugerencias .s-img .foto-pendiente { padding: 2px; border-radius: 6px; width: 100%; height: 100%; }
+.sugerencias .s-img .foto-pendiente svg.ico { width: 22px; height: 22px; }
+.sugerencias .s-img .foto-pendiente b, .sugerencias .s-img .foto-pendiente small { display: none; }
+
+/* Avisos del carrito (motivan, no bloquean) */
+.aviso-cot { display: flex; align-items: center; gap: 10px; background: var(--naranja-50); color: #6B3C12; border-radius: 10px; padding: 9px 12px; font-size: .88rem; line-height: 1.35; margin-bottom: 8px; }
+.aviso-cot svg.ico { width: 20px; height: 20px; color: var(--naranja-600); }
+.aviso-cot b { color: var(--tinta); }
+.aviso-cot.ok { background: var(--verde-50); color: #0F5C37; }
+.aviso-cot.ok svg.ico { color: var(--verde); }
+.item-cot .calc .especial { display: block; margin-top: 3px; font-size: .74rem; padding: 2px 7px; }

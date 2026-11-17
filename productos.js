@@ -6,7 +6,16 @@
    solo en esta lista.
 
    Precios: en soles, INCLUYEN IGV y son POR UNIDAD (en fluidos, por caja).
-   Fuente: "Precios LubriBaro" revisados por Gabriel (16 nov 2026).
+   Fuente: "Precios LubriBaro" revisados por Gabriel (17 nov 2026).
+
+   REGLAS DE PRECIO (modelo mayorista, sin pedido mínimo):
+   - "Precio mayorista" = precio de 1 unidad.
+   - "Precio por volumen" en un filtro si:
+       a) se llevan las unidades de su tramo en ese código, o
+       b) el pedido suma 10 filtros o más, combinando cualquier código.
+   - Desde la caja o el lote, el precio es especial y se confirma por
+     WhatsApp (para el total estimado se usa el precio por volumen).
+   - Delivery gratis en Lima desde S/ 200 (filtros y fluidos).
 
    Campos:
      id             Identificador usado en producto.html?id=...
@@ -20,11 +29,13 @@
                     "Consultar aplicación por WhatsApp")
      elemento       true si es filtro tipo elemento (cartucho)
      presentacion   Texto de presentación
-     foto           Archivo de foto en el repositorio, o null
+     (foto)         No se escribe: la web busca img/productos/[código].jpg
+                    y, si no existe, usa la imagen genérica de su tipo.
      unidad         "und" (filtros) | "caja" (fluidos)
      precio         Precio por unidad (o por caja en fluidos)
      volumen        { precio, desde } precio por volumen y desde cuántas
                     unidades aplica, o null
+     escalas        (solo fluidos) lista de precios por cantidad de cajas
      lote           { tipo: "Caja" | "Lote", cantidad } desde esa cantidad
                     el precio es especial y se cotiza (NO se muestra), o null
    ===================================================================== */
@@ -33,107 +44,108 @@ const PRODUCTOS = [
     // *** FILTROS DE ACEITE ***
     { id: "filtro-26300-02752", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26300-02752",
       equivalencias: ["LYS LF3007", "Nissan 15208-31U00", "Mitsubishi MD135737"], aplicacion: "Gasolina", elemento: false,
-      presentacion: "Caja de 20 und", foto: null, unidad: "und", precio: 12.00, volumen: { precio: 10.50, desde: 10 }, lote: { tipo: "Caja", cantidad: 20 } },
+      presentacion: "Caja de 20 und", unidad: "und", precio: 12.00, volumen: { precio: 10.50, desde: 10 }, lote: { tipo: "Caja", cantidad: 20 } },
     { id: "filtro-26330-4a001", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26330-4A001",
       equivalencias: ["LYS LF604A", "Hyundai 26300-42040"], aplicacion: "Diésel", elemento: false,
-      presentacion: "Caja de 20 und", foto: "filtro-26330-4a001.jpg", unidad: "und", precio: 32.00, volumen: { precio: 30.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 20 } },
+      presentacion: "Caja de 20 und", unidad: "und", precio: 32.00, volumen: { precio: 30.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 20 } },
     { id: "filtro-26320-3c100", web: true, categoria: "aceite", marca: "Hyundai / Kia", titulo: "Filtro de aceite tipo elemento", codigo: "26320-3C100",
       equivalencias: [], aplicacion: "Hyundai Santa Fe, Sonata, Veracruz; Kia Grand Carnival, Sorento", elemento: true,
-      presentacion: "Caja de 50 und", foto: "filtro-26320-3c100.jpg", unidad: "und", precio: 33.00, volumen: { precio: 30.50, desde: 10 }, lote: { tipo: "Caja", cantidad: 50 } },
+      presentacion: "Caja de 50 und", unidad: "und", precio: 33.00, volumen: { precio: 30.50, desde: 10 }, lote: { tipo: "Caja", cantidad: 50 } },
     { id: "filtro-26350-2s001", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite tipo elemento", codigo: "26350-2S001",
       equivalencias: [], aplicacion: "Hyundai Tucson modernas", elemento: true,
-      presentacion: "Caja de 60 und", foto: "filtro-26350-2s001.jpg", unidad: "und", precio: 38.00, volumen: { precio: 35.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 60 } },
+      presentacion: "Caja de 60 und", unidad: "und", precio: 38.00, volumen: { precio: 35.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 60 } },
     { id: "filtro-26350-2m000", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite tipo elemento", codigo: "26350-2M000",
       equivalencias: [], aplicacion: "Kia New Sorento 2020+, Kia Rio 2019+", elemento: true,
-      presentacion: "Caja de 40 und", foto: "filtro-26350-2m000.jpg", unidad: "und", precio: 38.00, volumen: { precio: 35.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 40 } },
+      presentacion: "Caja de 40 und", unidad: "und", precio: 38.00, volumen: { precio: 35.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 40 } },
     { id: "filtro-26350-2j001", web: true, categoria: "aceite", marca: "Hyundai / Kia", titulo: "Filtro de aceite", codigo: "26350-2J001",
       equivalencias: [], aplicacion: null, elemento: false,
-      presentacion: "Caja de 60 und", foto: "filtro-26350-2j001.jpg", unidad: "und", precio: 38.00, volumen: { precio: 35.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 60 } },
+      presentacion: "Caja de 60 und", unidad: "und", precio: 38.00, volumen: { precio: 35.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 60 } },
 
-    // Filtros de aceite que se publicarán después (web: false)
-    { id: "filtro-26300-35505", web: false, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26300-35505",
+    // Filtros de aceite que se publicarán después (web: true)
+    { id: "filtro-26300-35505", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26300-35505",
       equivalencias: [], aplicacion: null, elemento: false,
-      presentacion: "Caja de 40 und", foto: "filtro-26300-35505.jpg", unidad: "und", precio: 17.00, volumen: { precio: 16.00, desde: 20 }, lote: { tipo: "Caja", cantidad: 40 } },
-    { id: "filtro-26311-45010", web: false, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26311-45010",
+      presentacion: "Caja de 40 und", unidad: "und", precio: 17.00, volumen: { precio: 16.00, desde: 20 }, lote: { tipo: "Caja", cantidad: 40 } },
+    { id: "filtro-26311-45010", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26311-45010",
       equivalencias: ["LYS LF9604", "LYS LF601"], aplicacion: "Diésel. HD45, HD65, HD75 y HD78 2010+ (D4AF, D4AL, D4DB, D4DC, D4DD)", elemento: false,
-      presentacion: "Caja de 20 und", foto: "filtro-26311-45010.jpg", unidad: "und", precio: 56.00, volumen: { precio: 53.50, desde: 5 }, lote: { tipo: "Caja", cantidad: 20 } },
-    { id: "filtro-26325-52003", web: false, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite tipo elemento", codigo: "26325-52003",
+      presentacion: "Caja de 20 und", unidad: "und", precio: 56.00, volumen: { precio: 53.50, desde: 5 }, lote: { tipo: "Caja", cantidad: 20 } },
+    { id: "filtro-26325-52003", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite tipo elemento", codigo: "26325-52003",
       equivalencias: ["26311-52001", "26311-52002", "26325-52000", "26325-52002"], aplicacion: "Mighty / HD38 / HD78", elemento: true,
-      presentacion: "Caja de 40 und", foto: "filtro-26325-52003.jpg", unidad: "und", precio: 74.00, volumen: { precio: 71.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 40 } },
-    { id: "filtro-ok87a-14317", web: false, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "OK87A-14317",
+      presentacion: "Caja de 40 und", unidad: "und", precio: 74.00, volumen: { precio: 71.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 40 } },
+    { id: "filtro-ok87a-14317", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "OK87A-14317",
       equivalencias: ["Sakura C1735"], aplicacion: "Diésel. HD120, motor D6DA", elemento: false,
-      presentacion: "Caja de 16 und", foto: "filtro-ok87a-14317.jpg", unidad: "und", precio: 87.50, volumen: { precio: 84.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 16 } },
-    { id: "filtro-26316-41000", web: false, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26316-41000",
+      presentacion: "Caja de 16 und", unidad: "und", precio: 87.50, volumen: { precio: 84.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 16 } },
+    { id: "filtro-26316-41000", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26316-41000",
       equivalencias: ["LYS LF833N"], aplicacion: "Hyundai Mighty 1994-2000", elemento: false,
-      presentacion: "Por unidad", foto: "filtro-26316-41000.jpg", unidad: "und", precio: 20.00, volumen: { precio: 18.50, desde: 10 }, lote: null },
-    { id: "filtro-26320-2f100", web: false, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite tipo elemento", codigo: "26320-2F100",
+      presentacion: "Por unidad", unidad: "und", precio: 20.00, volumen: { precio: 18.50, desde: 10 }, lote: null },
+    { id: "filtro-26320-2f100", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite tipo elemento", codigo: "26320-2F100",
       equivalencias: [], aplicacion: "Hyundai Staria", elemento: true,
-      presentacion: "Caja de 50 und", foto: "filtro-26320-2f100.jpg", unidad: "und", precio: 35.00, volumen: { precio: 32.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 50 } },
-    { id: "filtro-26320-3n000", web: false, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26320-3N000",
+      presentacion: "Caja de 50 und", unidad: "und", precio: 35.00, volumen: { precio: 32.00, desde: 10 }, lote: { tipo: "Caja", cantidad: 50 } },
+    { id: "filtro-26320-3n000", web: true, categoria: "aceite", marca: "Hyundai", titulo: "Filtro de aceite", codigo: "26320-3N000",
       equivalencias: [], aplicacion: "Kia Carnival 2022 3.5L V6; Hyundai Genesis G80 2021+ 3.5L V6", elemento: false,
-      presentacion: "Caja de 40 und", foto: "filtro-26320-3n000.jpg", unidad: "und", precio: 38.00, volumen: { precio: 35.50, desde: 10 }, lote: { tipo: "Caja", cantidad: 40 } },
-    { id: "filtro-26320-2r000", web: false, categoria: "aceite", marca: "Hyundai / Kia", titulo: "Kit de servicio de aceite", codigo: "26320-2R000",
+      presentacion: "Caja de 40 und", unidad: "und", precio: 38.00, volumen: { precio: 35.50, desde: 10 }, lote: { tipo: "Caja", cantidad: 40 } },
+    { id: "filtro-26320-2r000", web: true, categoria: "aceite", marca: "Hyundai / Kia", titulo: "Kit de servicio de aceite", codigo: "26320-2R000",
       equivalencias: [], aplicacion: "Kit de servicio original. Hyundai y Kia diésel 2.0L; Santa Fe IV 2.0 y Tucson NX4 2.0 (2021)", elemento: false,
-      presentacion: "Por unidad", foto: "filtro-26320-2r000.jpg", unidad: "und", precio: 37.50, volumen: { precio: 34.50, desde: 10 }, lote: null },
+      presentacion: "Por unidad", unidad: "und", precio: 37.50, volumen: { precio: 34.50, desde: 10 }, lote: null },
 
     // *** FILTROS DE AIRE ***
     { id: "filtro-28113-4f000", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-4F000",
       equivalencias: ["LYS AFL1524 HD"], aplicacion: "Diésel. H100 2006+ (D4BB, D4BH, D4CB)", elemento: false,
-      presentacion: "Caja de 30 und", foto: null, unidad: "und", precio: 64.00, volumen: { precio: 61.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 30 } },
+      presentacion: "Caja de 30 und", unidad: "und", precio: 64.00, volumen: { precio: 61.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 30 } },
 
-    { id: "filtro-28113-4e500", web: false, categoria: "aire", marca: "Kia", titulo: "Filtro de aire", codigo: "28113-4E500",
+    { id: "filtro-28113-4e500", web: true, categoria: "aire", marca: "Kia", titulo: "Filtro de aire", codigo: "28113-4E500",
       equivalencias: [], aplicacion: "Diésel. Kia K2500 HDI 2.5 2014; Kia Bongo K2500 2014", elemento: false,
-      presentacion: "Caja de 15 und", foto: null, unidad: "und", precio: 60.00, volumen: { precio: 57.50, desde: 5 }, lote: { tipo: "Caja", cantidad: 15 } },
-    { id: "filtro-28130-5a500", web: false, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28130-5A500",
+      presentacion: "Caja de 15 und", unidad: "und", precio: 60.00, volumen: { precio: 57.50, desde: 5 }, lote: { tipo: "Caja", cantidad: 15 } },
+    { id: "filtro-28130-5a500", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28130-5A500",
       equivalencias: ["LYS AFL 5500 HD"], aplicacion: "Diésel. County, HD45, HD65, HD75 y HD78 2010+ (D4DD)", elemento: false,
-      presentacion: "Caja de 6 und", foto: null, unidad: "und", precio: 159.00, volumen: { precio: 152.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 6 } },
-    { id: "filtro-28113-n9000", web: false, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-N9000",
+      presentacion: "Caja de 6 und", unidad: "und", precio: 159.00, volumen: { precio: 152.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 6 } },
+    { id: "filtro-28113-n9000", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-N9000",
       equivalencias: [], aplicacion: "Hyundai Staria; Santa Fe 2021/2022; Tucson 2021/2022", elemento: false,
-      presentacion: "Lote de 10 und", foto: null, unidad: "und", precio: 65.00, volumen: { precio: 63.00, desde: 5 }, lote: { tipo: "Lote", cantidad: 10 } },
-    { id: "filtro-28130-5m100", web: false, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28130-5M100",
+      presentacion: "Lote de 10 und", unidad: "und", precio: 65.00, volumen: { precio: 63.00, desde: 5 }, lote: { tipo: "Lote", cantidad: 10 } },
+    { id: "filtro-28130-5m100", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28130-5M100",
       equivalencias: [], aplicacion: "Mighty Truck", elemento: false,
-      presentacion: "Por unidad", foto: null, unidad: "und", precio: 139.50, volumen: { precio: 133.50, desde: 5 }, lote: null },
-    { id: "filtro-28113-c7000", web: false, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-C7000",
+      presentacion: "Por unidad", unidad: "und", precio: 139.50, volumen: { precio: 133.50, desde: 5 }, lote: null },
+    { id: "filtro-28113-c7000", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-C7000",
       equivalencias: [], aplicacion: "Hyundai i20 1.1, 1.2 y 1.4; Accent 2019+; Kia Sonet y K3 (algunos modelos); Eon e i10 (algunos modelos)", elemento: false,
-      presentacion: "Por unidad", foto: null, unidad: "und", precio: 45.00, volumen: { precio: 42.50, desde: 5 }, lote: null },
-    { id: "filtro-28113-4h000", web: false, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-4H000",
+      presentacion: "Por unidad", unidad: "und", precio: 45.00, volumen: { precio: 42.50, desde: 5 }, lote: null },
+    { id: "filtro-28113-4h000", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-4H000",
       equivalencias: [], aplicacion: "Hyundai H1 2.5 CRDi 8V 2012+", elemento: false,
-      presentacion: "Lote de 12 und", foto: null, unidad: "und", precio: 50.00, volumen: { precio: 47.00, desde: 5 }, lote: { tipo: "Lote", cantidad: 12 } },
+      presentacion: "Lote de 12 und", unidad: "und", precio: 50.00, volumen: { precio: 47.00, desde: 5 }, lote: { tipo: "Lote", cantidad: 12 } },
 
     // *** FILTROS DE COMBUSTIBLE ***
     { id: "filtro-31922-2e900", web: true, categoria: "combustible", marca: "Hyundai / Kia", titulo: "Filtro de combustible", codigo: "31922-2E900",
       equivalencias: ["31922-4H000", "31922-4H001", "31922-4H900", "LYS LFP3192 NX"], aplicacion: "Diésel. H1 2007+ (D4BH); H100 2006+ (D4CB); K2700 2015+ (D4CB)", elemento: false,
-      presentacion: "Caja de 20 und", foto: null, unidad: "und", precio: 72.00, volumen: { precio: 68.50, desde: 5 }, lote: { tipo: "Caja", cantidad: 20 } },
+      presentacion: "Caja de 20 und", unidad: "und", precio: 72.00, volumen: { precio: 68.50, desde: 5 }, lote: { tipo: "Caja", cantidad: 20 } },
 
-    { id: "filtro-31922-4h001", web: false, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31922-4H001",
+    { id: "filtro-31922-4h001", web: true, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31922-4H001",
       equivalencias: ["31922-4H900", "31922-4H000", "31922-2E900"], aplicacion: "Diésel", elemento: false,
-      presentacion: "Por unidad", foto: null, unidad: "und", precio: 76.00, volumen: { precio: 72.50, desde: 5 }, lote: null },
-    { id: "filtro-31922-4h900", web: false, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31922-4H900",
+      presentacion: "Por unidad", unidad: "und", precio: 76.00, volumen: { precio: 72.50, desde: 5 }, lote: null },
+    { id: "filtro-31922-4h900", web: true, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31922-4H900",
       equivalencias: ["31922-4H001", "31922-2E900"], aplicacion: "Diésel", elemento: false,
-      presentacion: "Por unidad", foto: null, unidad: "und", precio: 76.00, volumen: { precio: 72.50, desde: 5 }, lote: null },
-    { id: "filtro-31922-cg950", web: false, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible tipo elemento", codigo: "31922-CG950",
+      presentacion: "Por unidad", unidad: "und", precio: 76.00, volumen: { precio: 72.50, desde: 5 }, lote: null },
+    { id: "filtro-31922-cg950", web: true, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible tipo elemento", codigo: "31922-CG950",
       equivalencias: ["31922-CG900"], aplicacion: "Hyundai Staria", elemento: true,
-      presentacion: "Lote de 12 und", foto: null, unidad: "und", precio: 158.50, volumen: { precio: 151.50, desde: 5 }, lote: { tipo: "Lote", cantidad: 12 } },
-    { id: "filtro-31922-26910", web: false, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31922-26910",
+      presentacion: "Lote de 12 und", unidad: "und", precio: 158.50, volumen: { precio: 151.50, desde: 5 }, lote: { tipo: "Lote", cantidad: 12 } },
+    { id: "filtro-31922-26910", web: true, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31922-26910",
       equivalencias: [], aplicacion: null, elemento: false,
-      presentacion: "Caja de 10 und", foto: null, unidad: "und", precio: 113.00, volumen: { precio: 108.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 10 } },
-    { id: "filtro-31945-52161", web: false, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31945-52161",
+      presentacion: "Caja de 10 und", unidad: "und", precio: 113.00, volumen: { precio: 108.00, desde: 5 }, lote: { tipo: "Caja", cantidad: 10 } },
+    { id: "filtro-31945-52161", web: true, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31945-52161",
       equivalencias: [], aplicacion: "County D4DD", elemento: false,
-      presentacion: "Caja de 10 und", foto: null, unidad: "und", precio: 280.00, volumen: { precio: 267.50, desde: 5 }, lote: { tipo: "Caja", cantidad: 10 } },
-    { id: "filtro-31945-41002", web: false, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31945-41002",
+      presentacion: "Caja de 10 und", unidad: "und", precio: 280.00, volumen: { precio: 267.50, desde: 5 }, lote: { tipo: "Caja", cantidad: 10 } },
+    { id: "filtro-31945-41002", web: true, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31945-41002",
       equivalencias: ["LYS LFP 68"], aplicacion: null, elemento: false,
-      presentacion: "Por unidad", foto: null, unidad: "und", precio: 28.00, volumen: { precio: 26.00, desde: 10 }, lote: null },
+      presentacion: "Por unidad", unidad: "und", precio: 28.00, volumen: { precio: 26.00, desde: 10 }, lote: null },
 
     // *** FLUIDOS (se venden por caja; el precio por caja SÍ se muestra) ***
     { id: "chevron-atf", web: true, categoria: "fluidos", marca: "Chevron", titulo: "ATF Chevron Supreme MD-3", codigo: "ATF-MD3",
       equivalencias: [], aplicacion: "Fluido para transmisiones automáticas", elemento: false,
-      presentacion: "Caja de 12 botellas de 1 qt (946 ml)", foto: "chevron.jpg", unidad: "caja", precio: 230.00, volumen: { precio: 225.00, desde: 5 }, lote: null },
+      presentacion: "Caja de 12 botellas de 1 qt (946 ml)", unidad: "caja", precio: 250.00, volumen: { precio: 245.00, desde: 4 },
+      escalas: [{ precio: 245.00, desde: 4 }, { precio: 240.00, desde: 8 }], lote: null },
     { id: "prestone-5050-rojo", web: true, categoria: "fluidos", marca: "Prestone", titulo: "Refrigerante Prestone 50/50 rojo", codigo: "PRESTONE-5050",
       equivalencias: [], aplicacion: "Sistema de refrigeración del motor", elemento: false,
-      presentacion: "Caja de 6 x 1 galón", foto: null, unidad: "caja", precio: 240.00, volumen: null, lote: null },
+      presentacion: "Caja de 6 x 1 galón", unidad: "caja", precio: 240.00, volumen: null, lote: null },
     { id: "prestone-33-verde", web: true, categoria: "fluidos", marca: "Prestone", titulo: "Refrigerante Prestone 33% verde", codigo: "PRESTONE-33",
       equivalencias: [], aplicacion: "Sistema de refrigeración del motor", elemento: false,
-      presentacion: "Caja de 6 x 1 galón", foto: null, unidad: "caja", precio: 180.00, volumen: null, lote: null }
+      presentacion: "Caja de 6 x 1 galón", unidad: "caja", precio: 180.00, volumen: null, lote: null }
 ];
 
 // Productos destacados de la portada, en este orden.
@@ -147,9 +159,30 @@ const LINEAS = {
     fluidos:     { nombre: "Fluidos",                pagina: "cat-fluidos.html",     desc: "ATF Chevron Supreme MD-3 y refrigerante Prestone, por caja." }
 };
 
+// Reglas comerciales de la web
+const REGLAS = {
+    filtrosCombinados: 10,   // desde esta cantidad de filtros (cualquier código) todo va a precio por volumen
+    deliveryGratisDesde: 200 // S/ con IGV, en Lima
+};
+
+// Fotos: img/productos/[código].jpg (por ejemplo img/productos/26350-2M000.jpg)
+PRODUCTOS.forEach(p => { p.foto = `img/productos/${p.codigo}.jpg`; });
+
+// Imagen genérica por tipo, si el código no tiene foto propia.
+function fotoGenerica(p) {
+    if (p.categoria === "aceite") return p.elemento ? "img/productos/generico-elemento.jpg" : "img/productos/generico-aceite-rosca.jpg";
+    if (p.categoria === "aire") return "img/productos/generico-aire.jpg";
+    if (p.categoria === "combustible") return "img/productos/generico-combustible.jpg";
+    return null;
+}
+
 /* ---------------------------------------------------------------------
    UTILIDADES COMPARTIDAS
    --------------------------------------------------------------------- */
+
+function esFiltro(p) {
+    return p.categoria !== "fluidos";
+}
 
 function productosPublicados() {
     return PRODUCTOS.filter(p => p.web);
@@ -181,14 +214,27 @@ function textoAplicacion(p) {
     return p.aplicacion || "Consultar aplicación por WhatsApp";
 }
 
-/* Precio que corresponde a una cantidad:
-   - desde la caja o el lote: precio especial a confirmar (no se muestra)
-   - desde el tramo de volumen: precio por volumen
-   - si no: precio por unidad */
-function precioParaCantidad(p, cantidad) {
-    if (p.lote && cantidad >= p.lote.cantidad) return { especial: true, precio: null, tramo: `${p.lote.tipo.toLowerCase()} (${p.lote.cantidad}+ ${p.unidad})` };
-    if (p.volumen && cantidad >= p.volumen.desde) return { especial: false, precio: p.volumen.precio, tramo: "volumen" };
-    return { especial: false, precio: p.precio, tramo: p.unidad === "caja" ? "por caja" : "por unidad" };
+/* Precio que corresponde a una cantidad.
+   filtrosPedido = total de filtros del pedido (todos los códigos juntos).
+   - Fluidos: precio por caja según sus escalas.
+   - Filtros: precio por volumen si llega al tramo del código o si el pedido
+     suma 10 filtros o más. Desde la caja o el lote: precio especial a
+     confirmar (para el total estimado se usa el precio por volumen). */
+function precioParaCantidad(p, cantidad, filtrosPedido) {
+    if (!esFiltro(p)) {
+        const escala = (p.escalas || (p.volumen ? [p.volumen] : [])).filter(e => cantidad >= e.desde).pop();
+        return escala
+            ? { especial: false, precio: escala.precio, tramo: "volumen", porCombinacion: false }
+            : { especial: false, precio: p.precio, tramo: "mayorista", porCombinacion: false };
+    }
+    const total = Math.max(filtrosPedido || 0, cantidad);
+    const porTramo = p.volumen && cantidad >= p.volumen.desde;
+    const porCombinacion = p.volumen && !porTramo && total >= REGLAS.filtrosCombinados;
+    if (p.lote && cantidad >= p.lote.cantidad) {
+        return { especial: true, precio: p.volumen ? p.volumen.precio : p.precio, tramo: "especial", porCombinacion: false };
+    }
+    if (porTramo || porCombinacion) return { especial: false, precio: p.volumen.precio, tramo: "volumen", porCombinacion };
+    return { especial: false, precio: p.precio, tramo: "mayorista", porCombinacion: false };
 }
 
 // Minúsculas y sin tildes, para comparar sin importar cómo escriba el cliente.
