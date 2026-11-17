@@ -27,8 +27,8 @@
         const q = input.value.trim();
         let lista = buscarProductos(q);
         if (linea) lista = lista.filter(p => p.categoria === linea);
-        if (orden.value === "menor") lista = [...lista].sort((a, b) => a.precio - b.precio);
-        if (orden.value === "mayor") lista = [...lista].sort((a, b) => b.precio - a.precio);
+        if (orden.value === "menor") lista = [...lista].sort((a, b) => (a.precio ?? Infinity) - (b.precio ?? Infinity));
+        if (orden.value === "mayor") lista = [...lista].sort((a, b) => (b.precio ?? -1) - (a.precio ?? -1));
         if (orden.value === "codigo") lista = [...lista].sort((a, b) => nombreCorto(a).localeCompare(nombreCorto(b)));
 
         const n = lista.length;

@@ -26,7 +26,7 @@
         <section class="seccion">
             <div class="contenedor">
                 <div class="pasos">
-                    <div class="paso"><div class="num">1</div><div><h3>Arma tu cotización</h3><p>En el catálogo, elige la cantidad de cada producto y toca "Agregar a cotización". Combina códigos: desde 10 filtros, el precio por volumen se aplica solo.</p></div></div>
+                    <div class="paso"><div class="num">1</div><div><h3>Arma tu cotización</h3><p>En el catálogo, elige la cantidad de cada producto y toca "Agregar a cotización". Desde S/ 500 en filtros y packs, eliges tu beneficio.</p></div></div>
                     <div class="paso"><div class="num">2</div><div><h3>Te confirmamos por WhatsApp</h3><p>Envías la lista con un toque. Te confirmamos disponibilidad, aplicación, total y fecha de entrega.</p></div></div>
                     <div class="paso"><div class="num">3</div><div><h3>Pagas por transferencia o efectivo</h3><p>En Lima, al contado o contra entrega. Te emitimos factura o boleta electrónica.</p></div></div>
                     <div class="paso"><div class="num">4</div><div><h3>Entregamos en Lima</h3><p>Delivery gratis en Lima desde S/ 200. Para montos menores, coordinamos contigo. A provincias, enviamos por agencia.</p></div></div>
@@ -39,12 +39,31 @@
             <div class="contenedor">
                 <div class="titulo centro"><div class="barras"><i></i><i></i></div>
                     <h2>Cómo leer <b>los precios</b></h2>
-                    <p>Cada filtro muestra tres opciones. Ejemplo con el 26350-2M000:</p>
+                    <p>Cada filtro tiene un precio mayorista único por unidad. Ejemplo con el 26350-2M000:</p>
                 </div>
                 <div class="ejemplo-precios">
-                    <div class="precios tres" id="ejemplo"></div>
-                    <p class="nota-igv centro"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios con IGV · Combina códigos para llegar al precio por volumen · Emitimos factura electrónica</p>
+                    <div class="precios dos" id="ejemplo"></div>
+                    <p class="nota-igv centro"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precio con IGV · Desde S/ 500 eliges tu beneficio · Emitimos factura electrónica</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="seccion">
+            <div class="contenedor">
+                <div class="volumen">
+                    <div class="volumen-txt">
+                        <h2>Elige tu beneficio: <b>descuento o filtros de regalo</b></h2>
+                        <p>Desde S/ 500 en filtros y packs, combinando los códigos que quieras, cada pedido gana un beneficio y tú eliges cuál. Sin crédito: pagas al contado o por transferencia.</p>
+                        <a class="btn btn-naranja" href="catalogo.html">Arma tu cotización</a>
+                    </div>
+                    <div class="volumen-ej" id="tabla-beneficio"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="seccion blanca">
+            <div class="contenedor">
+                <div class="racha" id="racha"></div>
             </div>
         </section>
 
@@ -54,10 +73,13 @@
                     <h2>Preguntas <b>frecuentes</b></h2>
                 </div>
                 <div class="faq">
-                    <details><summary>¿Tengo que comprar muchas unidades?</summary><div class="resp"><p>No. Atendemos pedidos de cualquier tamaño. Si combinas 10 filtros o más, de los códigos que quieras, accedes al precio por volumen.</p></div></details>
+                    <details><summary>¿Tengo que comprar muchas unidades?</summary><div class="resp"><p>No. Atendemos pedidos de cualquier tamaño. Desde S/ 500 eliges un descuento o filtros de regalo.</p></div></details>
                     <details><summary>¿Venden al público?</summary><div class="resp"><p>Somos distribuidores para talleres, lubricentros y tiendas. Si eres cliente final, escríbenos y te indicamos dónde conseguirlo.</p></div></details>
                     <details><summary>¿Cobran delivery?</summary><div class="resp"><p>En Lima es gratis desde S/ 200. Para montos menores, coordinamos contigo.</p></div></details>
-                    <details><summary>¿Cómo funciona el precio por volumen?</summary><div class="resp"><p>Cada filtro tiene un precio mayorista (por unidad) y un precio por volumen. Accedes al precio por volumen si llevas la cantidad indicada de ese código (por ejemplo, 10+ und) o si tu pedido suma 10 filtros o más, combinando los códigos que quieras. El carrito lo calcula solo.</p><p>Si llevas la caja o el lote completo de un código, el precio es especial y te lo confirmamos por WhatsApp.</p></div></details>
+                    <details><summary>¿Dan crédito?</summary><div class="resp"><p>Trabajamos al contado o por transferencia, y a cambio te damos mejores precios y beneficios por monto.</p></div></details>
+                    <details><summary>¿Cómo funciona "Elige tu beneficio"?</summary><div class="resp"><p>Todos los filtros tienen un precio mayorista único por unidad. Desde S/ 500 en filtros y packs, combinando los códigos que quieras, eliges: un descuento hoy o filtros 26300-02752 de regalo. El carrito te muestra cuánto te falta.</p><p>Si llevas la caja completa de un mismo código, te cotizamos su precio por WhatsApp.</p></div></details>
+                    <details><summary>¿Qué son los Packs Ahorro?</summary><div class="resp"><p>Son los filtros que lleva cada vehículo (aceite, aire y combustible) en un solo pedido y más baratos que por separado. Su precio es neto: suma para el delivery gratis y para tu beneficio, pero no recibe descuento adicional. <a href="cat-packs.html">Ver Packs Ahorro</a>.</p></div></details>
+                    <details><summary>¿Qué es la Racha LubriBaro?</summary><div class="resp"><p>Cada pedido de S/ 300 o más en filtros te deja un bono de vuelta para tu siguiente pedido. El bono no vence, y si vuelves a pedir dentro de 30 días, sube de nivel. Te lo llevamos por WhatsApp.</p></div></details>
                     <details><summary>¿Necesito RUC para comprar?</summary><div class="resp"><p>No. Puedes comprar con boleta o con factura electrónica.</p></div></details>
                     <details><summary>¿Los precios incluyen IGV?</summary><div class="resp"><p>Sí. Todos los precios de la web están en soles e incluyen IGV. En los filtros, el precio es por unidad; en los fluidos, por caja.</p></div></details>
                     <details><summary>¿Los productos son originales?</summary><div class="resp"><p>Sí. Los filtros son originales Hyundai y Kia y se entregan en su empaque. El ATF es Chevron Supreme MD-3 y el refrigerante es Prestone.</p></div></details>
@@ -80,10 +102,32 @@
         const ej = obtenerProducto("filtro-26350-2m000");
         if (ej) {
             document.getElementById("ejemplo").innerHTML = `
-                <div class="tier"><span class="t-label">Precio mayorista</span><span class="t-precio"><small>S/</small>${ej.precio.toFixed(2)}</span><span class="t-tramo">por unidad</span></div>
-                <div class="tier mejor"><span class="badge">Mejor precio</span><span class="t-label">Precio por volumen</span><span class="t-precio"><small>S/</small>${ej.volumen.precio.toFixed(2)}</span><span class="t-tramo">desde ${ej.volumen.desde} und o ${REGLAS.filtrosCombinados} filtros combinados</span></div>
-                <div class="tier cotiza"><span class="t-label">${ej.lote.tipo} ${ej.lote.cantidad} und</span><span class="t-precio">Precio especial: cotiza</span><span class="t-tramo">${ej.lote.cantidad}+ und</span></div>`;
+                <div class="tier mejor"><span class="badge">Precio único</span><span class="t-label">Precio mayorista</span><span class="t-precio"><small>S/</small>${ej.precio.toFixed(2)}</span><span class="t-tramo">por unidad</span></div>
+                <div class="tier cotiza"><span class="t-label">${ej.lote.tipo} ${ej.lote.cantidad} und</span><span class="t-precio">${ej.lote.tipo} completa: cotiza por WhatsApp</span><span class="t-tramo">${ej.lote.cantidad} und</span></div>`;
         }
+        document.getElementById("tabla-beneficio").innerHTML = `
+            <table class="tabla-beneficio">
+                <thead><tr><th>Pedido en filtros y packs</th><th>A) Descuento hoy</th><th>B) Filtros de regalo</th></tr></thead>
+                <tbody>
+                    <tr><td>Desde ${soles(REGLAS.deliveryGratisDesde)}</td><td colspan="2">Delivery gratis en Lima (suman también ATF y Prestone)</td></tr>
+                    ${BENEFICIOS.map((b, i) => {
+                        const sig = BENEFICIOS[i + 1];
+                        const rango = sig ? `${soles(b.desde)} a ${soles(sig.desde - 1)}` : `${soles(b.desde)} a más`;
+                        return `<tr><td>${rango}</td><td><b>${soles(b.descuento)}</b> menos</td><td><b>${b.regalo} filtros</b> (valen ${soles(b.valorRegalo)})</td></tr>`;
+                    }).join("")}
+                </tbody>
+            </table>
+            <p class="nota-beneficio">Los filtros de regalo son el ${CODIGO_REGALO}. Los Packs Ahorro y los filtros 28113-N9000, 28113-C7000, 28113-4H000 y 31922-26910 tienen precio neto: ${REGLAS.excluidosSumanAlBeneficio ? "suman para tu beneficio, pero no reciben descuento adicional" : "los packs suman para tu beneficio; esos filtros, no"}.</p>`;
+        document.getElementById("racha").innerHTML = `
+            <div>
+                <div class="barras"><i></i><i></i></div>
+                <h2>Pide seguido y <b>tu bono de vuelta crece</b></h2>
+                <p>Racha LubriBaro: cada pedido de ${soles(RACHA.minimoPedido)} o más en filtros te deja un bono para tu siguiente pedido, aparte de tu beneficio A o B. El bono no vence.</p>
+                <p>Si vuelves a pedir dentro de 30 días, subes de nivel; si pasan más de 30 días, el siguiente bono vuelve al nivel 1. Un bono activo a la vez, personal y no canjeable por dinero. Te avisamos por WhatsApp.</p>
+            </div>
+            <div class="niveles">${RACHA.niveles.map(n => `
+                <div class="nivel"><span class="n">${n.nombre}</span><span class="bono">Bono ${n.bono}</span><small>${n.cuando}.</small><small>Para tu ${n.usar.charAt(0).toLowerCase() + n.usar.slice(1)}.</small></div>`).join("")}
+            </div>`;
         document.getElementById("cta-wa").href = enlaceWhatsApp("Hola LubriBaro, tengo una consulta: ");
     </script>
 </body>

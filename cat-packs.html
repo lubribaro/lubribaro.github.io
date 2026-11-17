@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packs Ahorro: filtros por vehículo | LubriBaro</title>
+    <meta name="description" content="Packs Ahorro LubriBaro: los filtros de aceite, aire y combustible de cada vehículo en un solo pedido, más baratos que por separado.">
+    <meta name="theme-color" content="#41309A">
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body data-pagina="catalogo" data-categoria="packs">
+    <header id="sitio-header"></header>
+    <script src="productos.js"></script>
+    <script src="sitio.js"></script>
+
+    <main>
+        <section class="page-hero">
+            <div class="contenedor">
+                <div class="migas"><a href="index.html">Inicio</a><span class="sep">›</span><a href="catalogo.html">Catálogo</a><span class="sep">›</span><span>Packs Ahorro</span></div>
+                <h1>Packs <b>Ahorro</b></h1>
+                <p>El servicio completo en un solo pedido: los filtros que lleva cada vehículo, más baratos que por separado.</p>
+            </div>
+        </section>
+
+        <div class="contenedor catalogo-layout">
+            <aside class="filtros">
+                <div class="panel">
+                    <h3>Buscar</h3>
+                    <form class="campo-buscar" id="form-buscar" role="search">
+                        <label class="sr" for="q">Buscar por código o vehículo</label>
+                        <input id="q" type="search" placeholder="Vehículo o código" autocomplete="off">
+                        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+                    </form>
+                </div>
+                <div class="panel panel-lineas">
+                    <h3>Líneas</h3>
+                    <div class="lista-lineas" id="lista-lineas"></div>
+                </div>
+                <div class="panel panel-wa">
+                    <h3>¿No encuentras tu código?</h3>
+                    <p>Trabajamos más códigos Hyundai y Kia a pedido. Escríbenos el código o el vehículo y te cotizamos.</p>
+                    <a class="btn btn-wa btn-bloque" id="aviso-wa" href="#" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+                </div>
+            </aside>
+
+            <section aria-label="Productos">
+                <div class="chips-movil" id="chips-movil"></div>
+                <div class="barra-resultados">
+                    <div class="info" id="info"></div>
+                    <label class="orden">Ordenar por
+                        <select id="orden">
+                            <option value="">Destacados</option>
+                            <option value="menor">Precio: menor a mayor</option>
+                            <option value="mayor">Precio: mayor a menor</option>
+                            <option value="codigo">Código</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="grid-productos" id="grid"></div>
+                <p class="nota-igv centro" style="margin-top:24px"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios incluyen IGV · Emitimos factura electrónica</p>
+            </section>
+        </div>
+    </main>
+
+    <footer id="sitio-footer"></footer>
+    <script src="catalogo.js"></script>
+</body>
+</html>

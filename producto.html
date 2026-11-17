@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producto | LubriBaro</title>
-    <meta name="description" content="Ficha de producto LubriBaro: precio mayorista, precio por volumen, aplicación y equivalencias.">
+    <meta name="description" content="Ficha de producto LubriBaro: precio mayorista, aplicación, equivalencias y Packs Ahorro.">
     <meta name="theme-color" content="#41309A">
     <link rel="icon" href="favicon.png">
     <link rel="stylesheet" href="estilos.css">
@@ -38,11 +38,13 @@
                     <div class="sku" id="ui-codigo"></div>
                     <div class="datos-cortos" id="ui-pills"></div>
                     <p class="aplic-ficha" id="ui-aplic"></p>
+                    <div id="ui-piezas"></div>
+                    <div id="ui-pack-aviso"></div>
 
                     <div class="precios" id="ui-precios"></div>
-                    <p class="nota-igv"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Precios con IGV · Combina códigos para llegar al precio por volumen · Emitimos factura electrónica</p>
+                    <p class="nota-igv"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span id="ui-nota-precio">Precio con IGV · Desde S/ 500 eliges tu beneficio · Emitimos factura electrónica</span></p>
 
-                    <div class="agregar">
+                    <div class="agregar" id="bloque-agregar">
                         <label for="cantidad" id="lbl-cantidad">Cantidad</label>
                         <div class="agregar-fila">
                             <div class="stepper">
@@ -52,7 +54,7 @@
                             </div>
                             <button class="btn btn-naranja" type="button" onclick="agregarActual()">
                                 <svg class="ico" viewBox="0 0 24 24"><path d="M9 3.5h6v3H9z"/><path d="M7 5H5v16h14V5h-2"/><path d="M12 10v7M8.5 13.5h7"/></svg>
-                                Agregar a cotización
+                                <span id="txt-agregar">Agregar a cotización</span>
                             </button>
                         </div>
                         <div class="calculo" id="ui-calculo"></div>
@@ -61,7 +63,7 @@
 
                     <div class="entrega">
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M2.5 6h11v10h-11z"/><path d="M13.5 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></div>
-                            <div><strong>Lima: delivery gratis desde S/ 200</strong>Combinando filtros y fluidos. Para montos menores, coordinamos contigo el delivery o el recojo. Pagas contra entrega o al contado.</div></div>
+                            <div><strong>Lima: delivery gratis desde S/ 200</strong>Combinando filtros, packs y fluidos. Para montos menores, coordinamos contigo el delivery o el recojo. Pagas contra entrega o al contado.</div></div>
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3z"/><path d="M9 4v13M15 7v13"/></svg></div>
                             <div><strong>Provincias: envío por agencia</strong>Por Sanky u otra agencia que elijas, con pago adelantado al 100%.</div></div>
                         <div class="entrega-item"><div class="ic"><svg class="ico" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
@@ -128,28 +130,35 @@
         function agregarActual() { agregarACotizacion(prod.id, leerCantidad()); }
 
         function actualizarCalculo() {
+            if (prod.precio === null) {
+                $("ui-calculo").innerHTML = "El precio de este código se confirma por WhatsApp.";
+                $("sticky-precio").textContent = "Precio: consultar";
+                return;
+            }
             const n = leerCantidad();
-            // Filtros que ya están en la cotización (otros códigos): cuentan para los 10 combinados
-            const otros = esFiltro(prod) ? contarFiltros(leerCotizacion().filter(i => i.id !== prod.id)) : 0;
-            const pr = precioParaCantidad(prod, n, otros + n);
             const u = unidadTexto(prod, n);
-            let html = `${n} ${u} x <b>${soles(pr.precio)}</b>${pr.tramo === "volumen" ? ` <span class="ok">(precio por volumen${pr.porCombinacion ? ", combinando códigos" : ""})</span>` : ""} = <b>${soles(pr.precio * n)}</b>`;
-            if (pr.especial) {
-                html += `<br><span class="especial">Desde ${prod.lote.cantidad} ${u}: precio especial a confirmar</span>`;
-            } else if (pr.tramo === "mayorista" && prod.volumen) {
-                const faltanCodigo = prod.volumen.desde - n;
-                if (esFiltro(prod)) {
-                    const faltanMix = REGLAS.filtrosCombinados - (otros + n);
-                    html += `<br>Agrega ${faltanCodigo} und más de este código, o completa ${REGLAS.filtrosCombinados} filtros combinando códigos${otros ? ` (ya tienes ${otros} en tu cotización, te faltan ${faltanMix})` : ""}, y pagas ${soles(prod.volumen.precio)} c/u.`;
-                } else {
-                    html += `<br>Desde ${prod.volumen.desde} cajas pagas ${soles(prod.volumen.precio)} por caja.`;
-                }
+            const pr = precioParaCantidad(prod, n);
+            const subtotal = pr.precio * n;
+            let html = `${n} ${u} x <b>${soles(pr.precio)}</b> = <b>${soles(subtotal)}</b>`;
+            if (pr.cajaConfirmar) html += `<br><span class="especial">${prod.lote.tipo} completa (${prod.lote.cantidad} und): el precio te lo confirmamos por WhatsApp</span>`;
+            if (esPack(prod)) html += `<br><span class="ok">Ahorras ${soles(ahorroPack(prod) * n)} frente a comprar por separado.</span>`;
+            if (prod.categoria === "fluidos" && prod.escalas) {
+                const sig = prod.escalas.find(e => n < e.desde);
+                if (sig) html += `<br>Desde ${sig.desde} cajas pagas ${soles(sig.precio)} por caja.`;
+            }
+            // Beneficio: suma lo que ya está en la cotización (sin este producto) + esta línea
+            if (sumaAlBeneficio(prod)) {
+                const resto = calcularCotizacion().lineas.filter(l => l.p.id !== prod.id && sumaAlBeneficio(l.p)).reduce((a, l) => a + l.subtotal, 0);
+                const monto = resto + subtotal;
+                const nivel = beneficioPara(monto), sig = siguienteBeneficio(monto);
+                if (nivel) html += `<br><span class="ok">Con tu cotización llegas a ${soles(monto)}: eliges ${textoBeneficio(nivel)}.</span>`;
+                else if (sig) html += `<br>Te faltan ${soles(sig.desde - monto)} para elegir: ${textoBeneficio(sig)}.`;
             }
             $("ui-calculo").innerHTML = html;
-            $("sticky-precio").textContent = pr.especial ? "Precio especial a confirmar" : `${soles(pr.precio)} ${prod.unidad === "caja" ? "x caja" : "c/u"} · ${n} ${u}`;
+            $("sticky-precio").textContent = `${soles(pr.precio)} ${prod.unidad === "caja" ? "x caja" : prod.unidad === "pack" ? "el pack" : "c/u"} · ${n} ${u}`;
             // Resalta la tarjeta del precio que aplica
             document.querySelectorAll("#ui-precios .tier").forEach(t => t.classList.remove("aplica"));
-            let tramo = pr.especial ? "lote" : pr.tramo === "volumen" ? "volumen" : "unidad";
+            let tramo = pr.cajaConfirmar ? "lote" : "unidad";
             if (prod.escalas && pr.tramo === "volumen") tramo = "e" + prod.escalas.filter(e => n >= e.desde).length;
             const activa = document.querySelector(`#ui-precios .tier[data-tramo="${tramo}"]`);
             if (activa) activa.classList.add("aplica");
@@ -159,9 +168,16 @@
             const caja = p.unidad === "caja";
             const u = caja ? "cajas" : "und";
             const t = [];
-            if (caja) {
-                // Fluidos: precio por caja y sus escalas
-                const escalas = p.escalas || (p.volumen ? [p.volumen] : []);
+            if (esPack(p)) {
+                t.push(`<div class="tier mejor" data-tramo="unidad"><span class="badge">Precio pack</span><span class="t-label">Precio del pack</span>
+                    <span class="t-precio"><small>S/</small>${p.precio.toFixed(2)}</span>
+                    <span class="t-tramo">${escaparHTML(p.presentacion)}</span></div>`);
+                t.push(`<div class="tier"><span class="t-label">Por separado</span>
+                    <span class="t-precio tachado"><small>S/</small>${precioSeparado(p).toFixed(2)}</span>
+                    <span class="t-tramo ahorro">Ahorras ${soles(ahorroPack(p))}</span></div>`);
+            } else if (caja) {
+                // Fluidos: precio por caja según cantidad de cajas
+                const escalas = p.escalas || [];
                 const hasta = escalas.length ? escalas[0].desde - 1 : null;
                 t.push(`<div class="tier" data-tramo="unidad"><span class="t-label">Precio por caja</span>
                     <span class="t-precio"><small>S/</small>${p.precio.toFixed(2)}</span>
@@ -172,17 +188,18 @@
                         <span class="t-precio"><small>S/</small>${e.precio.toFixed(2)}</span>
                         <span class="t-tramo">por caja</span></div>`);
                 });
+            } else if (p.precio === null) {
+                t.push(`<div class="tier cotiza" data-tramo="unidad"><span class="t-label">Precio mayorista</span>
+                    <span class="t-precio">Precio: consultar</span>
+                    <span class="t-tramo">por WhatsApp</span></div>`);
             } else {
-                t.push(`<div class="tier" data-tramo="unidad"><span class="t-label">Precio mayorista</span>
+                t.push(`<div class="tier mejor" data-tramo="unidad"><span class="badge">Precio único</span><span class="t-label">Precio mayorista</span>
                     <span class="t-precio"><small>S/</small>${p.precio.toFixed(2)}</span>
                     <span class="t-tramo">por unidad</span></div>`);
-                if (p.volumen) t.push(`<div class="tier mejor" data-tramo="volumen"><span class="badge">Mejor precio</span><span class="t-label">Precio por volumen</span>
-                    <span class="t-precio"><small>S/</small>${p.volumen.precio.toFixed(2)}</span>
-                    <span class="t-tramo">desde ${p.volumen.desde} und o ${REGLAS.filtrosCombinados} filtros combinados</span></div>`);
             }
             if (p.lote) t.push(`<div class="tier cotiza" data-tramo="lote"><span class="t-label">${p.lote.tipo} ${p.lote.cantidad} ${u}</span>
-                <span class="t-precio">Precio especial: cotiza</span>
-                <span class="t-tramo">${p.lote.cantidad}+ ${u}</span></div>`);
+                <span class="t-precio">${p.lote.tipo} completa: cotiza por WhatsApp</span>
+                <span class="t-tramo">${p.lote.cantidad} ${u}</span></div>`);
             const el = $("ui-precios");
             el.classList.add(["", "uno", "dos", "tres"][t.length]);
             el.innerHTML = t.join("");
@@ -193,31 +210,65 @@
         } else {
             const p = prod;
             const caja = p.unidad === "caja";
+            const pack = esPack(p);
             const linea = LINEAS[p.categoria];
-            const nombre = caja ? p.titulo : `${p.titulo} ${p.marca} ${p.codigo}`;
-            document.title = `${nombre} | LubriBaro`;
+            document.title = `${caja || pack ? p.titulo : `${p.titulo} ${p.marca} ${p.codigo}`} | LubriBaro`;
             $("contenido-producto").classList.remove("oculto");
             $("miga-linea").textContent = linea.nombre;
             $("miga-linea").href = linea.pagina;
-            $("miga-codigo").textContent = caja ? p.titulo : p.codigo;
+            $("miga-codigo").textContent = nombreCorto(p);
 
-            $("ui-foto").innerHTML = (caja ? "" : `<span class="sello-orig">${ico("original")}Original garantizado</span>`) + htmlFoto(p, false);
-            $("ui-garantias").innerHTML = [["original", caja ? "Producto original" : "Original en su caja"], ["camion", "Entrega personal en Lima"], ["factura", "Factura electrónica"]]
+            const sello = pack ? `<span class="sello-orig sello-ahorro">Ahorras ${soles(ahorroPack(p))}</span>`
+                : (caja ? "" : `<span class="sello-orig">${ico("original")}Original garantizado</span>`);
+            $("ui-foto").innerHTML = sello + htmlFoto(p, false);
+            $("ui-garantias").innerHTML = [["original", caja ? "Producto original" : "Original en su caja"], ["camion", "Delivery gratis en Lima desde S/ 200"], ["factura", "Factura electrónica"]]
                 .map(([i, t]) => `<div>${ico(i)}${t}</div>`).join("");
-            $("ui-marca").textContent = caja ? `${p.marca} · ${linea.nombre}` : `${p.marca} original · ${linea.nombre}`;
-            $("ui-titulo").innerHTML = caja ? escaparHTML(p.titulo) : `<span class="cod">${escaparHTML(p.codigo)}</span>${escaparHTML(p.titulo)}`;
-            $("ui-codigo").innerHTML = caja ? `Se vende por caja` : (p.equivalencias.length ? `Equivale a: <b>${escaparHTML(p.equivalencias.join(", "))}</b>` : "");
-            $("ui-pills").innerHTML = `<span class="pill">Presentación: <b>${escaparHTML(p.presentacion)}</b></span>` +
-                (p.elemento ? `<span class="pill"><b>Tipo elemento</b> (cartucho)</span>` : "") +
-                "";
-            $("ui-aplic").innerHTML = `<b>Aplicación:</b> <span class="${p.aplicacion ? "" : "consultar"}">${escaparHTML(textoAplicacion(p))}</span>`;
-            $("lbl-cantidad").textContent = caja ? "Cantidad (cajas)" : "Cantidad (unidades)";
+            $("ui-marca").textContent = pack ? `Pack Ahorro · ${p.marca}` : (caja ? `${p.marca} · ${linea.nombre}` : `${p.marca} original · ${linea.nombre}`);
+            $("ui-titulo").innerHTML = caja || pack ? escaparHTML(p.titulo) : `<span class="cod">${escaparHTML(p.codigo)}</span>${escaparHTML(p.titulo)}`;
+            $("ui-codigo").innerHTML = pack ? "Un solo pedido, más barato que por separado" : (caja ? "Se vende por caja" : (p.equivalencias.length ? `Equivale a: <b>${escaparHTML(p.equivalencias.join(", "))}</b>` : ""));
+            $("ui-pills").innerHTML = `<span class="pill">${pack ? "Incluye" : "Presentación"}: <b>${escaparHTML(p.presentacion)}</b></span>` +
+                (p.elemento ? `<span class="pill"><b>Tipo elemento</b> (cartucho)</span>` : "");
+            $("ui-aplic").innerHTML = `<b>${pack ? "Para" : "Aplicación"}:</b> <span class="${p.aplicacion ? "" : "consultar"}">${escaparHTML(textoAplicacion(p))}</span>`;
+            $("lbl-cantidad").textContent = caja ? "Cantidad (cajas)" : pack ? "Cantidad (packs)" : "Cantidad (unidades)";
+            if (pack) $("txt-agregar").textContent = "Agregar pack a cotización";
             tarjetasPrecio(p);
 
-            $("ui-wa").innerHTML = WA_SVG + (p.aplicacion ? "Consultar este producto por WhatsApp" : "Consultar aplicación por WhatsApp");
-            $("ui-wa").href = enlaceWhatsApp(`Hola LubriBaro, consulto por ${caja ? p.titulo : "el " + p.codigo + " (" + p.titulo + " " + p.marca + ")"}. `);
+            // Piezas del pack
+            if (pack) {
+                $("ui-piezas").innerHTML = `<div class="pack-piezas"><b>Piezas incluidas</b>${p.piezas.map(x => {
+                    const f = productoPorCodigo(x.codigo);
+                    return `<a class="pieza" href="producto.html?id=${encodeURIComponent(f.id)}">
+                        <span class="mini">${htmlFoto(f)}</span>
+                        <span><strong>${x.cantidad > 1 ? x.cantidad + " × " : ""}${escaparHTML(f.codigo)}</strong><small>${escaparHTML(f.titulo)} · ${escaparHTML(textoAplicacion(f))}</small></span>
+                        <span class="p-precio">${soles(f.precio * x.cantidad)}</span>
+                    </a>`;
+                }).join("")}</div>`;
+            }
+            // Aviso: este filtro viene en un pack
+            const packs = esFiltro(p) ? packsConCodigo(p.codigo) : [];
+            if (packs.length) {
+                $("ui-pack-aviso").innerHTML = packs.map(k => `<a class="aviso-pack" href="producto.html?id=${encodeURIComponent(k.id)}">${ico("grid")}<span>Este filtro viene en el <b>${escaparHTML(k.titulo)}</b>: ahorras ${soles(ahorroPack(k))}</span>${ico("flecha")}</a>`).join("");
+            }
 
-            const filas = [
+            // Precio "consultar": sin carrito, solo WhatsApp
+            const msgWa = `Hola LubriBaro, consulto por ${caja || pack ? p.titulo : "el " + p.codigo + " (" + p.titulo + " " + p.marca + ")"}. `;
+            if (p.precio === null) {
+                $("bloque-agregar").innerHTML = `<a class="btn btn-wa btn-bloque" href="${enlaceWhatsApp(`Hola LubriBaro, quiero el precio del ${p.codigo} (${p.titulo} ${p.marca}).`)}" target="_blank" rel="noopener">${waIcono(20)} Consultar precio por WhatsApp</a><div class="calculo" id="ui-calculo"></div><a class="link-wa oculto" id="ui-wa"></a>`;
+                $("sticky-bar").querySelector(".btn").outerHTML = `<a class="btn btn-wa" href="${enlaceWhatsApp(`Hola LubriBaro, quiero el precio del ${p.codigo}.`)}" target="_blank" rel="noopener">Consultar precio</a>`;
+            } else {
+                $("ui-wa").innerHTML = WA_SVG + (p.aplicacion ? "Consultar este producto por WhatsApp" : "Consultar aplicación por WhatsApp");
+                $("ui-wa").href = enlaceWhatsApp(msgWa);
+                if (pack) $("sticky-bar").querySelector(".btn").textContent = "Agregar pack a cotización";
+            }
+
+            const filas = pack ? [
+                ["Pack", p.titulo],
+                ["Para", p.aplicacion],
+                ["Incluye", p.piezas.map(x => `${x.cantidad > 1 ? x.cantidad + " × " : ""}${x.codigo}`).join(" + ")],
+                ["Precio por separado", soles(precioSeparado(p))],
+                ["Precio del pack", `${soles(p.precio)}, IGV incluido`],
+                ["Ahorro", soles(ahorroPack(p))]
+            ] : [
                 ["Producto", caja ? p.titulo : `${p.titulo} ${p.marca}`],
                 ["Línea", linea.nombre],
                 ["Marca", p.marca],
@@ -225,22 +276,29 @@
                 ["Equivalencias", p.equivalencias.length ? p.equivalencias.join(", ") : null],
                 ["Presentación", p.presentacion],
                 ["Condición", "Original, en su empaque"],
-                ["Precio", caja ? `${soles(p.precio)} por caja, IGV incluido` : `${soles(p.precio)} precio mayorista por unidad, IGV incluido`]
-            ].filter(f => f[1]);
-            $("ui-tabla").innerHTML = filas.map(([k, v]) => `<tr><th>${k}</th><td>${escaparHTML(v)}</td></tr>`).join("");
+                ["Precio", p.precio === null ? "Consultar por WhatsApp" : (caja ? `${soles(p.precio)} por caja, IGV incluido` : `${soles(p.precio)} precio mayorista por unidad, IGV incluido`)]
+            ];
+            $("ui-tabla").innerHTML = filas.filter(f => f[1]).map(([k, v]) => `<tr><th>${k}</th><td>${escaparHTML(v)}</td></tr>`).join("");
 
-            $("ui-compat").innerHTML = p.aplicacion ? escaparHTML(p.aplicacion) : `<span style="color:var(--texto-2)">Consultar aplicación por WhatsApp.</span>`;
-            $("ui-equiv").innerHTML = p.equivalencias.length ? `<h3 style="margin-top:18px">Equivalencias</h3><p>${escaparHTML(p.equivalencias.join(" · "))}</p>` : "";
+            if (pack) {
+                $("ui-compat").innerHTML = p.piezas.map(x => { const f = productoPorCodigo(x.codigo); return `<b>${escaparHTML(f.codigo)}</b>: ${escaparHTML(textoAplicacion(f))}`; }).join("<br>");
+                $("ui-equiv").innerHTML = "";
+            } else {
+                $("ui-compat").innerHTML = p.aplicacion ? escaparHTML(p.aplicacion) : `<span style="color:var(--gris)">Consultar aplicación por WhatsApp.</span>`;
+                $("ui-equiv").innerHTML = p.equivalencias.length ? `<h3 style="margin-top:18px">Equivalencias</h3><p>${escaparHTML(p.equivalencias.join(" · "))}</p>` : "";
+            }
 
             const rel = productosDeCategoria(p.categoria).filter(x => x.id !== p.id).slice(0, 4);
             if (rel.length) { $("rel-linea").textContent = linea.nombre.toLowerCase(); $("grid-relacionados").innerHTML = rel.map(htmlTarjeta).join(""); }
             else $("bloque-relacionados").remove();
 
-            $("sticky-titulo").textContent = caja ? p.titulo : p.codigo;
-            $("sticky-foto").innerHTML = `<img src="${p.foto}" alt="" onerror="this.remove()">`;
+            $("sticky-titulo").textContent = nombreCorto(p);
+            $("sticky-foto").innerHTML = pack ? "" : `<img src="${p.foto}" alt="" onerror="this.remove()">`;
 
-            $("cantidad").addEventListener("input", actualizarCalculo);
-            $("cantidad").addEventListener("change", () => { $("cantidad").value = leerCantidad(); actualizarCalculo(); });
+            if (p.precio !== null) {
+                $("cantidad").addEventListener("input", actualizarCalculo);
+                $("cantidad").addEventListener("change", () => { $("cantidad").value = leerCantidad(); actualizarCalculo(); });
+            }
             actualizarCalculo();
 
             const barra = $("sticky-bar");

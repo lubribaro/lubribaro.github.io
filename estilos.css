@@ -803,3 +803,88 @@ a.c-card:hover { border-color: var(--morado); }
 .aviso-cot.ok { background: var(--verde-50); color: #0F5C37; }
 .aviso-cot.ok svg.ico { color: var(--verde); }
 .item-cot .calc .especial { display: block; margin-top: 3px; font-size: .74rem; padding: 2px 7px; }
+
+/* =====================================================================
+   AJUSTES 17 NOV 2026 (2): precio único, Packs Ahorro, Elige tu beneficio,
+   Racha LubriBaro
+   ===================================================================== */
+/* Precio "consultar" */
+.card-prod .precio.consultar { font-size: 1.25rem; color: var(--naranja-600); }
+/* Packs: mosaico con las fotos de las piezas */
+.foto-pack { display: grid; gap: 6px; }
+.foto-pack.n2 { grid-template-columns: 1fr 1fr; }
+.foto-pack.n3 { grid-template-columns: 1fr 1fr 1fr; }
+.foto-pack.n4 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+.foto-pack > span { position: relative; background: #fff; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; min-height: 0; }
+.foto-pack > span > img, .foto-pack > span > .foto-pendiente { position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); object-fit: contain; }
+.foto-pack .foto-pendiente small, .foto-pack .ref-badge { display: none; }
+.foto-pack .foto-pendiente svg.ico { width: 28px; height: 28px; }
+.foto-pack .foto-pendiente b { font-size: .85rem; }
+.foto-principal > .foto-pack { position: absolute; inset: 30px; }
+.item-cot .mini > .foto-pack { position: absolute; inset: 3px; gap: 2px; }
+.item-cot .mini .foto-pack > span { border-radius: 4px; }
+.item-cot .mini .foto-pack .foto-pendiente b { display: none; }
+.sugerencias .s-img .foto-pack { width: 100%; height: 100%; gap: 1px; }
+.sugerencias .s-img .foto-pack > span { border: none; border-radius: 0; }
+.sello-ahorro { background: var(--naranja); }
+.card-pack .vol s, .tier .tachado { color: var(--gris); text-decoration: line-through; }
+.card-pack .vol { background: var(--naranja-50); color: var(--naranja-600); }
+.tier .t-tramo.ahorro { color: var(--verde); font-weight: 800; }
+.pack-piezas { margin: 14px 0 0; display: grid; gap: 8px; }
+.pack-piezas > b { font-size: .92rem; }
+.pieza { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center; padding: 8px 10px; border: 1px solid var(--linea); border-radius: 12px; text-decoration: none; color: var(--tinta); }
+.pieza:hover { border-color: var(--morado); }
+.pieza .mini { position: relative; width: 52px; height: 52px; border: 1px solid var(--linea); border-radius: 8px; overflow: hidden; background: #fff; }
+.pieza .mini > img, .pieza .mini > .foto-pendiente { position: absolute; inset: 3px; width: calc(100% - 6px); height: calc(100% - 6px); object-fit: contain; }
+.pieza .mini .foto-pendiente b, .pieza .mini .foto-pendiente small, .pieza .ref-badge { display: none; }
+.pieza .mini .foto-pendiente svg.ico { width: 24px; height: 24px; }
+.pieza strong { display: block; font-family: var(--display); font-size: 1.15rem; color: var(--morado); line-height: 1.1; }
+.pieza small { display: block; color: var(--gris); font-size: .82rem; line-height: 1.3; }
+.pieza .p-precio { font-weight: 700; font-size: .92rem; white-space: nowrap; }
+.aviso-pack { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 12px 14px; background: var(--naranja-50); border: 1px solid #FFD9BD; border-radius: 12px; color: #6B3C12; text-decoration: none; font-size: .94rem; }
+.aviso-pack svg.ico { color: var(--naranja-600); }
+.aviso-pack b { color: var(--tinta); }
+.aviso-pack:hover { border-color: var(--naranja); }
+
+/* Carrito: beneficio y ahorro */
+.elige-beneficio { border: 2px solid var(--morado-100); border-radius: 12px; padding: 10px 12px; margin: 4px 0 12px; display: grid; gap: 6px; background: #fff; }
+.elige-beneficio > b { font-family: var(--display); text-transform: uppercase; font-size: 1.05rem; color: var(--morado); }
+.elige-beneficio label { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1.5px solid var(--linea); border-radius: 9px; cursor: pointer; font-size: .88rem; line-height: 1.3; }
+.elige-beneficio label.activo { border-color: var(--morado); background: var(--morado-50); }
+.elige-beneficio input { accent-color: var(--morado); width: 18px; height: 18px; flex-shrink: 0; }
+.total-fila.sub { font-size: .9rem; color: var(--gris); margin-bottom: 2px; }
+.total-fila.sub span { font-weight: 600; }
+.ahorro-fila { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; background: var(--verde-50); color: #0F5C37; border-radius: 9px; padding: 7px 11px; margin: 6px 0; font-size: .86rem; font-weight: 600; }
+.ahorro-fila b { font-size: 1rem; color: var(--verde); white-space: nowrap; }
+.ahorro-fila small { font-weight: 500; }
+
+/* Inicio: Packs Ahorro, Elige tu beneficio y Racha */
+.grid-packs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 1000px) { .grid-packs { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .grid-packs { grid-template-columns: 1fr; } }
+.tabla-beneficio { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--linea); border-radius: 12px; overflow: hidden; font-size: .95rem; }
+.tabla-beneficio th, .tabla-beneficio td { padding: 11px 12px; text-align: left; border-bottom: 1px solid var(--linea); }
+.tabla-beneficio tr:last-child td { border-bottom: none; }
+.tabla-beneficio thead th { background: var(--morado-50); color: var(--morado); font-weight: 700; font-size: .86rem; }
+.tabla-beneficio td:first-child { font-weight: 700; white-space: nowrap; }
+.tabla-beneficio td b { font-family: var(--display); font-size: 1.15rem; color: var(--morado); }
+.nota-beneficio { font-size: .84rem; color: var(--gris); margin: 10px 0 0; }
+.racha { display: grid; grid-template-columns: 1fr 1.4fr; gap: 30px; align-items: center; background: #fff; border: 1px solid var(--linea); border-radius: 20px; padding: 34px; }
+.racha h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(1.9rem, 3.4vw, 2.5rem); line-height: 1; margin: 0 0 10px; }
+.racha h2 b { color: var(--naranja); font-weight: inherit; }
+.racha > div > p { color: var(--gris); margin: 0 0 8px; }
+.niveles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.nivel { position: relative; border: 1.5px solid var(--linea); border-radius: 14px; padding: 16px 14px 14px; background: var(--fondo); }
+.nivel:last-child { border-color: var(--morado); background: var(--morado-50); }
+.nivel .n { display: inline-block; font-family: var(--display); font-weight: 800; color: #fff; background: var(--morado); padding: 2px 12px; clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); font-size: .95rem; }
+.nivel:nth-child(2) .n { background: var(--naranja); }
+.nivel .bono { display: block; font-family: var(--display); font-weight: 800; font-size: 1.55rem; color: var(--tinta); line-height: 1.05; margin: 8px 0 4px; }
+.nivel small { display: block; color: var(--gris); font-size: .82rem; line-height: 1.35; }
+@media (max-width: 860px) { .racha { grid-template-columns: 1fr; padding: 24px 18px; } }
+@media (max-width: 560px) { .niveles { grid-template-columns: 1fr; } }
+.foto-pack.n3 { grid-template-columns: 1.2fr 1fr; grid-template-rows: 1fr 1fr; }
+.foto-pack.n3 > span:first-child { grid-row: span 2; }
+.toast { width: min(440px, calc(100vw - 30px)); }
+.toast #toast-txt { flex: 1; min-width: 0; }
+.card-prod .foto > .foto-pack { position: absolute; inset: 14px; }
+@media (max-width: 560px) { .foto-pack .foto-pendiente b { display: none; } .foto-pack .foto-pendiente svg.ico { width: 22px; height: 22px; } }
