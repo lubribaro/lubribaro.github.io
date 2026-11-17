@@ -12,8 +12,11 @@
    - Precio único por unidad ("Precio mayorista"). No hay precio por volumen.
    - Caja completa de un mismo código: se cotiza por WhatsApp (no se publica).
    - precio: null = "Precio: consultar" (se cotiza por WhatsApp).
-   - Delivery gratis en Lima desde S/ 200 (filtros, packs y fluidos).
-   - "Elige tu beneficio" desde S/ 500 en filtros y packs (ver BENEFICIOS).
+   - Despacho gratis en Lima desde S/ 200 (filtros, packs y fluidos), en las
+     rutas de miércoles y sábado.
+   - Desde S/ 500 en filtros y packs, el carrito avisa que el pedido califica
+     para un beneficio exclusivo (los montos se confirman por WhatsApp; no se
+     publican en la web).
    - Packs Ahorro: precio neto, cuentan como una línea en la cotización.
 
    Campos:
@@ -32,7 +35,6 @@
                     y, si no existe, usa la imagen genérica de su tipo.
      unidad         "und" (filtros) | "caja" (fluidos)
      precio         Precio por unidad (o por caja en fluidos)
-     beneficio      false si el filtro no entra a "Elige tu beneficio"
      escalas        (solo fluidos) precio por caja según cantidad de cajas
      piezas         (solo packs) filtros que incluye el pack
      lote           { tipo: "Caja" | "Lote", cantidad } desde esa cantidad
@@ -125,16 +127,16 @@ const PRODUCTOS = [
       presentacion: "Caja de 6 und", unidad: "und", precio: 162.00, lote: { tipo: "Caja", cantidad: 6 } },
     { id: "filtro-28113-n9000", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-N9000",
       equivalencias: [], aplicacion: "Hyundai Staria; Santa Fe 2021/2022; Tucson 2021/2022", elemento: false,
-      presentacion: "Lote de 10 und", unidad: "und", beneficio: false, precio: 58.50, lote: { tipo: "Lote", cantidad: 10 } },
+      presentacion: "Lote de 10 und", unidad: "und", precio: 58.50, lote: { tipo: "Lote", cantidad: 10 } },
     { id: "filtro-28130-5m100", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28130-5M100",
       equivalencias: [], aplicacion: "Mighty Truck", elemento: false,
       presentacion: "Por unidad", unidad: "und", precio: 155.00, lote: null },
     { id: "filtro-28113-c7000", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-C7000",
       equivalencias: [], aplicacion: "Hyundai i20 1.1, 1.2 y 1.4; Accent 2019+; Kia Sonet y K3 (algunos modelos); Eon e i10 (algunos modelos)", elemento: false,
-      presentacion: "Por unidad", unidad: "und", beneficio: false, precio: 41.00, lote: null },
+      presentacion: "Por unidad", unidad: "und", precio: 41.00, lote: null },
     { id: "filtro-28113-4h000", web: true, categoria: "aire", marca: "Hyundai", titulo: "Filtro de aire", codigo: "28113-4H000",
       equivalencias: [], aplicacion: "Hyundai H1 2.5 CRDi 8V 2012+", elemento: false,
-      presentacion: "Lote de 12 und", unidad: "und", beneficio: false, precio: 46.50, lote: { tipo: "Lote", cantidad: 12 } },
+      presentacion: "Lote de 12 und", unidad: "und", precio: 46.50, lote: { tipo: "Lote", cantidad: 12 } },
 
     // *** FILTROS DE COMBUSTIBLE ***
     { id: "filtro-31922-2e900", web: true, categoria: "combustible", marca: "Hyundai / Kia", titulo: "Filtro de combustible", codigo: "31922-2E900",
@@ -152,7 +154,7 @@ const PRODUCTOS = [
       presentacion: "Lote de 12 und", unidad: "und", precio: null, lote: { tipo: "Lote", cantidad: 12 } },
     { id: "filtro-31922-26910", web: true, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31922-26910",
       equivalencias: [], aplicacion: null, elemento: false,
-      presentacion: "Caja de 10 und", unidad: "und", beneficio: false, precio: 108.00, lote: { tipo: "Caja", cantidad: 10 } },
+      presentacion: "Caja de 10 und", unidad: "und", precio: 108.00, lote: { tipo: "Caja", cantidad: 10 } },
     { id: "filtro-31945-52161", web: true, categoria: "combustible", marca: "Hyundai", titulo: "Filtro de combustible", codigo: "31945-52161",
       equivalencias: [], aplicacion: "County D4DD", elemento: false,
       presentacion: "Caja de 10 und", unidad: "und", precio: 270.00, lote: { tipo: "Caja", cantidad: 10 } },
@@ -194,27 +196,8 @@ const LINEAS = {
 
 // Reglas comerciales de la web
 const REGLAS = {
-    deliveryGratisDesde: 200,          // S/ con IGV, en Lima (filtros, packs y fluidos)
-    excluidosSumanAlBeneficio: true    // los filtros con beneficio: false (precio neto) suman al monto de "Elige tu beneficio"; pon false si no deben sumar
-};
-
-/* "Elige tu beneficio": el monto se cuenta en filtros y packs (ATF y
-   Prestone suman solo para el delivery). El cliente elige A o B. */
-const BENEFICIOS = [
-    { desde: 500,  descuento: 35,  regalo: 5,  valorRegalo: 60 },
-    { desde: 1000, descuento: 80,  regalo: 12, valorRegalo: 144 },
-    { desde: 2000, descuento: 180, regalo: 25, valorRegalo: 300 }
-];
-const CODIGO_REGALO = "26300-02752";
-
-/* Racha LubriBaro: se lleva por WhatsApp; aquí solo los textos de la web. */
-const RACHA = {
-    minimoPedido: 300,
-    niveles: [
-        { nivel: 1, nombre: "Nivel 1", cuando: "Primer pedido, o al reiniciar", bono: "S/ 20", usar: "Próximo pedido de S/ 400 o más en filtros" },
-        { nivel: 2, nombre: "Nivel 2", cuando: "Vuelves a pedir dentro de 30 días", bono: "S/ 30", usar: "Próximo pedido de S/ 500 o más" },
-        { nivel: 3, nombre: "Nivel 3", cuando: "Otra vez dentro de 30 días, y en adelante", bono: "S/ 40 + Cliente Frecuente", usar: "Próximo pedido de S/ 600 o más" }
-    ]
+    despachoGratisDesde: 200,   // S/ con IGV, en Lima (filtros, packs y fluidos)
+    avisoBeneficioDesde: 500    // S/ en filtros y packs: el carrito avisa que el pedido califica para un beneficio
 };
 
 // Fotos: img/productos/[código].jpg (por ejemplo img/productos/26350-2M000.jpg)
@@ -255,18 +238,9 @@ function ahorroPack(pack) {
 function packsConCodigo(codigo) {
     return productosPublicados().filter(p => esPack(p) && p.piezas.some(x => x.codigo === codigo));
 }
-// ¿Suma al monto de "Elige tu beneficio"?
+// ¿Suma al monto que activa el aviso de beneficio? (filtros y packs; no ATF ni Prestone)
 function sumaAlBeneficio(p) {
-    if (esPack(p)) return true;
-    if (!esFiltro(p)) return false;
-    return p.beneficio !== false || REGLAS.excluidosSumanAlBeneficio;
-}
-// Nivel de beneficio alcanzado por un monto (o null)
-function beneficioPara(monto) {
-    return BENEFICIOS.filter(b => monto >= b.desde).pop() || null;
-}
-function siguienteBeneficio(monto) {
-    return BENEFICIOS.find(b => monto < b.desde) || null;
+    return esPack(p) || esFiltro(p);
 }
 
 function productosPublicados() {

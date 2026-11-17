@@ -220,8 +220,8 @@ function htmlHeader(pagina) {
     <div class="util-bar"><div class="contenedor">
         <div class="util-izq">
             <span class="u1">${ico("tienda")}Precios mayoristas para talleres, lubricentros y tiendas</span>
-            <span class="u2">${ico("original")}Desde S/ ${BENEFICIOS[0].desde} elige: descuento o filtros de regalo</span>
-            <span class="u3">${ico("camion")}Delivery gratis en Lima desde S/ ${REGLAS.deliveryGratisDesde}</span>
+            <span class="u2">${ico("original")}Más volumen, más beneficios</span>
+            <span class="u3">${ico("camion")}Despacho gratis en Lima desde S/ ${REGLAS.despachoGratisDesde}</span>
         </div>
     </div></div>
     <div class="header-main"><div class="contenedor">
@@ -400,19 +400,12 @@ function unidadTexto(p, n) {
 }
 
 /* Calcula la cotización con las reglas del archivo 05:
-   - precio único por unidad (fluidos: precio por caja según escalas);
+   - precio único por unidad (fluidos: precio por caja según cantidad);
    - si un filtro llega a su caja o lote: "precio de caja a confirmar"
      y el total usa el precio único;
-   - delivery gratis en Lima desde S/ 200 (todo el pedido);
-   - "Elige tu beneficio" según el monto en filtros y packs. */
-function beneficioElegido() {
-    return sessionStorageSeguro("lb_beneficio") === "B" ? "B" : "A";
-}
-function elegirBeneficio(opcion) {
-    sessionStorageGuardar("lb_beneficio", opcion);
-    pintarCotizacion();
-    actualizarContador();
-}
+   - despacho gratis en Lima desde S/ 200 (todo el pedido);
+   - desde S/ 500 en filtros y packs: aviso de beneficio exclusivo
+     (el beneficio se confirma por WhatsApp; no se muestran montos). */
 function calcularCotizacion() {
     const lineas = leerCotizacion().map(i => {
         const p = obtenerProducto(i.id);
@@ -424,22 +417,12 @@ function calcularCotizacion() {
     }).filter(l => !l.consultar);
     const total = lineas.reduce((s, l) => s + l.subtotal, 0);
     const montoBeneficio = lineas.filter(l => sumaAlBeneficio(l.p)).reduce((s, l) => s + l.subtotal, 0);
-    const hayFueraDeBeneficio = lineas.some(l => !sumaAlBeneficio(l.p));
-    const nivel = beneficioPara(montoBeneficio);
-    const siguiente = siguienteBeneficio(montoBeneficio);
-    const opcion = beneficioElegido();
-    const descuento = nivel && opcion === "A" ? nivel.descuento : 0;
-    const totalFinal = total - descuento;
-    const faltaDelivery = Math.max(0, REGLAS.deliveryGratisDesde - total);
+    const califica = montoBeneficio >= REGLAS.avisoBeneficioDesde;
+    const faltaDespacho = Math.max(0, REGLAS.despachoGratisDesde - total);
     const ahorroPacks = lineas.reduce((s, l) => s + l.ahorroPackLinea, 0);
     const ahorroMercado = lineas.reduce((s, l) => s + l.ahorroMercado, 0);
-    const ahorroBeneficio = nivel ? (opcion === "A" ? nivel.descuento : nivel.valorRegalo) : 0;
     const hayCajaConfirmar = lineas.some(l => l.cajaConfirmar);
-    return { lineas, total, totalFinal, montoBeneficio, hayFueraDeBeneficio, nivel, siguiente, opcion, descuento,
-             faltaDelivery, ahorroPacks, ahorroMercado, ahorroBeneficio, hayCajaConfirmar };
-}
-function textoBeneficio(b) {
-    return `${soles(b.descuento)} menos o ${b.regalo} filtros de regalo`;
+    return { lineas, total, totalFinal: total, montoBeneficio, califica, faltaDespacho, ahorroPacks, ahorroMercado, hayCajaConfirmar };
 }
 
 function htmlCajon() {
@@ -495,45 +478,22 @@ function pintarCotizacion() {
         </div>`;
     }).join("");
 
-    // Avisos que motivan (nunca bloquean)
+    // Avisos que motivan (nunca bloquean ni muestran montos de beneficio)
     const avisos = [];
-    avisos.push(c.faltaDelivery > 0
-        ? `<div class="aviso-cot">${ico("camion")}<span>Te faltan <b>${soles(c.faltaDelivery)}</b> para delivery gratis en Lima.</span></div>`
-        : `<div class="aviso-cot ok">${ico("check")}<span>Tu pedido tiene <b>delivery gratis en Lima</b>.</span></div>`);
-    if (c.siguiente) {
-        const falta = c.siguiente.desde - c.montoBeneficio;
-        avisos.push(`<div class="aviso-cot">${ico("original")}<span>Te faltan <b>${soles(falta)}</b> para ${c.nivel ? "subir a" : "elegir"}: <b>${textoBeneficio(c.siguiente)}</b>.</span></div>`);
-    }
-    if (c.hayFueraDeBeneficio) {
-        avisos.push(`<p class="nota-chica">El ATF y el refrigerante${REGLAS.excluidosSumanAlBeneficio ? "" : " (y los filtros 28113-N9000, 28113-C7000, 28113-4H000 y 31922-26910)"} suman para el delivery gratis, pero no para el beneficio.</p>`);
-    }
-
-    // Elige tu beneficio
-    let beneficio = "";
-    if (c.nivel) {
-        beneficio = `
-        <div class="elige-beneficio">
-            <b>Elige tu beneficio</b>
-            <label class="${c.opcion === "A" ? "activo" : ""}"><input type="radio" name="beneficio" value="A" ${c.opcion === "A" ? "checked" : ""} onchange="elegirBeneficio('A')"><span><strong>A) ${soles(c.nivel.descuento)} menos</strong> hoy</span></label>
-            <label class="${c.opcion === "B" ? "activo" : ""}"><input type="radio" name="beneficio" value="B" ${c.opcion === "B" ? "checked" : ""} onchange="elegirBeneficio('B')"><span><strong>B) ${c.nivel.regalo} filtros ${CODIGO_REGALO}</strong> de regalo (valen ${soles(c.nivel.valorRegalo)})</span></label>
-        </div>`;
-    }
+    avisos.push(c.faltaDespacho > 0
+        ? `<div class="aviso-cot">${ico("camion")}<span>Te faltan <b>${soles(c.faltaDespacho)}</b> para el despacho gratis en Lima.</span></div>`
+        : `<div class="aviso-cot ok">${ico("check")}<span>Tu pedido tiene <b>despacho gratis en Lima</b> (rutas de miércoles y sábado).</span></div>`);
+    if (c.califica) avisos.push(`<div class="aviso-cot ok">${ico("original")}<span><b>Tu pedido ya califica para un beneficio exclusivo:</b> te lo confirmamos por WhatsApp.</span></div>`);
 
     // Ahorro
     const ahorros = [];
     if (c.ahorroMercado > 0) ahorros.push(`<div class="ahorro-fila"><span>Tu ahorro frente al precio de mercado</span><b>${soles(c.ahorroMercado)}</b></div>`);
-    const ahorroPropio = c.ahorroPacks + c.ahorroBeneficio;
-    if (ahorroPropio > 0) {
-        const det = [c.ahorroPacks > 0 ? `packs ${soles(c.ahorroPacks)}` : "", c.ahorroBeneficio > 0 ? `beneficio ${soles(c.ahorroBeneficio)}` : ""].filter(Boolean).join(" + ");
-        ahorros.push(`<div class="ahorro-fila"><span>Tu ahorro con packs y beneficio <small>(${det})</small></span><b>${soles(ahorroPropio)}</b></div>`);
-    }
+    if (c.ahorroPacks > 0) ahorros.push(`<div class="ahorro-fila"><span>Tu ahorro con Packs Ahorro</span><b>${soles(c.ahorroPacks)}</b></div>`);
 
     const negocio = sessionStorageSeguro("lb_negocio");
     const distrito = sessionStorageSeguro("lb_distrito");
     pie.innerHTML = `
         ${avisos.join("")}
-        ${beneficio}
-        ${c.descuento ? `<div class="total-fila sub"><span>Subtotal</span><span>${soles(c.total)}</span></div><div class="total-fila sub"><span>Beneficio A</span><span>− ${soles(c.descuento)}</span></div>` : ""}
         <div class="total-fila"><span>Total estimado</span><b>${soles(c.totalFinal)}</b></div>
         ${ahorros.join("")}
         <p class="nota-chica">${c.hayCajaConfirmar ? "El precio de caja completa te lo confirmamos por WhatsApp. " : ""}Precios con IGV · Emitimos factura electrónica.</p>
@@ -559,15 +519,12 @@ function textoCotizacion() {
         t += `   ${l.cantidad} ${unidadTexto(p, l.cantidad)} x ${soles(l.precio)} = ${soles(l.subtotal)}${l.cajaConfirmar ? " (precio de caja a confirmar)" : ""}\n`;
     });
     t += "\n";
-    if (c.descuento) t += `Subtotal: ${soles(c.total)}\nBeneficio A: -${soles(c.descuento)}\n`;
     t += `*Total estimado: ${soles(c.totalFinal)}*\n`;
-    if (c.nivel) t += c.opcion === "A"
-        ? `Beneficio elegido: A) ${soles(c.nivel.descuento)} menos\n`
-        : `Beneficio elegido: B) ${c.nivel.regalo} filtros ${CODIGO_REGALO} de regalo\n`;
-    const ahorro = c.ahorroPacks + c.ahorroBeneficio + c.ahorroMercado;
-    if (ahorro > 0) t += `Ahorro estimado: ${soles(ahorro)}\n`;
+    if (c.ahorroPacks > 0) t += `Ahorro con Packs Ahorro: ${soles(c.ahorroPacks)}\n`;
+    if (c.ahorroMercado > 0) t += `Ahorro frente al precio de mercado: ${soles(c.ahorroMercado)}\n`;
+    if (c.califica) t += "Mi pedido califica para un beneficio exclusivo. ¿Cuál me corresponde?\n";
     t += "Precios con IGV.";
-    t += c.faltaDelivery > 0 ? "\n" : " Delivery gratis en Lima.\n";
+    t += c.faltaDespacho > 0 ? "\n" : " Despacho gratis en Lima.\n";
     const negocio = (document.getElementById("cot-negocio") || {}).value || "";
     const distrito = (document.getElementById("cot-distrito") || {}).value || "";
     if (negocio.trim()) t += `\nNombre / negocio: ${negocio.trim()}`;
