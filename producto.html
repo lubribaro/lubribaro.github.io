@@ -138,7 +138,7 @@
             const pr = precioParaCantidad(prod, n);
             const subtotal = pr.precio * n;
             let html = `${n} ${u} x <b>${soles(pr.precio)}</b> = <b>${soles(subtotal)}</b>`;
-            if (pr.cajaConfirmar) html += `<br><span class="especial">${prod.lote.tipo} completa (${prod.lote.cantidad} und): el precio te lo confirmamos por WhatsApp</span>`;
+            if (pr.cajaConfirmar) html += `<br><span class="especial">${prod.lote.tipo === "Lote" ? "Lote completo" : "Caja completa"} (${prod.lote.cantidad} und): el precio te lo confirmamos por WhatsApp</span>`;
             if (esPack(prod)) html += `<br><span class="ok">Ahorras ${soles(ahorroPack(prod) * n)} frente a comprar por separado.</span>`;
             if (prod.categoria === "fluidos" && prod.escalas) {
                 const sig = prod.escalas.find(e => n < e.desde);
@@ -189,7 +189,7 @@
                     <span class="t-tramo">por unidad</span></div>`);
             }
             if (p.lote) t.push(`<div class="tier cotiza" data-tramo="lote"><span class="t-label">${p.lote.tipo} ${p.lote.cantidad} ${u}</span>
-                <span class="t-precio">${p.lote.tipo} completa: cotiza por WhatsApp</span>
+                <span class="t-precio">${p.lote.tipo === "Lote" ? "Lote completo" : "Caja completa"}: cotiza por WhatsApp</span>
                 <span class="t-tramo">${p.lote.cantidad} ${u}</span></div>`);
             const el = $("ui-precios");
             el.classList.add(["", "uno", "dos", "tres"][t.length]);
